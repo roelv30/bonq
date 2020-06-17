@@ -144,7 +144,7 @@ const Room = (props) => {
         const peer = new Peer({
             initiator: false,
             trickle: false,
-            //stream
+            stream
         });
 
         peer.on("signal", signal => {
