@@ -153,27 +153,28 @@ io.on('connection', socket => {
         io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
     });
 
-    socket.on("leaving", () => {
-
-        const roomID = socketToRoom[socket.id];
-        io.to(roomID).emit('left', socket.id);
-        io.to(socket.id).emit('leaving user homepage');
-        io.to(socket.id).emit('leaving room signal');
-        //console.log(roomID);
-        let room = users[roomID];
-        if (room) {
-            room = room.filter(id => id !== socket.id);
-            users[roomID] = room;
-        }
-        //delete users[socket.id];
-        socket.leave(roomID);
-
-    });
+    // socket.on("leaving", () => {
+    //
+    //     const roomID = socketToRoom[socket.id];
+    //     io.to(roomID).emit('left', socket.id);
+    //     io.to(socket.id).emit('leaving user homepage');
+    //     io.to(socket.id).emit('leaving room signal');
+    //     //console.log(roomID);
+    //     let room = users[roomID];
+    //     if (room) {
+    //         room = room.filter(id => id !== socket.id);
+    //         users[roomID] = room;
+    //     }
+    //     //delete users[socket.id];
+    //     socket.leave(roomID);
+    //
+    // });
 
 
     socket.on('disconnect', () => {
 
         const roomID = socketToRoom[socket.id];
+        console.log("left");
         io.to(roomID).emit('left', socket.id);
         //console.log(roomID);
         let room = users[roomID];

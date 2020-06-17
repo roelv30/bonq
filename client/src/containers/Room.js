@@ -289,8 +289,8 @@ const Room = (props) => {
 
 
             socketRef.current.on("user left", peer => {
-
-                peer.destroy();
+                console.log("USER LEFT");
+                //peer.destroy();
 
             });
 
@@ -470,8 +470,6 @@ const Room = (props) => {
                         {peers.length}
 
                         {peers.map((peer, index) => {
-
-
                             return (
                                 <div id={peersRef.current[index].peerID} className={"otherPeopleDiv"}>
                                     {/*<video id={peersRef.current[index].socketID} ></video>*/}
