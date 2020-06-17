@@ -40,7 +40,7 @@ const Room = (props) => {
 
     const [intro, setIntroDone] = useState(false);
 
-    const [videoStream, setVideoStream] = useState(false);
+
 
     const socketRef = useRef();
     const userVideo = useRef();
@@ -52,17 +52,16 @@ const Room = (props) => {
    // const type = props.match.params.type;
     //const type = props.match.params.type;
 
-    const currentPeer =  useRef(null);
+
 
 
     useEffect(() => {
-        console.log(videoStream);
-        socketRef.current = io.connect();
+        socketRef.current = io.connect('http://localhost:3001');
 
-        socketRef.current.on("connected", user => {
-            //socket.emit("send", "joined the server");
-            setUsers(users => [...users, user]);
-        });
+        // socketRef.current.on("connected", user => {
+        //     //socket.emit("send", "joined the server");
+        //     setUsers(users => [...users, user]);
+        // });
 
         socketRef.current.on("users", users => {
             //console.log();
@@ -130,16 +129,14 @@ const Room = (props) => {
         const peer = new Peer({
             initiator: true,
             trickle: false,
-            stream,
-
+            stream
         });
 
         peer.on("signal", signal => {
             socketRef.current.emit("sending signal", { userToSignal, callerID, signal })
         })
-        currentPeer.current = peer;
-        console.log("peer:");
-        console.log(peer);
+        //currentPeer.current = peer;
+
         return peer;
     }
 
@@ -147,13 +144,12 @@ const Room = (props) => {
         const peer = new Peer({
             initiator: false,
             trickle: false,
-            stream,
-
-        })
+            //stream
+        });
 
         peer.on("signal", signal => {
             socketRef.current.emit("returning signal", { signal, callerID })
-        })
+        });
 
         peer.signal(incomingSignal);
 
@@ -214,12 +210,13 @@ const Room = (props) => {
 
 
     const videoAudioSettings = () =>{
-
+        console.log(switchState);
         navigator.mediaDevices.getUserMedia({ video: switchState, audio: true }).then(stream => {
 
             userAudio.current =  stream.getAudioTracks();
 
             if(switchState === false){
+                userVideo.current.srcObject = null;
                 userVideo.current.poster = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
             }else{
                 userVideo.current.srcObject = stream;
@@ -231,19 +228,19 @@ const Room = (props) => {
             // console.log("emitting room");
             socketRef.current.emit("join room",roomID);
 
-            socketRef.current.on("joinedRoom", payload => {
-                console.log("joined room:");
-                console.log(payload);
-                //socketRef.current.emit("username", userName);
-
-            });
-            socketRef.current.on("getPeer", payload => {
-                console.log("mypeer:");
-                // currentPeer.current = payload;
-
-                console.log(payload);
-
-            });
+            // socketRef.current.on("joinedRoom", payload => {
+            //     console.log("joined room:");
+            //     console.log(payload);
+            //     //socketRef.current.emit("username", userName);
+            //
+            // });
+            // socketRef.current.on("getPeer", payload => {
+            //     console.log("mypeer:");
+            //     // currentPeer.current = payload;
+            //
+            //     console.log(payload);
+            //
+            // });
 
             socketRef.current.on("all users", users => {
 
@@ -255,30 +252,31 @@ const Room = (props) => {
                         peerID: userID,
                         peer,
                         socketID: socketRef.current.id,
-                        userName: userName
                     })
 
                     peers.push(peer);
                     socketRef.current.emit("send peer",peer);
                 })
 
-
-
-                setPeers(peers);
+               setPeers(peers);
+                console.log("peers");
+                console.log(peers);
             });
 
             socketRef.current.on("user joined", payload => {
-                console.log("you're next");
+                console.log("user joined");
+                console.log(users);
                 const peer = addPeer(payload.signal, payload.callerID, stream);
 
                 peersRef.current.push({
                     peerID: payload.callerID,
                     peer,
                     socketID: socketRef.current.id,
-                    userName: userName
+
                 })
 
                 setPeers(users => [...users, peer]);
+
             });
 
             socketRef.current.on("leaving room signal", () => {
@@ -346,7 +344,7 @@ const Room = (props) => {
         setIntroDone(true);
 
         //setVideoStream(true);
-        console.log(videoStream);
+       // console.log(videoStream);
         // setTimeout(function(){
         //
         // }, 1000);
@@ -466,12 +464,13 @@ const Room = (props) => {
                         <p>{userName }</p>
                     </div>
                     <div id={"remoteContainer"}>
+                        {peers.length}
                         {peers.map((peer, index) => {
 
                             return (
                                 <div id={peersRef.current[index].peerID} className={"otherPeopleDiv"}>
                                     {/*<video id={peersRef.current[index].socketID} ></video>*/}
-                                    <Video key={index} peer={peer} socketID={peersRef.current[index].socketID} username={users[(index+1)].name} />
+                                    <Video key={index} peer={peer} socketID={peersRef.current[index].socketID} username={"users[(index+1)].name"} type={switchState} />
                                     {/**/}
                                 </div>
                             );
