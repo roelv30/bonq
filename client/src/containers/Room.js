@@ -290,7 +290,7 @@ const Room = (props) => {
 
             socketRef.current.on("user left", peer => {
                 console.log("USER LEFT");
-                //peer.destroy();
+                peer.destroy();
 
             });
 
@@ -302,16 +302,16 @@ const Room = (props) => {
                     audioEl.play();
                 }
 
-
+                console.log("USER LEFT");
                 //  console.log(payload);
 
-                var videoObject = document.getElementById(payload);
-                if(videoObject === null){
-                    // console.log("object is null");
-                    //props.history.push('/');
-                }else{
-                    videoObject.remove();
-                }
+                // var videoObject = document.getElementById(payload);
+                // if(videoObject === null){
+                //     // console.log("object is null");
+                //     //props.history.push('/');
+                // }else{
+                //     videoObject.remove();
+                // }
 
             });
 
