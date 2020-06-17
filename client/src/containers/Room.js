@@ -89,7 +89,7 @@ const Room = (props) => {
         });
         socketRef.current.on("user joined", payload => {
             console.log("you're next");
-           // setPeers([...new Set(peers)])
+
            // console.log(peers);
         });
 
@@ -264,6 +264,7 @@ const Room = (props) => {
                setPeers(peers);
                 console.log("peers");
                 console.log(peers);
+                setPeers([...new Set(peers)])
             });
 
             socketRef.current.on("user joined", payload => {
