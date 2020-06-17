@@ -62,7 +62,7 @@ io.on('connection', socket => {
         arrayOfUsersinThisRoom = [];
         if(roomIdFromClient != null){
             var roomURL = roomIdFromClient.split("/r/");
-            var roomNumber = JSON.parse(roomURL[1]);
+            var roomNumber = roomURL[1];
         }
 
 

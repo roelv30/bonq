@@ -15,17 +15,15 @@ const Video = (props) => {
     useEffect(() => {
 
         props.peer.on("stream", stream => {
-            console.log(props);
-            if(props.type === false){
-                ref.current.srcObject = null;
+          // console.log(stream);
+            if(stream == null){
+                //ref.current.srcObject = null;
                 ref.current.poster = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
-            }else{
-                ref.current.srcObject = stream;
             }
             // console.log("needed stream:::");
             // console.log(stream);
             //console.log(stream);
-
+            ref.current.srcObject = stream;
         })
 
     }, []);

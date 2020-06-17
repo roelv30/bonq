@@ -56,7 +56,7 @@ const Room = (props) => {
 
 
     useEffect(() => {
-        socketRef.current = io.connect();
+        socketRef.current = io.connect('http://localhost:3001');
 
         // socketRef.current.on("connected", user => {
         //     //socket.emit("send", "joined the server");
@@ -216,12 +216,13 @@ const Room = (props) => {
             userAudio.current =  stream.getAudioTracks();
 
             if(switchState === false){
-                userVideo.current.srcObject = null;
+               // userVideo.current.srcObject = null;
                 userVideo.current.poster = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
             }else{
                 userVideo.current.srcObject = stream;
                 userVideoStream.current = stream.getVideoTracks();
             }
+           
 
 
 
