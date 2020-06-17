@@ -403,7 +403,7 @@ const Room = (props) => {
         return (
 
             <Container>
-                <h6>Users</h6>
+                <h6>Users:</h6>
                 <ul id="users">
                     {users.map(({ name, id }) => (
                         <li key={id}>{name}</li>
