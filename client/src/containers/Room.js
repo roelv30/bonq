@@ -56,7 +56,7 @@ const Room = (props) => {
 
 
     useEffect(() => {
-        socketRef.current = io.connect();
+        socketRef.current = io.connect('/');
 
         // socketRef.current.on("connected", user => {
         //     //socket.emit("send", "joined the server");
@@ -475,7 +475,7 @@ const Room = (props) => {
                             return (
                                 <div id={peersRef.current[index].peerID} className={"otherPeopleDiv"}>
                                     {/*<video id={peersRef.current[index].socketID} ></video>*/}
-                                    <Video key={index} peer={peer} socketID={peersRef.current[index].socketID} username={users[(index+1)].name} type={switchState} />
+                                    <Video key={index} peer={peer} socketID={peersRef.current[index].socketID} username={"gebruiker"} type={switchState} />
                                     {/**/}
                                 </div>
                             );
