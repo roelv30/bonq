@@ -77,24 +77,24 @@ io.on('connection', socket => {
             users[roomNumber] = [socket.id];
         }
 
-        // if (users[roomNumber]) {
-        //     let sizeOfUsers = Object.keys(users).length;
-        //    // console.log(sizeOfUsers );
-        //
-        //
-        //             const usersInThisRoom2 = users[roomNumber].filter(id => id !== socket.id);
-        //             console.log("usersInThisRoom2");
-        //             console.log(users[roomNumber]);
-        //            // console.log(usersInThisRoom2);
-        //             users[roomNumber].forEach(myFunction);
-        //             function myFunction(item, index) {
-        //                // console.log(item);
-        //                 arrayOfUsersinThisRoom.push(users[item])
-        //             }
-        //
-        //             io.to(socket.id).emit("users", arrayOfUsersinThisRoom);
-        //             io.to(roomNumber).emit('users', arrayOfUsersinThisRoom);
-        // }
+        if (users[roomNumber]) {
+            let sizeOfUsers = Object.keys(users).length;
+           // console.log(sizeOfUsers );
+
+
+                    const usersInThisRoom2 = users[roomNumber].filter(id => id !== socket.id);
+                    console.log("usersInThisRoom2");
+                    console.log(users[roomNumber]);
+                   // console.log(usersInThisRoom2);
+                    users[roomNumber].forEach(myFunction);
+                    function myFunction(item, index) {
+                       // console.log(item);
+                        arrayOfUsersinThisRoom.push(users[item])
+                    }
+
+                    io.to(socket.id).emit("users", arrayOfUsersinThisRoom);
+                    io.to(roomNumber).emit('users', arrayOfUsersinThisRoom);
+        }
 
 
         // console.log("room");

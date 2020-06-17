@@ -56,7 +56,7 @@ const Room = (props) => {
 
 
     useEffect(() => {
-        socketRef.current = io.connect('/');
+        socketRef.current = io.connect();
 
         // socketRef.current.on("connected", user => {
         //     //socket.emit("send", "joined the server");
@@ -89,6 +89,8 @@ const Room = (props) => {
         });
         socketRef.current.on("user joined", payload => {
             console.log("you're next");
+            setPeers([...new Set(peers)])
+           // console.log(peers);
         });
 
 
@@ -466,12 +468,14 @@ const Room = (props) => {
                     </div>
                     <div id={"remoteContainer"}>
                         {peers.length}
+
                         {peers.map((peer, index) => {
+
 
                             return (
                                 <div id={peersRef.current[index].peerID} className={"otherPeopleDiv"}>
                                     {/*<video id={peersRef.current[index].socketID} ></video>*/}
-                                    <Video key={index} peer={peer} socketID={peersRef.current[index].socketID} username={"users[(index+1)].name"} type={switchState} />
+                                    <Video key={index} peer={peer} socketID={peersRef.current[index].socketID} username={users[(index+1)].name} type={switchState} />
                                     {/**/}
                                 </div>
                             );
