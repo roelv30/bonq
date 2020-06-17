@@ -165,7 +165,7 @@ io.on('connection', socket => {
             room = room.filter(id => id !== socket.id);
             users[roomID] = room;
         }
-        delete users[socket.id];
+        //delete users[socket.id];
         socket.leave(roomID);
 
     });
@@ -182,7 +182,7 @@ io.on('connection', socket => {
             users[roomID] = room;
         }
 
-        delete users[socket.id];
+        //delete users[socket.id];
         socket.leave(roomID);
     });
 
