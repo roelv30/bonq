@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 class Login extends React.Component {
@@ -8,7 +8,7 @@ class Login extends React.Component {
 		this.state = {
 			email: '',
 			password: '',
-			error: ''
+			error: '',
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,14 +40,24 @@ class Login extends React.Component {
 		});
 	}
 
-	render() {
-		// if (this.props.isAuthenticated && this.props.location.state !== undefined) {
-		// 	return (
-		// 		<Redirect to={this.props.location.state.from} />
-		// 	);
-		// }
+	render(props) {
+		console.log(this.props.isAuthenticated);
+		if (this.props.isAuthenticated && this.props.location.state !== undefined) {
+			return (
+				<Redirect to='/succes'/>
+			);
+		}
+
 		return (
-			<div>
+			<section>
+				<header>
+					<img src="/img/logo.png" alt="Bonq Logo"/>
+				</header>
+
+
+				<NavLink exact activeClassName="active" to="/">
+					back to start
+				</NavLink>
 				<h1>Login</h1>
 				{this.state.error !== '' ?
 					<p className="text-danger">{this.state.error}</p>
@@ -58,7 +68,6 @@ class Login extends React.Component {
 					<p className="text-info">You are already logged in.</p>
 					:
 					<form onSubmit={this.handleSubmit}>
-						<div className='form-group'>
 							<input
 								name='email'
 								type='email'
@@ -66,8 +75,6 @@ class Login extends React.Component {
 								placeholder='Email'
 								value={this.state.email}
 								onChange={this.handleChange} />
-						</div>
-						<div className='form-group'>
 							<input
 								name='password'
 								type='password'
@@ -75,15 +82,13 @@ class Login extends React.Component {
 								placeholder='Password'
 								value={this.state.password}
 								onChange={this.handleChange} />
-						</div>
-						<div className='form-group'>
 							<input type='submit' className='btn' value='Login' />
-						</div>
 					</form>
 				}
-			</div>
+			</section>
 		);
 	}
 }
+
 
 export default Login;

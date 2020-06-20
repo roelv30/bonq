@@ -44,6 +44,9 @@ componentDidUpdate(prevProps, prevState){
 
 		return(
 			<section>
+				<a href="/" onClick={this.props.logout()}>
+					Logout
+				</a>
 				<h1>Succes!</h1>
 				{this.state.teams.map((team, index) => {
 					return (

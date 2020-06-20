@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {Redirect, NavLink} from 'react-router-dom';
 
 class Register extends React.Component {
   constructor() {
@@ -8,11 +9,13 @@ class Register extends React.Component {
       username: '',
       email: '',
       password: '',
-      error: ''
+      error: '',
+      redirect: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
 
   handleChange(event) {
 		const name = event.target.name;
@@ -28,10 +31,23 @@ class Register extends React.Component {
   			email: this.state.email,
   			password: this.state.password,
   		})
+
   		.then((response) => {
-        console.log(response);
   			this.setState({ error: '' });
-  		})
+        console.log(response);
+        console.log("geregistreerd nu inloggen");
+
+          axios.post('http://localhost:8000/api/signin', {
+            email: this.state.email,
+            password: this.state.password
+          })
+          .then((response) => {
+            const token = response.data.token;
+            this.props.authenticate(token);
+            console.log(token);
+            this.setState({redirect: true});
+          })
+        })
   		.catch((error) => {
   			const status = error.response.status;
   			if (status === 500) {
@@ -40,9 +56,27 @@ class Register extends React.Component {
   		});
   	}
 
+
+
   render(){
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to="/succes"/>
+    }
+
     return (
-      <div>
+
+      <section>
+      <header>
+        <img src="/img/logo.png" alt="Bonq Logo"/>
+      </header>
+
+			<NavLink exact activeClassName="active" to="/">
+				back to start
+			</NavLink>
+
+      <article>
         <h1>Register</h1>
           {this.state.error !== '' ?
             <p className="text-danger">{this.state.error}</p>
@@ -50,7 +84,6 @@ class Register extends React.Component {
             null
           }
           <form onSubmit={this.handleSubmit}>
-            <div className='form-group'>
               <input
                 name='username'
                 type='username'
@@ -58,8 +91,6 @@ class Register extends React.Component {
                 placeholder='Username'
                 value={this.state.username}
                 onChange={this.handleChange} />
-            </div>
-            <div className='form-group'>
               <input
                 name='email'
                 type='email'
@@ -67,8 +98,6 @@ class Register extends React.Component {
                 placeholder='Email'
                 value={this.state.email}
                 onChange={this.handleChange} />
-            </div>
-            <div className='form-group'>
               <input
                 name='password'
                 type='password'
@@ -76,12 +105,10 @@ class Register extends React.Component {
                 placeholder='Password'
                 value={this.state.password}
                 onChange={this.handleChange} />
-            </div>
-            <div className='form-group'>
               <input type='submit' className='btn' value='Register' />
-            </div>
           </form>
-      </div>
+          </article>
+      </section>
     );
   }
 }
