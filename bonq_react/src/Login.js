@@ -40,7 +40,7 @@ class Login extends React.Component {
 		});
 	}
 
-	render(props) {
+	render() {
 		console.log(this.props.isAuthenticated);
 		if (this.props.isAuthenticated && this.props.location.state !== undefined) {
 			return (
@@ -60,25 +60,23 @@ class Login extends React.Component {
 				</NavLink>
 				<h1>Login</h1>
 				{this.state.error !== '' ?
-					<p className="text-danger">{this.state.error}</p>
+					<p>{this.state.error}</p>
 					:
 					null
 				}
 				{this.props.isAuthenticated ?
-					<p className="text-info">You are already logged in.</p>
+					<p>You are already logged in.</p>
 					:
 					<form onSubmit={this.handleSubmit}>
 							<input
 								name='email'
 								type='email'
-								className='form-control'
 								placeholder='Email'
 								value={this.state.email}
 								onChange={this.handleChange} />
 							<input
 								name='password'
 								type='password'
-								className='form-control'
 								placeholder='Password'
 								value={this.state.password}
 								onChange={this.handleChange} />

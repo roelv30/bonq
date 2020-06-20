@@ -36,6 +36,7 @@ class App extends React.Component {
 	}
 
 	logout() {
+
 		console.log(this.state);
 		this.setState({
 			isAuthenticated: false,
@@ -68,7 +69,7 @@ class App extends React.Component {
 						<Route exact path='/register' render={(props) =>
 							<Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
 
-						<PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} />
+						<PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
 					</Switch>
 
 			</HashRouter>
