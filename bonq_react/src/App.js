@@ -5,6 +5,7 @@ import Home from './Home';
 import Login from './Login';
 import Test from './Test';
 import Register from './Register';
+import InsertQuestionsForm from './InsertQuestionsForm';
 
 class App extends React.Component {
 	constructor() {
@@ -64,6 +65,7 @@ class App extends React.Component {
 							<Login authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
 						<Route exact path='/register' component={Register} />
 						<PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} />
+						<Route exact path="/host/questions" component={InsertQuestionsForm} />
 					</Switch>
 			</HashRouter>
 		);
