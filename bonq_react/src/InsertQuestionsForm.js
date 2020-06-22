@@ -5,16 +5,40 @@ import {connect} from 'react-redux';
 
 class InsertQuestionsForm extends React.Component {
 
+  // state = {
+  //   items: [{ question: "",
+  //             answer: ""}],
+  // };
+
   state = {
-    items: [{ question: "",
+    round1: [{ question: "",
+              answer: ""}],
+    round2: [{ question: "",
               answer: ""}],
   };
 
+  // handleChange = (e) => {
+  //   if (["question", "answer"].includes(e.target.className)) {
+  //     let items = [...this.state.items]
+  //     items[e.target.dataset.id][e.target.className] = e.target.value
+  //     this.setState({items}, ()=>console.log(this.state.items))
+  //   }else{
+  //     // obsolete?
+  //     this.setState({[e.target.name]: e.target.value})
+  //   }
+  // }
+  //
+  // addItem = (e) => {
+  //   this.setState((prevState) => ({
+  //     items: [...prevState.items, {question: "", answer: ""}],
+  //   }));
+  // };
+
   handleChange = (e) => {
     if (["question", "answer"].includes(e.target.className)) {
-      let items = [...this.state.items]
+      let items = [...this.state.round1]
       items[e.target.dataset.id][e.target.className] = e.target.value
-      this.setState({items}, ()=>console.log(this.state.items))
+      this.setState({items}, ()=>console.log(this.state.round1), console.log(this.state.round2))
     }else{
       // obsolete?
       this.setState({[e.target.name]: e.target.value})
@@ -23,19 +47,33 @@ class InsertQuestionsForm extends React.Component {
 
   addItem = (e) => {
     this.setState((prevState) => ({
-      items: [...prevState.items, {question: "", answer: ""}],
+      round1: [...prevState.round1, {question: "", answer: ""}],
     }));
   };
 
-  handleSubmit = (e) => {e.preventDefault();}
+  handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:8000/api/parsePubQnA', {
+      round1: this.state.round1,
+      round2: this.state.round2,
+    })
+    .then((response) => {
+      console.log(response);
+      })
+    // .catch((error) => {
+    //   const status = error.response.status;
+    //   console.log(status);
+    // });
+  }
 
   render() {
     // let {items} = this.props.questionItems
-    let {items} = this.state;
+    // let {items} = this.state;
+    let round = this.state.round1;
     return(
       <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
         {
-          items.map((val, idx)=>{
+          round.map((val, idx)=>{
             let questionId = `question-${idx}`, answerId = `answer-${idx}`;
             return (
               <div key={idx}>
@@ -48,7 +86,7 @@ class InsertQuestionsForm extends React.Component {
           })
         }
         <button onClick={this.addItem}>Add new Question</button>
-
+        <input type="submit" value="Submit" />
       </form>
     )
   }

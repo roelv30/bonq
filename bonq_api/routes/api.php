@@ -23,6 +23,8 @@ Route::post('/signup', 'FrontEndUserController@signUp');
 Route::post('/signin', 'FrontEndUserController@signIn');
 Route::get('/refreshToken', 'FrontEndUserController@refreshToken');
 
+Route::post('/parsePubQnA', 'PubquizController@parsePubQnA');
+
 Route::group(['middleware' => 'jwt.auth'], function() {
   Route::get('/test', 'FrontEndUserController@testIndex');
 });
