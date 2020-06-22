@@ -1,25 +1,38 @@
 import React from 'react';
 import axios from 'axios';
+var myProps;
 
 class Test extends React.Component {
+
+
+
 	constructor() {
 		super();
 		this.state = {
-			teams: []
+			teams: [],
 		}
 	}
 
-componentDidMount(){
-	this.getTests();
+	handleClick(event) {
+		event.preventDefault();
+		myProps.logout();
 
-}
 
-componentDidUpdate(prevProps, prevState){
-	if (prevProps.token !== this.props.token) {
-			this.getTests();
-		}
+	}
 
-}
+	componentDidMount(){
+		this.getTests();
+
+	}
+
+	componentDidUpdate(prevProps, prevState){
+
+		console.log(this.props.isAuthenticated);
+		if (prevProps.token !== this.props.token) {
+				this.getTests();
+			}
+
+	}
 
 	getTests() {
 		const token = this.props.token;
@@ -28,8 +41,11 @@ componentDidUpdate(prevProps, prevState){
 		})
 		.then((response) => {
 			const teams = response.data;
-			this.setState({ teams });
-			console.log(teams);
+			this.setState({
+				teams: teams
+			});
+
+			myProps = this.props;
 		})
 		.catch((error) => {
 			const status = error.response.status;
@@ -44,6 +60,9 @@ componentDidUpdate(prevProps, prevState){
 
 		return(
 			<section>
+				<a href="/" onClick={this.handleClick}>
+					Logout
+				</a>
 				<h1>Succes!</h1>
 				{this.state.teams.map((team, index) => {
 					return (
