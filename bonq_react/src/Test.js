@@ -1,30 +1,33 @@
 import React from 'react';
 import axios from 'axios';
+import {NavLink} from 'react-router-dom';
+var myProps;
 
 class Test extends React.Component {
+
+
+
 	constructor() {
 		super();
 		this.state = {
-			teams: []
+			teams: [],
 		}
-	}
+	};
 
-componentDidMount(){
-	this.getTests();
+	handleClick(event) {
+		event.preventDefault();
+		myProps.logout();
+	};
 
-}
+	componentDidMount(){
+		this.getTests();
+	};
 
-test(){
-	// this.props.logout()
-	console.log(this.props);
-	}
-
-componentDidUpdate(prevProps, prevState){
-	if (prevProps.token !== this.props.token) {
-			this.getTests();
-		}
-
-}
+	componentDidUpdate(prevProps, prevState){
+		if (prevProps.token !== this.props.token) {
+				this.getTests();
+			}
+	};
 
 	getTests() {
 		const token = this.props.token;
@@ -33,8 +36,11 @@ componentDidUpdate(prevProps, prevState){
 		})
 		.then((response) => {
 			const teams = response.data;
-			this.setState({ teams });
-			console.log(teams);
+			this.setState({
+				teams: teams
+			});
+
+			myProps = this.props;
 		})
 		.catch((error) => {
 			const status = error.response.status;
@@ -43,7 +49,7 @@ componentDidUpdate(prevProps, prevState){
 				this.props.refresh();
 			}
 		});
-	}
+	};
 
 
 
@@ -51,9 +57,11 @@ componentDidUpdate(prevProps, prevState){
 
 		return(
 			<section>
-				<a href="/" onClick={this.test()}>
-					Logout
-				</a>
+			<NavLink exact activeClassName="active" to="/">
+				back to start
+			</NavLink>
+
+
 				<h1>Succes!</h1>
 				{this.state.teams.map((team, index) => {
 					return (
@@ -70,10 +78,14 @@ componentDidUpdate(prevProps, prevState){
 					</ul>
 					)
 				})}
+
+				<a href="/" onClick={this.handleClick}>
+					Logout
+				</a>
 			</section>
 		)
 	}
-}
+};
 
 
 export default Test;

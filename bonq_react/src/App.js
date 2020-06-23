@@ -1,10 +1,11 @@
 import React from 'react';
-import { HashRouter, Route, Switch, NavLink, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Start from './Start';
 import Login from './Login';
 import Test from './Test';
 import Register from './Register';
+import Header from './Header';
 import './App.css';
 
 class App extends React.Component {
@@ -17,15 +18,15 @@ class App extends React.Component {
 		this.authenticate = this.authenticate.bind(this);
 		this.logout = this.logout.bind(this);
 		this.refresh = this.refresh.bind(this);
-	}
+	};
 
 // KEEP USER LOGGED IN AFTER REFRESH
 	componentDidMount() {
 		const lsToken = localStorage.getItem('jwt');
 		if (lsToken) {
 			this.authenticate(lsToken);
-		}
-	}
+		};
+	};
 
 	authenticate(token) {
 		this.setState({
@@ -33,20 +34,23 @@ class App extends React.Component {
 			token: token
 		});
 		localStorage.setItem('jwt', token);
-	}
+	};
 
 	logout() {
-		console.log(this.state);
+		localStorage.removeItem('jwt');
 		this.setState({
 			isAuthenticated: false,
 			token: null
 		});
-		console.log(this.state);
-	}
+	};
 
 	refresh() {
+<<<<<<< HEAD
 		console.log("REFRESH");
 		return axios.get('http://192.168.0.214:8000/api/refreshToken', {
+=======
+		return axios.get('http://localhost:8000/api/refreshToken', {
+>>>>>>> ce67ed45a4e26263975a43db977855f5d2948389
 			headers: { 'Authorization': 'Bearer ' + this.state.token }
 		})
 		.then((response) => {
@@ -56,11 +60,14 @@ class App extends React.Component {
 		.catch((error) => {
 			console.log('Error!', error);
 		});
-	}
+	};
 
 	render() {
 		return (
 			<HashRouter>
+	   
+
+				<Header />
 					<Switch>
 						<Route exact path='/' component={Start} />
 						<Route exact path='/login' render={(props) =>
@@ -68,13 +75,13 @@ class App extends React.Component {
 						<Route exact path='/register' render={(props) =>
 							<Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
 
-						<PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} />
+						<PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
 					</Switch>
 
 			</HashRouter>
 		);
-	}
-}
+	};
+};
 
 const PrivateRoute = ({ component: Component, isAuthenticated, token, ...rest }) => (
 	<Route {...rest} render={props => (
