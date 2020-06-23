@@ -4,11 +4,14 @@ import ReactDOM from 'react-dom';
 import { render } from 'react-dom'
 
 
-import { Router, Route, useHistory, BrowserRouter  } from "react-router-dom";
+import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-router-dom";
 import Home from './containers/HomePage'
-import Room from './containers/Room'
+import Room from './containers/Room';
 import NotFound from './components/NotFound'
-import styles from './style.css'
+
+
+
+import './App.css';
 import io from "socket.io-client";
 
 
@@ -107,12 +110,16 @@ class App extends React.Component {
         return (
 
     <BrowserRouter>
+        <Header />
         <Route exact path='/' component={Start} />
         <audio className="audio-element-test">
             <source src="https://freesound.org/data/previews/253/253886_3169537-lq.mp3"></source>
         </audio>
         <Route exact path='/login' render={(props) =>
             <Login authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
+        <Route exact path='/register' render={(props) =>
+            <Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
+        <PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
         {/*<Route exact  path="/" component={Home}  />*/}
         {/*<Route path="/r/:room" component={Room} />*/}
         <Route path="/r/:roomID"    render={(props) =>
@@ -130,5 +137,18 @@ class App extends React.Component {
         );
     };
 }
+const PrivateRoute = ({ component: Component, isAuthenticated, token, ...rest }) => (
+    <Route {...rest} render={props => (
+        isAuthenticated ? (
+            <Component {...props} {...rest} token={token} isAuthenticated={isAuthenticated} />
+        ) : (
+            <Redirect to={{
+                pathname: '/login',
+                state: { from: props.location }
+            }} />
+        )
+    )} />
+);
+
 
 export default App;

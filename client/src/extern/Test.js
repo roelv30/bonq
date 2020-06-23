@@ -9,13 +9,16 @@ class Test extends React.Component {
 
 	constructor() {
 		super();
+		//this.getTests();
 		this.state = {
 			teams: [],
 		}
 	};
 
 	handleClick(event) {
+
 		event.preventDefault();
+		///console.log(myProps);
 		myProps.logout();
 	};
 
@@ -31,7 +34,7 @@ class Test extends React.Component {
 
 	getTests() {
 		const token = this.props.token;
-		axios.get('http://192.168.0.214:8000/api/test', {
+		axios.get('http://localhost:8000/api/test', {
 			headers: { 'Authorization': 'Bearer ' + token }
 		})
 		.then((response) => {
