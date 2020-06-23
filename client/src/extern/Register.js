@@ -62,7 +62,7 @@ class Register extends React.Component {
     const { redirect } = this.state;
 
     if (redirect) {
-      return <Redirect to="/succes"/>
+      return <Redirect to="/dashboard"/>
     }
 
     return (

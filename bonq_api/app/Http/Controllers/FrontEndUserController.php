@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use JWTAuth;
+use Auth;
 use App\User;
 use App\Teams;
 use Illuminate\Http\Request;
@@ -13,6 +14,12 @@ class FrontEndUserController extends Controller
 
   public function testIndex() {
     return Teams::all();
+  }
+
+  public function showDashboard() {
+    $user = Auth::user();
+    return $user;
+
   }
 
   public function signUp(Request $request) {

@@ -32,6 +32,8 @@ import Login from './extern/Login';
 import Test from './extern/Test';
 import Register from './extern/Register';
 import Header from './extern/Header';
+import Dashboard from './extern/Dashboard';
+
 import './App.css';
 
 
@@ -110,7 +112,8 @@ class App extends React.Component {
         return (
 
     <BrowserRouter>
-        <Header />
+
+        <Header/>
         <Route exact path='/' component={Start} />
         <audio className="audio-element-test">
             <source src="https://freesound.org/data/previews/253/253886_3169537-lq.mp3"></source>
@@ -120,6 +123,7 @@ class App extends React.Component {
         <Route exact path='/register' render={(props) =>
             <Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
         <PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
+        <PrivateRoute exact path='/dashboard' component={Dashboard} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
         {/*<Route exact  path="/" component={Home}  />*/}
         {/*<Route path="/r/:room" component={Room} />*/}
         <Route path="/r/:roomID"    render={(props) =>

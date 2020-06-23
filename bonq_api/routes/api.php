@@ -25,4 +25,5 @@ Route::get('/refreshToken', 'FrontEndUserController@refreshToken');
 
 Route::group(['middleware' => 'jwt.auth'], function() {
   Route::get('/test', 'FrontEndUserController@testIndex');
+  Route::get('/dashboard', 'FrontEndUserController@showDashboard');
 });

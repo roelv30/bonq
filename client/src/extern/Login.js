@@ -51,7 +51,7 @@ class Login extends React.Component {
 	render() {
 		if (this.props.isAuthenticated && this.props.location.state !== undefined) {
 			return (
-				<Redirect to='/succes'/>
+				<Redirect to='/dashboard'/>
 			);
 		};
 
