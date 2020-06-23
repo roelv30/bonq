@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import {Redirect, NavLink} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
+import NewToBonq from './NewToBonq';
+import Back from './Back';
+import './Register.css';
 
 class Register extends React.Component {
   constructor() {
@@ -10,7 +13,8 @@ class Register extends React.Component {
       email: '',
       password: '',
       error: '',
-      redirect: false
+      redirect: false,
+      loading: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,39 +28,35 @@ class Register extends React.Component {
 		});
 	}
 
-  	handleSubmit(event) {
-  		event.preventDefault();
-  		axios.post('http://localhost:8000/api/signup', {
+  handleSubmit(event) {
+    event.preventDefault();
+    this.setState({ loading: true });
+    axios.post('http://localhost:8000/api/signup', {
         username:this.state.username,
-  			email: this.state.email,
-  			password: this.state.password,
-  		})
-
-  		.then((response) => {
-  			this.setState({ error: '' });
-        console.log(response);
-        console.log("geregistreerd nu inloggen");
-
-          axios.post('http://localhost:8000/api/signin', {
-            email: this.state.email,
-            password: this.state.password
-          })
-          .then((response) => {
-            const token = response.data.token;
-            this.props.authenticate(token);
-            console.log(token);
-            this.setState({redirect: true});
-          })
-        })
-  		.catch((error) => {
-  			const status = error.response.status;
-  			if (status === 500) {
-  				this.setState({ error: 'Username or Email already in use' });
-  			}
-  		});
-  	}
-
-
+        email: this.state.email,
+        password: this.state.password,
+      })
+    .then((response) => {
+      this.setState({ error: '' });
+      axios.post('http://localhost:8000/api/signin', {
+        email: this.state.email,
+        password: this.state.password
+      })
+      .then((response) => {
+        this.setState({ loading: false });
+        const token = response.data.token;
+        this.props.authenticate(token);
+        this.setState({redirect: true});
+      })
+    })
+    .catch((error) => {
+      this.setState({ loading: false });
+      const status = error.response.status;
+      if (status === 500) {
+        this.setState({ error: '- Username / Email already in use' });
+      }
+    });
+  }
 
   render(){
     const { redirect } = this.state;
@@ -66,50 +66,53 @@ class Register extends React.Component {
     }
 
     return (
+      <section className="register">
+        <div className="background">
+         <div className="background__inside"></div>
+       </div>
 
-      <section>
-      <header>
-        <img src="/img/logo.png" alt="Bonq Logo"/>
-      </header>
-
-			<NavLink exact activeClassName="active" to="/">
-				back to start
-			</NavLink>
-
-      <article>
-        <h1>Register</h1>
-          {this.state.error !== '' ?
-            <p className="text-danger">{this.state.error}</p>
-            :
-            null
-          }
-          <form onSubmit={this.handleSubmit}>
-              <input
+        <Back />
+        <article className="register__article">
+          <h1 className="register__article__title">Register</h1>
+          <form className="register__article__form" onSubmit={this.handleSubmit}>
+            <label className="register__article__form__label">Username
+              <input className="register__article__form__input"
                 name='username'
                 type='username'
-                className='form-control'
-                placeholder='Username'
                 value={this.state.username}
-                onChange={this.handleChange} />
-              <input
+                onChange={this.handleChange}
+                required/>
+            </label>
+            <label className="register__article__form__label">Email
+              <input className="register__article__form__input"
                 name='email'
                 type='email'
-                className='form-control'
-                placeholder='Email'
                 value={this.state.email}
-                onChange={this.handleChange} />
-              <input
+                onChange={this.handleChange}
+                required />
+            </label>
+            <label className="register__article__form__label">Password
+              <input className="register__article__form__input"
                 name='password'
                 type='password'
-                className='form-control'
-                placeholder='Password'
                 value={this.state.password}
-                onChange={this.handleChange} />
-              <input type='submit' className='btn' value='Register' />
+                onChange={this.handleChange}
+                required/>
+            </label>
+            <input className="register__article__form__button" type='submit' value='Create Account' />
+            {this.state.loading && <img className="register__article__form__loading" src="/img/loading.gif" alt="Loading..."/>}
+
+            {this.state.error !== '' ?
+              <p className="register__article__error">{this.state.error}</p>
+              :
+              <p className="register__article__error"> </p>
+            }
           </form>
-          </article>
+    			<NewToBonq text="Already a bonq user?" link="/login" linktext="Click here to sign in" />
+        </article>
       </section>
     );
-  }
-}
+  };
+};
+
 export default Register;
