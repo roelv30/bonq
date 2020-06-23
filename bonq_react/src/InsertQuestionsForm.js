@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
 // import {changeSearchTerm, changeVideo} from './actions';
 
 class InsertQuestionsForm extends React.Component {
@@ -16,6 +19,15 @@ class InsertQuestionsForm extends React.Component {
     round2: [{ question: "",
               answer: ""}],
   };
+
+  state1 = {
+
+  };
+
+  parseRoundsIntoState = (e) => {
+    let rounds = 5; //hardcoded for testing
+
+  }
 
   // handleChange = (e) => {
   //   if (["question", "answer"].includes(e.target.className)) {
@@ -39,13 +51,11 @@ class InsertQuestionsForm extends React.Component {
       let items = [...this.state.round1]
       items[e.target.dataset.id][e.target.className] = e.target.value
       this.setState({items}, ()=>console.log(this.state.round1), console.log(this.state.round2))
-    }else{
-      // obsolete?
-      this.setState({[e.target.name]: e.target.value})
     }
   }
 
   addItem = (e) => {
+    e.preventDefault();
     this.setState((prevState) => ({
       round1: [...prevState.round1, {question: "", answer: ""}],
     }));
@@ -54,8 +64,7 @@ class InsertQuestionsForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     axios.post('http://localhost:8000/api/parsePubQnA', {
-      round1: this.state.round1,
-      round2: this.state.round2,
+      state: this.state,
     })
     .then((response) => {
       console.log(response);
@@ -66,11 +75,29 @@ class InsertQuestionsForm extends React.Component {
     // });
   }
 
+  changeSelectedRound = (e) => {
+    console.log(e.target.dataset.id);
+  }
+
   render() {
     // let {items} = this.props.questionItems
     // let {items} = this.state;
     let round = this.state.round1;
     return(
+      <>
+      <Tabs>
+        <TabList>
+          <Tab onClick={this.changeSelectedRound} data-id="1">Title 1</Tab>
+          <Tab onClick={this.changeSelectedRound} data-id="2">Title 2</Tab>
+        </TabList>
+
+        <TabPanel>
+          <h2>Any content 1</h2>
+        </TabPanel>
+        <TabPanel>
+          <h2>Any content 2</h2>
+        </TabPanel>
+      </Tabs>
       <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
         {
           round.map((val, idx)=>{
@@ -85,9 +112,10 @@ class InsertQuestionsForm extends React.Component {
             )
           })
         }
-        <button onClick={this.addItem}>Add new Question</button>
+        <button onClick={this.addItem} >Add new Question</button>
         <input type="submit" value="Submit" />
       </form>
+      </>
     )
   }
 }
