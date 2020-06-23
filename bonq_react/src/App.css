@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Squada+One&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body{
+  font-weight: 400;
+  font-size: 2rem;
+  color: #fff;
+  padding: 3rem 0;
+  font-family: 'Ubuntu', sans-serif;
+  line-height: 1.55;
+  background-color: #040C1A;
+}
+
+main {
+  width: 80rem;
+  height: 90vh;
+  margin: 0 auto;
+  position: relative;
+  display: block;
+  background-color: #091833;
+  overflow: hidden;
+}
+
+
+.background {
+  position: absolute;
+      height: 100%;
+      opacity: 0.5;
+      width: 100%;
+      z-index: -1;
+      pointer-events: none;
+}
+.background::before {
+  position: absolute;
+  content: "";
+  background: url(/img/background.png);
+  background-repeat: no-repeat;
+  opacity: 0.04;
+  background-size: 104rem;
+  top: -25rem;
+  z-index: 0;
+  bottom: 0;
+  overflow: hidden;
+  left: 1rem;
+  right: 0;
+}
+
+.background__inside {
+  background: #133E7C;
+  top: 13px;
+  right: -51px;
+  width: 100rem;
+  position: absolute;
+  height: 31rem;
+  border: 3px solid #D10C76;
+  transform: rotate(169deg);
+  z-index: -1;
+}
