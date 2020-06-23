@@ -56,7 +56,7 @@ const Room = (props) => {
 
 
     useEffect(() => {
-        socketRef.current = io.connect('/');
+        socketRef.current = io.connect('http://localhost:3001');
 
         // socketRef.current.on("connected", user => {
         //     //socket.emit("send", "joined the server");
@@ -355,6 +355,8 @@ const Room = (props) => {
 
     }
     const handeChangeSwitch = (checked) => {
+        console.log("checking checkbox");
+        console.log(checked);
         setSwitchState(checked);
     }
 
