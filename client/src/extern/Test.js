@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {NavLink} from 'react-router-dom';
 var myProps;
 
 class Test extends React.Component {
@@ -8,31 +9,28 @@ class Test extends React.Component {
 
 	constructor() {
 		super();
+		//this.getTests();
 		this.state = {
 			teams: [],
 		}
-	}
+	};
 
 	handleClick(event) {
+
 		event.preventDefault();
+		///console.log(myProps);
 		myProps.logout();
-
-
-	}
+	};
 
 	componentDidMount(){
 		this.getTests();
-
-	}
+	};
 
 	componentDidUpdate(prevProps, prevState){
-
-		console.log(this.props.isAuthenticated);
 		if (prevProps.token !== this.props.token) {
 				this.getTests();
 			}
-
-	}
+	};
 
 	getTests() {
 		const token = this.props.token;
@@ -54,15 +52,19 @@ class Test extends React.Component {
 				this.props.refresh();
 			}
 		});
-	}
+	};
+
+
 
 	render() {
 
 		return(
 			<section>
-				<a href="/" onClick={this.handleClick}>
-					Logout
-				</a>
+			<NavLink exact activeClassName="active" to="/">
+				back to start
+			</NavLink>
+
+
 				<h1>Succes!</h1>
 				{this.state.teams.map((team, index) => {
 					return (
@@ -79,10 +81,14 @@ class Test extends React.Component {
 					</ul>
 					)
 				})}
+
+				<a href="/" onClick={this.handleClick}>
+					Logout
+				</a>
 			</section>
 		)
 	}
-}
+};
 
 
 export default Test;
