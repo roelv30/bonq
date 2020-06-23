@@ -8,7 +8,7 @@ import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-route
 import Home from './containers/HomePage'
 import Room from './containers/Room';
 import NotFound from './components/NotFound'
-
+import './style.css';
 
 
 import './App.css';
