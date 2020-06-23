@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TeamsSeeder::class);
         $this->call(LobbySeeder::class);
         $this->call(PersonSeeder::class);
+        $this->call(AnswerSeeder::class);
         $this->call(QuestionSeeder::class);
         $this->call(SettingsSeeder::class);
         $this->call(SfxSeeder::class);

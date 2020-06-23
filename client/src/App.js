@@ -34,6 +34,9 @@ import Register from './extern/Register';
 import Header from './extern/Header';
 import './App.css';
 
+// Stephan Imports
+import Review from './question_review/Review';
+
 
 
 const socketRef = io.connect();
@@ -130,6 +133,7 @@ class App extends React.Component {
                 // handleMatch={this.handleMatch}
             />
         }/>
+        <Route exact path='/review' component={Review} />
         {/*<Route path="*" component={NotFound} />*/}
     </BrowserRouter>
 
