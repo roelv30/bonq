@@ -46,7 +46,7 @@ class App extends React.Component {
 
 	refresh() {
 		console.log("REFRESH");
-		return axios.get('http://localhost:8000/api/refreshToken', {
+		return axios.get('http://192.168.0.214:8000/api/refreshToken', {
 			headers: { 'Authorization': 'Bearer ' + this.state.token }
 		})
 		.then((response) => {

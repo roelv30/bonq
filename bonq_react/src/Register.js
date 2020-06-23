@@ -26,7 +26,7 @@ class Register extends React.Component {
 
   	handleSubmit(event) {
   		event.preventDefault();
-  		axios.post('http://localhost:8000/api/signup', {
+  		axios.post('http://192.168.0.214:8000/api/signup', {
         username:this.state.username,
   			email: this.state.email,
   			password: this.state.password,
@@ -37,7 +37,7 @@ class Register extends React.Component {
         console.log(response);
         console.log("geregistreerd nu inloggen");
 
-          axios.post('http://localhost:8000/api/signin', {
+          axios.post('http://192.168.0.214:8000/api/signin', {
             email: this.state.email,
             password: this.state.password
           })

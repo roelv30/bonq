@@ -14,6 +14,11 @@ componentDidMount(){
 
 }
 
+test(){
+	// this.props.logout()
+	console.log(this.props);
+	}
+
 componentDidUpdate(prevProps, prevState){
 	if (prevProps.token !== this.props.token) {
 			this.getTests();
@@ -23,7 +28,7 @@ componentDidUpdate(prevProps, prevState){
 
 	getTests() {
 		const token = this.props.token;
-		axios.get('http://localhost:8000/api/test', {
+		axios.get('http://192.168.0.214:8000/api/test', {
 			headers: { 'Authorization': 'Bearer ' + token }
 		})
 		.then((response) => {
@@ -40,11 +45,13 @@ componentDidUpdate(prevProps, prevState){
 		});
 	}
 
+
+
 	render() {
 
 		return(
 			<section>
-				<a href="/" onClick={this.props.logout()}>
+				<a href="/" onClick={this.test()}>
 					Logout
 				</a>
 				<h1>Succes!</h1>
