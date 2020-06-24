@@ -23,7 +23,7 @@ const Video = (props) => {
             // console.log("needed stream:::");
             // console.log(stream);
             //console.log(stream);
-            ref.current.srcObject = stream;
+            ref.current.srlcObject = stream;
         })
 
     }, []);

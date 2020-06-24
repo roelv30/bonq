@@ -12,6 +12,7 @@ class HomePage extends React.Component {
   state = {
     value: new Date() - new Date().setHours(0, 0, 0, 0),
     username: '',
+
     checked: false
   };
   static contextTypes = {

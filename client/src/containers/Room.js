@@ -34,13 +34,14 @@ const Room = (props) => {
     const [peers, setPeers] = useState([]);
     const [muted, setMuteIcon] = useState("audio-button-true");
     const [videoIcon, setVideoIcon] = useState("video-button-true");
-    const [userName, setUsernameOfuser] = useState("ffrank");
+    const [userName, setUsernameOfuser] = useState("no name");
     const [switchState, setSwitchState] = useState(false);
     const [users, setUsers] = useState([]);
-
+    const [teams, setTeams] = useState([]);
+    const [teamName, setTeamName] = useState("team1");
     const [intro, setIntroDone] = useState(false);
 
-
+    const [teamNameStateSet, setTeamNameState] = useState(false);
 
     const socketRef = useRef();
     const userVideo = useRef();
@@ -66,10 +67,36 @@ const Room = (props) => {
         socketRef.current.on("users", users => {
             //console.log();
             setUsers(users);
+            console.log("users");
             console.log(users);
             {users.map(({ name, id }) => (
                     console.log("USERS: "+ id)
                    //  document.getElementById(id).innerHTML = "whatever"
+                // <li key={id}>{name}</li>
+            ))}
+        });
+
+        socketRef.current.on("teams", teamUsers => {
+            //console.log();
+            setTeams(teamUsers);
+            console.log("teams");
+            console.log(teamUsers);
+            {teams.map(({ name, id }) => (
+                console.log("USERS: "+ id)
+                //  document.getElementById(id).innerHTML = "whatever"
+                // <li key={id}>{name}</li>
+            ))}
+        });
+
+        socketRef.current.on("update teams", teamUsers => {
+            //console.log();
+            setTeams([])
+            setTeams(teamUsers);
+            console.log("teams");
+            console.log(teamUsers);
+            {teams.map(({ name, id }) => (
+                console.log("USERS: "+ id)
+                //  document.getElementById(id).innerHTML = "whatever"
                 // <li key={id}>{name}</li>
             ))}
         });
@@ -229,7 +256,7 @@ const Room = (props) => {
 
 
             // console.log("emitting room");
-            socketRef.current.emit("join room",roomID);
+
 
             // socketRef.current.on("joinedRoom", payload => {
             //     console.log("joined room:");
@@ -343,10 +370,8 @@ const Room = (props) => {
 
     const startSession = () => {
         socketRef.current.emit("username", userName);
-        videoAudioSettings();
-
+        socketRef.current.emit("join room",roomID);
         setIntroDone(true);
-
         //setVideoStream(true);
        // console.log(videoStream);
         // setTimeout(function(){
@@ -366,6 +391,20 @@ const Room = (props) => {
 
     };
 
+
+    const handleTeamNameChange = (e) => {
+
+        setTeamName(e.target.value);
+
+    };
+    const setTeamNameSet = () => {
+        socketRef.current.emit("join team", teamName);
+        setTeamNameState(true);
+        videoAudioSettings();
+
+
+    }
+
     const getUsernames = () =>{
         {peers.map((peer, index) => {
             console.log("peer");
@@ -380,12 +419,15 @@ const Room = (props) => {
 
                 <section>
                     <h2>Choose a username</h2>
-                <input type="text" name="username" value={userName} onChange={handleUsernameInput}
+                <input type="text" name="username" value={userName} onChange={handleUsernameInput} className={"whiteText"}
                        pattern="^\w+$" maxLength="20" required autoFocus
                        title="Username"/>
                 <button className="primary-button" type="button" onClick={startSession}>Set username</button>
                 {/*<button onClick={setNextPage}>Next page</button>*/}
                 </section>
+
+
+
 
                 <section>
                     <h2>Enable camera?</h2>
@@ -413,10 +455,25 @@ const Room = (props) => {
                         <li key={id}>{name}</li>
                     ))}
                 </ul>
-                {/*<button className="primary-button" type="button" onClick={getUsernames}>Get usernames</button>*/}
+                <h6>Users in Team</h6>
+                <ul id="teams">
+                    {teams.map(({ name, id }) => (
+                        <li key={id}>{name}</li>
+                    ))}
+                </ul>
+
                 <audio className="audio-element">
                     <source src="https://freesound.org/data/previews/131/131657_2398403-lq.mp3"></source>
                 </audio>
+
+                <section className={teamNameStateSet ? "hidden" : "visible"}>
+                    <h2>Choose a Teamname</h2>
+                    <input type="text" name="username" value={teamName} onChange={handleTeamNameChange} className={"whiteText"}
+                           pattern="^\w+$" maxLength="20" required autoFocus
+                           title="Username"/>
+                    <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Set team name</button>
+                    {/*<button onClick={setNextPage}>Next page</button>*/}
+                </section>
                 <div className="auth">
 
                     <div className="media-controls">
