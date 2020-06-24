@@ -24,8 +24,7 @@ class Start extends React.Component {
   render() {
     return (
       <section className="start">
-        <div className="background">
-       </div>
+        <div className="background"></div>
         <article className="start__article">
           <h1 className="start__article__title">Join Room & Play!</h1>
           <form id="inputCode" onSubmit={this.joinRoom} ref={ (ref) => { this.form = ref; } }>
@@ -40,7 +39,8 @@ class Start extends React.Component {
                   this.form.dispatchEvent(new Event('submit'))
               }}
             />
-            <input className="start__article__button" type="submit" value="Join Game &#9654;" />
+              <button type="submit" className="start__article__button" type="submit" value="Join Game &#9654;"  disabled={!this.state.value}>Join Game &#9654;</button>
+            {/*<input className="start__article__button" type="submit" value="Join Game &#9654;" />*/}
             </form>
         </article>
 

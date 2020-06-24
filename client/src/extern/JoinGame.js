@@ -20,7 +20,15 @@ class JoinGame extends React.Component {
     this.setState({value});
   };
 
-  setRoom = () => this.setState({value: new Date() - new Date().setHours(0, 0, 0, 0)})
+  setRoom = () => {
+      const min = 100000;
+      const max = 999999;
+      const rand = min + Math.random() * (max - min);
+      const fixedRandom  =  Number((rand).toFixed(0));
+
+      this.setState({value: fixedRandom})
+      this.props.history.push('r/' + fixedRandom );
+  }
 
 
 
@@ -41,12 +49,13 @@ class JoinGame extends React.Component {
               initialValue=""
               onChange={this.onChange}
               type="numeric"
+              required
               onComplete={(value, index) => {
                // console.log(value);
                   this.form.dispatchEvent(new Event('submit'))
               }}
             />
-            <input className="join__article__button" type="submit" value="Join Game &#9654;" />
+              <button type="submit" className="join__article__button" type="submit" value="Join Game &#9654;"  disabled={!this.state.value}>Join Game &#9654;</button>
             </form>
         </article>
 
