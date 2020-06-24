@@ -1,0 +1,71 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-main {
+  position:fixed;
+  background: #091833;
+  width: 80%;
+  height: 80vh;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  padding: 25px;
+  overflow-y: scroll;
+}
+
+.modal-main > h1{
+  color:white;
+  font-size: 2.5rem;
+  display: table;
+  margin: auto;
+}
+
+.modal-main--label--image{
+  transition: .15s;
+}
+
+.modal-main--label--image:hover{
+  /* transform: translateY(-10px);
+  cursor: pointer; */
+}
+
+.modal-main--label{
+  background-color: #133E7C;
+  height: 100px;
+  display: inline-block;
+  margin: 10px;
+  padding: 18px;
+  border-radius: 75px;
+
+}
+
+.modal-main--label:hover{
+  border: 4px solid #D10C76;
+  margin: 6px;
+  cursor: pointer;
+}
+
+.modal-main--label > *{
+  margin: 10px;
+}
+
+.modal-main--label--radio{
+  position: absolute;
+  /* width: 0;
+  height: 0; */
+  opacity: 0;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
