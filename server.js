@@ -40,7 +40,7 @@ io.on('connection', socket => {
 
         users[socket.id] = user;
         //usersConnected[socket.id] = user;
-        console.log(users[socket.id]);
+       // console.log(users[socket.id]);
         //io.to(roomNumber).emit("connected", user);
         //io.to(roomNumber).emit("users", Object.values(usersConnected));
         //const usersInThisRoom = users[roomNumber].filter(id => id !== socket.id);
@@ -62,9 +62,9 @@ io.on('connection', socket => {
         arrayOfUsersinThisRoom = [];
         if(roomIdFromClient != null){
             var roomURL = roomIdFromClient.split("/r/");
-            var roomNumber = JSON.parse(roomURL[1]);
+            var roomNumber = roomURL[1];
         }
-        socket.join(roomNumber);
+
 
         if (users[roomNumber]) {
             const length = users[roomNumber].length;
@@ -96,8 +96,7 @@ io.on('connection', socket => {
                     io.to(roomNumber).emit('users', arrayOfUsersinThisRoom);
         }
 
-        const usersInThisRoom = users[roomNumber].filter(id => id !== socket.id);
-        io.emit("joinedRoom", roomNumber);
+
         // console.log("room");
         // console.log(users);
         //console.log(usersInThisRoom);
@@ -114,8 +113,9 @@ io.on('connection', socket => {
         //
         //
         // }
-        console.log("user joined room: " + roomNumber);
-        socketToRoom[socket.id] = roomNumber;
+
+       // console.log("user joined room: " + roomNumber);
+
 
 
         // if(usersInThisRoom.length > 0){
@@ -127,7 +127,13 @@ io.on('connection', socket => {
 
         //io.to(socket.id).emit("users", Object.values(users));
         //io.to(roomNumber).emit("users", Object.values(users));
-        socket.emit("all users", usersInThisRoom);
+        const usersInThisRoom = users[roomNumber].filter(id => id !== socket.id);
+        io.emit("joinedRoom", roomNumber);
+        socket.join(roomNumber);
+        socketToRoom[socket.id] = roomNumber;
+        console.log(usersInThisRoom);
+        io.to(socket.id).emit("all users", usersInThisRoom)
+        //socket.emit("all users", usersInThisRoom);
 
 
         //socket.emit("all users", usersInThisRoom);
@@ -147,27 +153,28 @@ io.on('connection', socket => {
         io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
     });
 
-    socket.on("leaving", () => {
-
-        const roomID = socketToRoom[socket.id];
-        io.to(roomID).emit('left', socket.id);
-        io.to(socket.id).emit('leaving user homepage');
-        io.to(socket.id).emit('leaving room signal');
-        //console.log(roomID);
-        let room = users[roomID];
-        if (room) {
-            room = room.filter(id => id !== socket.id);
-            users[roomID] = room;
-        }
-        delete users[socket.id];
-        socket.leave(roomID);
-
-    });
+    // socket.on("leaving", () => {
+    //
+    //     const roomID = socketToRoom[socket.id];
+    //     io.to(roomID).emit('left', socket.id);
+    //     io.to(socket.id).emit('leaving user homepage');
+    //     io.to(socket.id).emit('leaving room signal');
+    //     //console.log(roomID);
+    //     let room = users[roomID];
+    //     if (room) {
+    //         room = room.filter(id => id !== socket.id);
+    //         users[roomID] = room;
+    //     }
+    //     //delete users[socket.id];
+    //     socket.leave(roomID);
+    //
+    // });
 
 
     socket.on('disconnect', () => {
 
         const roomID = socketToRoom[socket.id];
+        console.log("left");
         io.to(roomID).emit('left', socket.id);
         //console.log(roomID);
         let room = users[roomID];
@@ -176,7 +183,7 @@ io.on('connection', socket => {
             users[roomID] = room;
         }
 
-        delete users[socket.id];
+        //delete users[socket.id];
         socket.leave(roomID);
     });
 

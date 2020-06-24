@@ -22,6 +22,10 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('level')->default(1);
+            $table->integer('wins')->default(0);
+            $table->integer('bonqs')->default(420);
+
         });
     }
 

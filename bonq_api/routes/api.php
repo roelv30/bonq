@@ -28,4 +28,5 @@ Route::group(['middleware' => 'jwt.auth'], function() {
   Route::get('/avatar', 'FrontEndUserController@avatarGet');
   Route::post('/avatar', 'FrontEndUserController@avatarSubmit');
 
+  Route::get('/dashboard', 'FrontEndUserController@showDashboard');
 });

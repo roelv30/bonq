@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from "react";
-import Room from "../containers/Room";
+// import Room from "../containers/Room";
 import styled from "styled-components";
 
 const StyledVideo = styled.video`
@@ -15,9 +15,9 @@ const Video = (props) => {
     useEffect(() => {
 
         props.peer.on("stream", stream => {
-
+          // console.log(stream);
             if(stream == null){
-                ref.current.srcObject = null;
+                //ref.current.srcObject = null;
                 ref.current.poster = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
             }
             // console.log("needed stream:::");

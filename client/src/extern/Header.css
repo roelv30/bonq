@@ -1,0 +1,21 @@
+.header {
+  z-index: 2;
+  position: relative;
+  width: inherit;
+  height: 6rem;
+  text-align: center;
+  background-color: #133E7C;
+}
+
+.header__img {
+  height: inherit;
+}
+
+.header__logout {
+  color: white;
+  text-decoration: none;
+  height: inherit;
+  position: absolute;
+  right: 2rem;
+  top: 1.5rem;
+}
