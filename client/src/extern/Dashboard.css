@@ -2,16 +2,24 @@
   position: relative;
   padding: 5rem 0;
   z-index: 1;
-  margin-top: 6rem;
 }
 
-.dashboard__article {
+.dashboard__article, .dashboard__article--game {
   margin: 1rem auto;
   width: 80%;
   padding: 2rem;
   border: 3px solid #D10C76;
   border-radius: 3px;
 }
+
+.dashboard__article--game {
+  overflow-x: hidden;
+  height: 20rem;
+  border-right: 4px solid #D10C76;
+}
+
+
+
 
 .dashboard__article__title {
   letter-spacing: 3px;
@@ -64,9 +72,11 @@
 }
 
 .dashboard__article__menu {
-
+  display: flex;
+  justify-content: space-around;
 }
 
 .dashboard__article__menu__button {
-
+  text-decoration: none;
+  color: white;
 }

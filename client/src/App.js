@@ -76,6 +76,7 @@ class App extends React.Component {
         };
     };
 
+//LOGIN USER AND SET JWT TOKEN
     authenticate(token) {
         this.setState({
             isAuthenticated: true,
@@ -84,6 +85,7 @@ class App extends React.Component {
         localStorage.setItem('jwt', token);
     };
 
+//LOGOUT USER AND REMOVE JWT TOKEN
     logout() {
         localStorage.removeItem('jwt');
         this.setState({
@@ -105,16 +107,16 @@ class App extends React.Component {
             });
     };
 
-
-
-
-
     render() {
         return (
 
     <BrowserRouter>
 
-        <Header/>
+        <Header
+          authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated}
+          token={this.state.token}
+          refresh={this.refresh}
+          logout={this.logout}/>
         <Route exact path='/' component={Start} />
         <audio className="audio-element-test">
             <source src="https://freesound.org/data/previews/253/253886_3169537-lq.mp3"></source>
@@ -124,7 +126,6 @@ class App extends React.Component {
         <Route exact path='/register' render={(props) =>
             <Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
         <PrivateRoute exact path='/joingame' component={JoinGame} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
-        <PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
         {/*<Route exact  path="/" component={Home}  />*/}
         {/*<Route path="/r/:room" component={Room} />*/}

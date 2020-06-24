@@ -32,14 +32,14 @@ class Register extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ loading: true });
-    axios.post('http://192.168.0.214:8000/api/signup', {
+    axios.post('http://localhost:8000/api/signup', {
         username:this.state.username,
         email: this.state.email,
         password: this.state.password,
       })
     .then((response) => {
       this.setState({ error: '' });
-      axios.post('http://192.168.0.214:8000/api/signin', {
+      axios.post('http://localhost:8000/api/signin', {
         email: this.state.email,
         password: this.state.password
       })
@@ -81,7 +81,8 @@ class Register extends React.Component {
                 type='username'
                 value={this.state.username}
                 onChange={this.handleChange}
-                required/>
+                required
+                maxLength="15"/>
             </label>
             <label className="register__article__form__label">Email
               <input className="register__article__form__input"

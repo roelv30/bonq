@@ -7,8 +7,6 @@ var myProps;
 
 class Dashboard extends React.Component {
 
-
-
 	constructor() {
 		super();
 		this.state = {
@@ -54,48 +52,44 @@ class Dashboard extends React.Component {
 		return(
 			<section className="dashboard">
 				<article className='dashboard__article'>
-					<h1 className='dashboard__article__title'>Welcome back {this.state.user.username} !</h1>
-
-
+					<h1 className='dashboard__article__title'>Welcome back {this.state.user.username}!</h1>
 					<section className='dashboard__article__details'>
-										<img className="dashboard__article__details__avatar" src="/img/avatar.svg" alt="User Avatar"/>
-
+						<img className="dashboard__article__details__avatar" src="/img/avatar.svg" alt="User Avatar"/>
 						<article className="dashboard__article__details__stats">
 							<section className="dashboard__article__details__stats__content">
 								<img className="dashboard__article__details__stats__content--left" src="/img/crown.svg"/>
 								<p className="dashboard__article__details__stats__content--center">Level</p>
-								<p className="dashboard__article__details__stats__content--right">{this.state.user.id}</p>
+								<p className="dashboard__article__details__stats__content--right">{this.state.user.level}</p>
 							</section>
 							<section className="dashboard__article__details__stats__content">
 								<img className="dashboard__article__details__stats__content--left" src="/img/medal.svg"/>
 								<p className="dashboard__article__details__stats__content--center">Total wins</p>
-								<p className="dashboard__article__details__stats__content--right">{this.state.user.id}</p>
+								<p className="dashboard__article__details__stats__content--right">{this.state.user.wins}</p>
 							</section>
 							<section className="dashboard__article__details__stats__content">
 								<img className="dashboard__article__details__stats__content--left" src="/img/bonqs.png"/>
 								<p className="dashboard__article__details__stats__content--center">Total bonqs</p>
-								<p className="dashboard__article__details__stats__content--right">{this.state.user.id}</p>
+								<p className="dashboard__article__details__stats__content--right">{this.state.user.bonqs}</p>
 							</section>
-							</article>
-
-
+						</article>
 					</section>
 
 					<section className="dashboard__article__menu">
-					<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">friends</NavLink>
-					<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">stats</NavLink>
-					<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">shop</NavLink>
-					<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">settings</NavLink>
+						<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">friends</NavLink>
+						<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">stats</NavLink>
+						<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">shop</NavLink>
+						<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">settings</NavLink>
 					</section>
 				</article>
 
-				<article className="dashboard__article">
-					<h1>Pick a game</h1>
+				<article className="dashboard__article--game">
+					<h1 className="dashboard__article__title">Pick a game</h1>
+					<img className="dashboard" src="/img/pubquiz.jpeg"/>
+					<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="/joingame">Create</NavLink>
+					<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">Join</NavLink>
 				</article>
 
-				<a href="/" onClick={this.handleLogout}>
-					Logout
-				</a>
+
 			</section>
 		)
 	}
