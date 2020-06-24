@@ -63,7 +63,9 @@ class Test extends React.Component {
 			<NavLink exact activeClassName="active" to="/">
 				back to start
 			</NavLink>
-
+			<NavLink exact activeClassName="active" to="/host/questions">
+				questions
+			</NavLink>
 
 				<h1>Succes!</h1>
 				{this.state.teams.map((team, index) => {
