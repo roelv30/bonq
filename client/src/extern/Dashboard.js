@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {NavLink} from 'react-router-dom';
 import './Dashboard.css';
+import Avatar from './Avatar';
 var myProps;
 
 
@@ -54,7 +55,7 @@ class Dashboard extends React.Component {
 				<article className='dashboard__article'>
 					<h1 className='dashboard__article__title'>Welcome back {this.state.user.username}!</h1>
 					<section className='dashboard__article__details'>
-						<img className="dashboard__article__details__avatar" src="/img/avatar.svg" alt="User Avatar"/>
+						<Avatar />
 						<article className="dashboard__article__details__stats">
 							<section className="dashboard__article__details__stats__content">
 								<img className="dashboard__article__details__stats__content--left" src="/img/crown.svg"/>

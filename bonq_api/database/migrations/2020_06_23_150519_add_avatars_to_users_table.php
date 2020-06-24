@@ -14,7 +14,7 @@ class AddAvatarsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('avatar_url')->default('/img/avatars/18.svg');
+            $table->string('avatar_url')->default('/static/media/18.b0d5b6d8.svg');
         });
     }
 

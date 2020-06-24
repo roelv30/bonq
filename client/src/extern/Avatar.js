@@ -1,11 +1,10 @@
 import React, {Component} from "react";
 import ReactDOM from 'react-dom';
-import App from './App';
+// import App from './App';
 import Modal from './Modal';
 import axios from 'axios';
-import listReactFiles from 'list-react-files';
 
-import './css/Modal.css';
+import './Modal.css';
 
 class Avatar extends Component{
   constructor (){
@@ -38,6 +37,7 @@ class Avatar extends Component{
   toggleActive = (index, event) =>{
     this.setState({active: !this.state.active});
   };
+
 
   showModal = () =>{
     this.setState({show: true});
@@ -169,7 +169,7 @@ class Avatar extends Component{
       }
     }
 
-    const images = this.importImages(require.context('./img/avatars', false, /\.(svg)/));
+    const images = this.importImages(require.context('../img/avatars', false, /\.(svg)/));
     var imageList = images.map((image, index) =>{
       return(
         <label id={"avatar_label"+index} key={index}
@@ -184,16 +184,15 @@ class Avatar extends Component{
 
     return(
       <section>
-        <h1>React Modal</h1>
         <Modal show={this.state.show} handleClose={this.hideModal}>
           <h1>Select Avatar</h1>
           <form>
             {imageList}
           </form>
         </Modal>
-        <img src={this.state.avatar_url} width="100px"></img>
+
         <button type="button" onClick={this.showModal}>
-          Open
+          <img src={this.state.avatar_url} width="100px"></img>
         </button>
       </section>
     );

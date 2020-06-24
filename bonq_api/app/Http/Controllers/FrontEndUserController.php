@@ -13,6 +13,15 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 class FrontEndUserController extends Controller
 {
 
+  public function testIndex() {
+    return Teams::all();
+  }
+
+  public function showDashboard() {
+    $user = Auth::user();
+    return $user;
+  }
+
   public function avatarSubmit(Request $request){
     try {
       $user = Auth::user();
@@ -33,15 +42,6 @@ class FrontEndUserController extends Controller
     return $userAvatar;
   }
 
-  public function testIndex() {
-    return Teams::all();
-  }
-  
-  public function showDashboard() {
-    $user = Auth::user();
-    return $user;
-
-  }
 
   public function signUp(Request $request) {
     $user = User::create(['username' => $request->username, 'email' => $request ->email,'password'=>bcrypt($request->password)]);
