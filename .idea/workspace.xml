@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bonq_react/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/bonq_react/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bonq_react/src/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/bonq_react/src/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bonq_react/src/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/bonq_react/src/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Video.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Video.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/bonq.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bonq.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +18,17 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
   <component name="ProjectId" id="1dijcLqYjWFT1ICo5MPgundZRfi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -31,7 +39,9 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client" />
     <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -44,10 +54,26 @@
       <option name="presentableId" value="Default" />
       <updated>1592914886218</updated>
       <workItem from="1592914890772" duration="986000" />
+      <workItem from="1592990475336" duration="151000" />
+      <workItem from="1592990642140" duration="216000" />
+      <workItem from="1592990881943" duration="36000" />
+      <workItem from="1592991093714" duration="764000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="739" y="275" key="FileChooserDialogImpl" timestamp="1592991395212">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="739" y="275" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592991395212" />
+    <state x="2659" y="275" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592990770722" />
+    <state x="668" y="140" key="SettingsEditor" timestamp="1592991861544">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="668" y="140" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592991861544" />
+    <state x="2381" y="162" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592990776974" />
   </component>
 </project>
