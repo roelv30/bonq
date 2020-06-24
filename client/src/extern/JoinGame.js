@@ -20,6 +20,8 @@ class JoinGame extends React.Component {
     this.setState({value});
   };
 
+  setRoom = () => this.setState({value: new Date() - new Date().setHours(0, 0, 0, 0)})
+
 
 
   render() {
@@ -54,7 +56,9 @@ class JoinGame extends React.Component {
           </p>
         <img src="/img/dice.svg" alt="Dice Icon" className="join__article__img"/>
         <h1 className="join__article__title">Enter a game with random people </h1>
-        <button className="join__article__button--random">Join Random Game </button>
+        <button className="join__article__button--random" onClick={this.setRoom} >Join Random Game </button>
+
+
 
         </article>
       </section>
