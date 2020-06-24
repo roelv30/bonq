@@ -35,6 +35,7 @@ import Header from './extern/Header';
 import Dashboard from './extern/Dashboard';
 
 import './App.css';
+import JoinGame from './extern/JoinGame';
 
 
 
@@ -122,6 +123,7 @@ class App extends React.Component {
             <Login authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
         <Route exact path='/register' render={(props) =>
             <Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
+        <PrivateRoute exact path='/joingame' component={JoinGame} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
         <PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
         {/*<Route exact  path="/" component={Home}  />*/}
