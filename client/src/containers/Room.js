@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
 import {bool} from "prop-types";
- import Video from "../components/Video"
+import Video from "../components/Video"
 import Switch from "react-switch";
 
 const Container = styled.div`
@@ -50,7 +50,7 @@ const Room = (props) => {
 
     const peersRef = useRef([]);
     const roomID = props.match.params.roomID;
-   // const type = props.match.params.type;
+    // const type = props.match.params.type;
     //const type = props.match.params.type;
 
 
@@ -70,8 +70,8 @@ const Room = (props) => {
             console.log("users");
             console.log(users);
             {users.map(({ name, id }) => (
-                    console.log("USERS: "+ id)
-                   //  document.getElementById(id).innerHTML = "whatever"
+                console.log("USERS: "+ id)
+                //  document.getElementById(id).innerHTML = "whatever"
                 // <li key={id}>{name}</li>
             ))}
         });
@@ -117,7 +117,7 @@ const Room = (props) => {
         socketRef.current.on("user joined", payload => {
             console.log("you're next");
 
-           // console.log(peers);
+            // console.log(peers);
         });
 
 
@@ -213,7 +213,7 @@ const Room = (props) => {
 
     const ToggleFullScreen = () => {
         const el = document.documentElement;
-         // full-screen available?
+        // full-screen available?
         if (document.fullscreenEnabled) {
             // are we full-screen?
             document.fullscreenElement ||
@@ -245,15 +245,15 @@ const Room = (props) => {
             userAudio.current =  stream.getAudioTracks();
 
             if(switchState === false){
-               // userVideo.current.srcObject = null;
+                // userVideo.current.srcObject = null;
                 userVideo.current.poster = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
             }else{
                 userVideo.current.srcObject = stream;
                 userVideoStream.current = stream.getVideoTracks();
             }
 
-
-
+            socketRef.current.emit("join room",roomID);
+            socketRef.current.emit("join team", teamName);
 
             // console.log("emitting room");
 
@@ -288,7 +288,7 @@ const Room = (props) => {
                     socketRef.current.emit("send peer",peer);
                 })
 
-               setPeers(peers);
+                setPeers(peers);
                 console.log("peers");
                 console.log(peers);
                 setPeers([...new Set(peers)])
@@ -370,10 +370,11 @@ const Room = (props) => {
 
     const startSession = () => {
         socketRef.current.emit("username", userName);
-        socketRef.current.emit("join room",roomID);
+
+
         setIntroDone(true);
         //setVideoStream(true);
-       // console.log(videoStream);
+        // console.log(videoStream);
         // setTimeout(function(){
         //
         // }, 1000);
@@ -398,7 +399,7 @@ const Room = (props) => {
 
     };
     const setTeamNameSet = () => {
-        socketRef.current.emit("join team", teamName);
+
         setTeamNameState(true);
         videoAudioSettings();
 
@@ -419,11 +420,11 @@ const Room = (props) => {
 
                 <section>
                     <h2>Choose a username</h2>
-                <input type="text" name="username" value={userName} onChange={handleUsernameInput} className={"whiteText"}
-                       pattern="^\w+$" maxLength="20" required autoFocus
-                       title="Username"/>
-                <button className="primary-button" type="button" onClick={startSession}>Set username</button>
-                {/*<button onClick={setNextPage}>Next page</button>*/}
+                    <input type="text" name="username" value={userName} onChange={handleUsernameInput} className={"whiteText"}
+                           pattern="^\w+$" maxLength="20" required autoFocus
+                           title="Username"/>
+                    <button className="primary-button" type="button" onClick={startSession}>Set username</button>
+                    {/*<button onClick={setNextPage}>Next page</button>*/}
                 </section>
 
 
