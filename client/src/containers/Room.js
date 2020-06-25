@@ -459,26 +459,14 @@ const Room = (props) => {
                         <li key={id}>{name}</li>
                     ))}
                 </ul>
-                <h6>Users in Team</h6>
-                <ul id="teams">
-                    {teams.map(({ name, id }) => (
-                        <li key={id}>{name}</li>
-                    ))}
-                </ul>
+
 
                 <audio className="audio-element">
                     <source src="https://freesound.org/data/previews/131/131657_2398403-lq.mp3"></source>
                 </audio>
 
 
-                <section className={teamNameStateSet ? "hidden" : "visible"}>
-                    <h2>Choose a Teamname</h2>
-                    <input type="text" name="username" value={teamName} onChange={handleTeamNameChange} className={"whiteText"}
-                           pattern="^\w+$" maxLength="20" required autoFocus
-                           title="Username"/>
-                    <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Set team name</button>
-                    {/*<button onClick={setNextPage}>Next page</button>*/}
-                </section>
+
                 <div className="auth">
 
 
@@ -489,12 +477,12 @@ const Room = (props) => {
                     <Tabs renderActiveTabContentOnly={false}>
                         <ul className={"tabs"}>
                             <li class="tab">
-                                <TabLink to="tab1" default>
+                                <TabLink to="tab1" >
                                     Chat
                                 </TabLink>
                             </li>
                             <li class="tab">
-                                <TabLink to="tab2">Team</TabLink>
+                                <TabLink to="tab2" default>Team</TabLink>
                             </li>
                             <li class="tab">
                                 <TabLink to="tab3">Options </TabLink>
@@ -503,11 +491,21 @@ const Room = (props) => {
 
                         <div>
                             <TabContent for="tab1">Content 1 /* rendered in HTML */</TabContent>
-                            <TabContent for="tab2"><div id={"test"}>
+                            <TabContent for="tab2">
+
+                                <div className={teamNameStateSet ? "hidden" : "visible"}>
+                                    <h2>Choose a Teamname</h2>
+                                    <input type="text" name="username" value={teamName} onChange={handleTeamNameChange} className={"whiteText"}
+                                           pattern="^\w+$" maxLength="20" required autoFocus
+                                           title="Username"/>
+                                    <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Set team name</button>
+                                    {/*<button onClick={setNextPage}>Next page</button>*/}
+                                </div>
+                                <div id={"test"}>
 
 
                                 <div id={"remoteContainer"}>
-                                    {peers.length}
+                                    {/*{peers.length}*/}
 
                                     {peers.map((peer, index) => {
                                         return (
@@ -518,6 +516,8 @@ const Room = (props) => {
                                             </div>
                                         );
                                     })}
+                                    <h2 className={"teamname"}>Teamname: {teamName},  </h2>
+                                    <h4><ul className={"usersInTeam"}><li>users:</li>{teams.map(({ name, id }) => ( <li key={id}>{name}, </li>   ))}</ul></h4>
                                 </div>
                             </div>
 

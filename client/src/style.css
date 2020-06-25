@@ -99,7 +99,10 @@ ul.tabs li button.tab-link-active{
 
 
 
-
+#test{
+  border: 2px solid #D10C76;
+  border-radius: 10px;
+}
 
 #ownVideoStream {
   bottom: 0;
@@ -117,9 +120,9 @@ ul.tabs li button.tab-link-active{
   width:80%;
 }
 .otherPeopleDiv {
-    float: left;
+    /*float: left;*/
     width: 32%;
-    height: 280px;
+    /*height: 280px;*/
     padding: 10px;
 }
 
@@ -128,7 +131,11 @@ ul.tabs li button.tab-link-active{
     height: 100%;
 }
 
-
+.usersInTeam{
+  display:flex;
+  width: 100%;
+  list-style-type: none;
+}
 
 
 .you-left,
