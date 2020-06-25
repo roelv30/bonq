@@ -10,6 +10,10 @@ html {
   font-size: 62.5%;
 }
 
+.full-width{
+  width: 100%;
+}
+
 .whiteText{
   color:white !important;
 }

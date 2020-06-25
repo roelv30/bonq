@@ -68,20 +68,50 @@ input[type=text] {
   background:red;
 }
 
+ul.tabs {
+  display: flex;
+  border-bottom: 1px solid #D7DBDD;
+  list-style-type: none;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+.tab button {
+  cursor: pointer;
+  padding: 5px 30px;
+  color: #16A2D7;
+  font-size: 30px;
+  border-bottom: 2px solid transparent;
+
+}
+
+
+ul.tabs li button{
+ background: none;
+  border:none;
+  color:white;
+}
+
+ul.tabs li button.tab-link-active{
+  color:#D10C76;
+  border-bottom: 1px solid;
+}
 
 
 
-#ownVideoStream{
-    bottom: 60px;
-    float: left;
-    width: 17%;
-    margin-right: 100%;
-    clear: both;
-    height: 20vh;
-    position: fixed;
-    border: 0;
-    margin-bottom: 20px;
-    border-radius: 0;
+
+
+#ownVideoStream {
+  bottom: 0;
+  float: left;
+  width: 7%;
+  margin-right: 100%;
+  clear: both;
+  height: 16vh;
+  position: fixed;
+  border: 0;
+  margin-bottom: 20px;
+  border-radius: 0;
 }
 #ownVideoStream video{
   width:80%;
@@ -208,9 +238,11 @@ input[type=text] {
 .media-controls {
   display: flex;
   margin: 2ex 0;
-  justify-content: center;
+  justify-content: flex-end;
   left: 0;
+  position: absolute;
   right: 0;
+  bottom: 0;
 }
 .svg {
   width: 1.4em;

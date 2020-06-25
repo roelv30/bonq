@@ -20,6 +20,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-switch": "^5.0.1",
+    "react-tabs": "^3.1.1",
+    "react-tabs-redux": "^4.0.0",
     "redux": "^4.0.5",
     "remarkable": "^2.0.1",
     "remarkable-react": "^1.4.3",
