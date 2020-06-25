@@ -287,30 +287,33 @@ io.on('connection', socket => {
         socket.leave(roomID);
 
         //update team names in certain team.
-        if (users[roomNumber][teamID]) {
-            let sizeOfUsers = Object.keys(users[roomNumber][teamID]).length;
-            // console.log(sizeOfUsers );
+        if(users[roomNumber]){
+            if (users[roomNumber][teamID]) {
+                let sizeOfUsers = Object.keys(users[roomNumber][teamID]).length;
+                // console.log(sizeOfUsers );
 
-            users[roomID][teamID].forEach(myFunction);
-            function myFunction(item, index) {
-                console.log(item);
-                arrayOfUsersinThisTeam.push(users[item])
+                users[roomID][teamID].forEach(myFunction);
+                function myFunction(item, index) {
+                    console.log(item);
+                    arrayOfUsersinThisTeam.push(users[item])
+                }
+
+                arrayOfUsersinThisTeam.forEach(myFunction2);
+                function myFunction2(item, index) {
+                    console.log("item");
+                    //console.log("payload");
+                    //console.log();
+
+                    io.to(item.id).emit('update teams', arrayOfUsersinThisTeam);
+                    // console.log(item);
+                    // arrayOfUsersinThisTeam.push(users[item])
+                }
+
+                //io.to(socket.id).emit("update teams", arrayOfUsersinThisTeam);
+                //io.to(roomNumber).emit('update teams', arrayOfUsersinThisTeam);
             }
-
-            arrayOfUsersinThisTeam.forEach(myFunction2);
-            function myFunction2(item, index) {
-                console.log("item");
-                //console.log("payload");
-                //console.log();
-
-                io.to(item.id).emit('update teams', arrayOfUsersinThisTeam);
-                // console.log(item);
-                // arrayOfUsersinThisTeam.push(users[item])
-            }
-
-            //io.to(socket.id).emit("update teams", arrayOfUsersinThisTeam);
-            //io.to(roomNumber).emit('update teams', arrayOfUsersinThisTeam);
         }
+
 
         //update all user lists
         // if (users[roomID]) {
