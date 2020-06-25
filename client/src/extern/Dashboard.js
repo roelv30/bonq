@@ -53,7 +53,11 @@ class Dashboard extends React.Component {
 		return(
 			<section className="dashboard">
 				<article className='dashboard__article'>
-					<h1 className='dashboard__article__title'>Welcome back {this.state.user.username}!</h1>
+					<h1 className='dashboard__article__title'>
+							Welcome back
+								<span className='dashboard__article__title--pink'> {this.state.user.username}</span>
+							!
+					</h1>
 					<section className='dashboard__article__details'>
 						<Avatar token={this.props.token} />
 						<article className="dashboard__article__details__stats">
@@ -76,21 +80,70 @@ class Dashboard extends React.Component {
 					</section>
 
 					<section className="dashboard__article__menu">
-						<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">friends</NavLink>
-						<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">stats</NavLink>
-						<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">shop</NavLink>
-						<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">settings</NavLink>
+						<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">
+							<img src="/img/friends.svg" alt="Friends Icon" className="dashboard__article__menu__button__img"/>
+							friends
+						</NavLink>
+						<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">
+							<img src="/img/stats.svg" alt="Stats Icon" className="dashboard__article__menu__button__img"/>
+							stats
+						</NavLink>
+						<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">
+							<img src="/img/shop.svg" alt="Shop Icon" className="dashboard__article__menu__button__img"/>
+							shop
+						</NavLink>
+						<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">
+							<img src="/img/settings.svg" alt="Settings Icon" className="dashboard__article__menu__button__img"/>
+							settings
+						</NavLink>
 					</section>
 				</article>
 
-				<article className="dashboard__article--game">
-					<h1 className="dashboard__article__title">Pick a game</h1>
-					<img className="dashboard" src="/img/pubquiz.jpeg" alt="Pubquiz Background"/>
-					<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="/joingame">Create</NavLink>
-					<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">Join</NavLink>
+				<h1 className="dashboard__article__title--center">Pick a game</h1>
+
+				<article className="dashboard__article--games">
+
+					<section className="dashboard__article__game">
+						<article className="dashboard__article__game__title">
+							<img className="dashboard__article__game__title__img" src="/img/pubquiz.jpeg" alt="Pubquiz Background"/>
+							<p className="dashboard__article__game__title__text"> Pubquiz </p>
+						</article>
+						<article className="dashboard__article__game__options">
+							<NavLink exact activeClassName="active" className="dashboard__article__game__options__button" to="#">Create</NavLink>
+							<NavLink exact activeClassName="active" className="dashboard__article__game__options__button" to="/joingame">Join</NavLink>
+						</article>
+					</section>
+
+					<section className="dashboard__article__game">
+						<article className="dashboard__article__game__title">
+							<img className="dashboard__article__game__title__img" src="/img/bubbletrouble.jpg" alt="Bubble Trouble Background"/>
+							<p className="dashboard__article__game__title__text"> Bubble Trouble </p>
+						</article>
+						<article className="dashboard__article__game__options">
+							<NavLink exact activeClassName="active" className="dashboard__article__game__options__button" to= {{
+								pathname: '/easteregg',
+								gameProps: {
+									game: 'bubbletrouble'
+								}
+							}}>Play</NavLink>
+						</article>
+					</section>
+
+					<section className="dashboard__article__game">
+						<article className="dashboard__article__game__title">
+							<img className="dashboard__article__game__title__img" src="/img/sonic.jpg" alt="Sonic Background"/>
+							<p className="dashboard__article__game__title__text"> Sonic</p>
+						</article>
+						<article className="dashboard__article__game__options">
+							<NavLink exact activeClassName="active" className="dashboard__article__game__options__button" to= {{
+								pathname: '/easteregg',
+								gameProps: {
+									game: 'sonic'
+								}
+							}}>Play</NavLink>
+						</article>
+					</section>
 				</article>
-
-
 			</section>
 		)
 	}

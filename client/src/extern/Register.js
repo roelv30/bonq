@@ -71,7 +71,7 @@ class Register extends React.Component {
          <div className="background__inside"></div>
        </div>
 
-        <Back />
+        <Back text="&larr; back to start" link="/"/>
         <article className="register__article">
           <h1 className="register__article__title">Register</h1>
           <form className="register__article__form" onSubmit={this.handleSubmit}>

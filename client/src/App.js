@@ -35,6 +35,7 @@ import Dashboard from './extern/Dashboard';
 import './App.css';
 import JoinGame from './extern/JoinGame';
 import Avatar from './extern/Avatar';
+import EasterEgg from './extern/EasterEgg';
 
 
 const socketRef = io.connect();
@@ -125,7 +126,7 @@ class App extends React.Component {
             <Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
         <PrivateRoute exact path='/joingame' component={JoinGame} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
-				<Route exact path='/avatar' component={Avatar} isAuthenticated={this.state.isAuthenticated} token={this.state.token} />
+		    <PrivateRoute exact path='/easteregg' component={EasterEgg} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout}  />
         {/*<Route exact  path="/" component={Home}  />*/}
         {/*<Route path="/r/:room" component={Room} />*/}
         <Route path="/r/:roomID"    render={(props) =>

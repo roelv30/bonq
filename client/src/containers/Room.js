@@ -3,8 +3,9 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
 import {bool} from "prop-types";
- import Video from "../components/Video"
+import Video from "../components/Video"
 import Switch from "react-switch";
+import Back from '../extern/Back';
 
 const Container = styled.div`
     padding: 20px;
@@ -376,6 +377,7 @@ const Room = (props) => {
     if(intro === false) {
         return (
             <Container>
+              <Back text="&larr; back" link="/dashboard"/>
 
 
                 <section>

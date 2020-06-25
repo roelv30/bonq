@@ -72,13 +72,14 @@ main {
 Scrollbar Styling */
 
 ::-webkit-scrollbar {
-  width: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #d10c76;
   border-radius: 50px;
-  border: 7px solid #091833;
+  border: 5px solid #091833;
 
 }
 
@@ -94,7 +95,7 @@ Scrollbar Styling */
 }
 ::-webkit-scrollbar-track {
   background: #133e7c;
-  border: 6px solid #091833;
+  border: 5px solid #091833;
   border-radius: 50px;
 }
 ::-webkit-scrollbar-track:hover {

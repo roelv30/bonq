@@ -36,8 +36,10 @@ class JoinGame extends React.Component {
         <div className="background">
        </div>
 
-        <Back />
+        <Back text="&larr; back" link="/dashboard"/>
         <article className="join__article">
+
+          <h1 className="join__article__title--pink">Pubquiz</h1>
           <h1 className="join__article__title">Enter a code to join a game</h1>
           <img className='join__article__img' src="/img/arrow-down.svg" alt="Arrow pointing down" />
           <form id="inputCode" onSubmit={this.joinRoom} ref={ (ref) => { this.form = ref; } }>

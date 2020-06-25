@@ -60,7 +60,7 @@ class Login extends React.Component {
 			<div className="background">
 			 <div className="background__inside"></div>
 		 </div>
-				<Back />
+        <Back text="&larr; back to start" link="/"/>
 				<article className="login__article">
 					<h1 className="login__article__title">Login</h1>
 					<form className="login__article__form" onSubmit={this.handleSubmit}>
