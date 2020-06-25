@@ -55,20 +55,20 @@ class Dashboard extends React.Component {
 				<article className='dashboard__article'>
 					<h1 className='dashboard__article__title'>Welcome back {this.state.user.username}!</h1>
 					<section className='dashboard__article__details'>
-						<Avatar />
+						<Avatar token={this.props.token} />
 						<article className="dashboard__article__details__stats">
 							<section className="dashboard__article__details__stats__content">
-								<img className="dashboard__article__details__stats__content--left" src="/img/crown.svg"/>
+								<img className="dashboard__article__details__stats__content--left" src="/img/crown.svg" alt="Crown Icon"/>
 								<p className="dashboard__article__details__stats__content--center">Level</p>
 								<p className="dashboard__article__details__stats__content--right">{this.state.user.level}</p>
 							</section>
 							<section className="dashboard__article__details__stats__content">
-								<img className="dashboard__article__details__stats__content--left" src="/img/medal.svg"/>
+								<img className="dashboard__article__details__stats__content--left" src="/img/medal.svg" alt="Medal Icon"/>
 								<p className="dashboard__article__details__stats__content--center">Total wins</p>
 								<p className="dashboard__article__details__stats__content--right">{this.state.user.wins}</p>
 							</section>
 							<section className="dashboard__article__details__stats__content">
-								<img className="dashboard__article__details__stats__content--left" src="/img/bonqs.png"/>
+								<img className="dashboard__article__details__stats__content--left" src="/img/bonqs.png" alt="Bonqs Currency Icon"/>
 								<p className="dashboard__article__details__stats__content--center">Total bonqs</p>
 								<p className="dashboard__article__details__stats__content--right">{this.state.user.bonqs}</p>
 							</section>
@@ -85,7 +85,7 @@ class Dashboard extends React.Component {
 
 				<article className="dashboard__article--game">
 					<h1 className="dashboard__article__title">Pick a game</h1>
-					<img className="dashboard" src="/img/pubquiz.jpeg"/>
+					<img className="dashboard" src="/img/pubquiz.jpeg" alt="Pubquiz Background"/>
 					<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="/joingame">Create</NavLink>
 					<NavLink exact activeClassName="active" className="dashboard__article__menu__button" to="#">Join</NavLink>
 				</article>

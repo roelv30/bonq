@@ -1,13 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-import { render } from 'react-dom'
-
-
-import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-router-dom";
-import Home from './containers/HomePage'
+// import ReactDOM from 'react-dom';
+// import { render } from 'react-dom'
+// import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-router-dom";
+import { Route, BrowserRouter, Redirect  } from "react-router-dom";
+// import Home from './containers/HomePage'
 import Room from './containers/Room';
-import NotFound from './components/NotFound'
+// import NotFound from './components/NotFound'
 import './style.css';
 
 
@@ -29,7 +27,7 @@ import io from "socket.io-client";
 import axios from 'axios';
 import Start from './extern/Start';
 import Login from './extern/Login';
-import Test from './extern/Test';
+// import Test from './extern/Test';
 import Register from './extern/Register';
 import Header from './extern/Header';
 import Dashboard from './extern/Dashboard';

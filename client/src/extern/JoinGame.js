@@ -1,9 +1,7 @@
 import React from 'react';
 import PinInput from 'react-pin-input';
-import {NavLink} from 'react-router-dom';
 import './JoinGame.css';
-import NewToBonq from './NewToBonq';
-import Home from "../components/Home";
+// import Home from "../components/Home";
 import Back from './Back';
 
 class JoinGame extends React.Component {
@@ -55,7 +53,7 @@ class JoinGame extends React.Component {
                   this.form.dispatchEvent(new Event('submit'))
               }}
             />
-              <button type="submit" className="join__article__button" type="submit" value="Join Game &#9654;"  disabled={!this.state.value}>Join Game &#9654;</button>
+              <button className="join__article__button" type="submit" value="Join Game &#9654;"  disabled={!this.state.value}>Join Game &#9654;</button>
             </form>
         </article>
 

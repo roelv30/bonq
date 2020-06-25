@@ -1,6 +1,4 @@
 import React, {Component} from "react";
-import ReactDOM from 'react-dom';
-// import App from './App';
 import Modal from './Modal';
 import axios from 'axios';
 
@@ -68,7 +66,7 @@ class Avatar extends Component{
   };
 
   componentDidMount = () =>{
-    const token = localStorage.getItem('jwt');
+    const token = this.props.token;
     let header = {'Authorization': 'Bearer ' + token};
     axios.get('http://localhost:8000/api/avatar', {headers:header})
       .then((response) => {
@@ -162,10 +160,12 @@ class Avatar extends Component{
         [...allLabels].map((i) => {
           i.style.border = null;
           i.style.padding = null;
+          return
         });
 
         [...allImages].map((i) => {
           i.style.transform = 'translateY(0px)';
+          return
         });
 
         imageID.style.transform = 'translateY(0px)';
@@ -182,7 +182,7 @@ class Avatar extends Component{
         // onMouseLeave={this.toggleHover(index)}
         className="modal-main--label"
         >
-        <img className="modal-main--label--image " id={"avatar"+index} width="75px" src={image} style={hoverStyle}/>
+        <img className="modal-main--label--image " id={"avatar"+index} width="75px" src={image} style={hoverStyle} alt="Avatar"/>
         <input className="modal-main--label--radio" onChange={this.handleSubmit} name="avatar_input" type="radio"></input>
         </label>);
     });
@@ -202,7 +202,7 @@ class Avatar extends Component{
           </figure>
           <div className="dashboard__article__details__avatar__overlay">
             <p className="dashboard__article__details__avatar__overlay__label">Change Avatar</p>
-            <img className="dashboard__article__details__avatar__overlay__image" src="img/edit.svg"/>
+            <img className="dashboard__article__details__avatar__overlay__image" src="img/edit.svg" alt="Edit Icon"/>
 
 
           </div>

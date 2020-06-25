@@ -3,7 +3,7 @@ import PinInput from 'react-pin-input';
 import {NavLink} from 'react-router-dom';
 import './Start.css';
 import NewToBonq from './NewToBonq';
-import Home from "../components/Home";
+// import Home from "../components/Home";
 
 class Start extends React.Component {
   state= {
@@ -39,7 +39,7 @@ class Start extends React.Component {
                   this.form.dispatchEvent(new Event('submit'))
               }}
             />
-              <button type="submit" className="start__article__button" type="submit" value="Join Game &#9654;"  disabled={!this.state.value}>Join Game &#9654;</button>
+              <button className="start__article__button" type="submit" value="Join Game &#9654;"  disabled={!this.state.value}>Join Game &#9654;</button>
             {/*<input className="start__article__button" type="submit" value="Join Game &#9654;" />*/}
             </form>
         </article>
