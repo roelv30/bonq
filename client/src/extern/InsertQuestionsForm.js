@@ -28,7 +28,7 @@ class InsertQuestionsForm extends React.Component {
   state = {
     roundCount: 5,
     selectedTab: 0,
-    round0: [{ question: "", answer: ""},],
+    round0: [{ question: "b", answer: ""},],
     round1: [{ question: "", answer: ""},],
     round2: [{ question: "", answer: ""},],
     round3: [{ question: "", answer: ""},],
@@ -42,6 +42,7 @@ class InsertQuestionsForm extends React.Component {
   // };
 
   parseRoundsIntoState = (e) => {
+    console.log("parse round called");
     for (let i = 0; i < this.state.roundCount; i++) {
       // let selectedRoundName = "round" + i;
       let selectedRoundArray = [{ question: "", answer: ""}];
@@ -72,30 +73,50 @@ class InsertQuestionsForm extends React.Component {
   // };
 
   handleChange = (e) => {
+    console.log("handle change called");
     let selectedRound = "round" + this.state.selectedTab;
     if (["question", "answer"].includes(e.target.className)) {
       // let items = [...this.state[selectedRound]];
       // items[e.target.dataset.id][e.target.className] = e.target.value;
       // this.setState({items}, ()=>console.log(this.state[selectedRound]), console.log(this.state[selectedRound]))
+      console.log("state before: ");
+      console.log(this.state);
+
 
       let questionOrAnswer = e.target.className
       let index = e.target.dataset.id
       let value = e.target.value
+      console.log(questionOrAnswer);
+      console.log(index);
+      console.log(value);
       // console.log(questionOrAnswer);
       // this.setState((prevState) => ({
       //   [selectedRound]: [...prevState[selectedRound][index][questionOrAnswer], value]
       // }));
 
       let data = [...this.state[selectedRound]];
+      console.log(data[e.target.dataset.id][e.target.className]);
+      console.log(data[e.target.dataset.id]);
+      console.log(e.target.value);
+      console.log(e.target.className);
+      console.log(this.state);
+
       data[e.target.dataset.id][e.target.className] = e.target.value;
-      console.log(data);
+
+      console.log(this.state[selectedRound][index][questionOrAnswer]);
+
       // this.setState((prevState) => ({
-      //   [selectedRound]: [...prevState[selectedRound][index][questionOrAnswer], value]}))
+      //   [selectedRound]: [...prevState[selectedRound][index][questionOrAnswer], value],
+      // }));
+      console.log("state after: ");
+      console.log(this.state);
+      setTimeout(()=>{console.log(this.state);},500)
     }
   }
 
   addItem = (e) => {
     // e.preventDefault();
+    console.log("additem called");
     let selectedRound = "round" + this.state.selectedTab;
 
 
@@ -110,6 +131,7 @@ class InsertQuestionsForm extends React.Component {
   };
 
   handleSubmit = (e) => {
+    console.log("submit called");
     e.preventDefault();
     axios.post('http://localhost:8000/api/parsePubQnA', {
       state: this.state,
@@ -125,7 +147,19 @@ class InsertQuestionsForm extends React.Component {
 
   changeSelectedRound = (e) => {
     console.log(e.target.dataset.id);
-    this.state.selectedTab = e.target.dataset.id;
+    console.log("change round called");
+    let id = e.target.dataset.id;
+    // this.state.selectedTab = e.target.dataset.id;
+    // this.setState((prevState) => ({
+    //   selectedTab: ...prevState, selectedTab: e.target.dataset.id
+    // }));
+    this.setState(prevState => {
+      let item = Object.assign({}, prevState);  // creating copy of state variable jasper
+      item.selectedTab = id-1;
+      console.log("item: ");
+      console.log(item);                 // update the name property, assign a new value
+      return item ;                                 // return new object jasper object
+    })
   }
 
   render() {
@@ -134,6 +168,7 @@ class InsertQuestionsForm extends React.Component {
     // this.parseRoundsIntoState();
     // let round = this.state["round" + this.state.selectedTab];
     // console.log(round);
+    // document.addEventListener("click", ()=>{console.log(this.state);})
     return(
       <>
       <Tabs>
@@ -167,9 +202,9 @@ class InsertQuestionsForm extends React.Component {
                 return (
                   <div key={idx}>
                     <label htmlFor={questionId}>{`Question #${idx+1}`}</label>
-                    <input type="text" name={questionId} data-id={idx} id={questionId} className="question"/>
+                    <input type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} className="question"/>
                     <label htmlFor={answerId}>Answer: </label>
-                    <input type="text" name={answerId} data-id={idx} id={answerId} className="answer"/>
+                    <input type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} className="answer"/>
                   </div>
                 )
               })
