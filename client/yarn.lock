@@ -2259,6 +2259,11 @@ autoprefixer@^9.6.1:
     postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
 
+autoscroll-react@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/autoscroll-react/-/autoscroll-react-3.2.0.tgz#eec26a4f3ef57173a724c356af02f3df5ab03342"
+  integrity sha512-HOiwy9GGTSk9WZwEPd+FwNLLZ17o5wkjAtAb+RtQUr/2J1PT2KRG+OI6LoGtfY5EwWvQKAbSsjkgLvLhItscSg==
+
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
@@ -7216,7 +7221,7 @@ mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-moment@^2.26.0:
+moment@^2.27.0:
   version "2.27.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.27.0.tgz#8bff4e3e26a236220dfe3e36de756b6ebaa0105d"
   integrity sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ==

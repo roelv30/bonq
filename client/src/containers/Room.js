@@ -5,9 +5,10 @@ import styled from "styled-components";
 import {bool} from "prop-types";
 import Video from "../components/Video"
 import Switch from "react-switch";
-
+import moment from "moment";
 import 'react-tabs/style/react-tabs.css';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
+import AutoscrolledList from "./AutoscrolledList";
 
 const Container = styled.div`
     padding: 20px;
@@ -55,17 +56,26 @@ const Room = (props) => {
     const roomID = props.match.params.roomID;
     // const type = props.match.params.type;
     //const type = props.match.params.type;
-
-
+    const [message, setMessage] = useState("");
+    const [messages, setMessages] = useState([]);
 
 
     useEffect(() => {
-        socketRef.current = io.connect('/');
+        socketRef.current = io.connect('http://localhost:3001');
 
         // socketRef.current.on("connected", user => {
         //     //socket.emit("send", "joined the server");
         //     setUsers(users => [...users, user]);
         // });
+
+        socketRef.current.on("message", message => {
+
+            setMessages(messages => [...messages, message]);
+            console.log("message"  + messages);
+
+
+
+        });
 
         socketRef.current.on("users", users => {
             //console.log();
@@ -416,6 +426,16 @@ const Room = (props) => {
         })}
     }
 
+
+    const submit = event => {
+        event.preventDefault();
+        //socket.emit("roomName", nameRoomJoin);
+        socketRef.current.emit("send", message);
+        setMessage("");
+    };
+
+
+
     if(intro === false) {
         return (
             <Container>
@@ -476,21 +496,80 @@ const Room = (props) => {
                 <article className={"full-width"}>
                     <Tabs renderActiveTabContentOnly={false}>
                         <ul className={"tabs"}>
-                            <li class="tab">
+                            <li className={"tab"}>
                                 <TabLink to="tab1" >
                                     Chat
                                 </TabLink>
                             </li>
-                            <li class="tab">
+                            <li className={"tab"}>
                                 <TabLink to="tab2" default>Team</TabLink>
                             </li>
-                            <li class="tab">
+                            <li className={"tab"}>
                                 <TabLink to="tab3">Options </TabLink>
                             </li>
                         </ul>
 
                         <div>
-                            <TabContent for="tab1">Content 1 /* rendered in HTML */</TabContent>
+                            <TabContent for="tab1">
+
+
+
+
+                                <div className="row">
+                                    <div className="col-md-8">
+                                        <h6>Messages</h6>
+                                        <div id="messages">
+                                            <AutoscrolledList
+                                                items={messages}
+                                                onScrolled={e => console.log("the list was scrolled!")}
+                                                onScrolledTop={e => alert("scrolled to top!")}
+                                            />
+                                            {/*{messages.map(({ user, date, text }, index) => (*/}
+                                            {/*    <div key={index} className="row mb-2">*/}
+                                            {/*        <div className="col-md-2">{moment(date).format("h:mm:ss a")} | {user.name} | {text}</div>*/}
+                                            {/*        {this.scrollIntoView()}*/}
+                                            {/*    </div>*/}
+                                            {/*))}*/}
+                                        </div>
+                                        <form onSubmit={submit} id="form">
+                                            <div className="input-group">
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    onChange={e => setMessage(e.currentTarget.value)}
+                                                    value={message}
+                                                    id="text"
+                                                />
+                                                <span className="input-group-btn">
+                <button id="submit" type="submit" className="btn btn-primary">
+                  Send
+                </button>
+              </span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <h6>Users</h6>
+                                        <ul id="users">
+                                            {users.map(({ name, id }) => (
+                                                <li key={id}>{name}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                            </TabContent>
                             <TabContent for="tab2">
 
                                 <div className={teamNameStateSet ? "hidden" : "visible"}>

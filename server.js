@@ -144,6 +144,28 @@ io.on('connection', socket => {
         //io.to(roomNumber).emit("users", Object.values(users));
     });
 
+    socket.on("send", message => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+        //console.log("User:"  +user);
+        io.to(roomNumber).emit("message", {
+            text: message,
+            date: new Date().toISOString(),
+            user: users[socket.id]
+        });
+
+        console.log("got a message");
+        //
+        // io.emit("message", {
+        //   text: message,
+        //   date: new Date().toISOString(),
+        //   user: users[client.id]
+        // });
+    });
+
     socket.on("send peer", payload => {
         io.to(socket.id).emit('getPeer', payload);
     });
