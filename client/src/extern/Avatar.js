@@ -29,6 +29,22 @@ class Avatar extends Component{
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  checkForCurrentAvatar(){
+    console.log("i've been called");
+    let activeAvatar = null;
+    let activeParent = null;
+    console.log(this.state.avatar_url);
+
+    if(this.state.avatar_url != null){
+      activeAvatar = document.querySelector(".modal-main--label--image[src='"+this.state.avatar_url+"']");
+      activeParent = activeAvatar.parentNode;
+
+      activeAvatar.style.transform = 'translateY(-10px)';
+      activeParent.style.border = '4px solid #0ABDC6';
+      activeParent.style.padding = '14px';
+
+    }
+  }
 
   toggleHover = ( index) =>{
     this.setState({hover: !this.state.hover, hoverID: index});
@@ -111,18 +127,7 @@ class Avatar extends Component{
     let allLabels = null;
     let allImages = null;
 
-    let activeAvatar = null;
-    let activeParent = null;
-
-    if(this.state.avatar_url != null){
-      activeAvatar = document.querySelector(".modal-main--label--image[src='"+this.state.avatar_url+"']");
-      activeParent = activeAvatar.parentNode;
-
-      activeAvatar.style.transform = 'translateY(-10px)';
-      activeParent.style.border = '4px solid #0ABDC6';
-      activeParent.style.margin = '6px';
-
-    }
+    this.checkForCurrentAvatar();
 
     if(this.state.hoverID != null){
       imageID = document.getElementById('avatar'+this.state.hoverID);
@@ -134,7 +139,7 @@ class Avatar extends Component{
         this.state.hover = false;
         [...allLabels].map((i) => {
           i.style.border = null;
-          i.style.margin = null;
+          i.style.padding = null;
         });
 
         [...allImages].map((i) => {
@@ -143,7 +148,7 @@ class Avatar extends Component{
 
         imageID.style.transform = 'translateY(-10px)';
         labelID.style.border = '4px solid #0ABDC6';
-        labelID.style.margin = '6px';
+        labelID.style.padding = '14px';
 
         let url = imageID.src;
         let result = this.RemoveBaseUrl(url);
@@ -156,7 +161,7 @@ class Avatar extends Component{
 
         [...allLabels].map((i) => {
           i.style.border = null;
-          i.style.margin = null;
+          i.style.padding = null;
         });
 
         [...allImages].map((i) => {
@@ -165,7 +170,7 @@ class Avatar extends Component{
 
         imageID.style.transform = 'translateY(0px)';
         labelID.style.border = null;
-        labelID.style.margin = null;
+        labelID.style.padding = null;
       }
     }
 
@@ -191,8 +196,16 @@ class Avatar extends Component{
           </form>
         </Modal>
 
-        <button type="button" onClick={this.showModal}>
-          <img src={this.state.avatar_url} width="100px"></img>
+        <button className="dashboard__article__details__avatar" type="button" onClick={this.showModal}>
+          <figure>
+            <img src={this.state.avatar_url} className="dashboard__article__details__avatar__image" alt="Your personal avatar"></img>
+          </figure>
+          <div className="dashboard__article__details__avatar__overlay">
+            <p className="dashboard__article__details__avatar__overlay__label">Change Avatar</p>
+            <img className="dashboard__article__details__avatar__overlay__image" src="img/edit.svg"/>
+
+
+          </div>
         </button>
       </section>
     );
