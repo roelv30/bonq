@@ -519,17 +519,7 @@ const Room = (props) => {
                                     <div className="col-md-8">
                                         <h6>Messages</h6>
                                         <div id="messages">
-                                            <AutoscrolledList
-                                                items={messages}
-                                                onScrolled={e => console.log("the list was scrolled!")}
-                                                onScrolledTop={e => alert("scrolled to top!")}
-                                            />
-                                            {/*{messages.map(({ user, date, text }, index) => (*/}
-                                            {/*    <div key={index} className="row mb-2">*/}
-                                            {/*        <div className="col-md-2">{moment(date).format("h:mm:ss a")} | {user.name} | {text}</div>*/}
-                                            {/*        {this.scrollIntoView()}*/}
-                                            {/*    </div>*/}
-                                            {/*))}*/}
+                                            <AutoscrolledList items={messages} />
                                         </div>
                                         <form onSubmit={submit} id="form">
                                             <div className="input-group">

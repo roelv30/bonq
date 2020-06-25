@@ -37,7 +37,8 @@ io.on('connection', socket => {
 
         const user = {
             name: username,
-            id: socket.id
+            id: socket.id,
+            team: null
         };
 
         users[socket.id] = user;
@@ -201,6 +202,8 @@ io.on('connection', socket => {
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
         }
+        users[socket.id].team = payload;
+        //console.log(users[socket.id]);
        // console.log(payload);
         arrayOfUsersinThisTeam = [];
         //console.log(users[roomNumber]);
@@ -210,7 +213,7 @@ io.on('connection', socket => {
             //     socket.emit("room full");
             //     return;
             // }
-            console.log("room");
+
             if(users[roomNumber][payload]){
                 users[roomNumber][payload].push(socket.id);
             }else{
@@ -227,10 +230,10 @@ io.on('connection', socket => {
             ///let payload = {[ {"name":"tomato", "howMany": 3} ]}[payload]
            // users[roomNumber] = payload[socket.id];
             //users[roomNumber][payload].push(socket.id);
-            console.log(users);
+            //console.log(users);
         }
-        console.log("users");
-        console.log(users);
+        //console.log("users");
+        //console.log(users);
 
         if (users[roomNumber][payload]) {
             let sizeOfUsers = Object.keys(users[roomNumber][payload]).length;
@@ -251,7 +254,7 @@ io.on('connection', socket => {
 
             arrayOfUsersinThisTeam.forEach(myFunction2);
             function myFunction2(item, index) {
-                console.log("item");
+               // console.log("item");
                 //console.log("payload");
                 //console.log();
 
