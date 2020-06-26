@@ -1,0 +1,211 @@
+.dashboard {
+  position: relative;
+  padding: 3rem 0;
+  z-index: 1;
+}
+
+.dashboard__article, .dashboard__article--games {
+  margin: 1rem auto;
+  width: 80%;
+  padding: 2rem;
+  border: 3px solid #D10C76;
+  border-radius: 3px;
+}
+
+.dashboard__article--games {
+  display: flex;
+  overflow-y: hidden;
+  height: 17rem;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0 auto;
+
+}
+
+
+.dashboard__article__title, .dashboard__article__title--pink, .dashboard__article__title--center {
+  letter-spacing: 3px;
+  font-size: 3rem;
+}
+
+.dashboard__article__title--pink {
+  color: #D10C76;
+}
+
+.dashboard__article__title--center {
+  font-family: 'Squada One', cursive;
+  text-align: center;
+}
+
+.dashboard__article__details {
+  display: flex;
+  align-items: center;
+  margin: 0 2rem;
+}
+
+.dashboard__article__details__avatar {
+  position: relative;
+  padding: 0;
+  background-color: #133e7c;
+  border-radius: 50%;
+  width: 11rem;
+  height: 11rem;
+  box-shadow: inset 0 0 1px #091833;
+  margin-right: 2rem;
+  border: 4px solid #D10C76;
+
+}
+
+.dashboard__article__details__avatar__image{
+  width: 75%;
+}
+
+.dashboard__article__details__avatar__overlay{
+  background-color: rgba(0,0,0,0.4);
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  padding: 1em;
+  border-radius: 50%;
+  height: inherit;
+  width: inherit;
+  border: 0px solid black;
+  color: white;
+  margin: auto 0;
+  opacity: 0;
+  transition: .25s;
+}
+
+.dashboard__article__details__avatar__overlay:hover{
+  opacity: 1;
+  cursor: pointer;
+}
+
+.dashboard__article__details__avatar__overlay__image{
+  width: 45%;
+  margin: 5px;
+}
+
+.dashboard__article__details__avatar__overlay__label{
+  font-size: 14px;
+  font-weight: 500;
+  color: #0ABDC6;
+}
+
+.dashboard__article__details__stats {
+  display: flex;
+  flex-direction: column;
+  margin: 3rem 4rem;
+  width: 80%;
+}
+
+.dashboard__article__details__stats__content {
+  display: flex;
+  margin-bottom: 1rem;
+  flex-direction: row;
+}
+
+.dashboard__article__details__stats__content--left {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 1.5rem;
+}
+
+.dashboard__article__details__stats__content--center {
+  margin: 0 1rem;
+  width: 15rem;
+
+}
+
+.dashboard__article__details__stats__content--right {
+  margin: 0 1rem;
+}
+
+.dashboard__article__menu {
+  display: flex;
+  justify-content: space-around;
+}
+
+.dashboard__article__menu__button {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  transition: 1s;
+}
+
+.dashboard__article__menu__button:hover {
+  color: #D10C76;
+  transition: 1s;
+}
+
+.dashboard__article__menu__button__img {
+  transition: 0.5s;
+}
+
+.dashboard__article__menu__button:hover  .dashboard__article__menu__button__img {
+  transform: translateY(-10%);
+}
+
+.dashboard__article__game {
+  display: flex;
+  height: 12rem;
+  width: 50%;
+  text-align: center;
+  object-fit: cover;
+  border-right: #D10C76 solid 1px;
+  margin-right: 3rem;
+}
+
+.dashboard__article__game:last-child {
+  border: none;
+}
+
+.dashboard__article__game__title {
+  height: 12rem;
+  width: 13rem;
+  position: relative;
+}
+
+.dashboard__article__game__title__img {
+  width: inherit;
+  height: inherit;
+  filter: blur(1px);
+  object-fit: cover;
+  border: 2px solid #D10C76;
+}
+
+.dashboard__article__game__title__text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: inherit;
+  transform: translate(-50%, -50%);
+  overflow-wrap: break-word;
+  font-family: 'Squada One', cursive;
+  -webkit-text-stroke-width: 1px;
+  font-size: 1.5em;
+  -webkit-text-stroke-color: #D10C76;
+}
+
+.dashboard__article__game__options {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+}
+
+.dashboard__article__game__options__button {
+  text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    font-family: 'Squada One', cursive;
+    background-color: #0ABDC6;
+    text-align: center;
+    padding: 0.25rem 3rem;
+}
+
+.dashboard__article__game__options__button:hover {
+  box-shadow: inset 0 0 5px #000000;
+  cursor: pointer;
+}

@@ -5,6 +5,8 @@ import styled from "styled-components";
 import {bool} from "prop-types";
 import Video from "../components/Video"
 import Switch from "react-switch";
+import Back from '../extern/Back';
+
 import moment from "moment";
 import 'react-tabs/style/react-tabs.css';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
@@ -61,7 +63,7 @@ const Room = (props) => {
 
 
     useEffect(() => {
-        socketRef.current = io.connect('http://localhost:3001');
+        socketRef.current = io.connect('/');
 
         // socketRef.current.on("connected", user => {
         //     //socket.emit("send", "joined the server");
@@ -439,6 +441,7 @@ const Room = (props) => {
     if(intro === false) {
         return (
             <Container>
+              <Back text="&larr; back" link="/dashboard"/>
 
 
                 <section>

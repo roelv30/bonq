@@ -4,7 +4,6 @@
   z-index: 1;
 }
 
-
 .register__article{
   padding: 2rem 0;
 }
@@ -51,7 +50,7 @@
   display: inline-block;
   text-decoration: none;
   padding: 1rem;
-  margin: 1rem 0 4rem 0;
+  margin: 1rem 0;
   text-align: center;
 }
 

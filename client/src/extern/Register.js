@@ -32,14 +32,14 @@ class Register extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ loading: true });
-    axios.post('http://localhost:8000/api/signup', {
+    axios.post('https://bonq-api.herokuapp.com/api/signup', {
         username:this.state.username,
         email: this.state.email,
         password: this.state.password,
       })
     .then((response) => {
       this.setState({ error: '' });
-      axios.post('http://localhost:8000/api/signin', {
+      axios.post('https://bonq-api.herokuapp.com/api/signin', {
         email: this.state.email,
         password: this.state.password
       })
@@ -62,7 +62,7 @@ class Register extends React.Component {
     const { redirect } = this.state;
 
     if (redirect) {
-      return <Redirect to="/succes"/>
+      return <Redirect to="/dashboard"/>
     }
 
     return (
@@ -71,7 +71,7 @@ class Register extends React.Component {
          <div className="background__inside"></div>
        </div>
 
-        <Back />
+        <Back text="&larr; back to start" link="/"/>
         <article className="register__article">
           <h1 className="register__article__title">Register</h1>
           <form className="register__article__form" onSubmit={this.handleSubmit}>
@@ -81,7 +81,8 @@ class Register extends React.Component {
                 type='username'
                 value={this.state.username}
                 onChange={this.handleChange}
-                required/>
+                required
+                maxLength="15"/>
             </label>
             <label className="register__article__form__label">Email
               <input className="register__article__form__input"

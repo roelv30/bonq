@@ -3,9 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/containers/AutoscrolledList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/AutoscrolledList.js" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/containers/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/extern/Avatar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Avatar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/extern/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/extern/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/extern/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/extern/Test.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Test.js" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +26,17 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
   <component name="ProjectId" id="1dijcLqYjWFT1ICo5MPgundZRfi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -33,13 +50,9 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.3.4\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="X:\Bonq_Current\bonq\client\src" />
-    </key>
+    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -52,46 +65,35 @@
       <option name="presentableId" value="Default" />
       <updated>1592914886218</updated>
       <workItem from="1592914890772" duration="986000" />
-      <workItem from="1592995992059" duration="18690000" />
-      <workItem from="1593023104239" duration="5854000" />
-      <workItem from="1593084919376" duration="6401000" />
-      <workItem from="1593116100088" duration="3389000" />
+      <workItem from="1592990475336" duration="151000" />
+      <workItem from="1592990642140" duration="216000" />
+      <workItem from="1592990881943" duration="36000" />
+      <workItem from="1592991093714" duration="903000" />
+      <workItem from="1592992031373" duration="1178000" />
+      <workItem from="1593182900145" duration="119000" />
+
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
+
   <component name="WindowStateProjectService">
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1593023221380">
+    <state x="739" y="275" key="FileChooserDialogImpl" timestamp="1592991395212">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593023221380" />
-    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593005222124">
+    <state x="739" y="275" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592991395212" />
+    <state x="2659" y="275" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592990770722" />
+    <state x="668" y="140" key="SettingsEditor" timestamp="1592991861544">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593005222124" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1593024821609">
+    <state x="668" y="140" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592991861544" />
+    <state x="2381" y="162" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592990776974" />
+    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593183018571">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593024821609" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1593120259665">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593120259665" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/client/src/containers/Room.js</url>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593183018571" />
+
   </component>
 </project>
