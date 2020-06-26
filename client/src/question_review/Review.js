@@ -3,46 +3,69 @@ import ReactDOM from 'react-dom';
 import {Switch , Route, Link} from 'react-router-dom';
 import axios from 'axios';
 
-
-export default class Review extends React.Component {
+class Review extends React.Component {
 
   constructor(){
     super();
     this.state = {
-      questions: [],
+        questions: [],
+        answers: [],
     }
   }
 
   componentDidMount(){
     axios.get(`http://127.0.0.1:8000/api/question`)
       .then(response => {
-        this.setState({questions: response.data});
+        for(let i = 0; i < response.data.length; i++){
+          this.setState(previousState => ({
+            questions: [...previousState.questions, response.data[i].shown_question],
+            answers: [...previousState.answers, response.data[i].answer[0].checked_answer]
+          }))
+        }
       })
   }
 
   render() {
 
-    const data = this.state.questions;
-    console.log(data);
-
     return(
+
       <section>
 
-        <div>
-          {Object.keys(data).map((key) => (
-            <div>
-              <h1>{data[key].shown_question}</h1>
-              {Object.keys(data[key].answer).map((index) => (
-                <h2>{data[key].answer[index].checked_answer}</h2>
-              ))}
-            </div>
-          ))}
-
+      {this.state.questions.map((question, key) => (
+        <div key={key}>
+          <p>{question}</p>
+          <p>{this.state.answers[key]}</p>
         </div>
+      ))}
 
-        <h1>Hallo</h1>
         <Link to="/succes">Back to succes page</Link>
       </section>
     );
   }
 }
+
+export default Review;
+
+// axios.get(`http://127.0.0.1:8000/api/question`)
+//   .then(response => {
+//     this.setState({questions: response.data});
+//     console.log(response)
+//   })
+//
+//   let pubquizList = {};
+//
+//   const addQuestionsToObject = () => {
+//     const data = this.state.questions;
+//
+//       Object.keys(data).map((index) => (
+//           // this functions loops through the state data taking the data from the question and
+//           // its answer and adding it to an object.
+//           // number filled in the [] after answer must always be zero since a question only has one right answer.
+//           // filling in zero will prevent that another loop has to be made.
+//           pubquizList[index] = {question: data[index].shown_question, answer: data[index].answer[0].checked_answer},
+//           console.log(pubquizList)
+//       ));
+//       return pubquizList;
+//  } //addQuestionsToObject
+//  console.log("ik wil dood");
+//  addQuestionsToObject();
