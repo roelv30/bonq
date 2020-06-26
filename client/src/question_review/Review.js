@@ -12,12 +12,7 @@ class Review extends React.Component {
     this.state = {
         questions: [],
         answers: [],
-        active: true,
     }
-  }
-
-  isActive = () => {
-    this.setState({active: !this.state.active})
   }
 
   componentDidMount(){
@@ -33,9 +28,11 @@ class Review extends React.Component {
       })
   }
 
-  render() {
+  clickHandler = () => {
+    console.log("I once read a book about gravity, it was impossible to put down");
+  }
 
-    let btn_active = this.state.active ? "activeButton" : "notActiveButton";
+  render() {
 
     return(
 
@@ -52,19 +49,19 @@ class Review extends React.Component {
               <p className="review__main__box__question">Question {key + 1}: {question}</p>
               <div className="review__main__box__check">
                 <p className="review__main__box__answer">Answer: {this.state.answers[key]}</p>
-                <div className="review__main__box__check__buttons">
+                <aside className="review__main__box__check__buttons">
                   <form>
                     <label>
                       <input type="radio" name="review" id="js--check" value="correct"/>
-                      <img src="/img/check.svg" />
+                      <img src="/img/check.svg" alt="check icon"/>
                     </label>
 
                     <label>
                       <input type="radio" name="review" id="js--fail" value="incorrect" />
-                      <img src="/img/wrong.svg" />
+                      <img src="/img/wrong.svg" alt="wrong icon"/>
                     </label>
                   </form>
-                </div>
+                </aside>
               </div>
             </div>
           ))}
@@ -72,7 +69,7 @@ class Review extends React.Component {
         </section>
 
         <section className="review__options">
-          <button type="button" className="review__options__confirm">submit</button>
+          <button id="js--review__button" onClick={this.clickHandler} type="button" className="review__options__confirm">submit</button>
         </section>
       </article>
 

@@ -16,6 +16,12 @@
   overflow-y: auto;
 }
 
+.review__main__title{
+  font-family: 'Squada One', cursive;
+  letter-spacing: 3px;
+  font-size: 4rem;
+}
+
 .review__main__box{
   margin-top: 5%;
   display: flex;
@@ -39,14 +45,6 @@
   background: none;
   border: none;
   cursor: pointer;
-}
-
-.activeButton{
-  filter: brightness(200%);
-}
-
-.notActiveButton{
-  filter: brightness(50%);
 }
 
 [type=radio]{
