@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bonq_react/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/bonq_react/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bonq_react/src/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/bonq_react/src/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bonq_react/src/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/bonq_react/src/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Video.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Video.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/bonq.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bonq.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +14,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="een_account_aanmaken" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -44,10 +42,19 @@
       <option name="presentableId" value="Default" />
       <updated>1592914886218</updated>
       <workItem from="1592914890772" duration="986000" />
+      <workItem from="1593173998929" duration="414000" />
+      <workItem from="1593174433761" duration="152000" />
+      <workItem from="1593174606976" duration="310000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="583" y="28" key="CommitChangelistDialog2" timestamp="1593174905967">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="583" y="28" key="CommitChangelistDialog2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593174905967" />
   </component>
 </project>
