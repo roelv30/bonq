@@ -27,7 +27,9 @@ var io = require('socket.io')(server);
 
 const users = {};
 const socketToRoom = {};
+const socketToTeam = {};
 const usersConnected = {};
+
 
 io.on('connection', socket => {
 
@@ -35,12 +37,13 @@ io.on('connection', socket => {
 
         const user = {
             name: username,
-            id: socket.id
+            id: socket.id,
+            team: null
         };
 
         users[socket.id] = user;
         //usersConnected[socket.id] = user;
-       // console.log(users[socket.id]);
+        // console.log(users[socket.id]);
         //io.to(roomNumber).emit("connected", user);
         //io.to(roomNumber).emit("users", Object.values(usersConnected));
         //const usersInThisRoom = users[roomNumber].filter(id => id !== socket.id);
@@ -50,9 +53,9 @@ io.on('connection', socket => {
         //console.log("sending");
         //io.to(socket.id).emit("users", Object.values(users));
         //io.to(roomNumber).emit("users", Object.values(users));
-       // console.log(arrayOfUsersinThisRoom);
-       //  io.to(socket.id).emit("users", Object.values(users));
-       //  io.to(roomNumber).emit("users", Object.values(users));
+        // console.log(arrayOfUsersinThisRoom);
+        //  io.to(socket.id).emit("users", Object.values(users));
+        //  io.to(roomNumber).emit("users", Object.values(users));
     });
 
 
@@ -64,37 +67,38 @@ io.on('connection', socket => {
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
         }
+        io.emit("joinedRoom", roomNumber);
+        socket.join(roomNumber);
 
+        // if (users[roomNumber]) {
+        //     const length = users[roomNumber].length;
+        //     if (length === room_size) {
+        //         socket.emit("room full");
+        //         return;
+        //     }
+        //     users[roomNumber].push(socket.id);
+        // } else {
+        //     users[roomNumber] = [socket.id];
+        // }
 
-        if (users[roomNumber]) {
-            const length = users[roomNumber].length;
-            if (length === room_size) {
-                socket.emit("room full");
-                return;
-            }
-            users[roomNumber].push(socket.id);
-        } else {
-            users[roomNumber] = [socket.id];
-        }
-
-        if (users[roomNumber]) {
-            let sizeOfUsers = Object.keys(users).length;
-           // console.log(sizeOfUsers );
-
-
-                    const usersInThisRoom2 = users[roomNumber].filter(id => id !== socket.id);
-                    console.log("usersInThisRoom2");
-                    console.log(users[roomNumber]);
-                   // console.log(usersInThisRoom2);
-                    users[roomNumber].forEach(myFunction);
-                    function myFunction(item, index) {
-                       // console.log(item);
-                        arrayOfUsersinThisRoom.push(users[item])
-                    }
-
-                    io.to(socket.id).emit("users", arrayOfUsersinThisRoom);
-                    io.to(roomNumber).emit('users', arrayOfUsersinThisRoom);
-        }
+        // if (users[roomNumber]) {
+        //     let sizeOfUsers = Object.keys(users).length;
+        //     // console.log(sizeOfUsers );
+        //
+        //
+        //     const usersInThisRoom2 = users[roomNumber].filter(id => id !== socket.id);
+        //     console.log("usersInThisRoom2");
+        //     console.log(users[roomNumber]);
+        //     // console.log(usersInThisRoom2);
+        //     users[roomNumber].forEach(myFunction);
+        //     function myFunction(item, index) {
+        //         // console.log(item);
+        //         arrayOfUsersinThisRoom.push(users[item])
+        //     }
+        //
+        //     io.to(socket.id).emit("users", arrayOfUsersinThisRoom);
+        //     io.to(roomNumber).emit('users', arrayOfUsersinThisRoom);
+        // }
 
 
         // console.log("room");
@@ -114,7 +118,7 @@ io.on('connection', socket => {
         //
         // }
 
-       // console.log("user joined room: " + roomNumber);
+        // console.log("user joined room: " + roomNumber);
 
 
 
@@ -127,18 +131,40 @@ io.on('connection', socket => {
 
         //io.to(socket.id).emit("users", Object.values(users));
         //io.to(roomNumber).emit("users", Object.values(users));
-        const usersInThisRoom = users[roomNumber].filter(id => id !== socket.id);
-        io.emit("joinedRoom", roomNumber);
-        socket.join(roomNumber);
-        socketToRoom[socket.id] = roomNumber;
-        console.log(usersInThisRoom);
-        io.to(socket.id).emit("all users", usersInThisRoom)
+        // const usersInThisRoom = users[roomNumber].filter(id => id !== socket.id);
+        // io.emit("joinedRoom", roomNumber);
+        // socket.join(roomNumber);
+         socketToRoom[socket.id] = roomNumber;
+        // console.log(usersInThisRoom);
+        // io.to(socket.id).emit("all users", usersInThisRoom)
         //socket.emit("all users", usersInThisRoom);
 
 
         //socket.emit("all users", usersInThisRoom);
         //io.to(socket.id).emit("users", Object.values(users));
         //io.to(roomNumber).emit("users", Object.values(users));
+    });
+
+    socket.on("send", message => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+        //console.log("User:"  +user);
+        io.to(roomNumber).emit("message", {
+            text: message,
+            date: new Date().toISOString(),
+            user: users[socket.id]
+        });
+
+        console.log("got a message");
+        //
+        // io.emit("message", {
+        //   text: message,
+        //   date: new Date().toISOString(),
+        //   user: users[client.id]
+        // });
     });
 
     socket.on("send peer", payload => {
@@ -169,22 +195,204 @@ io.on('connection', socket => {
     //     socket.leave(roomID);
     //
     // });
+    socket.on("join team", payload => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        arrayOfUsersinThisRoom = [];
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+        users[socket.id].team = payload;
+        //console.log(users[socket.id]);
+       // console.log(payload);
+        arrayOfUsersinThisTeam = [];
+        //console.log(users[roomNumber]);
+        if (users[roomNumber]) {
+            // const length = teams[payload].length;
+            // if (length === room_size) {
+            //     socket.emit("room full");
+            //     return;
+            // }
 
+            if(users[roomNumber][payload]){
+                users[roomNumber][payload].push(socket.id);
+            }else{
+                users[roomNumber][payload] = [socket.id];
+            }
+            //console.log(users[roomNumber][payload]);
+
+            //teams[payload].push(socket.id);
+
+        } else {
+            //teams[payload] = [socket.id];
+
+            users[roomNumber] = {[payload] : [socket.id]};
+            ///let payload = {[ {"name":"tomato", "howMany": 3} ]}[payload]
+           // users[roomNumber] = payload[socket.id];
+            //users[roomNumber][payload].push(socket.id);
+            //console.log(users);
+        }
+        //console.log("users");
+        //console.log(users);
+
+        if (users[roomNumber][payload]) {
+            let sizeOfUsers = Object.keys(users[roomNumber][payload]).length;
+            // console.log(sizeOfUsers );
+
+
+           // const usersInThisTeam = users[roomNumber][payload].filter(id => id !== socket.id);
+
+            users[roomNumber][payload].forEach(myFunction);
+            function myFunction(item, index) {
+                // console.log(item);
+                arrayOfUsersinThisTeam.push(users[item])
+            }
+            // console.log("arrayOfUsersinThisTeam");
+            // console.log(arrayOfUsersinThisTeam);
+            //io.to(socket.id).emit("teams", arrayOfUsersinThisTeam);
+
+
+            arrayOfUsersinThisTeam.forEach(myFunction2);
+            function myFunction2(item, index) {
+               // console.log("item");
+                //console.log("payload");
+                //console.log();
+
+                io.to(item.id).emit('teams', arrayOfUsersinThisTeam);
+                // console.log(item);
+                // arrayOfUsersinThisTeam.push(users[item])
+            }
+
+        }
+        socketToTeam[socket.id] = payload;
+
+        const usersInThisTeam = users[roomNumber][payload].filter(id => id !== socket.id);
+
+        io.to(socket.id).emit("all users", usersInThisTeam)
+
+        // console.log("teams");
+        // console.log(teams);
+        // const usersInThisRoom = users[roomNumber].filter(id => id !== socket.id);
+        // io.emit("joinedRoom", roomNumber);
+        // socket.join(roomNumber);
+       // socketToRoom[socket.id] = roomNumber;
+       // console.log(usersInThisRoom);
+       // io.to(socket.id).emit("all users", usersInThisRoom)
+
+    });
 
     socket.on('disconnect', () => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        arrayOfUsersinThisTeam = [];
 
-        const roomID = socketToRoom[socket.id];
-        console.log("left");
-        io.to(roomID).emit('left', socket.id);
-        //console.log(roomID);
-        let room = users[roomID];
-        if (room) {
-            room = room.filter(id => id !== socket.id);
-            users[roomID] = room;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
         }
 
-        //delete users[socket.id];
+        const roomID = socketToRoom[socket.id];
+        const teamID = socketToTeam[socket.id];
+        console.log("a user left");
+        io.to(roomID).emit('left', socket.id);
+        //console.log(roomID);
+        // let room = users[roomID];
+        // if (room) {
+        //     room = room.filter(id => id !== socket.id);
+        //     users[roomID] = room;
+        // }
+
+        if(teamID != null){
+            let test = users[roomID][teamID];
+            if (test) {
+                test = test.filter(id => id !== socket.id);
+                users[roomNumber][teamID] = test;
+            }
+        }
+        //socket.leave(teamID);
         socket.leave(roomID);
+
+        //update team names in certain team.
+        if(users[roomNumber]){
+            if (users[roomNumber][teamID]) {
+                let sizeOfUsers = Object.keys(users[roomNumber][teamID]).length;
+                // console.log(sizeOfUsers );
+
+                users[roomID][teamID].forEach(myFunction);
+                function myFunction(item, index) {
+                    console.log(item);
+                    arrayOfUsersinThisTeam.push(users[item])
+                }
+
+                arrayOfUsersinThisTeam.forEach(myFunction2);
+                function myFunction2(item, index) {
+                    console.log("item");
+                    //console.log("payload");
+                    //console.log();
+
+                    io.to(item.id).emit('update teams', arrayOfUsersinThisTeam);
+                    // console.log(item);
+                    // arrayOfUsersinThisTeam.push(users[item])
+                }
+
+                //io.to(socket.id).emit("update teams", arrayOfUsersinThisTeam);
+                //io.to(roomNumber).emit('update teams', arrayOfUsersinThisTeam);
+            }
+        }
+
+
+        //update all user lists
+        // if (users[roomID]) {
+        //     let sizeOfUsers = Object.keys(users).length;
+        //     // console.log(sizeOfUsers );
+        //
+        //
+        //     const usersInThisRoom2 = users[roomID].filter(id => id !== socket.id);
+        //     // console.log("usersInThisRoom2");
+        //     // console.log(users[roomNumber]);
+        //     // console.log(usersInThisRoom2);
+        //     users[roomID].forEach(myFunction);
+        //     function myFunction(item, index) {
+        //         // console.log(item);
+        //         arrayOfUsersinThisRoom.push(users[item])
+        //     }
+        //
+        //     io.to(socket.id).emit("users", arrayOfUsersinThisRoom);
+        //     io.to(roomID).emit('users', arrayOfUsersinThisRoom);
+        // }
+
+        // if (teams[teamID]) {
+        //     let sizeOfUsers = Object.keys(teams).length;
+        //     // console.log(sizeOfUsers );
+        //
+        //     const usersInThisTeam = teams[teamID].filter(id => id !== socket.id);
+        //
+        //     teams[teamID].forEach(myFunction);
+        //     function myFunction(item, index) {
+        //         // console.log(item);
+        //         arrayOfUsersinThisTeam.push(users[item])
+        //     }
+        //     // console.log("arrayOfUsersinThisTeam");
+        //     // console.log(arrayOfUsersinThisTeam);
+        //     //io.to(socket.id).emit("teams", arrayOfUsersinThisTeam);
+        //
+        //
+        //     arrayOfUsersinThisTeam.forEach(myFunction2);
+        //     function myFunction2(item, index) {
+        //         console.log("item");
+        //         //console.log("payload");
+        //         //console.log();
+        //
+        //         io.to(item.id).emit('update team', arrayOfUsersinThisTeam);
+        //         // console.log(item);
+        //         // arrayOfUsersinThisTeam.push(users[item])
+        //     }
+        //
+        // }
+
+
+        //delete teams[socket.id];
+
+
     });
 
 
@@ -278,6 +486,7 @@ io.on('connection', socket => {
 
 
 });
+
 
 
 console.log(`server is listening on ${port}`);

@@ -1,7 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Home from '../components/Home'
 import PropTypes from 'prop-types';
 
+// import store from '../store'
 class HomePage extends React.Component {
   constructor(props) {
     super(props);

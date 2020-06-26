@@ -12,6 +12,19 @@ html {
   font-size: 62.5%;
 }
 
+.full-width{
+  width: 100%;
+}
+
+.whiteText{
+  color:white !important;
+}
+.hidden{
+  display: none;
+}
+.visible{
+  display: block;
+}
 body{
   font-weight: 400;
   font-size: 2rem;
