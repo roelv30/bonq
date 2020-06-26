@@ -18,15 +18,15 @@ class InsertQuestionsForm extends React.Component {
   //             answer: ""}],
   // };
 
-  state1 = {
-    round1: [{ question: "",
-              answer: ""}],
-    round2: [{ question: "",
-              answer: ""}],
-  };
+  // state1 = {
+  //   round1: [{ question: "",
+  //             answer: ""}],
+  //   round2: [{ question: "",
+  //             answer: ""}],
+  // };
 
   state = {
-    roundCount: 5,
+    roundCount: [0, 1, 2, 3, 4],
     selectedTab: 0,
     round0: [{ question: "b", answer: ""},],
     round1: [{ question: "", answer: ""},],
@@ -36,23 +36,35 @@ class InsertQuestionsForm extends React.Component {
   };
 
   // state = {
+  //   roundCount: [0, 1, 2, 3, 4],
+  //   selectedTab: 0,
+  // };
+
+  // state = {
   //   roundCount: 5,
   //   selectedTab: 0,
   //   rounds: [],
   // };
 
+  // OLD VERSION TO
   parseRoundsIntoState = (e) => {
     console.log("parse round called");
-    for (let i = 0; i < this.state.roundCount; i++) {
-      // let selectedRoundName = "round" + i;
+    for (let i = 0; i < this.state.roundCount.length; i++) {
+      let selectedRoundName = "round" + i;
       let selectedRoundArray = [{ question: "", answer: ""}];
-      // this.setState({ rounds: this.state.rounds.concat([selectedRoundName]) });
-      this.state.rounds = this.state.rounds.concat([selectedRoundArray]);
-      console.log(this.state.rounds);
-
-      // let items = [...this.state.rounds, selectedRoundArray]
-      // console.log(items);
+      let data = [...this.state];
+      data[selectedRoundName] = selectedRoundArray;
     }
+  //   for (let i = 0; i < this.state.roundCount; i++) {
+  //     // let selectedRoundName = "round" + i;
+  //     let selectedRoundArray = [{ question: "", answer: ""}];
+  //     // this.setState({ rounds: this.state.rounds.concat([selectedRoundName]) });
+  //     this.state.rounds = this.state.rounds.concat([selectedRoundArray]);
+  //     console.log(this.state.rounds);
+  //
+  //     // let items = [...this.state.rounds, selectedRoundArray]
+  //     // console.log(items);
+  //   }
   }
 
   // handleChange = (e) => {
@@ -155,7 +167,7 @@ class InsertQuestionsForm extends React.Component {
     // }));
     this.setState(prevState => {
       let item = Object.assign({}, prevState);  // creating copy of state variable jasper
-      item.selectedTab = id-1;
+      item.selectedTab = id;
       console.log("item: ");
       console.log(item);                 // update the name property, assign a new value
       return item ;                                 // return new object jasper object
@@ -169,47 +181,44 @@ class InsertQuestionsForm extends React.Component {
     // let round = this.state["round" + this.state.selectedTab];
     // console.log(round);
     // document.addEventListener("click", ()=>{console.log(this.state);})
+
+    const currentRound = this.state["round" + this.state.selectedTab];
+
+    const testArray = [1, 2, 3, 4, 5];
+
+    const roundTabList = this.state.roundCount.map((roundTab)=>{
+      return <Tab onClick={this.changeSelectedRound} data-id={roundTab}>{"Round " + (roundTab+1)}</Tab>;
+    });
+
+    const roundTabPanel = this.state.roundCount.map((roundPanel)=>{
+      return (
+        <TabPanel>
+        {
+          currentRound.map((val, idx)=>{
+            let questionId = `question-${idx}`, answerId = `answer-${idx}`;
+            return (
+              <div key={idx}>
+                <label htmlFor={questionId}>{`Question #${idx+1}`}</label>
+                <input type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} className="question"/>
+                <label htmlFor={answerId}>Answer: </label>
+                <input type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} className="answer"/>
+              </div>
+            )
+          })
+        }
+        </TabPanel>
+      );
+    });
+
     return(
       <>
       <Tabs>
         <TabList>
-          <Tab onClick={this.changeSelectedRound} data-id="1">Title 1</Tab>
-          <Tab onClick={this.changeSelectedRound} data-id="2">Title 2</Tab>
+          {roundTabList}
         </TabList>
 
         <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-          <TabPanel>
-            <h2>Any content 1</h2>
-            {
-              this.state["round" + this.state.selectedTab].map((val, idx)=>{
-                let questionId = `question-${idx}`, answerId = `answer-${idx}`;
-                return (
-                  <div key={idx}>
-                    <label htmlFor={questionId}>{`Question #${idx+1}`}</label>
-                    <input type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} className="question"/>
-                    <label htmlFor={answerId}>Answer: </label>
-                    <input type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} className="answer"/>
-                  </div>
-                )
-              })
-            }
-          </TabPanel>
-          <TabPanel>
-            <h2>Any content 2</h2>
-            {
-              this.state["round" + this.state.selectedTab].map((val, idx)=>{
-                let questionId = `question-${idx}`, answerId = `answer-${idx}`;
-                return (
-                  <div key={idx}>
-                    <label htmlFor={questionId}>{`Question #${idx+1}`}</label>
-                    <input type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} className="question"/>
-                    <label htmlFor={answerId}>Answer: </label>
-                    <input type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} className="answer"/>
-                  </div>
-                )
-              })
-            }
-          </TabPanel>
+          {roundTabPanel}
           <button type="button" onClick={this.addItem} >Add new Question</button>
           <button type="submit" value="Submit" > Submit</button>
         </form>
