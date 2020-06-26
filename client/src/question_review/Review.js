@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Switch , Route, Link} from 'react-router-dom';
 import axios from 'axios';
+import Back from '../extern/Back';
+import '../question_review/Review.css';
 
 class Review extends React.Component {
 
@@ -10,15 +12,21 @@ class Review extends React.Component {
     this.state = {
         questions: [],
         answers: [],
+        active: true,
     }
+  }
+
+  isActive = () => {
+    this.setState({active: !this.state.active})
   }
 
   componentDidMount(){
     axios.get(`http://127.0.0.1:8000/api/question`)
       .then(response => {
         for(let i = 0; i < response.data.length; i++){
+          // the loop keeps adding data from the api to the state
           this.setState(previousState => ({
-            questions: [...previousState.questions, response.data[i].shown_question],
+            questions: [...previousState.questions, response.data[i].shown_question], // take the previous state, add data and update the state.
             answers: [...previousState.answers, response.data[i].answer[0].checked_answer]
           }))
         }
@@ -27,19 +35,47 @@ class Review extends React.Component {
 
   render() {
 
+    let btn_active = this.state.active ? "activeButton" : "notActiveButton";
+
     return(
 
-      <section>
+      <article className="review">
+        <section className="review__back">
+          <Back text="back to succes page" link="/succes"/>
+        </section>
 
-      {this.state.questions.map((question, key) => (
-        <div key={key}>
-          <p>{question}</p>
-          <p>{this.state.answers[key]}</p>
-        </div>
-      ))}
+        <section className="review__main">
 
-        <Link to="/succes">Back to succes page</Link>
-      </section>
+          <h2 className="review__main__title">Time to check the answers!</h2>
+          {this.state.questions.map((question, key) => (
+            <div className="review__main__box" key={key}>
+              <p className="review__main__box__question">Question {key + 1}: {question}</p>
+              <div className="review__main__box__check">
+                <p className="review__main__box__answer">Answer: {this.state.answers[key]}</p>
+                <div className="review__main__box__check__buttons">
+                  <form>
+                    <label>
+                      <input type="radio" name="review" id="js--check" value="correct"/>
+                      <img src="/img/check.svg" />
+                    </label>
+
+                    <label>
+                      <input type="radio" name="review" id="js--fail" value="incorrect" />
+                      <img src="/img/wrong.svg" />
+                    </label>
+                  </form>
+                </div>
+              </div>
+            </div>
+          ))}
+
+        </section>
+
+        <section className="review__options">
+          <button type="button" className="review__options__confirm">submit</button>
+        </section>
+      </article>
+
     );
   }
 }

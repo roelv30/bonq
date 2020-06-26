@@ -1,0 +1,112 @@
+.review{
+  padding: 2rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.review__back{
+  padding: 2rem 0;
+}
+
+.review__main{
+  width: 80%;
+  margin: 1rem auto;
+  height: 60rem;
+  position: relative;
+  overflow-y: auto;
+}
+
+.review__main__box{
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.review__main__box__check{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+}
+
+.review__main__box__check__buttons{
+  display: flex;
+}
+
+.review__main__box__check__buttons > button {
+  margin: 0 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.activeButton{
+  filter: brightness(200%);
+}
+
+.notActiveButton{
+  filter: brightness(50%);
+}
+
+[type=radio]{
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+
+}
+
+[type=radio] + img{
+  cursor: pointer;
+  filter: brightness(50%);
+  margin: 0 1rem;
+}
+
+[type=radio]:checked + img {
+  filter: brightness(200%);
+}
+
+.review__main__box__check__buttons__correct:hover, .review__main__box__check__buttons__incorrect:hover{
+  filter: brightness(200%);
+}
+
+.review__main__box__check__buttons__correct > img {
+
+}
+
+.review__main__box__question{
+  font-size: 2.5rem;
+}
+
+.review__main__box__answer{
+  font-size: 2rem;
+}
+
+.review__options{
+  width: 100%;
+  text-align: right;
+}
+
+.review__options__confirm{
+  font-family: 'Squada One', cursive;
+  color: #fff;
+  background-color: #0ABDC6;
+  width: 20rem;
+  height: 5rem;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  display: inline-block;
+  text-decoration: none;
+  padding: 1rem;
+  text-align: center;
+  margin-right: 2rem;
+}
+
+.review__options__confirm:hover{
+  cursor: pointer;
+  box-shadow: inset 0 0 5px #000000;
+}
