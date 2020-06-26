@@ -63,7 +63,7 @@ class Test extends React.Component {
 			<NavLink exact activeClassName="active" to="/">
 				back to start
 			</NavLink>
-			<NavLink exact activeClassName="active" to="/host/questions">
+			<NavLink exact activeClassName="active" to="/pubq/questions">
 				questions
 			</NavLink>
 

@@ -6,9 +6,11 @@ import 'react-tabs/style/react-tabs.css';
 
 // import {changeSearchTerm, changeVideo} from './actions';
 
-class InsertQuestionsForm extends React.Component {
+class PubQuizQuestionsForm extends React.Component {
+
 
   componentDidMount(){
+    console.log(this.props);
     this.parseRoundsIntoState();
     console.log("did mount");
   };
@@ -245,7 +247,7 @@ class InsertQuestionsForm extends React.Component {
   }
 }
 
-export default InsertQuestionsForm;
+export default PubQuizQuestionsForm;
 
 /*
 

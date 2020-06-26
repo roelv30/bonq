@@ -8,7 +8,7 @@ import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-route
 import Home from './containers/HomePage';
 import Room from './containers/Room';
 import NotFound from './components/NotFound';
-import InsertQuestionsForm from './extern/InsertQuestionsForm';
+import PubQuizQuestionsForm from './extern/PubQuizQuestionsForm';
 import './style.css';
 
 
@@ -122,7 +122,7 @@ class App extends React.Component {
             <Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
         <PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
 
-        <PrivateRoute exact path="/host/questions" component={InsertQuestionsForm} isAuthenticated={this.state.isAuthenticated} token={this.state.token} logout={this.logout} />
+        <PrivateRoute exact path="/pubq/questions" component={PubQuizQuestionsForm} isAuthenticated={this.state.isAuthenticated} token={this.state.token} logout={this.logout} />
         {/*<Route exact  path="/" component={Home}  />*/}
         {/*<Route path="/r/:room" component={Room} />*/}
         <Route path="/r/:roomID"    render={(props) =>
