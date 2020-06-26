@@ -94,7 +94,7 @@ class App extends React.Component {
     };
 
     refresh() {
-        return axios.get('http://localhost:8000/api/refreshToken', {
+        return axios.get('https://bonq-api.herokuapp.com/api/refreshToken', {
             headers: { 'Authorization': 'Bearer ' + this.state.token }
         })
             .then((response) => {

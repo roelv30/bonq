@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/bonq.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bonq.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/JoinGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/JoinGame.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/containers/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/Room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/extern/Avatar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Avatar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/extern/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/extern/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/extern/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Start.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Start.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/extern/Test.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Test.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,6 +65,7 @@
       <workItem from="1592990881943" duration="36000" />
       <workItem from="1592991093714" duration="903000" />
       <workItem from="1592992031373" duration="1178000" />
+      <workItem from="1593182900145" duration="119000" />
     </task>
     <servers />
   </component>
@@ -81,9 +83,9 @@
     </state>
     <state x="668" y="140" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592991861544" />
     <state x="2381" y="162" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592990776974" />
-    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1592992092038">
+    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593183018571">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592992092038" />
+    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593183018571" />
   </component>
 </project>
