@@ -144,19 +144,5 @@ return [
 
     ],
 
-    'mysql' => [
-        'driver' => 'mysql',
-        'host' => env('DB_HOST', '185.94.230.248'),
-        'port' => env('DB_PORT', '3306'),
-        'database' => env('DB_DATABASE', 'simone1q_bonqdb'),
-        'username' => env('DB_USERNAME', 'simone1q_usrbonrq'),
-        'password' => env('DB_PASSWORD', 'JlXbV&K@zC&DFvKO*zwIaT2B6bqp166RYFY$'),
-        'unix_socket' => env('DB_SOCKET', ''),
-        'charset' => 'utf8mb4',
-        'collation' => 'utf8mb4_unicode_ci',
-        'prefix' => '',
-        'strict' => true,
-        'engine' => null,
-    ],
 
 ];

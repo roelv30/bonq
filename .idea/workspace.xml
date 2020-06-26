@@ -25,14 +25,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="Changed to running env">
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/bonq.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bonq.iml" afterDir="false" />
+    <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="Updated proc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,12 +155,15 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1dijcLqYjWFT1ICo5MPgundZRfi" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -198,7 +195,7 @@
       <workItem from="1593173998929" duration="414000" />
       <workItem from="1593174433761" duration="152000" />
       <workItem from="1593174606976" duration="1165000" />
-      <workItem from="1593175859977" duration="2452000" />
+      <workItem from="1593175859977" duration="3555000" />
     </task>
     <task id="LOCAL-00001" summary="Changed to running env">
       <created>1593174947547</created>
@@ -221,7 +218,21 @@
       <option name="project" value="LOCAL" />
       <updated>1593175950841</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Changed to running env">
+      <created>1593178941140</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1593178941140</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Updated proc">
+      <created>1593179238402</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1593179238402</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,8 +250,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Changed to running env" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed to running env" />
+    <MESSAGE value="Updated proc" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated proc" />
   </component>
   <component name="WindowStateProjectService">
     <state x="440" y="94" key="#Project_Structure" timestamp="1593175874375">
@@ -255,9 +268,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593177175445" />
-    <state x="552" y="249" key="Vcs.Push.Dialog.v2" timestamp="1593175952735">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-1131" y="222" key="RollbackChangesDialog" timestamp="1593179061758">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
+    <state x="-1131" y="222" key="RollbackChangesDialog/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1593179061758" />
+    <state x="-1368" y="249" key="Vcs.Push.Dialog.v2" timestamp="1593179239981">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1368" y="249" key="Vcs.Push.Dialog.v2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1593179239981" />
     <state x="552" y="249" key="Vcs.Push.Dialog.v2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593175952735" />
   </component>
 </project>
