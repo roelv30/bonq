@@ -158,7 +158,7 @@ io.on('connection', socket => {
             user: users[socket.id]
         });
 
-        console.log("got a message");
+        ///console.log("got a message");
         //
         // io.emit("message", {
         //   text: message,

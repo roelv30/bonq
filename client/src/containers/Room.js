@@ -73,7 +73,7 @@ const Room = (props) => {
         socketRef.current.on("message", message => {
 
             setMessages(messages => [...messages, message]);
-            console.log("message"  + messages);
+            //console.log("message"  + messages);
 
 
 
@@ -82,10 +82,10 @@ const Room = (props) => {
         socketRef.current.on("users", users => {
             //console.log();
             setUsers(users);
-            console.log("users");
-            console.log(users);
+            // console.log("users");
+            // console.log(users);
             {users.map(({ name, id }) => (
-                console.log("USERS: "+ id)
+                //console.log("USERS: "+ id)
                 //  document.getElementById(id).innerHTML = "whatever"
                 // <li key={id}>{name}</li>
             ))}
@@ -94,10 +94,10 @@ const Room = (props) => {
         socketRef.current.on("teams", teamUsers => {
             //console.log();
             setTeams(teamUsers);
-            console.log("teams");
-            console.log(teamUsers);
+            // console.log("teams");
+            // console.log(teamUsers);
             {teams.map(({ name, id }) => (
-                console.log("USERS: "+ id)
+                //console.log("USERS: "+ id)
                 //  document.getElementById(id).innerHTML = "whatever"
                 // <li key={id}>{name}</li>
             ))}
@@ -107,8 +107,8 @@ const Room = (props) => {
             //console.log();
             setTeams([])
             setTeams(teamUsers);
-            console.log("teams");
-            console.log(teamUsers);
+            // console.log("teams");
+            // console.log(teamUsers);
             {teams.map(({ name, id }) => (
                 console.log("USERS: "+ id)
                 //  document.getElementById(id).innerHTML = "whatever"
@@ -117,8 +117,8 @@ const Room = (props) => {
         });
 
         socketRef.current.on("joinedRoom", payload => {
-            console.log("joined room:");
-            console.log(payload);
+            // console.log("joined room:");
+            // console.log(payload);
 
         });
 
@@ -126,8 +126,8 @@ const Room = (props) => {
 
 
         socketRef.current.on("users in same room", payload => {
-            console.log("users in same room");
-            console.log(payload);
+            // console.log("users in same room");
+            // console.log(payload);
         });
         socketRef.current.on("user joined", payload => {
             console.log("you're next");
@@ -254,7 +254,7 @@ const Room = (props) => {
 
 
     const videoAudioSettings = () =>{
-        console.log(switchState);
+       // console.log(switchState);
         navigator.mediaDevices.getUserMedia({ video: switchState, audio: true }).then(stream => {
 
             userAudio.current =  stream.getAudioTracks();
@@ -304,8 +304,8 @@ const Room = (props) => {
                 })
 
                 setPeers(peers);
-                console.log("peers");
-                console.log(peers);
+                // console.log("peers");
+                // console.log(peers);
                 setPeers([...new Set(peers)])
             });
 
@@ -332,7 +332,7 @@ const Room = (props) => {
 
 
             socketRef.current.on("user left", peer => {
-                console.log("USER LEFT");
+                //console.log("USER LEFT");
                 peer.destroy();
 
             });
@@ -345,7 +345,7 @@ const Room = (props) => {
                     audioEl.play();
                 }
 
-                console.log("USER LEFT");
+               // console.log("USER LEFT");
                 //  console.log(payload);
 
                 // var videoObject = document.getElementById(payload);
@@ -423,8 +423,8 @@ const Room = (props) => {
 
     const getUsernames = () =>{
         {peers.map((peer, index) => {
-            console.log("peer");
-            console.log(peers[index]);
+            // console.log("peer");
+            // console.log(peers[index]);
         })}
     }
 

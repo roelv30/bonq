@@ -3,15 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/containers/AutoscrolledList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/AutoscrolledList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/containers/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Avatar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Avatar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Test.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Test.js" afterDir="false" />
-
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,15 +64,25 @@
       <workItem from="1592990881943" duration="36000" />
       <workItem from="1592991093714" duration="903000" />
       <workItem from="1592992031373" duration="1178000" />
-      <workItem from="1593182900145" duration="119000" />
-
+      <workItem from="1593182900145" duration="2138000" />
     </task>
+    <task id="LOCAL-00001" summary="Changed to online host">
+      <created>1593183050330</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1593183050330</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Changed to online host" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed to online host" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="739" y="275" key="FileChooserDialogImpl" timestamp="1592991395212">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -94,6 +98,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593183018571" />
-
   </component>
 </project>
