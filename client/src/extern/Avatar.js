@@ -189,8 +189,7 @@ class Avatar extends Component{
 
     return(
       <section>
-        <Modal show={this.state.show} handleClose={this.hideModal}>
-          <h1>Select Avatar</h1>
+        <Modal show={this.state.show} handleClose={this.hideModal} title="Select Avatar" button="Done">
           <form>
             {imageList}
           </form>
