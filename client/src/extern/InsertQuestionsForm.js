@@ -9,7 +9,7 @@ import 'react-tabs/style/react-tabs.css';
 class InsertQuestionsForm extends React.Component {
 
   componentDidMount(){
-    // this.parseRoundsIntoState();
+    this.parseRoundsIntoState();
     console.log("did mount");
   };
 
@@ -25,20 +25,21 @@ class InsertQuestionsForm extends React.Component {
   //             answer: ""}],
   // };
 
-  state = {
-    roundCount: [0, 1, 2, 3, 4],
-    selectedTab: 0,
-    round0: [{ question: "b", answer: ""},],
-    round1: [{ question: "", answer: ""},],
-    round2: [{ question: "", answer: ""},],
-    round3: [{ question: "", answer: ""},],
-    round4: [{ question: "", answer: ""},],
-  };
-
   // state = {
   //   roundCount: [0, 1, 2, 3, 4],
   //   selectedTab: 0,
+  //   round0: [{ question: "b", answer: ""},],
+  //   round1: [{ question: "", answer: ""},],
+  //   round2: [{ question: "", answer: ""},],
+  //   round3: [{ question: "", answer: ""},],
+  //   round4: [{ question: "", answer: ""},],
   // };
+
+  state = {
+    round0: [],
+    roundCount: [0, 1, 2, 3, 4],
+    selectedTab: 0,
+  };
 
   // state = {
   //   roundCount: 5,
@@ -46,14 +47,19 @@ class InsertQuestionsForm extends React.Component {
   //   rounds: [],
   // };
 
-  // OLD VERSION TO
   parseRoundsIntoState = (e) => {
     console.log("parse round called");
     for (let i = 0; i < this.state.roundCount.length; i++) {
       let selectedRoundName = "round" + i;
       let selectedRoundArray = [{ question: "", answer: ""}];
-      let data = [...this.state];
-      data[selectedRoundName] = selectedRoundArray;
+      // let data = this.state;
+      this.setState(prevState => {
+        let stateToFill = Object.assign({}, prevState);
+        stateToFill[selectedRoundName] = selectedRoundArray;
+        console.log("stateToFill: ");
+        console.log(stateToFill);
+        return stateToFill ;
+      })
     }
   //   for (let i = 0; i < this.state.roundCount; i++) {
   //     // let selectedRoundName = "round" + i;
@@ -166,11 +172,11 @@ class InsertQuestionsForm extends React.Component {
     //   selectedTab: ...prevState, selectedTab: e.target.dataset.id
     // }));
     this.setState(prevState => {
-      let item = Object.assign({}, prevState);  // creating copy of state variable jasper
+      let item = Object.assign({}, prevState);
       item.selectedTab = id;
       console.log("item: ");
-      console.log(item);                 // update the name property, assign a new value
-      return item ;                                 // return new object jasper object
+      console.log(item);
+      return item ;
     })
   }
 
@@ -187,27 +193,38 @@ class InsertQuestionsForm extends React.Component {
     const testArray = [1, 2, 3, 4, 5];
 
     const roundTabList = this.state.roundCount.map((roundTab)=>{
-      return <Tab onClick={this.changeSelectedRound} data-id={roundTab}>{"Round " + (roundTab+1)}</Tab>;
+      if (this.state.round0){
+        console.log("it does");
+        return <Tab onClick={this.changeSelectedRound} data-id={roundTab}>{"Round " + (roundTab+1)}</Tab>;
+      } else {
+        console.log("it doesn't");
+      }
+
     });
 
     const roundTabPanel = this.state.roundCount.map((roundPanel)=>{
-      return (
-        <TabPanel>
-        {
-          currentRound.map((val, idx)=>{
-            let questionId = `question-${idx}`, answerId = `answer-${idx}`;
-            return (
-              <div key={idx}>
-                <label htmlFor={questionId}>{`Question #${idx+1}`}</label>
-                <input type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} className="question"/>
-                <label htmlFor={answerId}>Answer: </label>
-                <input type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} className="answer"/>
-              </div>
-            )
-          })
-        }
-        </TabPanel>
-      );
+      if (this.state.round0){
+        console.log("it does");
+        return (
+          <TabPanel>
+          {
+            currentRound.map((val, idx)=>{
+              let questionId = `question-${idx}`, answerId = `answer-${idx}`;
+              return (
+                <div key={idx}>
+                  <label htmlFor={questionId}>{`Question #${idx+1}`}</label>
+                  <input type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} className="question"/>
+                  <label htmlFor={answerId}>Answer: </label>
+                  <input type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} className="answer"/>
+                </div>
+              )
+            })
+          }
+          </TabPanel>
+        );
+      } else {
+        console.log("it doesn't");
+      }
     });
 
     return(
