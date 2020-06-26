@@ -7,7 +7,7 @@ import 'react-tabs/style/react-tabs.css';
 // import {changeSearchTerm, changeVideo} from './actions';
 
 class PubQuizQuestionsForm extends React.Component {
-
+//form where questions are inserted, dynamically based on PubQuizSettings.js choices
 
   componentDidMount(){
     console.log(this.props);
