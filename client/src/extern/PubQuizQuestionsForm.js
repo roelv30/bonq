@@ -10,8 +10,25 @@ class PubQuizQuestionsForm extends React.Component {
 //form where questions are inserted, dynamically based on PubQuizSettings.js choices
 
   componentDidMount(){
-    console.log(this.props);
-    this.parseRoundsIntoState();
+    this.updateRoundCount();
+    setTimeout(() => {
+      console.log("parse round called");
+      console.log(this.state);
+      console.log(this.state.roundCount.length);
+      for (let i = 0; i < this.state.roundCount.length; i++) {
+        let selectedRoundName = "round" + i;
+        let selectedRoundArray = [{ question: "", answer: ""}];
+        // let data = this.state;
+        this.setState(prevState => {
+          let stateToFill = Object.assign({}, prevState);
+          stateToFill[selectedRoundName] = selectedRoundArray;
+          console.log("stateToFill: ");
+          console.log(stateToFill);
+          return stateToFill ;
+        })
+      }
+    }, 100)
+    // this.parseRoundsIntoState();
     console.log("did mount");
   };
 
@@ -39,7 +56,7 @@ class PubQuizQuestionsForm extends React.Component {
 
   state = {
     round0: [],
-    roundCount: [0, 1, 2, 3, 4],
+    roundCount: [],
     selectedTab: 0,
   };
 
@@ -49,8 +66,27 @@ class PubQuizQuestionsForm extends React.Component {
   //   rounds: [],
   // };
 
+  updateRoundCount = () => {
+    console.log("update count called");
+    let roundArray = [];
+    let extRoundCount = this.props.roundCount;
+    console.log(extRoundCount);
+    for (var i = 0; i < extRoundCount; i++) {
+      roundArray.push(i);
+    }
+    this.setState(prevState => {
+      let stateToFill = Object.assign({}, prevState);
+      stateToFill.roundCount = roundArray;
+      console.log("stateToFill: ");
+      console.log(stateToFill);
+      return stateToFill ;
+    })
+  }
+
   parseRoundsIntoState = (e) => {
     console.log("parse round called");
+    console.log(this.state);
+    console.log(this.state.roundCount.length);
     for (let i = 0; i < this.state.roundCount.length; i++) {
       let selectedRoundName = "round" + i;
       let selectedRoundArray = [{ question: "", answer: ""}];
@@ -196,17 +232,17 @@ class PubQuizQuestionsForm extends React.Component {
 
     const roundTabList = this.state.roundCount.map((roundTab)=>{
       if (this.state.round0){
-        console.log("it does");
+        console.log("round found");
         return <Tab onClick={this.changeSelectedRound} data-id={roundTab}>{"Round " + (roundTab+1)}</Tab>;
       } else {
-        console.log("it doesn't");
+        console.log("no round found");
       }
 
     });
 
     const roundTabPanel = this.state.roundCount.map((roundPanel)=>{
       if (this.state.round0){
-        console.log("it does");
+        // console.log("it does");
         return (
           <TabPanel>
           {
@@ -225,7 +261,7 @@ class PubQuizQuestionsForm extends React.Component {
           </TabPanel>
         );
       } else {
-        console.log("it doesn't");
+        // console.log("it doesn't");
       }
     });
 

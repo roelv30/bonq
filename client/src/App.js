@@ -9,6 +9,7 @@ import Home from './containers/HomePage';
 import Room from './containers/Room';
 import NotFound from './components/NotFound';
 import PubQuizQuestionsForm from './extern/PubQuizQuestionsForm'; //remove later
+import PubQuizSetup from './extern/PubQuizSetup'; //remove later
 import './style.css';
 
 
@@ -122,7 +123,7 @@ class App extends React.Component {
             <Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
         <PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
 
-        <PrivateRoute exact path="/pubq/questions" component={PubQuizQuestionsForm} isAuthenticated={this.state.isAuthenticated} token={this.state.token} logout={this.logout} />
+        <PrivateRoute exact path="/pubq/questions" component={PubQuizSetup} isAuthenticated={this.state.isAuthenticated} token={this.state.token} logout={this.logout} />
         {/*<Route exact  path="/" component={Home}  />*/}
         {/*<Route path="/r/:room" component={Room} />*/}
         <Route path="/r/:roomID"    render={(props) =>
