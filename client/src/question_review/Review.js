@@ -12,8 +12,9 @@ class Review extends React.Component {
     this.state = {
         questions: [],
         answers: [],
-        group_answers: ["Yes", "no", "Yeet"],
+        group_answers: ["11", "Ra", "Yeet"],
     }
+    this.testFunction = this.testFunction.bind(this);
   }
 
   componentDidMount(){
@@ -29,9 +30,28 @@ class Review extends React.Component {
       })
   }
 
+  testFunction(){
+    let checkButton = document.getElementsByClassName('right');
+    let wrongButton = document.getElementsByClassName('wrong');
+    // check if every answer is correct
+    console.log(this.state.answers[0]);
+    console.log(wrongButton[0].getAttribute('id'));
+    // team 1 op vraag 1
+    if(this.state.answers[0] == this.state.group_answers[0]){
+      checkButton[0].checked = true;
+    } else {
+      wrongButton[0].checked = true;
+    }
+
+    // team 2 op vraag 2
+    if(this.state.answers[1] == this.state.group_answers[1]){
+      checkButton[4].checked = true;
+    } else {
+      wrongButton[4].checked = true;
+    }
+  }
 
   render() {
-
 
      const Questions =
       <section>
@@ -51,12 +71,12 @@ class Review extends React.Component {
                       <aside className="review__main__box__check__buttons">
                         <form>
                           <label>
-                            <input className={checkButtonId} type="radio" name="review" value="correct"/>
+                            <input className="right" id={checkButtonId} type="radio" name="review" value="correct"/>
                             <img src="/img/check.svg" alt="check icon"/>
                           </label>
 
                           <label>
-                            <input className={wrongButtonId} type="radio" name="review" value="incorrect" />
+                            <input className="wrong" id={wrongButtonId} type="radio" name="review" value="incorrect" />
                             <img src="/img/wrong.svg" alt="wrong icon"/>
                           </label>
                         </form>
@@ -82,7 +102,7 @@ class Review extends React.Component {
 
           <h2 className="review__main__title">Time to check the answers!</h2>
           <section>
-            <button onClick={this.checkRadioButton} type="button">Check Answers</button>
+            <button onClick={this.testFunction} type="button">Check Answers</button>
           </section>
 
           {Questions}
