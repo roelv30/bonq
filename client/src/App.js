@@ -34,7 +34,6 @@ import Dashboard from './extern/Dashboard';
 
 import './App.css';
 import JoinGame from './extern/JoinGame';
-import Avatar from './extern/Avatar';
 import EasterEgg from './extern/EasterEgg';
 
 
