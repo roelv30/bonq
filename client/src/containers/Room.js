@@ -84,11 +84,11 @@ const Room = (props) => {
             setUsers(users);
             // console.log("users");
             // console.log(users);
-            {users.map(({ name, id }) => (
-                //console.log("USERS: "+ id)
-                //  document.getElementById(id).innerHTML = "whatever"
-                // <li key={id}>{name}</li>
-            ))}
+            // {users.map(({ name, id }) => (
+            //     //console.log("USERS: "+ id)
+            //     //  document.getElementById(id).innerHTML = "whatever"
+            //     // <li key={id}>{name}</li>
+            // ))}
         });
 
         socketRef.current.on("teams", teamUsers => {
@@ -96,11 +96,11 @@ const Room = (props) => {
             setTeams(teamUsers);
             // console.log("teams");
             // console.log(teamUsers);
-            {teams.map(({ name, id }) => (
-                //console.log("USERS: "+ id)
-                //  document.getElementById(id).innerHTML = "whatever"
-                // <li key={id}>{name}</li>
-            ))}
+            // {teams.map(({ name, id }) => (
+            //     //console.log("USERS: "+ id)
+            //     //  document.getElementById(id).innerHTML = "whatever"
+            //     // <li key={id}>{name}</li>
+            // ))}
         });
 
         socketRef.current.on("update teams", teamUsers => {

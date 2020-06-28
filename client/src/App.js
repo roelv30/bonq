@@ -20,9 +20,6 @@ import io from "socket.io-client";
 // };
 
 
-//Comment
-
-
 // import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Start from './extern/Start';
@@ -35,6 +32,7 @@ import Dashboard from './extern/Dashboard';
 import './App.css';
 import JoinGame from './extern/JoinGame';
 import EasterEgg from './extern/EasterEgg';
+// import Share from './extern/Share';
 
 
 const socketRef = io.connect();
@@ -109,6 +107,7 @@ class App extends React.Component {
         return (
 
     <BrowserRouter>
+
 
         <Header
           authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated}
