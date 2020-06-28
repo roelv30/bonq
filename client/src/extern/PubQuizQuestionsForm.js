@@ -3,6 +3,8 @@ import axios from 'axios';
 // import {connect} from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import './Back.css';
+import './PubQuizSetup.css';
 
 // import {changeSearchTerm, changeVideo} from './actions';
 
@@ -11,6 +13,7 @@ class PubQuizQuestionsForm extends React.Component {
 
   componentDidMount(){
     this.updateRoundCount();
+
     setTimeout(() => {
       console.log("parse round called");
       console.log(this.state);
@@ -218,6 +221,11 @@ class PubQuizQuestionsForm extends React.Component {
     })
   }
 
+  sendData = () => {
+    let hardcodedRounds = 1;
+    this.props.parentCallback(hardcodedRounds);
+  }
+
   render() {
     // let {items} = this.props.questionItems
     // let {items} = this.state;
@@ -249,12 +257,12 @@ class PubQuizQuestionsForm extends React.Component {
             currentRound.map((val, idx)=>{
               let questionId = `question-${idx}`, answerId = `answer-${idx}`;
               return (
-                <div key={idx}>
+                <section key={idx}>
                   <label htmlFor={questionId}>{`Question #${idx+1}`}</label>
                   <input type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} className="question"/>
                   <label htmlFor={answerId}>Answer: </label>
                   <input type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} className="answer"/>
-                </div>
+                </section>
               )
             })
           }
@@ -265,8 +273,11 @@ class PubQuizQuestionsForm extends React.Component {
       }
     });
 
+    let button = <GoBackButton className="back" onClick={ this.sendData } />
+
     return(
       <>
+      { button }
       <Tabs>
         <TabList>
           {roundTabList}
@@ -281,6 +292,14 @@ class PubQuizQuestionsForm extends React.Component {
       </>
     )
   }
+}
+
+function GoBackButton(props) {
+  return (
+    <button className={props.className} onClick={props.onClick}>
+      Go Back
+    </button>
+  );
 }
 
 export default PubQuizQuestionsForm;

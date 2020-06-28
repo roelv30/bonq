@@ -1,51 +1,70 @@
 import React from 'react';
 import PubQuizQuestionsForm from './PubQuizQuestionsForm';
 import PubQuizSettings from './PubQuizSettings';
+import './PubQuizSetup.css';
 
 class PubQuizSetup extends React.Component {
 //container for settings (rounds and teams etc)
 
-constructor(props) {
-  super(props);
-  this.handleParseSettingsClick = this.handleParseSettingsClick.bind(this);
-  this.handleBackClick = this.handleBackClick.bind(this);
-  this.state = {
-    completedSettings: false,
-    roundCount: 8,
-  };
-}
+  constructor(props){
+    super(props);
+    this.handleParseSettingsClick = this.handleParseSettingsClick.bind(this);
+    this.handleBackClick = this.handleBackClick.bind(this);
+    this.state = {
+      completedSettings: false,
+      roundCount: 8,
+    };
+  }
 
-handleParseSettingsClick() {
-  this.setState({completedSettings: true});
-}
+  handleParseSettingsClick = () => {
+    console.log("parse complete ");
+    this.setState({
+      completedSettings: true,
+    });
+  }
 
-handleBackClick() {
-  this.setState({completedSettings: false});
-}
+  handleBackClick = () => {
+    this.setState({completedSettings: false});
+  }
 
-render() {
-  const completedSettings = this.state.completedSettings;
-  const roundCount = this.state.roundCount;
-  let button;
-    if (completedSettings) {
-      button = <GoBackButton onClick={this.handleBackClick} />;
-    } else {
-      button = <ProceedButton onClick={this.handleParseSettingsClick} />;
+  callbackFunction = (rCount) => {
+    console.log("state before callback exec: ");
+    console.log(this.state.completedSettings);
+
+    if (this.state.completedSettings == false) {
+      console.log("settings are completed");
+      console.log(this.state.completedSettings);
+      this.setState({roundCount: rCount, completedSettings: true});
+      return;
     }
+    console.log("settings are not completed");
+    this.setState({roundCount: rCount, completedSettings: false});
+
+    console.log(this.state.completedSettings);
+  }
+
+  render() {
+    const completedSettings = this.state.completedSettings;
+    const roundCount = this.state.roundCount;
+    // let button;
+
+    // if (completedSettings) {
+    //   button = <GoBackButton onClick={this.handleBackClick} />;
+    // } else {
+    //   button = <ProceedButton parentCallback={this.callbackFunction} onClick={ this.handleParseSettingsClick} />;
+    // }
 
     if (completedSettings) {
       return (
-        <div>
-          {button}
-          <SettingsContainer roundCount={roundCount} completedSettings={completedSettings} />
-        </div>
+        <section>
+          <PubQuizQuestionsForm parentCallback={this.callbackFunction} roundCount={roundCount} completedSettings={completedSettings} />
+        </section>
       );
     } else{
       return (
-        <div>
-          <SettingsContainer roundCount={roundCount} completedSettings={completedSettings} />
-          {button}
-        </div>
+        <section>
+          <PubQuizSettings parentCallback={this.callbackFunction} roundCount={roundCount} completedSettings={completedSettings} />
+        </section>
       );
     }
 
@@ -56,6 +75,7 @@ render() {
 function SettingsContainer(props) {
   const completedSettings = props.completedSettings;
   const locRoundCount = props.roundCount;
+  const callbackFunction = props.callbackFunction
   console.log(completedSettings);
   if (completedSettings) {
     // return <componentB />;
