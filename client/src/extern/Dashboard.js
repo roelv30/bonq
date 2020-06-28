@@ -143,6 +143,20 @@ class Dashboard extends React.Component {
 							}}>Play</NavLink>
 						</article>
 					</section>
+					<section className="dashboard__article__game">
+						<article className="dashboard__article__game__title">
+							<img className="dashboard__article__game__title__img" src="/img/zwaardsandaal.jpg" alt="Zwaarden & Sandalen Background"/>
+							<p className="dashboard__article__game__title__text"> Zwaarden & Sandalen</p>
+						</article>
+						<article className="dashboard__article__game__options">
+							<NavLink exact activeClassName="active" className="dashboard__article__game__options__button" to= {{
+								pathname: '/easteregg',
+								gameProps: {
+									game: 'zwaardsandaal'
+								}
+							}}>Play</NavLink>
+						</article>
+					</section>
 				</article>
 			</section>
 		)

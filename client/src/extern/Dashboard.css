@@ -19,9 +19,7 @@
   border: none;
   padding: 1rem 2rem;
   margin: 0 auto;
-
 }
-
 
 .dashboard__article__title, .dashboard__article__title--pink, .dashboard__article__title--center {
   letter-spacing: 3px;
@@ -184,8 +182,9 @@
   overflow-wrap: break-word;
   font-family: 'Squada One', cursive;
   -webkit-text-stroke-width: 1px;
-  font-size: 1.5em;
+  font-size: 1.3em;
   -webkit-text-stroke-color: #D10C76;
+  padding: 3px 14px;
 }
 
 .dashboard__article__game__options {
@@ -197,12 +196,15 @@
 
 .dashboard__article__game__options__button {
   text-decoration: none;
-    color: white;
-    border-radius: 5px;
-    font-family: 'Squada One', cursive;
-    background-color: #0ABDC6;
-    text-align: center;
-    padding: 0.25rem 3rem;
+  color: white;
+  border-radius: 5px;
+  font-family: 'Squada One', cursive;
+  background-color: #0ABDC6;
+  text-align: center;
+  border: none;
+  padding: 0.25rem 3rem;
+  height: 3rem;
+  line-height: normal;
 }
 
 .dashboard__article__game__options__button:hover {

@@ -3,8 +3,6 @@ import Back from './Back';
 
 const EasterEgg = (props) =>{
     const game = props.location.gameProps.game;
-    console.log(game);
-
     return (
       <section className="join">
         <Back text="&larr; back" link="/dashboard"/>
