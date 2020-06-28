@@ -28,12 +28,14 @@
   flex-direction: column;
 }
 
-.review__main__box__check{
+.review__main__box__groups{
+  margin-top: 5%;
+}
+
+.review__main__box__groups__answers{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  height: 5rem;
 }
 
 .review__main__box__check__buttons{
@@ -52,25 +54,16 @@
   opacity: 0;
   width: 0;
   height: 0;
-
 }
 
 [type=radio] + img{
   cursor: pointer;
-  filter: brightness(50%);
+  filter: brightness(1%);
   margin: 0 1rem;
 }
 
 [type=radio]:checked + img {
   filter: brightness(200%);
-}
-
-.review__main__box__check__buttons__correct:hover, .review__main__box__check__buttons__incorrect:hover{
-  filter: brightness(200%);
-}
-
-.review__main__box__check__buttons__correct > img {
-
 }
 
 .review__main__box__question{

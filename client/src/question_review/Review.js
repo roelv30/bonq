@@ -12,6 +12,7 @@ class Review extends React.Component {
     this.state = {
         questions: [],
         answers: [],
+        group_answers: ["Yes", "no", "Yeet"],
     }
   }
 
@@ -28,15 +29,51 @@ class Review extends React.Component {
       })
   }
 
-  clickHandler = () => {
-    console.log("I once read a book about gravity, it was impossible to put down");
-  }
 
   render() {
+
+
+     const Questions =
+      <section>
+        {this.state.questions.map((question, key) => (
+          <div className="review__main__box" key={key}>
+            <p className="review__main__box__question">Question {key + 1}: {question}</p>
+            <div className="review__main__box__check">
+              <p className="review__main__box__answer">Answer: {this.state.answers[key]}</p>
+              <section className="review__main__box__groups">
+                {this.state.group_answers.map((answer, key) => {
+                  let checkButtonId = `check-${key}`, wrongButtonId = `wrong-${key}`;
+                  return(
+                    <div key={key} className="review__main__box__groups__answers">
+                      <div className="review__main__box__groups__answers-text">
+                        <p className="review__main__box__groups__answers-text__group">Group {key + 1}: {answer}</p>
+                      </div>
+                      <aside className="review__main__box__check__buttons">
+                        <form>
+                          <label>
+                            <input className={checkButtonId} type="radio" name="review" value="correct"/>
+                            <img src="/img/check.svg" alt="check icon"/>
+                          </label>
+
+                          <label>
+                            <input className={wrongButtonId} type="radio" name="review" value="incorrect" />
+                            <img src="/img/wrong.svg" alt="wrong icon"/>
+                          </label>
+                        </form>
+                      </aside>
+                    </div>
+                  );
+                })}
+              </section>
+          </div>
+        </div>
+        ))}
+      </section>
 
     return(
 
       <article className="review">
+
         <section className="review__back">
           <Back text="back to succes page" link="/succes"/>
         </section>
@@ -44,27 +81,11 @@ class Review extends React.Component {
         <section className="review__main">
 
           <h2 className="review__main__title">Time to check the answers!</h2>
-          {this.state.questions.map((question, key) => (
-            <div className="review__main__box" key={key}>
-              <p className="review__main__box__question">Question {key + 1}: {question}</p>
-              <div className="review__main__box__check">
-                <p className="review__main__box__answer">Answer: {this.state.answers[key]}</p>
-                <aside className="review__main__box__check__buttons">
-                  <form>
-                    <label>
-                      <input type="radio" name="review" id="js--check" value="correct"/>
-                      <img src="/img/check.svg" alt="check icon"/>
-                    </label>
+          <section>
+            <button onClick={this.checkRadioButton} type="button">Check Answers</button>
+          </section>
 
-                    <label>
-                      <input type="radio" name="review" id="js--fail" value="incorrect" />
-                      <img src="/img/wrong.svg" alt="wrong icon"/>
-                    </label>
-                  </form>
-                </aside>
-              </div>
-            </div>
-          ))}
+          {Questions}
 
         </section>
 
@@ -78,27 +99,36 @@ class Review extends React.Component {
 }
 
 export default Review;
-
-// axios.get(`http://127.0.0.1:8000/api/question`)
-//   .then(response => {
-//     this.setState({questions: response.data});
-//     console.log(response)
-//   })
 //
-//   let pubquizList = {};
+// {this.state.questions.map((question, key) => (
+//   <div className="review__main__box" key={key}>
+//     <p className="review__main__box__question">Question {key + 1}: {question}</p>
+//     <div className="review__main__box__check">
+//       <p className="review__main__box__answer">Answer: {this.state.answers[key]}</p>
 //
-//   const addQuestionsToObject = () => {
-//     const data = this.state.questions;
+//       <section className="review__main__box__groups">
+//         {this.state.group_answers.map((answer, key) => (
+//           <div key={key} className="review__main__box__groups__answers">
+//             <div className="review__main__box__groups__answers-text">
+//               <p className="review__main__box__groups__answers-text__group">Group {key + 1}: {answer}</p>
+//             </div>
 //
-//       Object.keys(data).map((index) => (
-//           // this functions loops through the state data taking the data from the question and
-//           // its answer and adding it to an object.
-//           // number filled in the [] after answer must always be zero since a question only has one right answer.
-//           // filling in zero will prevent that another loop has to be made.
-//           pubquizList[index] = {question: data[index].shown_question, answer: data[index].answer[0].checked_answer},
-//           console.log(pubquizList)
-//       ));
-//       return pubquizList;
-//  } //addQuestionsToObject
-//  console.log("ik wil dood");
-//  addQuestionsToObject();
+//           <aside className="review__main__box__check__buttons">
+//             <form>
+//               <label>
+//                 <input className={"yeet" + key} type="radio" name="review" value="correct"/>
+//                 <img src="/img/check.svg" alt="check icon"/>
+//               </label>
+//
+//               <label>
+//                 <input type="radio" name="review" value="incorrect" />
+//                 <img src="/img/wrong.svg" alt="wrong icon"/>
+//               </label>
+//             </form>
+//           </aside>
+//         </div>
+//         ))}
+//       </section>
+//       </div>
+//     </div>
+// ))}
