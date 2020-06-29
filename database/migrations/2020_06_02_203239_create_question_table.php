@@ -13,16 +13,13 @@ class CreateQuestionTable extends Migration
      */
     public function up()
     {
-        Schema::create('question', function (Blueprint $table) {
-            $table->uuid('id')->unique();
+         Schema::create('question', function (Blueprint $table) {
+            $table->integer('question_id')->primary();
             $table->integer('order');   // displays where the question should be put in order e.g. 1 will be the first question
-            $table->string('question');
-            $table->string('good_answer');
-            $table->string('wrong_answer');
-            $table->string('answer');
+            $table->string('shown_question');
+            $table->integer('answer');
+            $table->foreign('answer')->references('answer_id')->on('answer');
             $table->string('img_url');
-            $table->time('time', 0);
-            $table->time('time_left', 0);
         });
     }
 
@@ -34,5 +31,6 @@ class CreateQuestionTable extends Migration
     public function down()
     {
         Schema::dropIfExists('question');
+        $table->dropForeign('question_answer_id_foreign');
     }
 }

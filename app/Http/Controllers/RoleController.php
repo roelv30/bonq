@@ -43,7 +43,7 @@ class RoleController extends Controller
         ]);
         $role = new Role([
             'first_name' => $request->get('first_name'),
-            'last_name'  => $requist->get('last_name')
+            'last_name'  => $request->get('last_name')
         ]);
         $role->save();
         return redirect()->route('role.create')->with('success',
