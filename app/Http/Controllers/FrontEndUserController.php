@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
+use Auth;
 use JWTAuth;
 use App\User;
 use App\Teams;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
+
 
 class FrontEndUserController extends Controller
 {
