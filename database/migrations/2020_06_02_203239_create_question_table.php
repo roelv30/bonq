@@ -15,6 +15,8 @@ class CreateQuestionTable extends Migration
     {
          Schema::create('question', function (Blueprint $table) {
             $table->integer('question_id')->primary();
+            $table->string('room_id');
+            $table->integer('round');
             $table->integer('order');   // displays where the question should be put in order e.g. 1 will be the first question
             $table->string('shown_question');
             $table->integer('answer');
