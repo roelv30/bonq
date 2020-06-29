@@ -19,6 +19,11 @@ class FrontEndUserController extends Controller
     $user = User::create(['username' => $request->username, 'email' => $request ->email,'password'=>bcrypt($request->password)]);
   }
 
+    public function showDashboard() {
+        $user = Auth::user();
+        return $user;
+    }
+
   public function signIn(Request $request)
   {
     try {
@@ -44,5 +49,25 @@ class FrontEndUserController extends Controller
 
     return response()->json(compact('token'));
 }
+
+    public function avatarSubmit(Request $request){
+        try {
+            $user = Auth::user();
+            $userAvatar = $request->avatar_url;
+            $userID = $user->id;
+            DB::update('update users set avatar_url = ? where id = ?',[$userAvatar, $userID]);
+            return $userAvatar;
+        } catch (Exception $e) {
+            return $e;
+        }
+
+    }
+
+    public function avatarGet(){
+        $user = Auth::user();
+        $userAvatar = $user->avatar_url;
+
+        return $userAvatar;
+    }
 
 }
