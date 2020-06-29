@@ -20,8 +20,6 @@ class CreateTeamsTable extends Migration
             $table->string('person_id');
             $table->integer('group_size');
             $table->string('winner')->nullable();
-            $table->integer('team_answer');
-            $table->foreign('team_answer')->references('team_answer_id')->on('team_answer');
             $table->string('pun_id');   // jokes to show to the player while they are waiting
         });
     }

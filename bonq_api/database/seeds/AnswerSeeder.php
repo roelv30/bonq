@@ -13,7 +13,7 @@ class AnswerSeeder extends Seeder
     {
       DB::table('answer')->insert([
         'answer_id' => 1,
-        'checked_answer' => '11'
+        'checked_answer' => '13'
       ]);
 
       DB::table('answer')->insert([
