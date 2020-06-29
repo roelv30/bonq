@@ -109,7 +109,7 @@ class Dashboard extends React.Component {
 							<p className="dashboard__article__game__title__text"> Pubquiz </p>
 						</article>
 						<article className="dashboard__article__game__options">
-							<NavLink exact activeClassName="active" className="dashboard__article__game__options__button" to="#">Create</NavLink>
+							<NavLink exact activeClassName="active" className="dashboard__article__game__options__button" to="/pubq/questions">Create</NavLink>
 							<NavLink exact activeClassName="active" className="dashboard__article__game__options__button" to="/joingame">Join</NavLink>
 						</article>
 					</section>
