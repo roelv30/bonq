@@ -12,13 +12,13 @@ class Review extends React.Component {
     this.state = {
         questions: [],
         answers: [],
-        group_answers: ["11", "Ra", "Yeet"],
+        group_answers: ["13", "Ra", "Yeet"],
     }
     this.testFunction = this.testFunction.bind(this);
   }
 
   componentDidMount(){
-    axios.get(`http://127.0.0.1:8000/api/question`)
+    axios.get(`http://192.168.2.34:8000/api/question`)
       .then(response => {
         for(let i = 0; i < response.data.length; i++){
           // the loop keeps adding data from the api to the state

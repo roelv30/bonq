@@ -29,7 +29,7 @@ class Login extends React.Component {
 		event.preventDefault();
 
 	  this.setState({ loading: true });
-		axios.post('http://localhost:8000/api/signin', {
+		axios.post('http://192.168.2.34:8000/api/signin', {
 			email: this.state.email,
 			password: this.state.password
 		})
