@@ -76,6 +76,7 @@ class Avatar extends Component{
   };
 
   handleSubmit(event) {
+    event.preventDefault();
     event.persist();
     console.log("submitted");
     const token = localStorage.getItem('jwt');
