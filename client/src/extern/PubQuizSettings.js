@@ -2,6 +2,7 @@ import React from 'react';
 import NumericInput from 'react-numeric-input';
 import './Start.css';
 import './PubQuizSetup.css';
+import './Register.css';
 
 class PubQuizSettings extends React.Component {
 //settings inputs(rounds and teams etc)
@@ -31,11 +32,13 @@ class PubQuizSettings extends React.Component {
     let button = <ProceedButton className="start__article__button" onClick={ this.sendData } />
     return (
       <section>
-        <form >
-          <label htmlFor="rounds">Rounds: </label>
-          <NumericInput onChange={this.handleRoundChange} name="rounds" min={1} max={10} value={1}/>
-          <label htmlFor="teams">Teams: </label>
-          <NumericInput onChange={this.handleTeamChange} name="teams" min={1} max={10} value={1}/>
+        <form className="login__article__form">
+          <label className="login__article__form__label" htmlFor="rounds">Rounds:
+            <NumericInput onChange={this.handleRoundChange} name="rounds" min={1} max={10} value={1}/>
+          </label>
+          <label className="login__article__form__label" htmlFor="teams">Teams:
+            <NumericInput onChange={this.handleTeamChange} name="teams" min={1} max={10} value={1}/>
+          </label>
         </form>
         { button }
       </section>

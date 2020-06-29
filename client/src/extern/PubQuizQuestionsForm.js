@@ -5,6 +5,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import './Back.css';
 import './PubQuizSetup.css';
+import './Register.css';
 
 // import {changeSearchTerm, changeVideo} from './actions';
 
@@ -256,12 +257,15 @@ class PubQuizQuestionsForm extends React.Component {
           {
             currentRound.map((val, idx)=>{
               let questionId = `question-${idx}`, answerId = `answer-${idx}`;
+              let questionPlaceholder = `Question ${idx+1}`, answerPlaceholder = `Answer ${idx+1}`;
               return (
                 <section key={idx}>
-                  <label htmlFor={questionId}>{`Question #${idx+1}`}</label>
-                  <input type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} className="question"/>
-                  <label htmlFor={answerId}>Answer: </label>
-                  <input type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} className="answer"/>
+                  <label className="pubq__article__form__label question" htmlFor={questionId}>{`Question #${idx+1}`}
+                    <input className="pubq__article__form__input" placeholder={questionPlaceholder} type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} />
+                  </label>
+                  <label className="pubq__article__form__label" htmlFor={answerId}>Answer:
+                    <input className="pubq__article__form__input answer" placeholder={answerPlaceholder} type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} />
+                  </label>
                 </section>
               )
             })
@@ -283,7 +287,7 @@ class PubQuizQuestionsForm extends React.Component {
           {roundTabList}
         </TabList>
 
-        <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
+        <form className="login__article__form" onSubmit={this.handleSubmit} onChange={this.handleChange}>
           {roundTabPanel}
           <button type="button" onClick={this.addItem} >Add new Question</button>
           <button type="submit" value="Submit" > Submit</button>

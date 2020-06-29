@@ -130,7 +130,6 @@ class App extends React.Component {
             <Login authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
         <Route exact path='/register' render={(props) =>
             <Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
-        <PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
 
         <PrivateRoute exact path="/pubq/questions" component={PubQuizSetup} isAuthenticated={this.state.isAuthenticated} token={this.state.token} logout={this.logout} />
         <PrivateRoute exact path='/joingame' component={JoinGame} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />

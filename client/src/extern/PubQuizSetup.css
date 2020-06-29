@@ -1,3 +1,30 @@
-input{
-  color: white !important;
+.react-numeric-input input {
+  width: 30rem !important;
+  padding: 0.5rem !important;
+  border-radius: 4px !important;
+  margin: 1rem 0 !important;
+  border: 1px solid #31C3BA !important;
+  background-color: rgb(255, 255, 255) !important;
+}
+
+
+.pubq__article__form {
+  margin-left: 25rem !important;
+
+}
+
+.pubq__article__form__label {
+  display: flex !important;
+  flex-direction: column !important;
+  color: #0ABDC6 !important;
+}
+
+.pubq__article__form__input {
+  width: 30rem !important;
+  padding: 0.5rem !important;
+  border-radius: 4px !important;
+  margin: 1rem 0 !important;
+  border: 1px solid #31C3BA !important;
+  background-color: rgb(255, 255, 255) !important;
+
 }
