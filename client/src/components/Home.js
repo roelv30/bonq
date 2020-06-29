@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import Switch from "react-switch";
+// import Switch from "react-switch";
 
 const Home = (props) => {
   //console.log(props);

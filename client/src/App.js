@@ -1,4 +1,11 @@
 import React from 'react';
+// import ReactDOM from 'react-dom';
+// import { render } from 'react-dom'
+// import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-router-dom";
+// import { Route, BrowserRouter, Redirect  } from "react-router-dom";
+// import Home from './containers/HomePage'
+// import Room from './containers/Room';
+// import NotFound from './components/NotFound'
 import ReactDOM from 'react-dom';
 
 import { render } from 'react-dom';
@@ -24,9 +31,6 @@ import io from "socket.io-client";
 // };
 
 
-
-
-
 // import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Start from './extern/Start';
@@ -34,8 +38,11 @@ import Login from './extern/Login';
 import Test from './extern/Test';
 import Register from './extern/Register';
 import Header from './extern/Header';
-import './App.css';
+import Dashboard from './extern/Dashboard';
 
+import './App.css';
+import JoinGame from './extern/JoinGame';
+import EasterEgg from './extern/EasterEgg';
 
 
 const socketRef = io.connect();
@@ -75,6 +82,7 @@ class App extends React.Component {
         };
     };
 
+//LOGIN USER AND SET JWT TOKEN
     authenticate(token) {
         this.setState({
             isAuthenticated: true,
@@ -83,6 +91,7 @@ class App extends React.Component {
         localStorage.setItem('jwt', token);
     };
 
+//LOGOUT USER AND REMOVE JWT TOKEN
     logout() {
         localStorage.removeItem('jwt');
         this.setState({
@@ -92,7 +101,7 @@ class App extends React.Component {
     };
 
     refresh() {
-        return axios.get('http://localhost:8000/api/refreshToken', {
+        return axios.get('localhost/api/refreshToken', {
             headers: { 'Authorization': 'Bearer ' + this.state.token }
         })
             .then((response) => {
@@ -104,15 +113,15 @@ class App extends React.Component {
             });
     };
 
-
-
-
-
     render() {
         return (
 
     <BrowserRouter>
-        <Header />
+        <Header
+          authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated}
+          token={this.state.token}
+          refresh={this.refresh}
+          logout={this.logout}/>
         <Route exact path='/' component={Start} />
         <audio className="audio-element-test">
             <source src="https://freesound.org/data/previews/253/253886_3169537-lq.mp3"></source>
@@ -124,6 +133,9 @@ class App extends React.Component {
         <PrivateRoute exact path='/succes' component={Test} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
 
         <PrivateRoute exact path="/pubq/questions" component={PubQuizSetup} isAuthenticated={this.state.isAuthenticated} token={this.state.token} logout={this.logout} />
+        <PrivateRoute exact path='/joingame' component={JoinGame} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
+        <PrivateRoute exact path='/dashboard' component={Dashboard} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
+		    <PrivateRoute exact path='/easteregg' component={EasterEgg} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout}  />
         {/*<Route exact  path="/" component={Home}  />*/}
         {/*<Route path="/r/:room" component={Room} />*/}
         <Route path="/r/:roomID"    render={(props) =>

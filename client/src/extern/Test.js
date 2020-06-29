@@ -87,6 +87,10 @@ class Test extends React.Component {
 				<a href="/" onClick={this.handleClick}>
 					Logout
 				</a>
+
+				<NavLink exact activeClassName="active" to="/joingame">
+					JoinGame
+				</NavLink>
 			</section>
 		)
 	}
