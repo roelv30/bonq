@@ -29,15 +29,12 @@ import Register from './extern/Register';
 import Header from './extern/Header';
 import Dashboard from './extern/Dashboard';
 
-<<<<<<< HEAD
 // Stephan Imports
 import Review from './question_review/Review';
 
-=======
 import './App.css';
 import JoinGame from './extern/JoinGame';
 import EasterEgg from './extern/EasterEgg';
->>>>>>> development
 
 
 const socketRef = io.connect();
@@ -96,11 +93,7 @@ class App extends React.Component {
     };
 
     refresh() {
-<<<<<<< HEAD
         return axios.get('http://192.168.2.34:8000/api/refreshToken', {
-=======
-        return axios.get('localhost/api/refreshToken', {
->>>>>>> development
             headers: { 'Authorization': 'Bearer ' + this.state.token }
         })
             .then((response) => {
