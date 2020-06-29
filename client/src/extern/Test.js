@@ -34,7 +34,7 @@ class Test extends React.Component {
 
 	getTests() {
 		const token = this.props.token;
-		axios.get('http://localhost:8000/api/test', {
+		axios.get('http://192.168.2.34:8000/api/test', {
 			headers: { 'Authorization': 'Bearer ' + token }
 		})
 		.then((response) => {
