@@ -30,8 +30,49 @@ const socketToRoom = {};
 const socketToTeam = {};
 const usersConnected = {};
 
+var request = require('request');
+
+request({url: 'http://192.168.2.34:8000/api/question', json: true}, function(err, res, json) {
+    if (err) {
+        throw err;
+    }
+    json.forEach(myFunction);
+    // console.log(json);
+});
+
+
+function myFunction(item, index) {
+    if (users[item.room_id]) {
+        // const length = teams[payload].length;
+        // if (length === room_size) {
+        //     socket.emit("room full");
+        //     return;
+        // }
+
+     console.log("found one");
+        //console.log(users[roomNumber][payload]);
+      //      users[item.room_id].push(item.room_id);
+        //teams[payload].push(socket.id);
+
+    } else {
+        users[item.room_id] = [];
+        console.log("none found");
+        //teams[payload] = [socket.id];
+
+
+        ///let payload = {[ {"name":"tomato", "howMany": 3} ]}[payload]
+        // users[roomNumber] = payload[socket.id];
+        //users[roomNumber][payload].push(socket.id);
+        //console.log(users);
+    }
+
+    // document.getElementById("demo").innerHTML += index + ":" + item + "<br>";
+}
+
 
 io.on('connection', socket => {
+
+    console.log(users);
 
     socket.on("username", username => {
 
