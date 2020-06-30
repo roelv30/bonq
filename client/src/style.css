@@ -16,17 +16,38 @@ input:focus,
 button:focus {
   outline:0;
 }
+
+.headerLogin{
+  font-family: Squada One, cursive;
+  letter-spacing: 4px;
+  font-size: 3rem;
+}
+.backgroundUsername{
+  background:rgba(24,24,24,0.9);
+  width:50%;
+  margin:0 auto;
+  height: 10rem;
+}
+
+
 input[type=text] {
   border: none;
   border-bottom: solid 2px #4c4c4f;
-  font-size: 1em;
+  /*font-size: 1em;*/
   background-color: transparent;
   color: #000;
   padding: .4em 0;
-  margin: 2ex 0;
-  width: 100%;
+  /*//margin: 2ex 0;*/
+  /*width: 100%;*/
   max-width: 18em;
   display: block;
+  margin: 0 auto;
+}
+.inputUsername{
+  height: 80%;
+  font-size: 4rem;
+  width: 90%;
+
 }
 .home {
   display: flex;

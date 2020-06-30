@@ -26,17 +26,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="Add ability to  show questions">
-      <change afterPath="$PROJECT_DIR$/client/src/components/MediaControls.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Username.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Username.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Username.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/containers/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Avatar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Avatar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Test.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +93,8 @@
       <workItem from="1592992031373" duration="1178000" />
       <workItem from="1593182900145" duration="2138000" />
       <workItem from="1593508011020" duration="1637000" />
-      <workItem from="1593509919602" duration="7203000" />
+      <workItem from="1593509919602" duration="7562000" />
+      <workItem from="1593522323594" duration="4666000" />
     </task>
     <task id="LOCAL-00001" summary="Changed to online host">
       <created>1593183050330</created>

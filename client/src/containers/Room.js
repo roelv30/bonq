@@ -15,12 +15,11 @@ import AutoscrolledList from "./AutoscrolledList";
 import MediaControls from "../components/MediaControls";
 
 const Container = styled.div`
-    padding: 20px;
-    display: flex;
-    height: 100vh;
-    width: 90%;
-    margin: auto;
-    flex-wrap: wrap;
+    height: calc(100% - 6rem);
+    padding: 5rem 0;
+    z-index:1;
+    position:relative;
+    text-align:center;    
 `;
 
 const StyledVideo = styled.video`
@@ -63,7 +62,7 @@ const Room = (props) => {
 
 
     useEffect(() => {
-        socketRef.current = io.connect('/');
+        socketRef.current = io.connect('http://localhost:3001');
 
         // socketRef.current.on("connected", user => {
         //     //socket.emit("send", "joined the server");
@@ -444,7 +443,8 @@ const Room = (props) => {
 
         return (
 
-            <Container>
+            <Container >
+
                 <h6>Users</h6>
                 <ul id="users">
                     {users.map(({ name, id }) => (
