@@ -5,22 +5,20 @@ import styled from "styled-components";
 import {bool} from "prop-types";
 import Video from "../components/Video"
 import Switch from "react-switch";
-import Username from "../components/Username";
 import Back from '../extern/Back';
 
 import moment from "moment";
 import 'react-tabs/style/react-tabs.css';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import AutoscrolledList from "./AutoscrolledList";
-import MediaControls from "../components/MediaControls";
-import axios from "axios";
 
 const Container = styled.div`
+    padding: 20px;
+    display: flex;
     height: calc(100% - 6rem);
-    padding: 5rem 0;
-    z-index:1;
-    position:relative;
-    text-align:center;
+    width: 90%;
+    margin: auto;
+    flex-wrap: wrap;
 `;
 
 const StyledVideo = styled.video`
@@ -38,14 +36,16 @@ const videoConstraints = {
 
 
 const Room = (props) => {
+
     const [peers, setPeers] = useState([]);
+    const [muted, setMuteIcon] = useState("audio-button-true");
+    const [videoIcon, setVideoIcon] = useState("video-button-true");
     const [userName, setUsernameOfuser] = useState("no name");
     const [switchState, setSwitchState] = useState(false);
     const [users, setUsers] = useState([]);
     const [teams, setTeams] = useState([]);
     const [teamName, setTeamName] = useState("team1");
     const [intro, setIntroDone] = useState(false);
-    const [typeOfPlayer, setType] = useState();
 
     const [teamNameStateSet, setTeamNameState] = useState(false);
 
@@ -62,44 +62,8 @@ const Room = (props) => {
     const [messages, setMessages] = useState([]);
 
 
-
-
-
-
-
-
     useEffect(() => {
         socketRef.current = io.connect('http://localhost:3001');
-
-        if(socketRef.current){
-            // socketRef.current.emit();
-            console.log("joined");
-            const token = localStorage.getItem('jwt');
-            if(token){
-                axios.get('https://bonq-api.herokuapp.com/api/dashboard', {
-                    headers: { 'Authorization': 'Bearer ' + token }
-                })
-                    .then((response) => {
-                        const user = response.data;
-                        setUsernameOfuser(user.username);
-
-                        //this.setState({user});
-                        // myProps = this.props;
-
-                    })
-                    .catch((error) => {
-                        const status = error.response.status;
-                        if (status === 401 && this.props.isAuthenticated) {
-                            // logged in but invalid jwt
-                            this.props.refresh();
-                        }
-                    });
-            }
-
-
-
-
-        }
 
         // socketRef.current.on("connected", user => {
         //     //socket.emit("send", "joined the server");
@@ -109,26 +73,6 @@ const Room = (props) => {
         socketRef.current.on("message", message => {
 
             setMessages(messages => [...messages, message]);
-            //console.log("message"  + messages);
-
-        });
-
-
-
-        socketRef.current.on("isHeHost", message => {
-
-
-
-
-
-            console.log(message);
-            if(message === "no"){
-                setType("player");
-            }else{
-                setType("host");
-                setIntroDone(true);
-            }
-
             //console.log("message"  + messages);
 
 
@@ -257,7 +201,42 @@ const Room = (props) => {
     }
 
 
+    const muteSelf = () => {
 
+
+        if(muted === "audio-button-true"){
+            setMuteIcon("audio-button-false");
+            userAudio.current[0].enabled = false;
+        }else{
+            setMuteIcon("audio-button-true");
+            userAudio.current[0].enabled = true;
+        }
+
+    }
+    const disableVideo = () => {
+
+        if(videoIcon === "video-button-true"){
+            setVideoIcon("video-button-false");
+            userVideoStream.current[0].enabled = false;
+        }else{
+            setVideoIcon("video-button-true");
+            userVideoStream.current[0].enabled = true;
+
+        }
+
+    }
+
+    const ToggleFullScreen = () => {
+        const el = document.documentElement;
+        // full-screen available?
+        if (document.fullscreenEnabled) {
+            // are we full-screen?
+            document.fullscreenElement ||
+            document.webkitFullscreenElement ||
+            document.mozFullScreenElement ||
+            document.msFullscreenElement ? document.exitFullscreen() : el.requestFullscreen();
+        }
+    };
 
     const toggleWithVideo = () => {
 
@@ -269,10 +248,8 @@ const Room = (props) => {
 
 
     const hangup = () => {
-
         userVideo.current.srcObject.getTracks().forEach(track => track.stop());
         socketRef.current.emit("leaving");
-        props.history.push('/');
     };
 
 
@@ -355,7 +332,7 @@ const Room = (props) => {
 
 
             socketRef.current.on("user left", peer => {
-                console.log("USER LEFT");
+                //console.log("USER LEFT");
                 peer.destroy();
 
             });
@@ -368,15 +345,16 @@ const Room = (props) => {
                     audioEl.play();
                 }
 
+               // console.log("USER LEFT");
+                //  console.log(payload);
 
-
-                var videoObject = document.getElementById(payload);
-                if(videoObject === null){
-                    // console.log("object is null");
-                    //props.history.push('/');
-                }else{
-                    videoObject.remove();
-                }
+                // var videoObject = document.getElementById(payload);
+                // if(videoObject === null){
+                //     // console.log("object is null");
+                //     //props.history.push('/');
+                // }else{
+                //     videoObject.remove();
+                // }
 
             });
 
@@ -409,10 +387,7 @@ const Room = (props) => {
         socketRef.current.emit("username", userName);
 
 
-        socketRef.current.emit("checkUserType");
-
-
-
+        setIntroDone(true);
         //setVideoStream(true);
         // console.log(videoStream);
         // setTimeout(function(){
@@ -426,7 +401,11 @@ const Room = (props) => {
         setSwitchState(checked);
     }
 
+    const handleUsernameInput = (e) => {
 
+        setUsernameOfuser(e.target.value);
+
+    };
 
 
     const handleTeamNameChange = (e) => {
@@ -450,8 +429,6 @@ const Room = (props) => {
     }
 
 
-
-
     const submit = event => {
         event.preventDefault();
         //socket.emit("roomName", nameRoomJoin);
@@ -459,9 +436,7 @@ const Room = (props) => {
         setMessage("");
     };
 
-    const handleUsernameInput = (e) => {
 
-        setUsernameOfuser(e.target.value);
 
     if(intro === false) {
         return (
@@ -479,6 +454,20 @@ const Room = (props) => {
                 </section>
 
 
+
+
+                <section>
+                    <h2>Enable camera?</h2>
+                    <Switch onChange={handeChangeSwitch} checked={switchState}  />
+                </section>
+
+                <section>
+                    Chosen name:  {userName}
+                </section>
+            </Container>
+
+        );
+
     }
 
 
@@ -486,8 +475,7 @@ const Room = (props) => {
 
         return (
 
-            <Container >
-
+            <Container>
                 <h6>Users</h6>
                 <ul id="users">
                     {users.map(({ name, id }) => (
@@ -500,6 +488,12 @@ const Room = (props) => {
                     <source src="https://freesound.org/data/previews/131/131657_2398403-lq.mp3"></source>
                 </audio>
 
+
+
+                <div className="auth">
+
+
+                </div>
 
 
                 <article className={"full-width"}>
@@ -520,6 +514,10 @@ const Room = (props) => {
 
                         <div>
                             <TabContent for="tab1">
+
+
+
+
                                 <div className="row">
                                     <div className="col-md-8">
                                         <h6>Messages</h6>
@@ -537,10 +535,10 @@ const Room = (props) => {
                                                     id="text"
                                                 />
                                                 <span className="input-group-btn">
-                                                <button id="submit" type="submit" className="btn btn-primary">
-                                                  Send
-                                                </button>
-                                              </span>
+                <button id="submit" type="submit" className="btn btn-primary">
+                  Send
+                </button>
+              </span>
                                             </div>
                                         </form>
                                     </div>
@@ -553,6 +551,17 @@ const Room = (props) => {
                                         </ul>
                                     </div>
                                 </div>
+
+
+
+
+
+
+
+
+
+
+
 
                             </TabContent>
                             <TabContent for="tab2">
@@ -593,7 +602,52 @@ const Room = (props) => {
                             <p>{userName }</p>
                         </div>
                     </Tabs>
-                        <MediaControls userVideoStream={userVideoStream} userAudio={userAudio} hangup={hangup} />
+
+
+                        <div className="media-controls" >
+                            <button onClick={muteSelf} className={muted}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" className="svg">
+                                    <path className="on"
+                                          d="M38 22h-3.4c0 1.49-.31 2.87-.87 4.1l2.46 2.46C37.33 26.61 38 24.38 38 22zm-8.03.33c0-.11.03-.22.03-.33V10c0-3.32-2.69-6-6-6s-6 2.68-6 6v.37l11.97 11.96zM8.55 6L6 8.55l12.02 12.02v1.44c0 3.31 2.67 6 5.98 6 .45 0 .88-.06 1.3-.15l3.32 3.32c-1.43.66-3 1.03-4.62 1.03-5.52 0-10.6-4.2-10.6-10.2H10c0 6.83 5.44 12.47 12 13.44V42h4v-6.56c1.81-.27 3.53-.9 5.08-1.81L39.45 42 42 39.46 8.55 6z"
+                                          fill="white"></path>
+                                    <path className="off"
+                                          d="M24 28c3.31 0 5.98-2.69 5.98-6L30 10c0-3.32-2.68-6-6-6-3.31 0-6 2.68-6 6v12c0 3.31 2.69 6 6 6zm10.6-6c0 6-5.07 10.2-10.6 10.2-5.52 0-10.6-4.2-10.6-10.2H10c0 6.83 5.44 12.47 12 13.44V42h4v-6.56c6.56-.97 12-6.61 12-13.44h-3.4z"
+                                          fill="white"></path>
+                                </svg>
+                            </button>
+                            <button onClick={disableVideo} className={videoIcon}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" className="svg">
+                                    <path className="on"
+                                          d="M40 8H15.64l8 8H28v4.36l1.13 1.13L36 16v12.36l7.97 7.97L44 36V12c0-2.21-1.79-4-4-4zM4.55 2L2 4.55l4.01 4.01C4.81 9.24 4 10.52 4 12v24c0 2.21 1.79 4 4 4h29.45l4 4L44 41.46 4.55 2zM12 16h1.45L28 30.55V32H12V16z"
+                                          fill="white"></path>
+                                    <path className="off"
+                                          d="M40 8H8c-2.21 0-4 1.79-4 4v24c0 2.21 1.79 4 4 4h32c2.21 0 4-1.79 4-4V12c0-2.21-1.79-4-4-4zm-4 24l-8-6.4V32H12V16h16v6.4l8-6.4v16z"
+                                          fill="white"></path>
+                                </svg>
+                            </button>
+                            <button onClick={ToggleFullScreen} className="fullscreen-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" className="svg">
+                                    <path className="on"
+                                          d="M10 32h6v6h4V28H10v4zm6-16h-6v4h10V10h-4v6zm12 22h4v-6h6v-4H28v10zm4-22v-6h-4v10h10v-4h-6z"
+                                          fill="white"></path>
+                                    <path className="off"
+                                          d="M14 28h-4v10h10v-4h-6v-6zm-4-8h4v-6h6v-4H10v10zm24 14h-6v4h10V28h-4v6zm-6-24v4h6v6h4V10H28z"
+                                          fill="white"></path>
+                                </svg>
+                            </button>
+
+
+                            <button onClick={hangup} className="hangup-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" className="svg">
+                                    <path
+                                        d="M24 18c-3.21 0-6.3.5-9.2 1.44v6.21c0 .79-.46 1.47-1.12 1.8-1.95.98-3.74 2.23-5.33 3.7-.36.35-.85.57-1.4.57-.55 0-1.05-.22-1.41-.59L.59 26.18c-.37-.37-.59-.87-.59-1.42 0-.55.22-1.05.59-1.42C6.68 17.55 14.93 14 24 14s17.32 3.55 23.41 9.34c.37.36.59.87.59 1.42 0 .55-.22 1.05-.59 1.41l-4.95 4.95c-.36.36-.86.59-1.41.59-.54 0-1.04-.22-1.4-.57-1.59-1.47-3.38-2.72-5.33-3.7-.66-.33-1.12-1.01-1.12-1.8v-6.21C30.3 18.5 27.21 18 24 18z"
+                                        fill="white"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+
+
                 </article>
 
 

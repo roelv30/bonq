@@ -10,6 +10,7 @@ import ReactDOM from 'react-dom';
 
 import { render } from 'react-dom';
 
+
 import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-router-dom";
 import Home from './containers/HomePage';
 import Room from './containers/Room';
@@ -44,9 +45,6 @@ import JoinGame from './extern/JoinGame';
 import EasterEgg from './extern/EasterEgg';
 
 
-
-
-
 const socketRef = io.connect();
 
 socketRef.on("leaving user homepage", () => {
@@ -56,7 +54,6 @@ socketRef.on("leaving user homepage", () => {
         audioEl.play();
     }
 });
-
 
 
 

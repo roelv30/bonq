@@ -1,44 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:een_willekeurige_room" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="Add ability to  show questions">
+    <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Username.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Username.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/containers/AutoscrolledList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/AutoscrolledList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/containers/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ComposerSettings">
-    <execution />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -65,6 +37,7 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -92,9 +65,6 @@
       <workItem from="1592991093714" duration="903000" />
       <workItem from="1592992031373" duration="1178000" />
       <workItem from="1593182900145" duration="2138000" />
-      <workItem from="1593508011020" duration="1637000" />
-      <workItem from="1593509919602" duration="7562000" />
-      <workItem from="1593522323594" duration="8093000" />
     </task>
     <task id="LOCAL-00001" summary="Changed to online host">
       <created>1593183050330</created>
@@ -108,19 +78,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Changed to online host" />
@@ -137,10 +94,9 @@
     </state>
     <state x="668" y="140" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592991861544" />
     <state x="2381" y="162" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592990776974" />
-    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593522132391">
+    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593183018571">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593522132391" />
-    <state x="-1274" y="236" width="627" height="568" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1593457323264" />
+    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593183018571" />
   </component>
 </project>

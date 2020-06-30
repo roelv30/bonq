@@ -3,8 +3,6 @@ import axios from 'axios';
 import {NavLink} from 'react-router-dom';
 import './Dashboard.css';
 import Avatar from './Avatar';
-import io from "socket.io-client";
-
 var myProps;
 
 
@@ -33,7 +31,6 @@ class Dashboard extends React.Component {
 	};
 
 	getUser() {
-
 		const token = this.props.token;
 		axios.get('https://bonq-api.herokuapp.com/api/dashboard', {
 			headers: { 'Authorization': 'Bearer ' + token }
@@ -42,7 +39,6 @@ class Dashboard extends React.Component {
 			const user = response.data;
 			this.setState({user});
 			myProps = this.props;
-
 		})
 		.catch((error) => {
 			const status = error.response.status;
@@ -51,7 +47,6 @@ class Dashboard extends React.Component {
 				this.props.refresh();
 			}
 		});
-
 	};
 
 	render() {
