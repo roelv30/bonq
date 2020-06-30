@@ -4,7 +4,7 @@ import moment from 'moment';
 import './AutoscrolledList.css';
 const styles = {
     overflowY: "scroll",
-    height: "18rem"
+    height: "300px"
 };
 
 class List extends React.Component {
