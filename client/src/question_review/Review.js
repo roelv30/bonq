@@ -12,7 +12,7 @@ class Review extends React.Component {
     this.state = {
         questions: [],
         answers: [],
-        group_answers: ["13", "Ra", "Yeet"],
+        group_answers: ["13", "Ra", "Yeet", "Chungus", "13", "Ra"],
     }
     this.testFunction = this.testFunction.bind(this);
   }
@@ -34,8 +34,6 @@ class Review extends React.Component {
     let checkButton = document.getElementsByClassName('right');
     let wrongButton = document.getElementsByClassName('wrong');
     // check if every answer is correct
-    console.log(this.state.answers[0]);
-    console.log(wrongButton[0].getAttribute('id'));
     // team 1 op vraag 1
     if(this.state.answers[0] == this.state.group_answers[0]){
       checkButton[0].checked = true;
@@ -49,6 +47,10 @@ class Review extends React.Component {
     } else {
       wrongButton[4].checked = true;
     }
+  }
+
+  getCheckedAnswers(){
+
   }
 
   render() {
