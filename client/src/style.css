@@ -291,6 +291,11 @@ ul.tabs li button.tab-link-active{
   width: 100%;
 }
 
+.message__container{
+  border-top: 2px solid #D10C76;
+  margin: 10px 0px;
+}
+
 
 
 @media(max-width: 768px) {
