@@ -65,6 +65,7 @@ class PubQuizQuestionsForm extends React.Component {
     roundCount: [],
     selectedTab: 0,
     redirect: false,
+    redirectTo: 0,
     room: 0,
   };
 
@@ -212,7 +213,7 @@ class PubQuizQuestionsForm extends React.Component {
     }, {headers:header})
     .then((response) => {
       if (response.data == true) {
-        this.setState({redirect: true});
+        this.setState({redirect: true, redirectTo: roomNum});
       }
       console.log(response.data);
     })
@@ -266,10 +267,13 @@ class PubQuizQuestionsForm extends React.Component {
 
   render() {
     const { redirect } = this.state;
+    let redirectto = "/r/" + this.state.redirectTo;
 
-    // if (redirect) {
-    //   return <Redirect to="/dashboard"/>
-    // }
+    if (redirect) {
+      return(
+          <Redirect to={redirectto}/>
+      );
+    }
     // let {items} = this.props.questionItems
     // let {items} = this.state;
     // this.parseRoundsIntoState();
