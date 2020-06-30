@@ -193,7 +193,7 @@ class PubQuizQuestionsForm extends React.Component {
   handleSubmit = (e) => {
     console.log("submit called");
     e.preventDefault();
-    axios.post('http://192.168.2.34:8000/api/parsePubQnA', {
+    axios.post('https://bonq-api.herokuapp.com/api/parsePubQnA', {
       state: this.state,
     })
     .then((response) => {
