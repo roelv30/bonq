@@ -15,7 +15,7 @@ import AutoscrolledList from "./AutoscrolledList";
 const Container = styled.div`
     padding: 20px;
     display: flex;
-    height: 100vh;
+    height: calc(100% - 6rem);
     width: 90%;
     margin: auto;
     flex-wrap: wrap;
@@ -63,7 +63,7 @@ const Room = (props) => {
 
 
     useEffect(() => {
-        socketRef.current = io.connect('/');
+        socketRef.current = io.connect('http://localhost:3001');
 
         // socketRef.current.on("connected", user => {
         //     //socket.emit("send", "joined the server");
@@ -446,7 +446,7 @@ const Room = (props) => {
 
                 <section>
                     <h2>Choose a username</h2>
-                    <input type="text" name="username" value={userName} onChange={handleUsernameInput} className={"whiteText"}
+                    <input type="text" name="username" placeholder="What are you called?" value={userName} onChange={handleUsernameInput} className={"whiteText"}
                            pattern="^\w+$" maxLength="20" required autoFocus
                            title="Username"/>
                     <button className="primary-button" type="button" onClick={startSession}>Set username</button>
@@ -521,7 +521,7 @@ const Room = (props) => {
                                 <div className="row">
                                     <div className="col-md-8">
                                         <h6>Messages</h6>
-                                        <div id="messages">
+                                        <div id="messages" className="message__container">
                                             <AutoscrolledList items={messages} />
                                         </div>
                                         <form onSubmit={submit} id="form">
@@ -529,6 +529,7 @@ const Room = (props) => {
                                                 <input
                                                     type="text"
                                                     className="form-control"
+                                                    placeholder="Say something..."
                                                     onChange={e => setMessage(e.currentTarget.value)}
                                                     value={message}
                                                     id="text"
@@ -567,9 +568,9 @@ const Room = (props) => {
 
                                 <div className={teamNameStateSet ? "hidden" : "visible"}>
                                     <h2>Choose a Teamname</h2>
-                                    <input type="text" name="username" value={teamName} onChange={handleTeamNameChange} className={"whiteText"}
+                                    <input type="text" name="teamname" value={teamName} placeholder="Type your teamname..." onChange={handleTeamNameChange} className={"whiteText"}
                                            pattern="^\w+$" maxLength="20" required autoFocus
-                                           title="Username"/>
+                                           title="Teamname"/>
                                     <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Set team name</button>
                                     {/*<button onClick={setNextPage}>Next page</button>*/}
                                 </div>
