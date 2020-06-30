@@ -18,7 +18,7 @@ class Review extends React.Component {
   }
 
   componentDidMount(){
-    axios.get(`http://192.168.2.34:8000/api/question`)
+    axios.get(`https://bonq-api.herokuapp.com/api/question`)
       .then(response => {
         for(let i = 0; i < response.data.length; i++){
           // the loop keeps adding data from the api to the state

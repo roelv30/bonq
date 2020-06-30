@@ -9,6 +9,7 @@ dist/
 client/node_modules/
 yarn.lock
 .env
+bonq_api/
 
 # Compiled Java class files
 *.class
