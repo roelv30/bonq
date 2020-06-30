@@ -6,6 +6,8 @@ import 'react-tabs/style/react-tabs.css';
 import './Back.css';
 import './PubQuizSetup.css';
 import './Register.css';
+import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-router-dom";
+
 
 // import {changeSearchTerm, changeVideo} from './actions';
 
@@ -62,6 +64,7 @@ class PubQuizQuestionsForm extends React.Component {
     round0: [],
     roundCount: [],
     selectedTab: 0,
+    redirect: false,
   };
 
   // state = {
@@ -193,16 +196,32 @@ class PubQuizQuestionsForm extends React.Component {
   handleSubmit = (e) => {
     console.log("submit called");
     e.preventDefault();
+    const token = localStorage.getItem('jwt');
+    let header = {'Authorization': 'Bearer ' + token};
+    let rounds = this.putRoundsIntoArray();
     axios.post('http://localhost:8000/api/parsePubQnA', {
-      state: this.state,
-    })
+      rounds: rounds,
+    }, {headers:header})
     .then((response) => {
-      console.log(response);
-      })
+      if (response.data == true) {
+        this.setState({redirect: true});
+      }
+      console.log(response.data);
+    })
     // .catch((error) => {
     //   const status = error.response.status;
     //   console.log(status);
     // });
+  }
+
+  putRoundsIntoArray = () => {
+    let roundsArray = [];
+    for (let i = 0; i < this.state.roundCount.length; i++) {
+      let selectedRoundName = "round" + i;
+      roundsArray.push(this.state[selectedRoundName]);
+      // let selectedRoundArray = [{ question: "", answer: ""}];
+    }
+    return roundsArray;
   }
 
   changeSelectedRound = (e) => {
@@ -228,6 +247,11 @@ class PubQuizQuestionsForm extends React.Component {
   }
 
   render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to="/dashboard"/>
+    }
     // let {items} = this.props.questionItems
     // let {items} = this.state;
     // this.parseRoundsIntoState();
@@ -260,11 +284,11 @@ class PubQuizQuestionsForm extends React.Component {
               let questionPlaceholder = `Question ${idx+1}`, answerPlaceholder = `Answer ${idx+1}`;
               return (
                 <section key={idx}>
-                  <label className="pubq__article__form__label question" htmlFor={questionId}>{`Question #${idx+1}`}
-                    <input className="pubq__article__form__input" placeholder={questionPlaceholder} type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} />
+                  <label className="pubq__article__form__label" htmlFor={questionId}>{`Question #${idx+1}`}
+                    <input className="question" placeholder={questionPlaceholder} type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} />
                   </label>
                   <label className="pubq__article__form__label" htmlFor={answerId}>Answer:
-                    <input className="pubq__article__form__input answer" placeholder={answerPlaceholder} type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} />
+                    <input className="answer" placeholder={answerPlaceholder} type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} />
                   </label>
                 </section>
               )
