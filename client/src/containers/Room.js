@@ -13,6 +13,7 @@ import 'react-tabs/style/react-tabs.css';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import AutoscrolledList from "./AutoscrolledList";
 import MediaControls from "../components/MediaControls";
+import axios from "axios";
 
 const Container = styled.div`
     height: calc(100% - 6rem);
@@ -61,8 +62,44 @@ const Room = (props) => {
     const [messages, setMessages] = useState([]);
 
 
+
+
+
+
+
+
     useEffect(() => {
         socketRef.current = io.connect('http://localhost:3001');
+
+        if(socketRef.current){
+            // socketRef.current.emit();
+            console.log("joined");
+            const token = localStorage.getItem('jwt');
+            if(token){
+                axios.get('https://bonq-api.herokuapp.com/api/dashboard', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                })
+                    .then((response) => {
+                        const user = response.data;
+                        setUsernameOfuser(user.username);
+
+                        //this.setState({user});
+                        // myProps = this.props;
+
+                    })
+                    .catch((error) => {
+                        const status = error.response.status;
+                        if (status === 401 && this.props.isAuthenticated) {
+                            // logged in but invalid jwt
+                            this.props.refresh();
+                        }
+                    });
+            }
+
+
+
+
+        }
 
         // socketRef.current.on("connected", user => {
         //     //socket.emit("send", "joined the server");
@@ -73,8 +110,6 @@ const Room = (props) => {
 
             setMessages(messages => [...messages, message]);
             //console.log("message"  + messages);
-
-
 
         });
 
@@ -415,6 +450,8 @@ const Room = (props) => {
     }
 
 
+
+
     const submit = event => {
         event.preventDefault();
         //socket.emit("roomName", nameRoomJoin);
@@ -433,7 +470,7 @@ const Room = (props) => {
     if(intro === false) {
         return (
             <Container>
-                <Username startSession={startSession} switchState={switchState} handeChangeSwitch={handeChangeSwitch} handleUsernameInput={handleUsernameInput} />
+                <Username startSession={startSession} switchState={switchState} handeChangeSwitch={handeChangeSwitch} handleUsernameInput={handleUsernameInput}  userName={userName} />
             </Container>
         );
     }

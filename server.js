@@ -72,7 +72,23 @@ function myFunction(item, index) {
 
 io.on('connection', socket => {
 
-    console.log(users);
+
+    //console.log(users);
+
+
+    socket.on("retrievedUser", (userFromDB) => {
+        console.log(socket.id);
+        users[socket.id].name = userFromDB.username;
+        //console.log(users[socket.id]);
+    });
+
+    socket.on("getUserName", () => {
+        console.log("getUserName");
+        console.log(socket.id);
+        console.log(users[socket.id].name);
+
+    });
+
 
     socket.on("checkUserType", () => {
 
@@ -92,15 +108,16 @@ io.on('connection', socket => {
     });
 
     socket.on("username", username => {
-
         const user = {
-            name: username,
+            name: null,
             id: socket.id,
             team: null,
             type: "player"
         };
-
         users[socket.id] = user;
+
+        users[socket.id].name = username;
+
 
 
 
@@ -262,6 +279,7 @@ io.on('connection', socket => {
 
     socket.on("join team", payload => {
         let roomIdFromClient = socket.handshake.headers.referer;
+        console.log(users[socket.id]);
         arrayOfUsersinThisRoom = [];
         if(roomIdFromClient != null){
             var roomURL = roomIdFromClient.split("/r/");
