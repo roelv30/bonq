@@ -1,9 +1,20 @@
 body,
 input,
 button {
-  font-size: 1.6vw;
-  margin: 0;
-  font-family: Sans-Serif;
+  font-family: 'Squada One', cursive;
+  color: #fff;
+  background-color: #0ABDC6;
+  width: 20rem;
+  height: 5rem;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  display: inline-block;
+  text-decoration: none;
+  padding: 1rem;
+  text-align: center;
 }
 @media(max-width: 1024px) {
   body,
@@ -32,10 +43,10 @@ button:focus {
 
 input[type=text] {
   border: none;
-  border-bottom: solid 2px #4c4c4f;
+  border-bottom: solid 2px #D10C76;
   /*font-size: 1em;*/
   background-color: transparent;
-  color: #000;
+  color: white;
   padding: .4em 0;
   /*//margin: 2ex 0;*/
   /*width: 100%;*/
@@ -43,6 +54,11 @@ input[type=text] {
   display: block;
   margin: 0 auto;
 }
+
+.form-control{
+  margin: 2rem auto!important;
+}
+
 .inputUsername{
   height: 80%;
   font-size: 4rem;
@@ -312,6 +328,10 @@ ul.tabs li button.tab-link-active{
   width: 100%;
 }
 
+.messages__container{
+  padding: 0 5rem;
+  text-align: left;
+}
 
 
 @media(max-width: 768px) {

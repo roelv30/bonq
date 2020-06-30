@@ -4,7 +4,10 @@ import moment from 'moment';
 import './AutoscrolledList.css';
 const styles = {
     overflowY: "scroll",
-    height: "300px"
+    height: "200px",
+    borderTop: "2px solid #D10C76",
+    marginTop: "2rem",
+    padding: "0 1.5rem"
 };
 
 class List extends React.Component {

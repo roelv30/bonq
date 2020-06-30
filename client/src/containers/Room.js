@@ -20,7 +20,7 @@ const Container = styled.div`
     padding: 5rem 0;
     z-index:1;
     position:relative;
-    text-align:center;    
+    text-align:center;
 `;
 
 const StyledVideo = styled.video`
@@ -517,7 +517,7 @@ const Room = (props) => {
                                 <div className="row">
                                     <div className="col-md-8">
                                         <h6>Messages</h6>
-                                        <div id="messages">
+                                        <div id="messages" className="messages__container">
                                             <AutoscrolledList items={messages} />
                                         </div>
                                         <form onSubmit={submit} id="form">
@@ -525,6 +525,7 @@ const Room = (props) => {
                                                 <input
                                                     type="text"
                                                     className="form-control"
+                                                    placeholder="Say something..."
                                                     onChange={e => setMessage(e.currentTarget.value)}
                                                     value={message}
                                                     id="text"
