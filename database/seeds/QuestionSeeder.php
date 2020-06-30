@@ -13,7 +13,7 @@ class QuestionSeeder extends Seeder
     {
             DB::table('question')->insert([
               // 'question_id' => 1,
-              'room_id' => "Frankenstein",
+              'room_id' => 654321,
               'rounds_array' => "[]",
               // 'order' => 1,
               // 'shown_question' => 'how many playable classes exist in Dungeons and Dragons?',
@@ -23,7 +23,7 @@ class QuestionSeeder extends Seeder
 
             DB::table('question')->insert([
               // 'question_id' => 2,
-              'room_id' => "117013",
+              'room_id' => 123456,
               'rounds_array' => "[]",
               // 'order' => 2,
               // 'shown_question' => 'who is the egyptian god of the sun?',

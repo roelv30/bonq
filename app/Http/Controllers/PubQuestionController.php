@@ -38,9 +38,9 @@ class PubQuestionController extends Controller
     //   return $item;
     // });
 
-    // $temp = ["hahaha", "wat kut"];
+    // $temp = ["hahaha", "wat leuk"];
     // $pcikup->rounds_array = $temp;
-    
+
     $dummyImgUrl = "/no/limits";
 
     $item = new Question();
@@ -56,30 +56,10 @@ class PubQuestionController extends Controller
     }
   }
 
-  // public function show(){
-  //
-  //   // $pickup = Question::create([
-  //   //     'room_id' => true,
-  //   //     'rounds_array' => '[1, 5, 7]', // you can easily assign an actual integer array here
-  //   //     'img_url' => 1
-  //   // ]);
-  //
-  //   $pcikup = Question::first();
-  //   // dump($pcikup);
-  //
-  //   $temp = ["hahaha", "wat kut"];
-  //   // $temp[] = $pcikup->rounds_array->toArray();
-  //   $pcikup->rounds_array = $temp;
-  //   // // $myTable.my_field[] = $temp;
-  //   // dump($temp);
-  //
-  //   return $temp;
-  //
-  // //   $object = (object) [
-  // //   'propertyOne' => 'foo',
-  // //   'propertyTwo' => 42,
-  // // ];
-  // //
-  // //   return $object;
-  // }
+  public function show(){
+
+    $rooms = Question::select('room_id')->get();
+
+    return response()->json($rooms);
+  }
 }
