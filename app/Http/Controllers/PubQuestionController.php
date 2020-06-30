@@ -26,26 +26,61 @@ class PubQuestionController extends Controller
     //   return redirect('/bier/create');
     // }
 
-    return $request->state->round0;
+    // $data = $request->state;
+    //
+    // $area = json_decode($data, true);
+    // $ananas = json_decode($request);
+
+
+    // $request->merge($temp);
+
+    // $data = $request->state->map(function($item, $key){
+    //   return $item;
+    // });
+
+    // $temp = ["hahaha", "wat kut"];
+    // $pcikup->rounds_array = $temp;
+
+    $dummyRoomId = "117013";
+    $dummyImgUrl = "/no/limits";
+
+    $item = new Question();
+    $item->rounds_array = $request->rounds;
+    $item->room_id = $dummyRoomId;
+    $item->img_url = $dummyImgUrl;
+
+    try {
+      $item->save();
+      return true;
+    } catch (\Exception $e) {
+      return $e;
+    }
   }
 
-  public function show(){
-
-    // $pickup = Question::create([
-    //     'room_id' => true,
-    //     'rounds_array' => '[1, 5, 7]', // you can easily assign an actual integer array here
-    //     'img_url' => 1
-    // ]);
-
-    $pcikup = Question::first();
-    // dump($pcikup);
-
-    $temp = ["hahaha", "wat kut"];
-    // $temp[] = $pcikup->rounds_array->toArray();
-    $pcikup->rounds_array = $temp;
-    // // $myTable.my_field[] = $temp;
-    // dump($temp);
-
-    return $temp;
-  }
+  // public function show(){
+  //
+  //   // $pickup = Question::create([
+  //   //     'room_id' => true,
+  //   //     'rounds_array' => '[1, 5, 7]', // you can easily assign an actual integer array here
+  //   //     'img_url' => 1
+  //   // ]);
+  //
+  //   $pcikup = Question::first();
+  //   // dump($pcikup);
+  //
+  //   $temp = ["hahaha", "wat kut"];
+  //   // $temp[] = $pcikup->rounds_array->toArray();
+  //   $pcikup->rounds_array = $temp;
+  //   // // $myTable.my_field[] = $temp;
+  //   // dump($temp);
+  //
+  //   return $temp;
+  //
+  // //   $object = (object) [
+  // //   'propertyOne' => 'foo',
+  // //   'propertyTwo' => 42,
+  // // ];
+  // //
+  // //   return $object;
+  // }
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     protected $table = "question";
+    public $timestamps = false;
 
     /**
      * The attributes that should be cast.

@@ -25,11 +25,11 @@ Route::get('/refreshToken', 'FrontEndUserController@refreshToken');
 
 Route::get('/question', 'AnswerController@getQuestion');
 
-Route::post('/parsePubQnA', 'PubQuestionController@store');
 Route::get('/testRoundArray', 'PubQuestionController@show');
 
 Route::group(['middleware' => 'jwt.auth'], function() {
     Route::get('/dashboard', 'FrontEndUserController@showDashboard');
     Route::get('/avatar', 'FrontEndUserController@avatarGet');
     Route::post('/avatar', 'FrontEndUserController@avatarSubmit');
+    Route::post('/parsePubQnA', 'PubQuestionController@store');
 });
