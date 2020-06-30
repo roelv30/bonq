@@ -30,18 +30,152 @@ const socketToRoom = {};
 const socketToTeam = {};
 const usersConnected = {};
 
+const answers = {};
+
+var request = require('request');
+
+request({url: 'https://bonq-api.herokuapp.com/api/getRooms', json: true}, function(err, res, json) {
+    if (err) {
+        throw err;
+    }
+    json.forEach(myFunction);
+    // console.log(json);
+});
+
+
+function myFunction(item, index) {
+    if (users[item.room_id]) {
+        // const length = teams[payload].length;
+        // if (length === room_size) {
+        //     socket.emit("room full");
+        //     return;
+        // }
+
+        console.log("found one");
+        //console.log(users[roomNumber][payload]);
+        //      users[item.room_id].push(item.room_id);
+        //teams[payload].push(socket.id);
+
+    } else {
+        users[item.room_id] = [];
+        console.log("none found");
+        //teams[payload] = [socket.id];
+
+
+        ///let payload = {[ {"name":"tomato", "howMany": 3} ]}[payload]
+        // users[roomNumber] = payload[socket.id];
+        //users[roomNumber][payload].push(socket.id);
+        //console.log(users);
+    }
+
+    // document.getElementById("demo").innerHTML += index + ":" + item + "<br>";
+}
+
 
 io.on('connection', socket => {
 
+
+
+    socket.on("setAnswer", payload => {
+        console.log(answers);
+
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+
+        if (answers[roomNumber]) {
+            //console.log("team is already existing");
+            // if(users[roomNumber][payload]){
+            //     users[roomNumber][payload].push(socket.id);
+            // }else{
+            //     users[roomNumber][payload] = [socket.id];
+            // }
+            //console.log(answers[roomNumber][]);
+            if(answers[roomNumber][payload[3]]){
+                answers[roomNumber][payload[3]].push({"round": payload[0], "question": payload[1], "answer": payload[2]});
+            }else{
+                answers[roomNumber][payload[3]] = [{"round": payload[0], "question": payload[1], "answer": payload[2]}];
+            }
+
+        } else {
+            answers[roomNumber] = {[payload[3]] : [{"round": payload[0], "question": payload[1], "answer": payload[2]}]};
+        }
+
+
+        //console.log(answers[roomNumber]);
+    });
+
+    socket.on("startGame", () => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+        //
+
+
+
+        request('https://bonq-api.herokuapp.com/api/getQuestions/' + roomNumber, { json: true }, (err, res, body) => {
+            if (err) {
+                return console.log(err);
+            }
+            io.to(roomNumber).emit('questions', body[0].rounds_array);
+            console.log(body[0].rounds_array);
+
+        });
+
+    });
+
+    //console.log(users);
+
+
+    socket.on("retrievedUser", (userFromDB) => {
+        console.log(socket.id);
+        users[socket.id].name = userFromDB.username;
+        //console.log(users[socket.id]);
+    });
+
+    socket.on("getUserName", () => {
+        console.log("getUserName");
+        console.log(socket.id);
+        console.log(users[socket.id].name);
+
+    });
+
+
+    socket.on("checkUserType", () => {
+
+        let roomIdFromClient = socket.handshake.headers.referer;
+
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+        io.to(socket.id).emit('isHeHost', "yes");
+        // if(users[roomNumber]  && users[socket.id] != "host"){
+        //     io.to(socket.id).emit('isHeHost', "yes");
+        // }else{
+        //     io.to(socket.id).emit('isHeHost', "no");
+        // }
+
+    });
+
     socket.on("username", username => {
-
         const user = {
-            name: username,
+            name: null,
             id: socket.id,
-            team: null
+            team: null,
+            type: "player"
         };
-
         users[socket.id] = user;
+
+        users[socket.id].name = username;
+
+
+
+
         //usersConnected[socket.id] = user;
         // console.log(users[socket.id]);
         //io.to(roomNumber).emit("connected", user);
@@ -134,7 +268,7 @@ io.on('connection', socket => {
         // const usersInThisRoom = users[roomNumber].filter(id => id !== socket.id);
         // io.emit("joinedRoom", roomNumber);
         // socket.join(roomNumber);
-         socketToRoom[socket.id] = roomNumber;
+        socketToRoom[socket.id] = roomNumber;
         // console.log(usersInThisRoom);
         // io.to(socket.id).emit("all users", usersInThisRoom)
         //socket.emit("all users", usersInThisRoom);
@@ -195,8 +329,12 @@ io.on('connection', socket => {
     //     socket.leave(roomID);
     //
     // });
+
+
+
     socket.on("join team", payload => {
         let roomIdFromClient = socket.handshake.headers.referer;
+        console.log(users[socket.id]);
         arrayOfUsersinThisRoom = [];
         if(roomIdFromClient != null){
             var roomURL = roomIdFromClient.split("/r/");
@@ -204,7 +342,7 @@ io.on('connection', socket => {
         }
         users[socket.id].team = payload;
         //console.log(users[socket.id]);
-       // console.log(payload);
+        // console.log(payload);
         arrayOfUsersinThisTeam = [];
         //console.log(users[roomNumber]);
         if (users[roomNumber]) {
@@ -228,7 +366,7 @@ io.on('connection', socket => {
 
             users[roomNumber] = {[payload] : [socket.id]};
             ///let payload = {[ {"name":"tomato", "howMany": 3} ]}[payload]
-           // users[roomNumber] = payload[socket.id];
+            // users[roomNumber] = payload[socket.id];
             //users[roomNumber][payload].push(socket.id);
             //console.log(users);
         }
@@ -240,7 +378,7 @@ io.on('connection', socket => {
             // console.log(sizeOfUsers );
 
 
-           // const usersInThisTeam = users[roomNumber][payload].filter(id => id !== socket.id);
+            // const usersInThisTeam = users[roomNumber][payload].filter(id => id !== socket.id);
 
             users[roomNumber][payload].forEach(myFunction);
             function myFunction(item, index) {
@@ -254,7 +392,7 @@ io.on('connection', socket => {
 
             arrayOfUsersinThisTeam.forEach(myFunction2);
             function myFunction2(item, index) {
-               // console.log("item");
+                // console.log("item");
                 //console.log("payload");
                 //console.log();
 
@@ -275,9 +413,9 @@ io.on('connection', socket => {
         // const usersInThisRoom = users[roomNumber].filter(id => id !== socket.id);
         // io.emit("joinedRoom", roomNumber);
         // socket.join(roomNumber);
-       // socketToRoom[socket.id] = roomNumber;
-       // console.log(usersInThisRoom);
-       // io.to(socket.id).emit("all users", usersInThisRoom)
+        // socketToRoom[socket.id] = roomNumber;
+        // console.log(usersInThisRoom);
+        // io.to(socket.id).emit("all users", usersInThisRoom)
 
     });
 
@@ -395,7 +533,69 @@ io.on('connection', socket => {
 
     });
 
+    socket.on('leaving', () => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        arrayOfUsersinThisTeam = [];
 
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+
+
+        const roomID = socketToRoom[socket.id];
+        const teamID = socketToTeam[socket.id];
+        console.log("a user left");
+        io.to(roomID).emit('left', socket.id);
+        //console.log(roomID);
+        // let room = users[roomID];
+        // if (room) {
+        //     room = room.filter(id => id !== socket.id);
+        //     users[roomID] = room;
+        // }
+
+        if(teamID != null){
+            let test = users[roomID][teamID];
+            if (test) {
+                test = test.filter(id => id !== socket.id);
+                users[roomNumber][teamID] = test;
+            }
+        }
+        //socket.leave(teamID);
+        socket.leave(roomID);
+
+        //update team names in certain team.
+        if(users[roomNumber]){
+            if (users[roomNumber][teamID]) {
+                let sizeOfUsers = Object.keys(users[roomNumber][teamID]).length;
+                // console.log(sizeOfUsers );
+
+                users[roomID][teamID].forEach(myFunction);
+                function myFunction(item, index) {
+                    console.log(item);
+                    arrayOfUsersinThisTeam.push(users[item])
+                }
+
+                arrayOfUsersinThisTeam.forEach(myFunction2);
+                function myFunction2(item, index) {
+                    console.log("item");
+                    //console.log("payload");
+                    //console.log();
+
+                    io.to(item.id).emit('update teams', arrayOfUsersinThisTeam);
+                    // console.log(item);
+                    // arrayOfUsersinThisTeam.push(users[item])
+                }
+
+                //io.to(socket.id).emit("update teams", arrayOfUsersinThisTeam);
+                //io.to(roomNumber).emit('update teams', arrayOfUsersinThisTeam);
+            }
+        }
+        io.to(roomID).emit('left', socket.id);
+        io.to(socket.id).emit('leaving user homepage');
+        io.to(socket.id).emit('leaving room signal');
+
+    });
 
     //console.log("User connected");
 
@@ -467,13 +667,7 @@ io.on('connection', socket => {
     // });
     // socket.on('reject', () => socket.emit('full'));
     //
-    // socket.on('leave', () => {
-    //     // sending to all clients in the room (channel) except sender
-    //     socket.broadcast.to(room).emit('hangup');
-    //     socket.leave(room);
-    //
-    //
-    // });
+
     // socket.on("disconnect", () => {
     //     activeSockets = activeSockets.filter(
     //         existingSocket => existingSocket !== socket.id

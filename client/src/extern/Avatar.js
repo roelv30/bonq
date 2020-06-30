@@ -35,11 +35,13 @@ class Avatar extends Component{
 
     if(this.state.avatar_url != null){
       activeAvatar = document.querySelector(".modal-main--label--image[src='"+this.state.avatar_url+"']");
-      activeParent = activeAvatar.parentNode;
+      if (activeAvatar) {
+        activeParent = activeAvatar.parentNode;
 
-      activeAvatar.style.transform = 'translateY(-10px)';
-      activeParent.style.border = '4px solid #0ABDC6';
-      activeParent.style.padding = '14px';
+        activeAvatar.style.transform = 'translateY(-10px)';
+        activeParent.style.border = '4px solid #0ABDC6';
+        activeParent.style.padding = '14px';
+      }
 
     }
   }
@@ -76,6 +78,7 @@ class Avatar extends Component{
   };
 
   handleSubmit(event) {
+    event.preventDefault();
     event.persist();
     console.log("submitted");
     const token = localStorage.getItem('jwt');

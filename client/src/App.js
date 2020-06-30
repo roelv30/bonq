@@ -2,10 +2,21 @@ import React from 'react';
 // import ReactDOM from 'react-dom';
 // import { render } from 'react-dom'
 // import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-router-dom";
-import { Route, BrowserRouter, Redirect  } from "react-router-dom";
+// import { Route, BrowserRouter, Redirect  } from "react-router-dom";
 // import Home from './containers/HomePage'
-import Room from './containers/Room';
+// import Room from './containers/Room';
 // import NotFound from './components/NotFound'
+import ReactDOM from 'react-dom';
+
+import { render } from 'react-dom';
+
+
+import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-router-dom";
+import Home from './containers/HomePage';
+import Room from './containers/Room';
+import NotFound from './components/NotFound';
+import PubQuizQuestionsForm from './extern/PubQuizQuestionsForm'; //remove later
+import PubQuizSetup from './extern/PubQuizSetup'; //remove later
 import './style.css';
 
 
@@ -24,7 +35,7 @@ import io from "socket.io-client";
 import axios from 'axios';
 import Start from './extern/Start';
 import Login from './extern/Login';
-// import Test from './extern/Test';
+import Test from './extern/Test';
 import Register from './extern/Register';
 import Header from './extern/Header';
 import Dashboard from './extern/Dashboard';
@@ -122,6 +133,8 @@ class App extends React.Component {
             <Login authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
         <Route exact path='/register' render={(props) =>
             <Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
+
+        <PrivateRoute exact path="/pubq/questions" component={PubQuizSetup} isAuthenticated={this.state.isAuthenticated} token={this.state.token} logout={this.logout} />
         <PrivateRoute exact path='/joingame' component={JoinGame} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
 		    <PrivateRoute exact path='/easteregg' component={EasterEgg} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout}  />
