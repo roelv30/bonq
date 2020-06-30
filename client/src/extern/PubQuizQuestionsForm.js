@@ -65,6 +65,7 @@ class PubQuizQuestionsForm extends React.Component {
     roundCount: [],
     selectedTab: 0,
     redirect: false,
+    room: 0,
   };
 
   // state = {
@@ -196,11 +197,15 @@ class PubQuizQuestionsForm extends React.Component {
   handleSubmit = (e) => {
     console.log("submit called");
     e.preventDefault();
+
+    const roomNum = this.generateRoom();
+
     const token = localStorage.getItem('jwt');
     let header = {'Authorization': 'Bearer ' + token};
     let rounds = this.putRoundsIntoArray();
     axios.post('http://localhost:8000/api/parsePubQnA', {
       rounds: rounds,
+      room: roomNum,
     }, {headers:header})
     .then((response) => {
       if (response.data == true) {
@@ -212,6 +217,16 @@ class PubQuizQuestionsForm extends React.Component {
     //   const status = error.response.status;
     //   console.log(status);
     // });
+  }
+
+  generateRoom = () => {
+      const min = 100000;
+      const max = 999999;
+      const rand = min + Math.random() * (max - min);
+      const fixedRandom  =  Number((rand).toFixed(0));
+
+      // this.setState({room: fixedRandom});
+      return fixedRandom;
   }
 
   putRoundsIntoArray = () => {
@@ -249,9 +264,9 @@ class PubQuizQuestionsForm extends React.Component {
   render() {
     const { redirect } = this.state;
 
-    if (redirect) {
-      return <Redirect to="/dashboard"/>
-    }
+    // if (redirect) {
+    //   return <Redirect to="/dashboard"/>
+    // }
     // let {items} = this.props.questionItems
     // let {items} = this.state;
     // this.parseRoundsIntoState();
