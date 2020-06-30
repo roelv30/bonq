@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/bonq.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bonq.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Username.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Username.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +66,7 @@
       <workItem from="1592991093714" duration="903000" />
       <workItem from="1592992031373" duration="1178000" />
       <workItem from="1593182900145" duration="2138000" />
-      <workItem from="1593535264809" duration="275000" />
+      <workItem from="1593535264809" duration="839000" />
     </task>
     <task id="LOCAL-00001" summary="Changed to online host">
       <created>1593183050330</created>

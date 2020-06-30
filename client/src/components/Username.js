@@ -19,8 +19,8 @@ const Username = (props) => {
                 <h2 className={"headerLogin"}>What do you like <br/> to be called?</h2>
                 <div className={"backgroundUsername"}>
                     <input type="text" name="username" value={props.userName} onChange={props.handleUsernameInput} className={"whiteText inputUsername"}
-                       pattern="^\w+$" maxLength="20" required autoFocus
-                       title="Username"/>
+                           pattern="^\w+$" maxLength="20" required autoFocus
+                           title="Username"/>
                 </div>
 
                 {/*<button className="primary-button" type="button" >Set username</button>*/}
