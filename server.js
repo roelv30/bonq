@@ -30,6 +30,8 @@ const socketToRoom = {};
 const socketToTeam = {};
 const usersConnected = {};
 
+const answers = {};
+
 var request = require('request');
 
 request({url: 'https://bonq-api.herokuapp.com/api/getRooms', json: true}, function(err, res, json) {
@@ -72,6 +74,59 @@ function myFunction(item, index) {
 
 io.on('connection', socket => {
 
+
+
+    socket.on("setAnswer", payload => {
+        console.log(answers);
+
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+
+        if (answers[roomNumber]) {
+            //console.log("team is already existing");
+            // if(users[roomNumber][payload]){
+            //     users[roomNumber][payload].push(socket.id);
+            // }else{
+            //     users[roomNumber][payload] = [socket.id];
+            // }
+            //console.log(answers[roomNumber][]);
+            if(answers[roomNumber][payload[3]]){
+                answers[roomNumber][payload[3]].push({"round": payload[0], "question": payload[1], "answer": payload[2]});
+            }else{
+                answers[roomNumber][payload[3]] = [{"round": payload[0], "question": payload[1], "answer": payload[2]}];
+            }
+
+        } else {
+            answers[roomNumber] = {[payload[3]] : [{"round": payload[0], "question": payload[1], "answer": payload[2]}]};
+        }
+
+
+        //console.log(answers[roomNumber]);
+    });
+
+    socket.on("startGame", () => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+        //
+
+
+
+        request('https://bonq-api.herokuapp.com/api/getQuestions/' + roomNumber, { json: true }, (err, res, body) => {
+            if (err) {
+                return console.log(err);
+            }
+            io.to(roomNumber).emit('questions', body[0].rounds_array);
+            console.log(body[0].rounds_array);
+
+        });
+
+    });
 
     //console.log(users);
 
