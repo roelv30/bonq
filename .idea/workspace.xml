@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/client/src/components/Questions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/containers/AutoscrolledList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/AutoscrolledList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/containers/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/Room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/extern/PubQuizQuestionsForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/PubQuizQuestionsForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,6 +66,7 @@
       <workItem from="1592991093714" duration="903000" />
       <workItem from="1592992031373" duration="1178000" />
       <workItem from="1593182900145" duration="2138000" />
+      <workItem from="1593535264809" duration="9948000" />
     </task>
     <task id="LOCAL-00001" summary="Changed to online host">
       <created>1593183050330</created>
@@ -73,17 +75,67 @@
       <option name="project" value="LOCAL" />
       <updated>1593183050330</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Revert &quot;room js fix&quot;&#10;&#10;This reverts commit 4484968c">
+      <created>1593535480729</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1593535480729</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/development" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/development" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Changed to online host" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed to online host" />
+    <MESSAGE value="Revert &quot;room js fix&quot;&#10;&#10;This reverts commit 4484968c" />
+    <option name="LAST_COMMIT_MESSAGE" value="Revert &quot;room js fix&quot;&#10;&#10;This reverts commit 4484968c" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="578" y="7" key="CommitChangelistDialog2" timestamp="1593535477572">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="578" y="7" key="CommitChangelistDialog2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593535477572" />
     <state x="739" y="275" key="FileChooserDialogImpl" timestamp="1592991395212">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -94,9 +146,17 @@
     </state>
     <state x="668" y="140" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592991861544" />
     <state x="2381" y="162" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592990776974" />
+    <state x="552" y="234" key="Vcs.Push.Dialog.v2" timestamp="1593535488548">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="234" key="Vcs.Push.Dialog.v2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593535488548" />
     <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593183018571">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593183018571" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1593540310817">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593540310817" />
   </component>
 </project>
