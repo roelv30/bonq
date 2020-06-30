@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
 
 	getUser() {
 		const token = this.props.token;
-		axios.get('http://192.168.2.34:8000/api/dashboard', {
+		axios.get('http://192.168.0.214:8000/api/dashboard', {
 			headers: { 'Authorization': 'Bearer ' + token }
 		})
 		.then((response) => {

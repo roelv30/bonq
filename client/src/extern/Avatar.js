@@ -70,7 +70,7 @@ class Avatar extends Component{
   componentDidMount = () =>{
     const token = this.props.token;
     let header = {'Authorization': 'Bearer ' + token};
-    axios.get('http://192.168.2.34:8000/api/avatar', {headers:header})
+    axios.get('http://192.168.0.214:8000/api/avatar', {headers:header})
       .then((response) => {
         console.log(response);
         this.setState({avatar_url: response.data});
@@ -84,7 +84,7 @@ class Avatar extends Component{
     const token = localStorage.getItem('jwt');
     let data = {avatar_url: this.state.avatar_url};
     let header = {'Authorization': 'Bearer ' + token};
-    axios.post('http://192.168.2.34:8000/api/avatar', data, {headers:header})
+    axios.post('http://192.168.0.214:8000/api/avatar', data, {headers:header})
     .then((response) => {
       console.log(response);
       // this.setState({ error: '', });

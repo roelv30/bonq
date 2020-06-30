@@ -32,7 +32,7 @@ const usersConnected = {};
 
 var request = require('request');
 
-request({url: 'http://192.168.2.34:8000/api/question', json: true}, function(err, res, json) {
+request({url: 'http://192.168.0.214:8000/api/question', json: true}, function(err, res, json) {
     if (err) {
         throw err;
     }
@@ -74,15 +74,36 @@ io.on('connection', socket => {
 
     console.log(users);
 
+    socket.on("checkUserType", () => {
+
+        let roomIdFromClient = socket.handshake.headers.referer;
+
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+        io.to(socket.id).emit('isHeHost', "yes");
+        // if(users[roomNumber]  && users[socket.id] != "host"){
+        //     io.to(socket.id).emit('isHeHost', "yes");
+        // }else{
+        //     io.to(socket.id).emit('isHeHost', "no");
+        // }
+
+    });
+
     socket.on("username", username => {
 
         const user = {
             name: username,
             id: socket.id,
-            team: null
+            team: null,
+            type: "player"
         };
 
         users[socket.id] = user;
+
+
+
         //usersConnected[socket.id] = user;
         // console.log(users[socket.id]);
         //io.to(roomNumber).emit("connected", user);
@@ -236,6 +257,9 @@ io.on('connection', socket => {
     //     socket.leave(roomID);
     //
     // });
+
+
+
     socket.on("join team", payload => {
         let roomIdFromClient = socket.handshake.headers.referer;
         arrayOfUsersinThisRoom = [];
@@ -436,7 +460,69 @@ io.on('connection', socket => {
 
     });
 
+    socket.on('leaving', () => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        arrayOfUsersinThisTeam = [];
 
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+
+
+        const roomID = socketToRoom[socket.id];
+        const teamID = socketToTeam[socket.id];
+        console.log("a user left");
+        io.to(roomID).emit('left', socket.id);
+        //console.log(roomID);
+        // let room = users[roomID];
+        // if (room) {
+        //     room = room.filter(id => id !== socket.id);
+        //     users[roomID] = room;
+        // }
+
+        if(teamID != null){
+            let test = users[roomID][teamID];
+            if (test) {
+                test = test.filter(id => id !== socket.id);
+                users[roomNumber][teamID] = test;
+            }
+        }
+        //socket.leave(teamID);
+        socket.leave(roomID);
+
+        //update team names in certain team.
+        if(users[roomNumber]){
+            if (users[roomNumber][teamID]) {
+                let sizeOfUsers = Object.keys(users[roomNumber][teamID]).length;
+                // console.log(sizeOfUsers );
+
+                users[roomID][teamID].forEach(myFunction);
+                function myFunction(item, index) {
+                    console.log(item);
+                    arrayOfUsersinThisTeam.push(users[item])
+                }
+
+                arrayOfUsersinThisTeam.forEach(myFunction2);
+                function myFunction2(item, index) {
+                    console.log("item");
+                    //console.log("payload");
+                    //console.log();
+
+                    io.to(item.id).emit('update teams', arrayOfUsersinThisTeam);
+                    // console.log(item);
+                    // arrayOfUsersinThisTeam.push(users[item])
+                }
+
+                //io.to(socket.id).emit("update teams", arrayOfUsersinThisTeam);
+                //io.to(roomNumber).emit('update teams', arrayOfUsersinThisTeam);
+            }
+        }
+        io.to(roomID).emit('left', socket.id);
+        io.to(socket.id).emit('leaving user homepage');
+        io.to(socket.id).emit('leaving room signal');
+
+    });
 
     //console.log("User connected");
 
@@ -508,13 +594,7 @@ io.on('connection', socket => {
     // });
     // socket.on('reject', () => socket.emit('full'));
     //
-    // socket.on('leave', () => {
-    //     // sending to all clients in the room (channel) except sender
-    //     socket.broadcast.to(room).emit('hangup');
-    //     socket.leave(room);
-    //
-    //
-    // });
+
     // socket.on("disconnect", () => {
     //     activeSockets = activeSockets.filter(
     //         existingSocket => existingSocket !== socket.id
