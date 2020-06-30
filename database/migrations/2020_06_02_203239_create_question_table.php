@@ -14,11 +14,14 @@ class CreateQuestionTable extends Migration
     public function up()
     {
          Schema::create('question', function (Blueprint $table) {
-            $table->integer('question_id')->primary();
-            $table->integer('order');   // displays where the question should be put in order e.g. 1 will be the first question
-            $table->string('shown_question');
-            $table->integer('answer');
-            $table->foreign('answer')->references('answer_id')->on('answer');
+            // $table->integer('question_id')->primary();
+            $table->id();
+            $table->string('room_id');
+            $table->string('rounds_array');
+            // $table->integer('order');   // displays where the question should be put in order e.g. 1 will be the first question
+            // $table->string('shown_question');
+            // $table->integer('answer');
+            // $table->foreign('answer')->references('answer_id')->on('answer');
             $table->string('img_url');
         });
     }
