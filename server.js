@@ -32,7 +32,7 @@ const usersConnected = {};
 
 var request = require('request');
 
-request({url: 'http://192.168.0.214:8000/api/question', json: true}, function(err, res, json) {
+request({url: 'https://bonq-api.herokuapp.com/api/question', json: true}, function(err, res, json) {
     if (err) {
         throw err;
     }

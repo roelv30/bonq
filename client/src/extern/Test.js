@@ -34,7 +34,7 @@ class Test extends React.Component {
 
 	getTests() {
 		const token = this.props.token;
-		axios.get('http://192.168.0.214:8000/api/test', {
+		axios.get('https://bonq-api.herokuapp.com/api/test', {
 			headers: { 'Authorization': 'Bearer ' + token }
 		})
 		.then((response) => {
