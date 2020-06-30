@@ -40,13 +40,12 @@ class PubQuestionController extends Controller
 
     // $temp = ["hahaha", "wat kut"];
     // $pcikup->rounds_array = $temp;
-
-    $dummyRoomId = "117013";
+    
     $dummyImgUrl = "/no/limits";
 
     $item = new Question();
     $item->rounds_array = $request->rounds;
-    $item->room_id = $dummyRoomId;
+    $item->room_id = $request->room;
     $item->img_url = $dummyImgUrl;
 
     try {
