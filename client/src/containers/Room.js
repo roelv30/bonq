@@ -463,23 +463,17 @@ const Room = (props) => {
 
         setUsernameOfuser(e.target.value);
 
+    };
+
+
+
     if(intro === false) {
         return (
             <Container>
-              <Back text="&larr; back" link="/dashboard"/>
-
-
-                <section>
-                    <h2>Choose a username</h2>
-                    <input type="text" name="username" placeholder="What are you called?" value={userName} onChange={handleUsernameInput} className={"whiteText"}
-                           pattern="^\w+$" maxLength="20" required autoFocus
-                           title="Username"/>
-                    <button className="primary-button" type="button" onClick={startSession}>Set username</button>
-                    {/*<button onClick={setNextPage}>Next page</button>*/}
-                </section>
-              )
-        }
-  
+                <Username startSession={startSession} switchState={switchState} handeChangeSwitch={handeChangeSwitch} handleUsernameInput={handleUsernameInput}  userName={userName} />
+            </Container>
+        );
+    }
 
 
     if(intro === true) {
@@ -523,7 +517,7 @@ const Room = (props) => {
                                 <div className="row">
                                     <div className="col-md-8">
                                         <h6>Messages</h6>
-                                        <div id="messages" className="message__container">
+                                        <div id="messages">
                                             <AutoscrolledList items={messages} />
                                         </div>
                                         <form onSubmit={submit} id="form">
@@ -531,7 +525,6 @@ const Room = (props) => {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    placeholder="Say something..."
                                                     onChange={e => setMessage(e.currentTarget.value)}
                                                     value={message}
                                                     id="text"
@@ -559,9 +552,9 @@ const Room = (props) => {
 
                                 <div className={teamNameStateSet ? "hidden" : "visible"}>
                                     <h2>Choose a Teamname</h2>
-                                    <input type="text" name="teamname" value={teamName} placeholder="Type your teamname..." onChange={handleTeamNameChange} className={"whiteText"}
+                                    <input type="text" name="username" value={teamName} onChange={handleTeamNameChange} className={"whiteText"}
                                            pattern="^\w+$" maxLength="20" required autoFocus
-                                           title="Teamname"/>
+                                           title="Username"/>
                                     <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Set team name</button>
                                     {/*<button onClick={setNextPage}>Next page</button>*/}
                                 </div>
