@@ -49,7 +49,7 @@ class Login extends React.Component {
 	};
 
 	render() {
-		if (this.props.isAuthenticated && this.props.location.state !== undefined) {
+		if (this.props.isAuthenticated) {
 			return (
 				<Redirect to='/dashboard'/>
 			);

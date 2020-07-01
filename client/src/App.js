@@ -126,7 +126,8 @@ class App extends React.Component {
           token={this.state.token}
           refresh={this.refresh}
           logout={this.logout}/>
-        <Route exact path='/' component={Start} />
+        <Route exact path='/' render={(props) =>
+              <Start authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
         <audio className="audio-element-test">
             <source src="https://freesound.org/data/previews/253/253886_3169537-lq.mp3"></source>
         </audio>
