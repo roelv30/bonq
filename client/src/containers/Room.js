@@ -604,7 +604,7 @@ const Room = (props) => {
                                             <div className="input-group">
                                                 <input
                                                     type="text"
-                                                    className="form-control"
+                                                    className="form-control whiteText"
                                                     placeholder="Say something..."
                                                     onChange={e => setMessage(e.currentTarget.value)}
                                                     value={message}
@@ -635,7 +635,7 @@ const Room = (props) => {
                                     <h2>Choose a Teamname</h2>
                                     <input type="text" name="username" value={teamName} onChange={handleTeamNameChange} className={"whiteText"}
                                            pattern="^\w+$" maxLength="20" required autoFocus
-                                           title="Username"/>
+                                           title="Username" className={"whiteText"}/>
                                     <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Set team name</button>
                                     {/*<button onClick={setNextPage}>Next page</button>*/}
                                 </div>
@@ -668,7 +668,7 @@ const Room = (props) => {
                                         {/*<input type="text" className="form-control" value={questionNumber}   id="text"/>*/}
 
                                         <label htmlFor="text">Group answer</label>
-                                        <input type="text" className="form-control" value={answer}   onChange={e => setAnswer(e.currentTarget.value)} id="text"/>
+                                        <input type="text" className="form-control whiteText" value={answer}   onChange={e => setAnswer(e.currentTarget.value)} id="text"/>
 
                                         <span className="input-group-btn">
                                                 <button id="submit" type="submit" className="btn btn-primary">
