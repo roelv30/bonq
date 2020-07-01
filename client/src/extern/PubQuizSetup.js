@@ -62,15 +62,15 @@ class PubQuizSetup extends React.Component {
 
     if (completedSettings) {
       return (
-        <section class="pubq scroll" >
-          <div class="background"></div>
+        <section className="pubq scroll" >
+          <div className="background"></div>
           <PubQuizQuestionsForm parentCallback={this.callbackFunction} roundCount={roundCount} completedSettings={completedSettings} />
         </section>
       );
     } else{
       return (
-        <section class="pubq scroll" >
-          <div class="background"></div>
+        <section className="pubq scroll" >
+          <div className="background"></div>
           { buttonDash }
           <PubQuizSettings parentCallback={this.callbackFunction} roundCount={roundCount} completedSettings={completedSettings} />
         </section>
