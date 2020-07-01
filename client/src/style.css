@@ -30,7 +30,7 @@ button:focus {
 }
 
 
-input[type=text] {
+input[type=text], textarea {
   border: none;
   border-bottom: solid 2px #D10C76;
   /*font-size: 1em;*/
@@ -42,6 +42,10 @@ input[type=text] {
   max-width: 18em;
   display: block;
   margin: 0 auto;
+}
+
+textarea{
+  width: 80%;
 }
 
 .form-control{

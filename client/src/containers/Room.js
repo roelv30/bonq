@@ -79,6 +79,9 @@ const Room = (props) => {
     const [showReview, setShowReview] = useState(false);
 
 
+
+
+
     useEffect(() => {
         socketRef.current = io.connect('/');
 
@@ -481,7 +484,14 @@ const Room = (props) => {
     };
 
 
-
+  const onEnterPress = (e) => {
+      if(e.keyCode == 13 && e.shiftKey == false) {
+        e.preventDefault();
+        if(form__chat != null){
+            form__chat.dispatchEvent(new Event('submit'));
+        }
+      };
+    };
 
     const handleTeamNameChange = (e) => {
 
@@ -536,11 +546,6 @@ const Room = (props) => {
         // console.log(answer);
 
     };
-
-
-
-
-
 
     if(intro === false) {
         return (
@@ -606,13 +611,14 @@ const Room = (props) => {
                                         <div id="messages" className="messages__container">
                                             <AutoscrolledList items={messages} avatar={avatar} />
                                         </div>
-                                        <form onSubmit={submit} id="form">
+                                        <form onSubmit={submit} id="form__chat">
                                             <div className="input-group">
-                                                <input
+                                                <textarea
                                                     type="text"
                                                     className="form-control whiteText"
                                                     placeholder="Say something..."
                                                     onChange={e => setMessage(e.currentTarget.value)}
+                                                    onKeyDown={onEnterPress}
                                                     value={message}
                                                     id="text"
                                                 />
