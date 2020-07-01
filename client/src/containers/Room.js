@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState } from "react";
+import React from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
@@ -71,7 +72,7 @@ const Room = (props) => {
 
 
     useEffect(() => {
-        socketRef.current = io.connect('http://localhost:3001');
+        socketRef.current = io.connect('/');
 
 
         socketRef.current.on("questions", payload => {
@@ -199,6 +200,8 @@ const Room = (props) => {
 
             // console.log(peers);
         });
+
+
 
 
 

@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/Questions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/containers/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/PubQuizQuestionsForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/PubQuizQuestionsForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/question_review/Review.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/question_review/Review.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +43,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/client" />
@@ -66,7 +67,9 @@
       <workItem from="1592991093714" duration="903000" />
       <workItem from="1592992031373" duration="1178000" />
       <workItem from="1593182900145" duration="2138000" />
-      <workItem from="1593535264809" duration="9948000" />
+      <workItem from="1593535264809" duration="11185000" />
+      <workItem from="1593547158720" duration="11884000" />
+      <workItem from="1593586990552" duration="2756000" />
     </task>
     <task id="LOCAL-00001" summary="Changed to online host">
       <created>1593183050330</created>
@@ -105,6 +108,7 @@
                   </entry>
                 </map>
               </option>
+              <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
@@ -150,13 +154,13 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="234" key="Vcs.Push.Dialog.v2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593535488548" />
-    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593183018571">
+    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593550733581">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593183018571" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1593540310817">
+    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593550733581" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1593555093920">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593540310817" />
+    <state x="616" y="240" key="run.anything.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593555093920" />
   </component>
 </project>
