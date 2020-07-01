@@ -65,12 +65,6 @@ class Register extends React.Component {
       return <Redirect to="/dashboard"/>
     }
 
-    if (this.props.isAuthenticated) {
-      return (
-        <Redirect to='/dashboard'/>
-      );
-    };
-
     return (
       <section className="register">
         <div className="background">
