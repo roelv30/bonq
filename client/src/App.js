@@ -48,6 +48,7 @@ import JoinGame from './extern/JoinGame';
 import EasterEgg from './extern/EasterEgg';
 
 
+
 const socketRef = io.connect();
 
 socketRef.on("leaving user homepage", () => {
