@@ -72,7 +72,7 @@ const Room = (props) => {
 
 
     useEffect(() => {
-        socketRef.current = io.connect('http://localhost:3001');
+        socketRef.current = io.connect('/');
 
 
         socketRef.current.on("questions", payload => {
