@@ -7,6 +7,7 @@ import './Back.css';
 import './PubQuizSetup.css';
 import './Register.css';
 import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-router-dom";
+import Back from './Back';
 
 
 // import {changeSearchTerm, changeVideo} from './actions';
@@ -299,14 +300,15 @@ class PubQuizQuestionsForm extends React.Component {
       if (this.state.round0){
         // console.log("it does");
         return (
+          <>
             <TabPanel>
               {
                 currentRound.map((val, idx)=>{
                   let questionId = `question-${idx}`, answerId = `answer-${idx}`;
                   let questionPlaceholder = `Question ${idx+1}`, answerPlaceholder = `Answer ${idx+1}`;
                   return (
-                      <section key={idx}>
-                        <label className="pubq__article__form__label" htmlFor={questionId}>{`Question #${idx+1}`}
+                      <section className="pubq__question__pair" key={idx}>
+                        <label className="pubq__article__form__label pubq__article__form__label--q" htmlFor={questionId}>{`Question #${idx+1}`}
                           <input className="question" placeholder={questionPlaceholder} type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} />
                         </label>
                         <label className="pubq__article__form__label" htmlFor={answerId}>Answer:
@@ -316,18 +318,21 @@ class PubQuizQuestionsForm extends React.Component {
                   )
                 })
               }
+              <button className="pubq__article__button" type="button" onClick={this.addItem} >Add new Question</button>
+                  <button className="pubq__article__button pubq__article__submit" type="submit" value="submit" > Start Game! &#10151;</button>
             </TabPanel>
+            </>
         );
       } else {
         // console.log("it doesn't");
       }
     });
 
-    let button = <GoBackButton className="back" onClick={ this.sendData } />
+    let buttonPrev = <GoBackButton className="pubq__questions__back" onClick={ this.sendData } />
 
     return(
         <>
-          { button }
+          { buttonPrev }
           <Tabs>
             <TabList>
               {roundTabList}
@@ -335,8 +340,7 @@ class PubQuizQuestionsForm extends React.Component {
 
             <form className="login__article__form" onSubmit={this.handleSubmit} onChange={this.handleChange}>
               {roundTabPanel}
-              <button type="button" onClick={this.addItem} >Add new Question</button>
-              <button type="submit" value="Submit" > Submit</button>
+
             </form>
           </Tabs>
         </>
@@ -347,7 +351,7 @@ class PubQuizQuestionsForm extends React.Component {
 function GoBackButton(props) {
   return (
       <button className={props.className} onClick={props.onClick}>
-        Go Back
+        &larr; back
       </button>
   );
 }

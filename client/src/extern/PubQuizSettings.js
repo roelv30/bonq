@@ -29,18 +29,18 @@ class PubQuizSettings extends React.Component {
   }
 
   render(){
-    let button = <ProceedButton className="start__article__button" onClick={ this.sendData } />
+    let button = <ProceedButton className="pubq__article__button pubq__article__button-next" onClick={ this.sendData } />
     return (
-      <section>
-        <form className="login__article__form">
+      <section className="pubq__settings__cont">
+        <form className="pubq__settings__cont__form">
           <label className="login__article__form__label" htmlFor="rounds">Rounds:
-            <NumericInput onChange={this.handleRoundChange} name="rounds" min={1} max={10} value={1}/>
+            <NumericInput className="pubq__settings__cont__form__input" onChange={this.handleRoundChange} name="rounds" min={1} max={10} value={1}/>
           </label>
           <label className="login__article__form__label" htmlFor="teams">Teams:
-            <NumericInput onChange={this.handleTeamChange} name="teams" min={1} max={10} value={1}/>
+            <NumericInput className="pubq__settings__cont__form__input" onChange={this.handleTeamChange} name="teams" min={1} max={10} value={1}/>
           </label>
-        </form>
-        { button }
+          </form>
+          { button }
       </section>
     )
   }
