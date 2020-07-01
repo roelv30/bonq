@@ -4,9 +4,6 @@
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/containers/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/question_review/Review.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/question_review/Review.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +66,7 @@
       <workItem from="1593182900145" duration="2138000" />
       <workItem from="1593535264809" duration="11185000" />
       <workItem from="1593547158720" duration="11884000" />
-      <workItem from="1593586990552" duration="2756000" />
+      <workItem from="1593586990552" duration="10916000" />
     </task>
     <task id="LOCAL-00001" summary="Changed to online host">
       <created>1593183050330</created>
@@ -133,13 +130,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Changed to online host" />
     <MESSAGE value="Revert &quot;room js fix&quot;&#10;&#10;This reverts commit 4484968c" />
-    <option name="LAST_COMMIT_MESSAGE" value="Revert &quot;room js fix&quot;&#10;&#10;This reverts commit 4484968c" />
+    <MESSAGE value="Changed localhost" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed localhost" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="578" y="7" key="CommitChangelistDialog2" timestamp="1593535477572">
+    <state x="578" y="7" key="CommitChangelistDialog2" timestamp="1593590508463">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="578" y="7" key="CommitChangelistDialog2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593535477572" />
+    <state x="578" y="7" key="CommitChangelistDialog2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593590508463" />
     <state x="739" y="275" key="FileChooserDialogImpl" timestamp="1592991395212">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -154,10 +152,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="234" key="Vcs.Push.Dialog.v2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593535488548" />
-    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593550733581">
+    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593590394205">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593550733581" />
+    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593590394205" />
+    <state x="708" y="293" key="git4idea.merge.GitPullDialog" timestamp="1593590468373">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="708" y="293" key="git4idea.merge.GitPullDialog/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593590468373" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1593555093920">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

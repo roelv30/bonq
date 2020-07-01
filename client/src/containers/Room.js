@@ -71,19 +71,30 @@ const Room = (props) => {
 
 
 
+    const [maxRounds, setMaxRounds] = useState(0);
+    const [maxQuestions, setMaxQuestions] = useState(0);
+
+    const [showReview, setShowReview] = useState(false);
+
+
     useEffect(() => {
         socketRef.current = io.connect('/');
 
 
         socketRef.current.on("questions", payload => {
+
             console.log("questions");
                 console.log(payload);
             setQuestions(payload);
+            setMaxRounds(payload.length);
+            setMaxQuestions(payload[roundNumber].length);
+
         });
 
         if(socketRef.current){
             // socketRef.current.emit();
             console.log("joined");
+
             const token = localStorage.getItem('jwt');
             if(token){
                 axios.get('https://bonq-api.herokuapp.com/api/dashboard', {
@@ -99,13 +110,12 @@ const Room = (props) => {
                     })
                     .catch((error) => {
                         const status = error.response.status;
-                        if (status === 401 && this.props.isAuthenticated) {
+                        if (status === 401) {
                             // logged in but invalid jwt
-                            this.props.refresh();
+                           // this.props.refresh();
                         }
                     });
             }
-
 
 
 
@@ -127,10 +137,6 @@ const Room = (props) => {
 
         socketRef.current.on("isHeHost", message => {
 
-
-
-
-
             console.log(message);
             if(message === "no"){
                 setType("player");
@@ -140,7 +146,6 @@ const Room = (props) => {
             }
 
             //console.log("message"  + messages);
-
 
 
         });
@@ -270,14 +275,6 @@ const Room = (props) => {
 
 
 
-
-
-
-
-
-
-
-
     const hangup = () => {
 
         userVideo.current.srcObject.getTracks().forEach(track => track.stop());
@@ -400,6 +397,7 @@ const Room = (props) => {
     };
 
 
+
     // const setStream = () => {
     //
     //
@@ -417,17 +415,39 @@ const Room = (props) => {
 
     const getQuestions = () =>{
         socketRef.current.emit("startGame");
+      //  console.log(questions.length);
+
+        console.log(maxRounds);
 
     };
+
     const getNextQuestions = () =>{
        // socketRef.current.emit("startGame");
-        setquestionNumber(questionNumber + 1);
-    };
-    const getNextRound = () =>{
-        // socketRef.current.emit("startGame");
-        setquestionNumber(0);
+        console.log(maxQuestions);
+        if(questionNumber <= (maxQuestions - 2) ){
+            setquestionNumber(questionNumber + 1);
+        }else{
+            console.log("max question");
+        }
 
-        setRoundNumber(roundNumber + 1);
+    };
+
+    const getNextRound = () =>{
+        console.log(roundNumber);
+
+        if(roundNumber <= (maxRounds -2) ){
+            setquestionNumber(0);
+            setRoundNumber(roundNumber + 1);
+            setMaxQuestions(questions[roundNumber + 1].length);
+        }else{
+            setShowReview(true);
+            console.log("max round");
+        }
+
+
+        // socketRef.current.emit("startGame");
+
+
     };
 
 
@@ -452,6 +472,11 @@ const Room = (props) => {
         console.log(checked);
         setSwitchState(checked);
     }
+
+    const getReview = () =>{
+        props.history.push('/review');
+        console.log("Get review");
+    };
 
 
 
@@ -544,9 +569,9 @@ const Room = (props) => {
                         <Questions questions={questions} questionNumber={questionNumber} roundNumber={roundNumber}/>
                     </div>
                     <button type={"button"} onClick={getQuestions}>Get questions</button>
-                    <button type={"button"} onClick={getNextQuestions}>next Question</button>
-                    <button type={"button"} onClick={getNextRound}>next Round</button>
-
+                    <button type={"button"} onClick={getNextQuestions} className={(maxQuestions > 1 ? 'show' : 'hidden')}>next Question</button>
+                    <button type={"button"} onClick={getNextRound} className={(showReview === true ? 'hidden' : 'show')}>next Round</button>
+                    <button type={"button"} onClick={getReview} className={(showReview === true ? 'show' : 'hidden')}>Review</button>
 
 
                 </section>
@@ -639,10 +664,11 @@ const Room = (props) => {
 
                                 <form onSubmit={submitAnswersTeam} id="form">
                                     <div className="input-group">
-                                        <input type="text" className="form-control" value={roundNumber}   id="text"/>
-                                        <input type="text" className="form-control" value={questionNumber}   id="text"/>
+                                        {/*<input type="text" className="form-control" value={roundNumber}   id="text"/>*/}
+                                        {/*<input type="text" className="form-control" value={questionNumber}   id="text"/>*/}
 
-                                        <input type="text" className="form-control" value={answer}  onChange={e => setAnswer(e.currentTarget.value)} id="text"/>
+                                        <label htmlFor="text">Group answer</label>
+                                        <input type="text" className="form-control" value={answer}   onChange={e => setAnswer(e.currentTarget.value)} id="text"/>
 
                                         <span className="input-group-btn">
                                                 <button id="submit" type="submit" className="btn btn-primary">
@@ -651,6 +677,8 @@ const Room = (props) => {
                                               </span>
                                     </div>
                                 </form>
+
+
 
 
                             </TabContent>
