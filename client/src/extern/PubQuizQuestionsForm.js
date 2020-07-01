@@ -174,7 +174,7 @@ class PubQuizQuestionsForm extends React.Component {
       // }));
       // console.log("state after: ");
       // console.log(this.state);
-      setTimeout(()=>{console.log(this.state);},500)
+      // setTimeout(()=>{console.log(this.state);},500)
     }
   }
 
@@ -280,10 +280,10 @@ class PubQuizQuestionsForm extends React.Component {
 
     const roundTabList = this.state.roundCount.map((roundTab)=>{
       if (this.state.round0){
-        console.log("round found");
+        // console.log("round found");
         return <Tab onClick={this.changeSelectedRound} data-id={roundTab}>{"Round " + (roundTab+1)}</Tab>;
       } else {
-        console.log("no round found");
+        // console.log("no round found");
       }
 
     });
