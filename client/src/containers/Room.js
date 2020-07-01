@@ -52,6 +52,8 @@ const Room = (props) => {
 
     const [teamNameStateSet, setTeamNameState] = useState(false);
 
+    const [avatar, setAvatarOfUser] = useState("/static/media/18.b0d5b6d8.svg");
+
     const socketRef = useRef();
     const userVideo = useRef();
     var userAudio = useRef();
@@ -103,7 +105,7 @@ const Room = (props) => {
                     .then((response) => {
                         const user = response.data;
                         setUsernameOfuser(user.username);
-
+                        setAvatarOfUser(user.avatar_url);
                         //this.setState({user});
                         // myProps = this.props;
 
@@ -517,6 +519,10 @@ const Room = (props) => {
 
     };
 
+    const handleAvatarPath = (e) => {
+        //setAvatarOfUser(??)
+    };
+
     const submitAnswersTeam = event => {
         event.preventDefault();
         //socket.emit("roomName", nameRoomJoin);
@@ -598,7 +604,7 @@ const Room = (props) => {
                                     <div className="col-md-8">
                                         <h6>Messages</h6>
                                         <div id="messages" className="messages__container">
-                                            <AutoscrolledList items={messages} />
+                                            <AutoscrolledList items={messages} avatar={avatar} />
                                         </div>
                                         <form onSubmit={submit} id="form">
                                             <div className="input-group">
