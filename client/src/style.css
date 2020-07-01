@@ -1,21 +1,10 @@
 body,
 input,
 button {
-  font-family: 'Squada One', cursive;
-  color: #fff;
-  background-color: #0ABDC6;
-  width: 20rem;
-  height: 5rem;
-  font-size: 2rem;
-  letter-spacing: 3px;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  display: inline-block;
-  text-decoration: none;
-  padding: 1rem;
-  text-align: center;
+  margin: 0;
+  font-family: Sans-Serif;
 }
+
 @media(max-width: 1024px) {
   body,
   input,
