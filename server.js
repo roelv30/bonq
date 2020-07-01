@@ -30,6 +30,13 @@ const socketToRoom = {};
 const socketToTeam = {};
 const usersConnected = {};
 
+
+// const answers = {"881153" :
+//         {team1: ["antw1", "antw2", "antw3","antw4"],
+//             team2: ["antw12", "antw22", "antw32","antw42"]}
+//
+// };
+
 const answers = {};
 
 var request = require('request');
@@ -75,6 +82,18 @@ function myFunction(item, index) {
 io.on('connection', socket => {
 
 
+    socket.on("getAnswerList", () => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+
+        io.emit('getAnswerListFull', answers);
+        io.emit('getAnswerListFull2', roomNumber);
+
+    });
+
 
     socket.on("setAnswer", payload => {
         console.log(answers);
@@ -94,13 +113,13 @@ io.on('connection', socket => {
             // }
             //console.log(answers[roomNumber][]);
             if(answers[roomNumber][payload[3]]){
-                answers[roomNumber][payload[3]].push({"round": payload[0], "question": payload[1], "answer": payload[2]});
+                answers[roomNumber][payload[3]].push(payload[2]);
             }else{
-                answers[roomNumber][payload[3]] = [{"round": payload[0], "question": payload[1], "answer": payload[2]}];
+                answers[roomNumber][payload[3]] = [payload[2]];
             }
 
         } else {
-            answers[roomNumber] = {[payload[3]] : [{"round": payload[0], "question": payload[1], "answer": payload[2]}]};
+            answers[roomNumber] = {[payload[3]] : [payload[2]]};
         }
 
 

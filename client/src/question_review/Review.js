@@ -4,49 +4,143 @@ import {Switch , Route, Link} from 'react-router-dom';
 import axios from 'axios';
 import Back from '../extern/Back';
 import '../question_review/Review.css';
+import io from "socket.io-client";
 
+
+// useEffect(() => {
+//
+//
+//
+//
+//
+//
+// }, []);
+
+const roomid = 0;
+let  everyone = [];
 class Review extends React.Component {
+
 
   constructor(){
     super();
     this.state = {
         questions: [],
         answers: [],
-        group_answers: ["13", "Ra", "Yeet", "Chungus", "13", "Ra"],
-    }
+        group_answers: [],
+        group_sjizzle: [],
+        first:[]
+    };
     this.testFunction = this.testFunction.bind(this);
   }
 
+
+
+
   componentDidMount(){
-    axios.get(`https://bonq-api.herokuapp.com/api/question`)
-      .then(response => {
-        for(let i = 0; i < response.data.length; i++){
-          // the loop keeps adding data from the api to the state
-          this.setState(previousState => ({
-            questions: [...previousState.questions, response.data[i].shown_question], // take the previous state, add data and update the state.
-            answers: [...previousState.answers, response.data[i].answer[0].checked_answer]
-          }))
-        }
-      })
+    // axios.get(`https://bonq-api.herokuapp.com/api/question`)
+    //   .then(response => {
+    //     for(let i = 0; i < response.data.length; i++){
+    //       // the loop keeps adding data from the api to the state
+    //       this.setState(previousState => ({
+    //         questions: [...previousState.questions, response.data[i].shown_question], // take the previous state, add data and update the state.
+    //         answers: [...previousState.answers, response.data[i].answer[0].checked_answer]
+    //       }))
+    //     }
+    //   })
   }
 
   testFunction(){
-    let checkButton = document.getElementsByClassName('right');
-    let wrongButton = document.getElementsByClassName('wrong');
-    // check if every answer is correct
-    // team 1 op vraag 1
-    if(this.state.answers[0] == this.state.group_answers[0]){
-      checkButton[0].checked = true;
-    } else {
-      wrongButton[0].checked = true;
-    }
+      const socket  = io.connect('http://localhost:3001');
+     // let roomid;
+      socket.emit("getAnswerList");
+      socket.on("getAnswerListFull", payload => {
+       // console.log(payload);
+          var obj = payload;
 
-    // team 2 op vraag 2
-    if(this.state.answers[1] == this.state.group_answers[1]){
-      checkButton[4].checked = true;
-    } else {
-      wrongButton[4].checked = true;
-    }
+          this.roomid = Object.keys(obj)[0];
+
+          let first= obj[Object.keys(obj)[0]];
+          let teamname = Object.keys(first)[0];
+
+
+
+         // console.log(Object.values(first)[0][0].answer);
+          this.everyone = Object.values(first)[0];
+         // console.log(this.everyone);
+          //set the team names
+          for (let i = 0; i < Object.keys(first).length; i++) {
+
+              this.setState(previousState => ({
+                  group_answers: [...previousState.group_answers, Object.keys(first)[i]]
+              }));
+          }
+
+            this.state.first = Object.values(first);
+         // console.log(Object.values(first)[0]);
+
+          console.log(this.state.first);
+          //console.log(this.roomid); //returns 'someVal'
+          axios.get("https://bonq-api.herokuapp.com/api/getQuestions/" + this.roomid)
+              .then(response => {
+                  for (let i = 0; i < response.data[0].rounds_array.length; i++) {
+                      for (let j = 0; j < response.data[0].rounds_array[i].length ; j++) {
+                          this.setState(previousState => ({
+                              questions: [...previousState.questions, response.data[0].rounds_array[i][j].question], // take the previous state, add data and update the state.
+                              answers: [...previousState.answers, response.data[0].rounds_array[i][j].answer]
+
+                          }))
+                      }
+                  }
+
+                  // for (let i = 0; i < this.state.questions.length; i++) {
+                  //     for (let j = 0; j < Object.keys(first).length; j++) {
+                  //
+                  //
+                  //         if(!everyone[Object.keys(first)[i]]){
+                  //             everyone[Object.keys(first)[i]] = {[Object.keys(first)[i]] : [Object.values(first)[j][i].answer]}
+                  //         }else{
+                  //
+                  //             //everyone[Object.keys(first)[i]] = everyone[Object.keys(first)[i]]
+                  //             // everyone[Object.keys(first)[i]].push()
+                  //         }
+                  //         this.setState(previousState => ({
+                  //             group_sjizzle: [...previousState.group_sjizzle, Object.values(first)[j][i].answer]
+                  //         }));
+                  //
+                  //     }
+                  //
+                  //     console.log(everyone );
+                  // }
+
+
+              })
+      });
+
+       // console.log(this.roomid);
+
+
+
+
+    // let checkButton = document.getElementsByClassName('right');
+    // let wrongButton = document.getElementsByClassName('wrong');
+    // // check if every answer is correct
+    // // team 1 op vraag 1
+    // if(this.state.answers[0] == this.state.group_answers[0]){
+    //   checkButton[0].checked = true;
+    // } else {
+    //   wrongButton[0].checked = true;
+    // }
+    //
+    // // team 2 op vraag 2
+    // if(this.state.answers[1] == this.state.group_answers[1]){
+    //   checkButton[4].checked = true;
+    // } else {
+    //   wrongButton[4].checked = true;
+    // }
+
+
+
+
   }
 
   getCheckedAnswers(){
@@ -57,18 +151,19 @@ class Review extends React.Component {
 
      const Questions =
       <section>
-        {this.state.questions.map((question, key) => (
-          <div className="review__main__box" key={key}>
-            <p className="review__main__box__question">Question {key + 1}: {question}</p>
+        {this.state.questions.map((question, key1) => (
+          <div className="review__main__box" key={key1}>
+            <p className="review__main__box__question">Question {key1 + 1}: {question}</p>
             <div className="review__main__box__check">
-              <p className="review__main__box__answer">Answer: {this.state.answers[key]}</p>
+              <p className="review__main__box__answer">Answer: {this.state.answers[key1]}</p>
               <section className="review__main__box__groups">
                 {this.state.group_answers.map((answer, key) => {
                   let checkButtonId = `check-${key}`, wrongButtonId = `wrong-${key}`;
                   return(
                     <div key={key} className="review__main__box__groups__answers">
                       <div className="review__main__box__groups__answers-text">
-                        <p className="review__main__box__groups__answers-text__group">Group {key + 1}: {answer}</p>
+
+                          <p className="review__main__box__groups__answers-text__group">Group {key}: {answer} : {this.state.first[key][key1]} </p>
                       </div>
                       <aside className="review__main__box__check__buttons">
                         <form>
