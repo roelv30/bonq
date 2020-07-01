@@ -45,6 +45,7 @@ import JoinGame from './extern/JoinGame';
 import EasterEgg from './extern/EasterEgg';
 
 
+
 const socketRef = io.connect();
 
 socketRef.on("leaving user homepage", () => {
@@ -101,7 +102,7 @@ class App extends React.Component {
     };
 
     refresh() {
-        return axios.get('localhost/api/refreshToken', {
+        return axios.get('https://bonq-api.herokuapp.com/api/refreshToken', {
             headers: { 'Authorization': 'Bearer ' + this.state.token }
         })
             .then((response) => {

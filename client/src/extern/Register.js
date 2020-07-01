@@ -32,14 +32,14 @@ class Register extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ loading: true });
-    axios.post('http://localhost:8000/api/signup', {
+    axios.post('https://bonq-api.herokuapp.com/api/signup', {
         username:this.state.username,
         email: this.state.email,
         password: this.state.password,
       })
     .then((response) => {
       this.setState({ error: '' });
-      axios.post('http://localhost:8000/api/signin', {
+      axios.post('https://bonq-api.herokuapp.com/api/signin', {
         email: this.state.email,
         password: this.state.password
       })

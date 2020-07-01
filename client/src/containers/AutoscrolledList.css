@@ -1,0 +1,30 @@
+.chat__avatar{
+  margin-right: 5px;
+  width: 20px;
+}
+
+.chat__name{
+  color: purple;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.chat__team {
+  color: red;
+  font-size: 18px;
+}
+
+.chat__time {
+ margin-left: 10px;
+ font-size: 14px;
+ color: rgba(255,255,255,0.6);
+}
+
+.chat__message{
+  margin-top: -5px;
+}
+
+.chat__divider{
+  margin: 3px 0px 9px 0px;
+  color: rgba(209, 12, 118,.5);
+}

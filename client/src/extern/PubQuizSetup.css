@@ -19,7 +19,7 @@
   color: #0ABDC6 !important;
 }
 
-.pubq__article__form__input {
+.question, .answer {
   width: 30rem !important;
   padding: 0.5rem !important;
   border-radius: 4px !important;
