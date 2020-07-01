@@ -611,8 +611,10 @@ const Room = (props) => {
                                                     onKeyDown={e =>{
                                                       if(e.keyCode == 13 && e.shiftKey == false) {
                                                         e.preventDefault();
-                                                        if (document.querySelector('#form__chat') !== null) {
-                                                            form__chat.dispatchEvent(new Event('submit'));
+                                                        const form = document.querySelector("#form__chat");
+
+                                                        if (form !== null) {
+                                                            form.dispatchEvent(new Event('submit'));
                                                         }else{
                                                           console.log("lol");
                                                         }

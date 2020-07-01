@@ -25,7 +25,7 @@ const Username = (props) => {
 
                 {/*<button className="primary-button" type="button" >Set username</button>*/}
                 {/*<button onClick={setNextPage}>Next page</button>*/}
-                <section class="username__article__enable">
+                <section className="username__article__enable">
                 <h2 className="username__article__enable__text">Enable camera?</h2>
                 <Switch className="username__article__enable__button" onChange={props.handeChangeSwitch} checked={props.switchState}  />
                 </section>
