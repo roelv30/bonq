@@ -19,9 +19,9 @@ class PubQuizQuestionsForm extends React.Component {
     this.updateRoundCount();
 
     setTimeout(() => {
-      console.log("parse round called");
-      console.log(this.state);
-      console.log(this.state.roundCount.length);
+     //console.log("parse round called");
+      //console.log(this.state);
+      //console.log(this.state.roundCount.length);
       for (let i = 0; i < this.state.roundCount.length; i++) {
         let selectedRoundName = "round" + i;
         let selectedRoundArray = [{ question: "", answer: ""}];
@@ -36,7 +36,7 @@ class PubQuizQuestionsForm extends React.Component {
       }
     }, 100)
     // this.parseRoundsIntoState();
-    console.log("did mount");
+    //console.log("did mount");
   };
 
   // state = {
@@ -77,10 +77,10 @@ class PubQuizQuestionsForm extends React.Component {
   // };
 
   updateRoundCount = () => {
-    console.log("update count called");
+   // console.log("update count called");
     let roundArray = [];
     let extRoundCount = this.props.roundCount;
-    console.log(extRoundCount);
+   // console.log(extRoundCount);
     for (var i = 0; i < extRoundCount; i++) {
       roundArray.push(i);
     }
@@ -94,9 +94,9 @@ class PubQuizQuestionsForm extends React.Component {
   }
 
   parseRoundsIntoState = (e) => {
-    console.log("parse round called");
-    console.log(this.state);
-    console.log(this.state.roundCount.length);
+   // console.log("parse round called");
+   // console.log(this.state);
+   // console.log(this.state.roundCount.length);
     for (let i = 0; i < this.state.roundCount.length; i++) {
       let selectedRoundName = "round" + i;
       let selectedRoundArray = [{ question: "", answer: ""}];
@@ -104,8 +104,8 @@ class PubQuizQuestionsForm extends React.Component {
       this.setState(prevState => {
         let stateToFill = Object.assign({}, prevState);
         stateToFill[selectedRoundName] = selectedRoundArray;
-        console.log("stateToFill: ");
-        console.log(stateToFill);
+      //  console.log("stateToFill: ");
+      //  console.log(stateToFill);
         return stateToFill ;
       })
     }
@@ -139,50 +139,50 @@ class PubQuizQuestionsForm extends React.Component {
   // };
 
   handleChange = (e) => {
-    console.log("handle change called");
+    // console.log("handle change called");
     let selectedRound = "round" + this.state.selectedTab;
     if (["question", "answer"].includes(e.target.className)) {
       // let items = [...this.state[selectedRound]];
       // items[e.target.dataset.id][e.target.className] = e.target.value;
       // this.setState({items}, ()=>console.log(this.state[selectedRound]), console.log(this.state[selectedRound]))
-      console.log("state before: ");
-      console.log(this.state);
+      // console.log("state before: ");
+      // console.log(this.state);
 
 
       let questionOrAnswer = e.target.className
       let index = e.target.dataset.id
       let value = e.target.value
-      console.log(questionOrAnswer);
-      console.log(index);
-      console.log(value);
+      // console.log(questionOrAnswer);
+      // console.log(index);
+      // console.log(value);
       // console.log(questionOrAnswer);
       // this.setState((prevState) => ({
       //   [selectedRound]: [...prevState[selectedRound][index][questionOrAnswer], value]
       // }));
 
       let data = [...this.state[selectedRound]];
-      console.log(data[e.target.dataset.id][e.target.className]);
-      console.log(data[e.target.dataset.id]);
-      console.log(e.target.value);
-      console.log(e.target.className);
-      console.log(this.state);
+      // console.log(data[e.target.dataset.id][e.target.className]);
+      // console.log(data[e.target.dataset.id]);
+      // console.log(e.target.value);
+      // console.log(e.target.className);
+      // console.log(this.state);
 
       data[e.target.dataset.id][e.target.className] = e.target.value;
 
-      console.log(this.state[selectedRound][index][questionOrAnswer]);
+      // console.log(this.state[selectedRound][index][questionOrAnswer]);
 
       // this.setState((prevState) => ({
       //   [selectedRound]: [...prevState[selectedRound][index][questionOrAnswer], value],
       // }));
-      console.log("state after: ");
-      console.log(this.state);
+      // console.log("state after: ");
+      // console.log(this.state);
       setTimeout(()=>{console.log(this.state);},500)
     }
   }
 
   addItem = (e) => {
     // e.preventDefault();
-    console.log("additem called");
+    // console.log("additem called");
     let selectedRound = "round" + this.state.selectedTab;
 
 
@@ -193,11 +193,11 @@ class PubQuizQuestionsForm extends React.Component {
 
     // let newQnA = { question: "", answer: ""};
     // this.state.rounds[0] = this.state.rounds[0].concat(newQnA);
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   handleSubmit = (e) => {
-    console.log("submit called");
+    // console.log("submit called");
     e.preventDefault();
 
     const POST_URL = 'https://bonq-api.herokuapp.com/api/parsePubQnA';
@@ -216,7 +216,7 @@ class PubQuizQuestionsForm extends React.Component {
           if (response.data == true) {
             this.setState({redirect: true, redirectTo: roomNum});
           }
-          console.log(response.data);
+          // console.log(response.data);
         })
     // .catch((error) => {
     //   const status = error.response.status;
@@ -245,8 +245,8 @@ class PubQuizQuestionsForm extends React.Component {
   }
 
   changeSelectedRound = (e) => {
-    console.log(e.target.dataset.id);
-    console.log("change round called");
+    // console.log(e.target.dataset.id);
+    // console.log("change round called");
     let id = e.target.dataset.id;
     // this.state.selectedTab = e.target.dataset.id;
     // this.setState((prevState) => ({
@@ -255,8 +255,8 @@ class PubQuizQuestionsForm extends React.Component {
     this.setState(prevState => {
       let item = Object.assign({}, prevState);
       item.selectedTab = id;
-      console.log("item: ");
-      console.log(item);
+      // console.log("item: ");
+      // console.log(item);
       return item ;
     })
   }
@@ -288,10 +288,10 @@ class PubQuizQuestionsForm extends React.Component {
 
     const roundTabList = this.state.roundCount.map((roundTab)=>{
       if (this.state.round0){
-        console.log("round found");
+        // console.log("round found");
         return <Tab onClick={this.changeSelectedRound} data-id={roundTab}>{"Round " + (roundTab+1)}</Tab>;
       } else {
-        console.log("no round found");
+        // console.log("no round found");
       }
 
     });

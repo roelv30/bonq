@@ -7,6 +7,8 @@
 node_modules/
 dist/
 client/node_modules/
+yarn.lock
+.env
 
 yarn.lock
 client/yarn.lock

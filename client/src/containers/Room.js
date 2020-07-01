@@ -14,6 +14,8 @@ import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import AutoscrolledList from "./AutoscrolledList";
 import MediaControls from "../components/MediaControls";
 import axios from "axios";
+import Questions from "../components/Questions"
+
 
 const Container = styled.div`
     height: calc(100% - 6rem);
@@ -61,15 +63,22 @@ const Room = (props) => {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
 
-
-
-
-
+    const [questions, setQuestions] = useState([]);
+    const [questionNumber, setquestionNumber] = useState(0);
+    const [roundNumber, setRoundNumber] = useState(0);
+    const [answer, setAnswer] = useState("");
 
 
 
     useEffect(() => {
         socketRef.current = io.connect('http://localhost:3001');
+
+
+        socketRef.current.on("questions", payload => {
+            console.log("questions");
+                console.log(payload);
+            setQuestions(payload);
+        });
 
         if(socketRef.current){
             // socketRef.current.emit();
@@ -259,9 +268,7 @@ const Room = (props) => {
 
 
 
-    const toggleWithVideo = () => {
 
-    };
 
 
 
@@ -405,6 +412,23 @@ const Room = (props) => {
     //
     // };
 
+    const getQuestions = () =>{
+        socketRef.current.emit("startGame");
+
+    };
+    const getNextQuestions = () =>{
+       // socketRef.current.emit("startGame");
+        setquestionNumber(questionNumber + 1);
+    };
+    const getNextRound = () =>{
+        // socketRef.current.emit("startGame");
+        setquestionNumber(0);
+
+        setRoundNumber(roundNumber + 1);
+    };
+
+
+
     const startSession = () => {
         socketRef.current.emit("username", userName);
 
@@ -465,6 +489,23 @@ const Room = (props) => {
 
     };
 
+    const submitAnswersTeam = event => {
+        event.preventDefault();
+        //socket.emit("roomName", nameRoomJoin);
+
+        const answerTeam = [roundNumber, questionNumber, answer, teamName];
+        console.log(answerTeam);
+        socketRef.current.emit("setAnswer", answerTeam);
+
+        // console.log(questionNumber);
+        // console.log(teamName);
+        // console.log(answer);
+
+    };
+
+
+
+
 
 
     if(intro === false) {
@@ -494,7 +535,18 @@ const Room = (props) => {
                     <source src="https://freesound.org/data/previews/131/131657_2398403-lq.mp3"></source>
                 </audio>
 
+                <section>
+                    <h2>Vragen</h2>
+                    <div id={"vragen"}>
+                        <Questions questions={questions} questionNumber={questionNumber} roundNumber={roundNumber}/>
+                    </div>
+                    <button type={"button"} onClick={getQuestions}>Get questions</button>
+                    <button type={"button"} onClick={getNextQuestions}>next Question</button>
+                    <button type={"button"} onClick={getNextRound}>next Round</button>
 
+
+
+                </section>
 
                 <article className={"full-width"}>
                     <Tabs renderActiveTabContentOnly={false}>
@@ -508,7 +560,7 @@ const Room = (props) => {
                                 <TabLink to="tab2" default>Team</TabLink>
                             </li>
                             <li className={"tab"}>
-                                <TabLink to="tab3">Options </TabLink>
+                                <TabLink to="tab3">Answers </TabLink>
                             </li>
                         </ul>
 
@@ -579,7 +631,25 @@ const Room = (props) => {
                             </div>
 
                             </TabContent>
-                            <TabContent for="tab3">Content 3 /* empty in HTML */</TabContent>
+                            <TabContent for="tab3">
+
+                                <form onSubmit={submitAnswersTeam} id="form">
+                                    <div className="input-group">
+                                        <input type="text" className="form-control" value={roundNumber}   id="text"/>
+                                        <input type="text" className="form-control" value={questionNumber}   id="text"/>
+
+                                        <input type="text" className="form-control" value={answer}  onChange={e => setAnswer(e.currentTarget.value)} id="text"/>
+
+                                        <span className="input-group-btn">
+                                                <button id="submit" type="submit" className="btn btn-primary">
+                                                  Send
+                                                </button>
+                                              </span>
+                                    </div>
+                                </form>
+
+
+                            </TabContent>
                         </div>
                         <div id="ownVideoStream">
                             <StyledVideo muted ref={userVideo} autoPlay playsInline className={"ownVideo"}/>
