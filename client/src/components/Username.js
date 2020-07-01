@@ -14,9 +14,9 @@ const Username = (props) => {
             <div className="background">
                 <div className="background__inside"></div>
             </div>
-            <article>
+            <article className="username__article">
 
-                <h2 className={"headerLogin"}>What do you like <br/> to be called?</h2>
+                <h2 className={"headerLogin"}>What do you like to be called?</h2>
                 <div className={"backgroundUsername"}>
                     <input type="text" name="username" value={props.userName} onChange={props.handleUsernameInput} className={"whiteText inputUsername"}
                            pattern="^\w+$" maxLength="20" required autoFocus
@@ -25,11 +25,12 @@ const Username = (props) => {
 
                 {/*<button className="primary-button" type="button" >Set username</button>*/}
                 {/*<button onClick={setNextPage}>Next page</button>*/}
+                <section class="username__article__enable">
+                <h2 className="username__article__enable__text">Enable camera?</h2>
+                <Switch className="username__article__enable__button" onChange={props.handeChangeSwitch} checked={props.switchState}  />
+                </section>
 
-                <h2>Enable camera?</h2>
-                <Switch onChange={props.handeChangeSwitch} checked={props.switchState}  />
-                <br />
-                <button className="start__article__button" type="button" onClick={props.startSession} >ENTER &#9654;</button>
+                <button className="start__article__button username__article__enter" type="button" onClick={props.startSession} >ENTER &#9654;</button>
             </article>
 
         </section>

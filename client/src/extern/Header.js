@@ -20,22 +20,21 @@ class Header extends React.Component {
   };
 
   render() {
-    if(this.props.isAuthenticated) {
-      return (
+    return(
         <header className="header">
-          <a className="header__logout" href="/" onClick={this.handleLogout}>
-            Logout
+          <a className="header__img" href="/">
+            <img className="header__img" src="/img/logo.png" alt="Bonq Logo" />
           </a>
-          <img className="header__img" src="/img/logo.png" alt="Bonq Logo" />
+          {this.props.isAuthenticated ?
+            <a className="header__logout" href="/" onClick={this.handleLogout}>
+            Logout
+            </a>
+            :
+            null
+          }
         </header>
       )
-    } else {
-      return(
-        <header className="header">
-          <img className="header__img" src="/img/logo.png" alt="Bonq Logo" />
-        </header>
-      )
-    }
+
   }
 };
 

@@ -5,22 +5,28 @@ button {
   font-family: Sans-Serif;
 }
 
-@media(max-width: 1024px) {
+/* @media(max-width: 1024px) {
   body,
   input,
   button {
     font-size: 1em;
   }
-}
+} */
 input:focus,
 button:focus {
   outline:0;
+}
+
+.username__article {
+  padding: 5rem 0;
 }
 
 .headerLogin{
   font-family: Squada One, cursive;
   letter-spacing: 4px;
   font-size: 3rem;
+  text-align: center;
+  margin: 2rem 0;
 }
 .backgroundUsername{
   background:rgba(24,24,24,0.9);
@@ -28,6 +34,22 @@ button:focus {
   margin:0 auto;
   height: 10rem;
 }
+
+.username__article__enable {
+  display: flex;
+  align-items: center;
+  padding: 15rem 0 0 0;
+  margin: 0px 20rem;
+}
+
+.username__article__enable__text {
+  margin-right: 2rem;
+}
+
+.username__article__enter {
+  margin: 2rem 20rem;
+}
+
 
 
 input[type=text], textarea {
