@@ -10,8 +10,8 @@ client/node_modules/
 yarn.lock
 .env
 
-yarn.lock
-client/yarn.lock
+bonq_api/
+
 
 # Compiled Java class files
 *.class

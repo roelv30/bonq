@@ -40,6 +40,9 @@ import Register from './extern/Register';
 import Header from './extern/Header';
 import Dashboard from './extern/Dashboard';
 
+// Stephan Imports
+import Review from './question_review/Review';
+
 import './App.css';
 import JoinGame from './extern/JoinGame';
 import EasterEgg from './extern/EasterEgg';
@@ -146,6 +149,7 @@ class App extends React.Component {
                 // handleMatch={this.handleMatch}
             />
         }/>
+        <Route exact path='/review' component={Review} />
         {/*<Route path="*" component={NotFound} />*/}
     </BrowserRouter>
 
