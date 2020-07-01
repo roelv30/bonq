@@ -50,7 +50,7 @@ class Review extends React.Component {
   }
 
   testFunction(){
-      const socket  = io.connect('http://localhost:3001');
+      const socket  = io.connect('/');
      // let roomid;
       socket.emit("getAnswerList");
       socket.on("getAnswerListFull", payload => {
