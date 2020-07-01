@@ -28,7 +28,8 @@ class Review extends React.Component {
         answers: [],
         group_answers: [],
         group_sjizzle: [],
-        first:[]
+        first:[],
+        showButton: true,
     };
     this.testFunction = this.testFunction.bind(this);
   }
@@ -50,6 +51,7 @@ class Review extends React.Component {
   }
 
   testFunction(){
+      this.setState({showButton: false});
       const socket  = io.connect('/');
      // let roomid;
       socket.emit("getAnswerList");
@@ -199,7 +201,7 @@ class Review extends React.Component {
 
           <h2 className="review__main__title">Time to check the answers!</h2>
           <section>
-            <button onClick={this.testFunction} type="button">Check Answers</button>
+            <button onClick={this.testFunction} type="button" className={(this.state.showButton === true ? 'show' : 'hidden')}>Check Answers</button>
           </section>
 
           {Questions}
