@@ -482,16 +482,6 @@ const Room = (props) => {
         console.log("Get review");
     };
 
-
-  const onEnterPress = (e) => {
-      if(e.keyCode == 13 && e.shiftKey == false) {
-        e.preventDefault();
-        if(form__chat != null){
-            form__chat.dispatchEvent(new Event('submit'));
-        }
-      };
-    };
-
     const handleTeamNameChange = (e) => {
 
         setTeamName(e.target.value);
@@ -512,8 +502,9 @@ const Room = (props) => {
         })}
     }
 
-
-
+    // const onEnterPress = (e) => {
+    //
+    //   };
 
     const submit = event => {
         event.preventDefault();
@@ -617,7 +608,16 @@ const Room = (props) => {
                                                     className="form-control whiteText"
                                                     placeholder="Say something..."
                                                     onChange={e => setMessage(e.currentTarget.value)}
-                                                    onKeyDown={onEnterPress}
+                                                    onKeyDown={e =>{
+                                                      if(e.keyCode == 13 && e.shiftKey == false) {
+                                                        e.preventDefault();
+                                                        if (document.querySelector('#form__chat') !== null) {
+                                                            form__chat.dispatchEvent(new Event('submit'));
+                                                        }else{
+                                                          console.log("lol");
+                                                        }
+                                                      };
+                                                    }}
                                                     value={message}
                                                     id="text"
                                                 />
