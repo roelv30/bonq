@@ -53,7 +53,7 @@ class Start extends React.Component {
           <p className="start__article__or">
             <span className="start__article__or__text"> or </span>
           </p>
-          <NavLink exact activeClassName="active" className="start__article__button" to="/login">
+          <NavLink exact activeClassName="active" className="start__article__button pink" to="/login">
     				Log in to Host
     			</NavLink>
   			  <NewToBonq text="New to bonq?" link="/register" linktext="Sign up for free!" />

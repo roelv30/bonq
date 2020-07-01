@@ -145,6 +145,7 @@
   font-size: 30px !important;
   border-width: .8ex 1ex .6ex !important;
   margin-top: -1ex !important;
+  cursor: pointer;
 }
 
 b:nth-child(3) i{

@@ -23,7 +23,6 @@ const Container = styled.div`
     padding: 5rem 0;
     z-index:1;
     position:relative;
-    text-align:center;
 `;
 
 const StyledVideo = styled.video`
