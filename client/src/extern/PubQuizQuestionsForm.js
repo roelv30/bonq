@@ -29,8 +29,8 @@ class PubQuizQuestionsForm extends React.Component {
         this.setState(prevState => {
           let stateToFill = Object.assign({}, prevState);
           stateToFill[selectedRoundName] = selectedRoundArray;
-          console.log("stateToFill: ");
-          console.log(stateToFill);
+          // console.log("stateToFill: ");
+          // console.log(stateToFill);
           return stateToFill ;
         })
       }
@@ -87,8 +87,8 @@ class PubQuizQuestionsForm extends React.Component {
     this.setState(prevState => {
       let stateToFill = Object.assign({}, prevState);
       stateToFill.roundCount = roundArray;
-      console.log("stateToFill: ");
-      console.log(stateToFill);
+      // console.log("stateToFill: ");
+      // console.log(stateToFill);
       return stateToFill ;
     })
   }
@@ -176,7 +176,7 @@ class PubQuizQuestionsForm extends React.Component {
       // }));
       // console.log("state after: ");
       // console.log(this.state);
-      setTimeout(()=>{console.log(this.state);},500)
+      // setTimeout(()=>{console.log(this.state);},500)
     }
   }
 
