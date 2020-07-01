@@ -17,7 +17,7 @@ class PubQuizSetup extends React.Component {
   }
 
   handleParseSettingsClick = () => {
-    console.log("parse complete ");
+    // console.log("parse complete ");
     this.setState({
       completedSettings: true,
     });
@@ -28,19 +28,19 @@ class PubQuizSetup extends React.Component {
   }
 
   callbackFunction = (rCount) => {
-    console.log("state before callback exec: ");
-    console.log(this.state.completedSettings);
+    // console.log("state before callback exec: ");
+    // console.log(this.state.completedSettings);
 
     if (this.state.completedSettings == false) {
-      console.log("settings are completed");
-      console.log(this.state.completedSettings);
+      // console.log("settings are completed");
+      // console.log(this.state.completedSettings);
       this.setState({roundCount: rCount, completedSettings: true});
       return;
     }
-    console.log("settings are not completed");
+    // console.log("settings are not completed");
     this.setState({roundCount: rCount, completedSettings: false});
 
-    console.log(this.state.completedSettings);
+    // console.log(this.state.completedSettings);
   }
 
   render() {
@@ -76,7 +76,7 @@ function SettingsContainer(props) {
   const completedSettings = props.completedSettings;
   const locRoundCount = props.roundCount;
   const callbackFunction = props.callbackFunction
-  console.log(completedSettings);
+  // console.log(completedSettings);
   if (completedSettings) {
     // return <componentB />;
     return <PubQuizQuestionsForm roundCount={locRoundCount}/>
