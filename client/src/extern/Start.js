@@ -1,6 +1,6 @@
 import React from 'react';
 import PinInput from 'react-pin-input';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import './Start.css';
 import NewToBonq from './NewToBonq';
 // import Home from "../components/Home";
@@ -22,6 +22,11 @@ class Start extends React.Component {
 
 
   render() {
+    if (this.props.isAuthenticated) {
+      return (
+        <Redirect to='/dashboard'/>
+      );
+    };
     return (
       <section className="start">
         <div className="background"></div>
