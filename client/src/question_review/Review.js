@@ -18,7 +18,8 @@ import SocketContext from '../components/SocketContext'
 
 const roomid = 0;
 let  everyone = [];
-var checkedAnswers = [];
+let checkedAnswers = [];
+let teamScore = [];
 
 class Review extends React.Component {
 
@@ -80,66 +81,47 @@ class Review extends React.Component {
 
   onSubmit(e){
     e.preventDefault();
-    let form = document.getElementById('js--form');
+    // let form = document.getElementById('js--form');
     let checkButton = document.querySelectorAll('input');
+    let points = {}
 
+    for(let i = 0; i < checkButton.length; i++){
+      if (checkButton[i].checked){
+        // add team to object
+        teamScore.push(checkButton[i].dataset.team);
+        // if(teamScore[i]){
+        //   console.log('yes');
+        //   teamScore[i] = checkButton[i].dataset.team;
+        }
+      }
+    teamScore.forEach(function(x) { points[x] = (points[x] || 0) + 1});
+
+    console.log(teamScore);
+    console.log(points);
       //console.log("teamscore");
       //console.log(this.state.teamScore);
-    for (let i = 0; i < checkButton.length; i++) {
-
-
-      if (checkButton[i].checked) {
-
-
-
-
-          //
-          // if(!this.state.teamScore[checkButton[i].dataset.team]){
-          //     this.setState(previousState => ({
-          //         teamScore: [...previousState.teamScore, {[checkButton[i].dataset.team]: 0}]
-          //     }));
-          // } else {
-          //     console.log("else");
-          //     this.setState(previousState => ({
-          //         teamScore: [...previousState.teamScore, {[checkButton[i].dataset.team]: 1}]
-          //     }));
-          // }
-          if(this.state.teamScore.length === 0){
-              this.setState(previousState => ({
-                  teamScore: [{[checkButton[i].dataset.team]: 0}]
-              }));
-          }else{
-              for (let j = 0; j < this.state.teamScore.length; j++) {
-                  if(!Object.keys(this.state.teamScore[j])[0] === checkButton[i].dataset.team){
-                      this.setState(previousState => ({
-                          teamScore: [...previousState.teamScore, {[checkButton[i].dataset.team]: 0}]
-                      }));
-                  }else{
-                      this.setState(previousState => ({
-                          teamScore: [this.state.teamScore[j], {[checkButton[i].dataset.team]: (this.state.teamScore[j][Object.keys(this.state.teamScore[j])[0]]+1)}]
-                      }));
-                  }
-
-              }
-          }
-
-
-
-
-      }
-    }
-    console.log(this.state.teamScore);
-
-
-
-
-
-    // if(checkButton.checked){
-    //   console.log("bitch is checked");
-    // } else {
-    //   console.log("not checked");
+    // for (let i = 0; i < checkButton.length; i++) {
+    //   if (checkButton[i].checked) {
+    //
+    //       if(this.state.teamScore.length === 0){
+    //           this.setState(previousState => ({
+    //               teamScore: [{[checkButton[i].dataset.team]: 0}]
+    //           }));
+    //       }else{
+    //           for (let j = 0; j < this.state.teamScore.length; j++) {
+    //               if(!Object.keys(this.state.teamScore[j])[0] === checkButton[i].dataset.team){
+    //                   this.setState(previousState => ({
+    //                       teamScore: [...previousState.teamScore, {[checkButton[i].dataset.team]: 0}]
+    //                   }));
+    //               }else{
+    //                   this.setState(previousState => ({
+    //                       teamScore: [this.state.teamScore[j], {[checkButton[i].dataset.team]: (this.state.teamScore[j][Object.keys(this.state.teamScore[j])[0]]+1)}]
+    //                   }));
+    //               }
+    //           }
+    //       }
+    //   }
     // }
-
 
 
   } //onSubmit
