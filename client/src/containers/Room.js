@@ -23,7 +23,7 @@ const Container = styled.div`
     padding: 5rem 0;
     z-index:1;
     position:relative;
-    text-align:center;
+    text-align: center;
 `;
 
 const StyledVideo = styled.video`
@@ -57,6 +57,8 @@ const Room = (props) => {
 
     const [teamNameStateSet, setTeamNameState] = useState(false);
 
+    const [avatar, setAvatarOfUser] = useState("/static/media/18.b0d5b6d8.svg");
+
     const socketRef = useRef();
     const userVideo = useRef();
     var userAudio = useRef();
@@ -80,6 +82,9 @@ const Room = (props) => {
     const [maxQuestions, setMaxQuestions] = useState(0);
 
     const [showReview, setShowReview] = useState(false);
+
+
+
 
 
     useEffect(() => {
@@ -111,7 +116,7 @@ const Room = (props) => {
                     .then((response) => {
                         const user = response.data;
                         setUsernameOfuser(user.username);
-
+                        setAvatarOfUser(user.avatar_url);
                         //this.setState({user});
                         // myProps = this.props;
 
@@ -492,9 +497,6 @@ const Room = (props) => {
         console.log("Get review");
     };
 
-
-
-
     const handleTeamNameChange = (e) => {
 
         setTeamName(e.target.value);
@@ -515,8 +517,9 @@ const Room = (props) => {
         })}
     }
 
-
-
+    // const onEnterPress = (e) => {
+    //
+    //   };
 
     const submit = event => {
         event.preventDefault();
@@ -529,6 +532,10 @@ const Room = (props) => {
 
         setUsernameOfuser(e.target.value);
 
+    };
+
+    const handleAvatarPath = (e) => {
+        //setAvatarOfUser(??)
     };
 
     const submitAnswersTeam = event => {
@@ -544,11 +551,6 @@ const Room = (props) => {
         // console.log(answer);
 
     };
-
-
-
-
-
 
     if(intro === false) {
         return (
@@ -604,30 +606,42 @@ const Room = (props) => {
                             <TabContent for="tab1">
                                 <div className="row">
                                     <div className="col-md-8">
-                                        <h6>Messages</h6>
                                         <div id="messages" className="messages__container">
-                                            <AutoscrolledList items={messages} />
+                                            <AutoscrolledList items={messages} avatar={avatar} />
                                         </div>
-                                        <form onSubmit={submit} id="form">
+                                        <form onSubmit={submit} id="form__chat">
                                             <div className="input-group">
-                                                <input
+                                                <textarea
                                                     type="text"
                                                     className="form-control whiteText"
                                                     placeholder="Say something..."
+                                                    maxLength="280"
                                                     onChange={e => setMessage(e.currentTarget.value)}
+                                                    onKeyDown={e =>{
+                                                      if(e.keyCode == 13 && e.shiftKey == false) {
+                                                        e.preventDefault();
+                                                        const form = document.querySelector("#form__chat");
+
+                                                        if (form !== null) {
+                                                            form.dispatchEvent(new Event('submit'));
+                                                        }else{
+                                                          console.log("lol");
+                                                        }
+                                                      };
+                                                    }}
                                                     value={message}
                                                     id="text"
                                                 />
                                                 <span className="input-group-btn">
-                                                <button id="submit" type="submit" className="btn btn-primary">
+                                                <button id="submit" type="submit" className="btn btn-primary input-group-btn-submit">
                                                   Send
+                                                  <img className="input-group-btn-img" src="/img/send.svg" alt="Send Message"/>
                                                 </button>
                                               </span>
                                             </div>
                                         </form>
                                     </div>
                                     <div className="col-md-4">
-                                        <h6>Users</h6>
                                         <ul id="users">
                                             {users.map(({ name, id }) => (
                                                 <li key={id}>{name}</li>
@@ -642,7 +656,8 @@ const Room = (props) => {
                                 <div className={teamNameStateSet ? "hidden" : "visible"}>
                                     <h2>Choose a Teamname</h2>
                                     <input type="text" name="username" value={teamName} onChange={handleTeamNameChange} className={"whiteText"}
-                                           pattern="^\w+$" maxLength="20" required autoFocus
+                                            maxLength="25"
+                                           pattern="^\w+$" maxLength="25" required autoFocus
                                            title="Username" className={"whiteText"}/>
                                     <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Set team name</button>
                                     {/*<button onClick={setNextPage}>Next page</button>*/}
