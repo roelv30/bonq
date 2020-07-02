@@ -2,6 +2,7 @@ import React from 'react';
 // import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import './Score.css';
+import {Redirect} from "react-router-dom";
 
 
 class Score extends React.Component {
