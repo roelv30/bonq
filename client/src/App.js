@@ -48,7 +48,7 @@ import JoinGame from './extern/JoinGame';
 import EasterEgg from './extern/EasterEgg';
 
 
-const socket = io("http://localhost:3001");
+const socket = io("/");
 // const socketRef = io.connect();
 
 socket.on("leaving user homepage", () => {
