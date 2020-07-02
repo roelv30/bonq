@@ -29,7 +29,6 @@ class Review extends React.Component {
   }
 
     getCheckedAnswers() {
-        let groupsAnswer;
         this.state.answers.map((answer, key1) => {
                 this.state.group_answers.map((group, key) => {
 
