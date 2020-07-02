@@ -6,7 +6,8 @@ const styles = {
     overflowY: "scroll",
     height: "200px",
     borderBottom: "2px solid #D10C76",
-    padding: "0 1.5rem"
+    padding: "0 1.5rem",
+    wordBreak: "break-all",
 };
 
 class List extends React.Component {

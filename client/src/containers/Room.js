@@ -607,6 +607,7 @@ const Room = (props) => {
                                                     type="text"
                                                     className="form-control whiteText"
                                                     placeholder="Say something..."
+                                                    maxLength="280"
                                                     onChange={e => setMessage(e.currentTarget.value)}
                                                     onKeyDown={e =>{
                                                       if(e.keyCode == 13 && e.shiftKey == false) {
@@ -624,7 +625,8 @@ const Room = (props) => {
                                                     id="text"
                                                 />
                                                 <span className="input-group-btn">
-                                                <button id="submit" type="submit" className="btn btn-primary">
+                                                <button id="submit" type="submit" className="btn btn-primary input-group-btn-submit">
+                                                  <img className="input-group-btn-img" src="/img/send.svg" alt="Send Message"/>
                                                   Send
                                                 </button>
                                               </span>
@@ -647,7 +649,8 @@ const Room = (props) => {
                                 <div className={teamNameStateSet ? "hidden" : "visible"}>
                                     <h2>Choose a Teamname</h2>
                                     <input type="text" name="username" value={teamName} onChange={handleTeamNameChange} className={"whiteText"}
-                                           pattern="^\w+$" maxLength="20" required autoFocus
+                                            maxLength="25"
+                                           pattern="^\w+$" maxLength="25" required autoFocus
                                            title="Username" className={"whiteText"}/>
                                     <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Set team name</button>
                                     {/*<button onClick={setNextPage}>Next page</button>*/}

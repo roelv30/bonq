@@ -72,7 +72,7 @@ class Score extends React.Component {
         <Redirect to='/dashboard'/>
       );
     };
-    
+
     const teams = this.state.teams;
     teams.sort((a, b) => b["score"] - a["score"]);
     console.log(teams);
