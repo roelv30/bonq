@@ -634,7 +634,6 @@ const Room = (props) => {
                                         </form>
                                     </div>
                                     <div className="col-md-4">
-                                        <h6>Users</h6>
                                         <ul id="users">
                                             {users.map(({ name, id }) => (
                                                 <li key={id}>{name}</li>
