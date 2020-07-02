@@ -5,20 +5,8 @@ import axios from 'axios';
 import Back from '../extern/Back';
 import '../question_review/Review.css';
 import io from "socket.io-client";
-import SocketContext from '../components/SocketContext'
+import SocketContext from '../components/SocketContext';
 
-// useEffect(() => {
-//
-//
-//
-//
-//
-//
-// }, []);
-
-const roomid = 0;
-let  everyone = [];
-let checkedAnswers = [];
 let teamScore = [];
 
 class Review extends React.Component {
@@ -40,12 +28,6 @@ class Review extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-
-
-  componentDidMount(){
-
-  }
-
     getCheckedAnswers() {
         let groupsAnswer;
         this.state.answers.map((answer, key1) => {
@@ -61,18 +43,11 @@ class Review extends React.Component {
                         }))
 
                     }else{
-//                        document.getElementById("wrong-"+key).checked = true;
                         this.setState(previousState => ({
                             answersChecked: [...previousState.answersChecked, ["incorrect"]],
 
                         }))
                     }
-
-                    // console.log("checkedAnswers");
-                    // console.log(this.state.answersChecked);
-                    // console.log("first");
-                    // console.log(this.state.first);
-
                 })
         })
 
@@ -81,48 +56,18 @@ class Review extends React.Component {
 
   onSubmit(e){
     e.preventDefault();
-    // let form = document.getElementById('js--form');
     let checkButton = document.querySelectorAll('input');
     let points = {}
 
     for(let i = 0; i < checkButton.length; i++){
       if (checkButton[i].checked){
-        // add team to object
         teamScore.push(checkButton[i].dataset.team);
-        // if(teamScore[i]){
-        //   console.log('yes');
-        //   teamScore[i] = checkButton[i].dataset.team;
         }
       }
     teamScore.forEach(function(x) { points[x] = (points[x] || 0) + 1});
 
     console.log(teamScore);
     console.log(points);
-      //console.log("teamscore");
-      //console.log(this.state.teamScore);
-    // for (let i = 0; i < checkButton.length; i++) {
-    //   if (checkButton[i].checked) {
-    //
-    //       if(this.state.teamScore.length === 0){
-    //           this.setState(previousState => ({
-    //               teamScore: [{[checkButton[i].dataset.team]: 0}]
-    //           }));
-    //       }else{
-    //           for (let j = 0; j < this.state.teamScore.length; j++) {
-    //               if(!Object.keys(this.state.teamScore[j])[0] === checkButton[i].dataset.team){
-    //                   this.setState(previousState => ({
-    //                       teamScore: [...previousState.teamScore, {[checkButton[i].dataset.team]: 0}]
-    //                   }));
-    //               }else{
-    //                   this.setState(previousState => ({
-    //                       teamScore: [this.state.teamScore[j], {[checkButton[i].dataset.team]: (this.state.teamScore[j][Object.keys(this.state.teamScore[j])[0]]+1)}]
-    //                   }));
-    //               }
-    //           }
-    //       }
-    //   }
-    // }
-
 
   } //onSubmit
 
@@ -130,7 +75,6 @@ class Review extends React.Component {
   fetchAnswers(){
 
       this.setState({showButton: false});
-      let roomid;
       this.props.socket.emit("getAnswerList");
 
       this.props.socket.on("getAnswerListFull", payload => {
@@ -140,7 +84,6 @@ class Review extends React.Component {
           this.roomid = Object.keys(obj)[0];
 
           let first= obj[Object.keys(obj)[0]];
-          let teamname = Object.keys(first)[0];
 
           this.everyone = Object.values(first)[0];
           for (let i = 0; i < Object.keys(first).length; i++) {
@@ -168,7 +111,7 @@ class Review extends React.Component {
 
               })
       });
-  }
+  } // fetchAnswers
 
   render() {
 
@@ -181,7 +124,7 @@ class Review extends React.Component {
                 <p className="review__main__box__answer">Answer: {this.state.answers[key1]}</p>
                 <section className="review__main__box__groups">
                   {this.state.group_answers.map((answer, key) => {
-                    let checkButtonId = `check-${key}`, wrongButtonId = `wrong-${key}`;
+                    let checkButtonId = `check-${key}`;
                     return(
                       <div key={key} className="review__main__box__groups__answers">
                         <div className="review__main__box__groups__answers-text">
@@ -192,7 +135,7 @@ class Review extends React.Component {
                         <aside className="review__main__box__check__buttons">
                           <form>
                             <label>
-                              <input data-question={key1} data-team={answer} type="checkbox" name="review" value="correct"/>
+                              <input data-question={key1} data-team={answer} id={checkButtonId} type="checkbox" name="review" value="correct"/>
                               <img src="/img/check.svg" alt="check icon"/>
                             </label>
                           </form>
@@ -235,6 +178,6 @@ class Review extends React.Component {
 
     );
   }
-}
+} // render
 
 export default Review;
