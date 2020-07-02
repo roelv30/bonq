@@ -20,11 +20,7 @@ const roomid = 0;
 let  everyone = [];
 var checkedAnswers = [];
 
-
 class Review extends React.Component {
-
-
-
 
     constructor(props) {
         super(props);
@@ -37,41 +33,22 @@ class Review extends React.Component {
         first:[],
         answersChecked: [],
         showButton: true,
-
+        teamScore: [],
     };
-    this.testFunction = this.testFunction.bind(this);
+    this.fetchAnswers = this.fetchAnswers.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
 
 
   componentDidMount(){
 
-
-    // axios.get(`https://bonq-api.herokuapp.com/api/question`)
-    //   .then(response => {
-    //     for(let i = 0; i < response.data.length; i++){
-    //       // the loop keeps adding data from the api to the state
-    //       this.setState(previousState => ({
-    //         questions: [...previousState.questions, response.data[i].shown_question], // take the previous state, add data and update the state.
-    //         answers: [...previousState.answers, response.data[i].answer[0].checked_answer]
-    //       }))
-    //     }
-    //   })
   }
+
     getCheckedAnswers() {
         let groupsAnswer;
-        {this.state.answers.map((answer, key1) => {
+        this.state.answers.map((answer, key1) => {
                 this.state.group_answers.map((group, key) => {
-                    //
-                    //  console.log("answer");
-                    //  console.log(answer);
-                    //  console.log("Group answer");
-                    //  console.log(this.state.first[key][key1]);
-                    // console.log("group");
-                    // console.log(group);
-
-                   // this.setState(answersChecked[][]);
-                    //console.log(this.state.first);
 
                     if(this.state.first[key][key1] === answer){
                         document.getElementById("check-"+key).checked = true;
@@ -79,47 +56,76 @@ class Review extends React.Component {
                         console.log("answer is correct");
                         this.setState(previousState => ({
                             answersChecked: [...previousState.answersChecked, ["correct"]],
-                           // answers: [...previousState.answers, response.data[0].rounds_array[i][j].answer],
 
                         }))
-                        //this.setState(answersChecked[0] = ["correct"]);
 
                     }else{
-                        document.getElementById("wrong-"+key).checked = true;
+//                        document.getElementById("wrong-"+key).checked = true;
                         this.setState(previousState => ({
                             answersChecked: [...previousState.answersChecked, ["incorrect"]],
-                            // answers: [...previousState.answers, response.data[0].rounds_array[i][j].answer],
 
                         }))
                     }
 
-
-
-                    // this.setState(previousState => ({
-                    //     answersChecked: [...previousState.answersChecked, [[groupsAnswer]]],
-                    //    // answers: [...previousState.answers, response.data[0].rounds_array[i][j].answer],
-                    //
-                    // }))
-                    console.log("checkedAnswers");
-                    console.log(this.state.answersChecked);
-                    console.log("first");
-                    console.log(this.state.first);
+                    // console.log("checkedAnswers");
+                    // console.log(this.state.answersChecked);
+                    // console.log("first");
+                    // console.log(this.state.first);
 
                 })
-        })}
+        })
 
+    } // getCheckedAnswers
+
+
+  onSubmit(e){
+    e.preventDefault();
+    let form = document.getElementById('js--form');
+    let checkButton = document.querySelectorAll('input');
+    let teamName;
+    console.log(this.state.teamScore);
+    for (let i = 0; i < checkButton.length; i++) {
+      teamName = checkButton[i].dataset.team;
+      if (checkButton[i].checked) {
+        if(!this.state.teamScore[teamName]){
+          this.setState(previousState => ({
+              teamScore: [...previousState.teamScore, {teamName: 0}]
+          }));
+        } else {
+          console.log("else");
+          this.setState(previousState => ({
+              teamScore: [...previousState.teamScore, {teamName: (teamName[Object.keys(teamName)[0]])}]
+          }));
+        }
+
+
+      } else {
+      }
     }
-  testFunction(){
+
+
+
+
+
+    // if(checkButton.checked){
+    //   console.log("bitch is checked");
+    // } else {
+    //   console.log("not checked");
+    // }
+
+
+
+  } //onSubmit
+
+
+  fetchAnswers(){
 
       this.setState({showButton: false});
-    //    console.log(this.props);
-     let roomid;
-       this.props.socket.emit("getAnswerList");
-
-
+      let roomid;
+      this.props.socket.emit("getAnswerList");
 
       this.props.socket.on("getAnswerListFull", payload => {
-           // console.log(payload);
+
           var obj = payload;
 
           this.roomid = Object.keys(obj)[0];
@@ -127,12 +133,7 @@ class Review extends React.Component {
           let first= obj[Object.keys(obj)[0]];
           let teamname = Object.keys(first)[0];
 
-
-
-         // console.log(Object.values(first)[0][0].answer);
           this.everyone = Object.values(first)[0];
-         // console.log(this.everyone);
-          //set the team names
           for (let i = 0; i < Object.keys(first).length; i++) {
 
               this.setState(previousState => ({
@@ -140,11 +141,9 @@ class Review extends React.Component {
               }));
           }
 
-            this.state.first = Object.values(first);
-         // console.log(Object.values(first)[0]);
+          this.state.first = Object.values(first);
 
           console.log(this.state.first);
-          //console.log(this.roomid); //returns 'someVal'
           axios.get("https://bonq-api.herokuapp.com/api/getQuestions/" + this.roomid)
               .then(response => {
                   for (let i = 0; i < response.data[0].rounds_array.length; i++) {
@@ -160,79 +159,45 @@ class Review extends React.Component {
 
               })
       });
-
-       // console.log(this.roomid);
-
-     
-
-
-    // let checkButton = document.getElementsByClassName('right');
-    // let wrongButton = document.getElementsByClassName('wrong');
-    // // check if every answer is correct
-    // // team 1 op vraag 1
-    // if(this.state.answers[0] == this.state.group_answers[0]){
-    //   checkButton[0].checked = true;
-    // } else {
-    //   wrongButton[0].checked = true;
-    // }
-    //
-    // // team 2 op vraag 2
-    // if(this.state.answers[1] == this.state.group_answers[1]){
-    //   checkButton[4].checked = true;
-    // } else {
-    //   wrongButton[4].checked = true;
-    // }
-
-
-
-
   }
-
-
-
-
-
 
   render() {
 
-
      const Questions =
       <section>
-        {this.state.questions.map((question, key1) => (
-          <div className="review__main__box" key={key1}>
-            <p className="review__main__box__question">Question {key1 + 1}: {question}</p>
-            <div className="review__main__box__check">
-              <p className="review__main__box__answer">Answer: {this.state.answers[key1]}</p>
-              <section className="review__main__box__groups">
-                {this.state.group_answers.map((answer, key) => {
-                  let checkButtonId = `check-${key}`, wrongButtonId = `wrong-${key}`;
-                  return(
-                    <div key={key} className="review__main__box__groups__answers">
-                      <div className="review__main__box__groups__answers-text">
+          {this.state.questions.map((question, key1) => (
+            <div className="review__main__box" key={key1}>
+              <p className="review__main__box__question">Question {key1 + 1}: {question}</p>
+              <div className="review__main__box__check">
+                <p className="review__main__box__answer">Answer: {this.state.answers[key1]}</p>
+                <section className="review__main__box__groups">
+                  {this.state.group_answers.map((answer, key) => {
+                    let checkButtonId = `check-${key}`, wrongButtonId = `wrong-${key}`;
+                    return(
+                      <div key={key} className="review__main__box__groups__answers">
+                        <div className="review__main__box__groups__answers-text">
 
-                          <p className="review__main__box__groups__answers-text__group">{answer} : {this.state.first[key][key1]} </p>
+                            <p className="review__main__box__groups__answers-text__group">{answer} : {this.state.first[key][key1]} </p>
 
+                        </div>
+                        <aside className="review__main__box__check__buttons">
+                          <form>
+                            <label>
+                              <input data-question={key1} data-team={answer} type="checkbox" name="review" value="correct"/>
+                              <img src="/img/check.svg" alt="check icon"/>
+                            </label>
+                          </form>
+                        </aside>
                       </div>
-                      <aside className="review__main__box__check__buttons">
-                        <form id={"form__answers"}>
-
-                          <label>
-                            <input className="right" id={checkButtonId} type="radio" name="review" value="correct"/>
-                            <img src="/img/check.svg" alt="check icon"/>
-                          </label>
-                          <label>
-                            <input className="wrong" id={wrongButtonId} type="radio" name="review" value="incorrect" />
-                            <img src="/img/wrong.svg" alt="wrong icon"/>
-                          </label>
-                        </form>
-                      </aside>
-                    </div>
-                  );
-                })}
-              </section>
+                    );
+                  })}
+                </section>
+            </div>
           </div>
-        </div>
-        ))}
+          ))}
+
+          <button onClick={this.onSubmit} type="button">Submit</button>
+
       </section>
 
     return(
@@ -247,7 +212,7 @@ class Review extends React.Component {
 
           <h2 className="review__main__title">Time to check the answers!</h2>
           <section>
-            <button onClick={this.testFunction} type="button" className={(this.state.showButton === true ? 'show' : 'hidden')}>Check Answers</button>
+            <button onClick={this.fetchAnswers} type="button" className={(this.state.showButton === true ? 'show' : 'hidden')}>Check Answers</button>
           </section>
 
           {Questions}
@@ -264,36 +229,3 @@ class Review extends React.Component {
 }
 
 export default Review;
-//
-// {this.state.questions.map((question, key) => (
-//   <div className="review__main__box" key={key}>
-//     <p className="review__main__box__question">Question {key + 1}: {question}</p>
-//     <div className="review__main__box__check">
-//       <p className="review__main__box__answer">Answer: {this.state.answers[key]}</p>
-//
-//       <section className="review__main__box__groups">
-//         {this.state.group_answers.map((answer, key) => (
-//           <div key={key} className="review__main__box__groups__answers">
-//             <div className="review__main__box__groups__answers-text">
-//               <p className="review__main__box__groups__answers-text__group">Group {key + 1}: {answer}</p>
-//             </div>
-//
-//           <aside className="review__main__box__check__buttons">
-//             <form>
-//               <label>
-//                 <input className={"yeet" + key} type="radio" name="review" value="correct"/>
-//                 <img src="/img/check.svg" alt="check icon"/>
-//               </label>
-//
-//               <label>
-//                 <input type="radio" name="review" value="incorrect" />
-//                 <img src="/img/wrong.svg" alt="wrong icon"/>
-//               </label>
-//             </form>
-//           </aside>
-//         </div>
-//         ))}
-//       </section>
-//       </div>
-//     </div>
-// ))}
