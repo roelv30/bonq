@@ -74,6 +74,7 @@ class Review extends React.Component {
         score: points[Object.keys(points)[i]],
       })
       .then((response) => {
+          this.props.history.push('/scoreboard' );
         console.log("push succesful");
       })
       .catch((error) => {
