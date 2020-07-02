@@ -7,8 +7,6 @@ import '../question_review/Review.css';
 import io from "socket.io-client";
 import SocketContext from '../components/SocketContext';
 
-let teamScore = [];
-
 class Review extends React.Component {
 
     constructor(props) {
@@ -33,7 +31,7 @@ class Review extends React.Component {
                 this.state.group_answers.map((group, key) => {
 
                     if(this.state.first[key][key1] === answer){
-                        document.getElementById("check-"+key+key1).checked = true;
+                        document.getElementById("check-"+key+"-"+key1).checked = true;
 
                         console.log("answer is correct");
                         this.setState(previousState => ({
@@ -55,18 +53,42 @@ class Review extends React.Component {
 
   onSubmit(e){
     e.preventDefault();
+    const POST_URL = 'https://bonq-api.herokuapp.com/api/setscore';
     let checkButton = document.querySelectorAll('input');
-    let points = {}
+    let points = {};
+    let teamScore = [];
 
     for(let i = 0; i < checkButton.length; i++){
       if (checkButton[i].checked){
         teamScore.push(checkButton[i].dataset.team);
         }
       }
-    teamScore.forEach(function(x) { points[x] = (points[x] || 0) + 1});
 
-    console.log(teamScore);
-    console.log(points);
+    teamScore.forEach(function(teamName) {
+      points[teamName] = (points[teamName] || 0) + 1
+    });
+
+    for(let i = 0; i < Object.keys(points).length; i++){
+      axios.post(POST_URL, {
+        team: Object.keys(points)[i],
+        score: points[Object.keys(points)[i]],
+      })
+      .then((response) => {
+        console.log("push succesful");
+      })
+      .catch((error) => {
+        const status = error.response;
+        console.log(status);
+      })
+
+    }
+    //
+    // console.log(teamScore);
+    // console.log(points);
+
+
+
+
 
   } //onSubmit
 
@@ -134,7 +156,7 @@ class Review extends React.Component {
                         <aside className="review__main__box__check__buttons">
                           <form>
                               <input className="review__main__box__check__buttons__input" data-question={key1} data-team={answer} id={checkButtonId} type="checkbox" name="review" value="correct"/>
-                              <label htmlFor={checkButtonId}><img src="/img/check.svg" alt="check icon"/></label>
+                              <label className="review__main__box__check__buttons__label" htmlFor={checkButtonId}><img src="/img/check.svg" alt="check icon"/></label>
                           </form>
                         </aside>
                       </section>

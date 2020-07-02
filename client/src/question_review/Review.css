@@ -66,16 +66,12 @@ label{
   cursor: pointer;
 }
 
-label img {
+.review__main__box__check__buttons__label img {
   filter: grayscale(100%);
 }
 
 :checked + label img {
   filter: brightness(200%);
-}
-
-.review__main__box__check__buttons__input{
-
 }
 
 
