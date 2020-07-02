@@ -64,6 +64,9 @@ input[type=text], textarea {
   max-width: 18em;
   display: block;
   margin: 0 auto;
+  background-color: rgba(0,0,0,.2);
+  border-radius: 5px;
+  padding: 10px;
 }
 
 textarea{
@@ -122,11 +125,13 @@ textarea{
 
 ul.tabs {
   display: flex;
-  border-bottom: 1px solid #D7DBDD;
   list-style-type: none;
   align-items: center;
   width: 100%;
   justify-content: center;
+  margin-top: 15px;
+  padding: 20px 0;
+  border-top: 2px solid rgb(209, 12, 118);
 }
 .tab button {
   cursor: pointer;

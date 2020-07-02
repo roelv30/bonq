@@ -23,6 +23,7 @@ const Container = styled.div`
     padding: 5rem 0;
     z-index:1;
     position:relative;
+    text-align: center;
 `;
 
 const StyledVideo = styled.video`
@@ -597,7 +598,6 @@ const Room = (props) => {
                             <TabContent for="tab1">
                                 <div className="row">
                                     <div className="col-md-8">
-                                        <h6>Messages</h6>
                                         <div id="messages" className="messages__container">
                                             <AutoscrolledList items={messages} avatar={avatar} />
                                         </div>

@@ -5,8 +5,7 @@ import './AutoscrolledList.css';
 const styles = {
     overflowY: "scroll",
     height: "200px",
-    borderTop: "2px solid #D10C76",
-    marginTop: "2rem",
+    borderBottom: "2px solid #D10C76",
     padding: "0 1.5rem"
 };
 
