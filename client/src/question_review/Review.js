@@ -81,6 +81,8 @@ class Review extends React.Component {
         console.log(status);
       })
 
+      
+
     }
     //
     // console.log(teamScore);
