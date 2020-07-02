@@ -194,9 +194,111 @@ ul.tabs li button.tab-link-active{
   border-bottom: 1px solid;
 }
 
+.background__inside__team{
+  background: #133E7C;
+  top: 19%;
+  right: -79px;
+  width: 107rem;
+  position: absolute;
+  height: 45%;
+  border: 3px solid #D10C76;
+  transform: rotate(169deg);
+  z-index: 2;
+}
 
+.background__inside__team__shade{
+  position: absolute;
+  width: 100vh;
+  height: 100vw;
+  top: 0;
+  background-color: rgb(0, 0, 0, 0.6);
+}
+
+.teamname__container{
+  z-index: 4;
+  position: relative;
+}
+
+.teamname__container-title{
+  margin-bottom: 30px;
+}
+
+.teamname__container__input{
+  max-width: 100% !important;
+  width: 45%;
+  height: 60px;
+  text-align: center;
+  font-size: 3rem;
+}
+
+.teamname__container::before{
+  background: #133E7C;
+  top: 13px;
+  right: -51px;
+  width: 100rem;
+  position: absolute;
+  height: 31rem;
+  border: 3px solid #D10C76;
+  transform: rotate(169deg);
+  z-index: -1;
+}
+
+.room__host__button-container{
+  display: flex;
+  flex-flow: wrap;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.room__host__button-grid{
+  border: none;
+  background-color: #4abec6;
+  border-radius: 5px;
+  color: white;
+  font-weight: 700;
+  transition: 0.2s;
+  font-size: 1.7rem;
+  padding: 20px 0;
+  margin: 0 auto;
+  width: 150px;
+}
+
+.room__host__button-grid:hover{
+  background-color: #091833;
+  cursor: pointer;
+  color: #d11676;
+}
+
+.vraag__post{
+  position: relative;
+  padding: 40px 30px;
+  width: 70%;
+  margin: 0px auto 40px auto;
+  background: #1d1d1d;
+  box-shadow: 0 0px 1px rgba(0,0,0,0.3), -3px -3px 6px rgba(0,0,0,0.2);
+}
+
+.vraag__post:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-width: 30px 30px 0 0;
+  border-style: solid;
+  border-color: #353535 #091833;
+  -webkit-box-shadow: 0 0px 0px rgba(0,0,0,0.3), -3px -3px 4px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0 0px 0px rgba(0,0,0,0.3), -3px -3px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 0px 0px rgba(0,0,0,0.3), -3px -3px 4px rgba(0,0,0,0.2);
+}
+
+.vraag__post__title{
+  font-size: 2.5rem;
+  color: #d11676;
+}
 
 #test{
+  width: 90% !important;
+  margin: 0 auto;
   border: 2px solid #D10C76;
   border-radius: 10px;
 }
@@ -218,9 +320,15 @@ ul.tabs li button.tab-link-active{
 #ownVideoStream video{
   width:80%;
 }
+
+.remoteContainer__cams{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .otherPeopleDiv {
   /*float: left;*/
-  width: 32%;
+  width: 25%;
   /*height: 280px;*/
   padding: 10px;
 }
@@ -329,6 +437,7 @@ ul.tabs li button.tab-link-active{
   display: inline-block;
   cursor: pointer;
   background-color: #4285F4;
+  background-color: #4abec6;
   border: none;
   color: white;
   font-size: 0.8em;
@@ -340,6 +449,9 @@ ul.tabs li button.tab-link-active{
   -webkit-box-shadow: 1px 1px 5px 0 rgba(0,0,0,.5);
   -moz-box-shadow: 1px 1px 5px 0 rgba(0,0,0,.5);
   box-shadow: 1px 1px 5px 0 rgba(0,0,0,.5);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 200px;
 }
 .media-controls {
   display: flex;
