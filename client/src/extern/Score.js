@@ -2,6 +2,7 @@ import React from 'react';
 // import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import './Score.css';
+import {Redirect} from "react-router-dom";
 
 
 class Score extends React.Component {
@@ -67,6 +68,12 @@ class Score extends React.Component {
 
 
   render() {
+    if (this.props.isAuthenticated) {
+      return (
+        <Redirect to='/dashboard'/>
+      );
+    };
+
     const teams = this.state.teams;
     teams.sort((a, b) => b["score"] - a["score"]);
     console.log(teams);

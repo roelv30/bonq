@@ -5,32 +5,55 @@ button {
   font-family: Sans-Serif;
 }
 
-@media(max-width: 1024px) {
+/* @media(max-width: 1024px) {
   body,
   input,
   button {
     font-size: 1em;
   }
-}
+} */
 input:focus,
 button:focus {
   outline:0;
+}
+
+.username__article {
+  padding: 5rem 0;
 }
 
 .headerLogin{
   font-family: Squada One, cursive;
   letter-spacing: 4px;
   font-size: 3rem;
+  text-align: center;
+  margin: 2rem 0;
 }
 .backgroundUsername{
   background:rgba(24,24,24,0.9);
   width:50%;
   margin:0 auto;
-  height: 10rem;
+  padding: 1.5rem 0;
+}
+
+.username__article__enable {
+  display: flex;
+  align-items: center;
+  padding: 15rem 0 0 0;
+  margin: 0px 20rem;
+}
+
+.username__article__enable__text {
+  margin-right: 2rem;
+}
+
+.username__article__enter {
+  margin: 2rem 20rem;
+  text-align: start;
 }
 
 
-input[type=text] {
+
+input[type=text], textarea {
   border: none;
   border-bottom: solid 2px #D10C76;
   /*font-size: 1em;*/
@@ -42,10 +65,60 @@ input[type=text] {
   max-width: 18em;
   display: block;
   margin: 0 auto;
+  background-color: rgba(0,0,0,.2);
+  border-radius: 5px;
+  padding: 10px;
 }
 
+textarea{
+  width: 80%;
+}
+
+#form__chat {
+  padding: 0 5rem;
+}
+
+.input-group {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group-btn {
+  margin-left: 2rem;
+}
+
+.input-group-btn-submit {
+  display: flex;
+  align-items: center;
+  border: none;
+  font-family: 'Squada One', cursive;
+  color: #fff;
+  background-color: #0ABDC6;
+  height: 4rem;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  border-radius: 5px;
+  padding: 0 1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.input-group-btn-submit:hover {
+  box-shadow: inset 0 0 5px #000000;
+}
+
+.input-group-btn-img {
+  margin-left: 1rem;
+}
+
+
 .form-control{
-  margin: 2rem auto!important;
+  margin: 20px 0px !important;
+  width: 30rem;
+  resize: none;
+  height: 5rem;
 }
 
 .inputUsername{
@@ -66,15 +139,14 @@ input[type=text] {
 .video-button-true,
 .video-button-false,
 .fullscreen-button {
-  width: 3em;
-  height: 3em;
+  width: 4em;
+  height: 4em;
   border-radius: 50%;
-  background: rgba(44, 44, 44, 0.6);
+  background: none;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 0;
-  box-shadow: .2ex .2ex 1.5em #444;
   transition: all .2s ease-out;
   margin: 0 .4em;
   cursor: pointer;
@@ -87,20 +159,19 @@ input[type=text] {
 .video-button-true:hover,
 .video-button-false:hover,
 .fullscreen-button:hover {
-  box-shadow: .4ex .4ex 3em #666;
-  background: rgba(64, 124, 247, 1)
+  background: #133e7c;
 }
-.hangup-button{
-  background:red;
-}
+
 
 ul.tabs {
   display: flex;
-  border-bottom: 1px solid #D7DBDD;
   list-style-type: none;
   align-items: center;
   width: 100%;
   justify-content: center;
+  margin-top: 15px;
+  padding: 20px 0;
+  border-top: 2px solid rgb(209, 12, 118);
 }
 .tab button {
   cursor: pointer;
@@ -280,7 +351,7 @@ ul.tabs li button.tab-link-active{
   bottom: 0;
 }
 .svg {
-  width: 1.4em;
+  width: 3em;
 }
 .room-occupied,
 .request-access,
@@ -320,6 +391,10 @@ ul.tabs li button.tab-link-active{
 .messages__container{
   padding: 0 5rem;
   text-align: left;
+}
+
+.row.mb-2{
+  border-bottom: 1px solid rgba(209, 12, 118, .4);
 }
 
 

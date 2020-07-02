@@ -39,6 +39,7 @@ import Test from './extern/Test';
 import Register from './extern/Register';
 import Header from './extern/Header';
 import Dashboard from './extern/Dashboard';
+import Score from './extern/Score';
 
 // Stephan Imports
 import Review from './question_review/Review';
@@ -48,7 +49,7 @@ import JoinGame from './extern/JoinGame';
 import EasterEgg from './extern/EasterEgg';
 
 
-const socket = io("http://localhost:3001");
+const socket = io("/");
 // const socketRef = io.connect();
 
 socket.on("leaving user homepage", () => {
@@ -126,7 +127,8 @@ class App extends React.Component {
           token={this.state.token}
           refresh={this.refresh}
           logout={this.logout}/>
-        <Route exact path='/' component={Start} />
+          <Route exact path='/' render={(props) =>
+            <Start authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
         <audio className="audio-element-test">
             <source src="https://freesound.org/data/previews/253/253886_3169537-lq.mp3"></source>
         </audio>
@@ -135,6 +137,7 @@ class App extends React.Component {
         <Route exact path='/register' render={(props) =>
             <Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
 
+        <Route exact path='/scoreboard' component={Score} />
 
         <SocketContext.Provider value={socket}>
             <PrivateRoute exact path="/pubq/questions" component={PubQuizSetup} isAuthenticated={this.state.isAuthenticated} token={this.state.token} logout={this.logout} />

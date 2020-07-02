@@ -1,6 +1,6 @@
 import React from 'react';
 import PinInput from 'react-pin-input';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import './Start.css';
 import NewToBonq from './NewToBonq';
 // import Home from "../components/Home";
@@ -22,6 +22,11 @@ class Start extends React.Component {
 
 
   render() {
+    if (this.props.isAuthenticated) {
+      return (
+        <Redirect to='/dashboard'/>
+      );
+    };
     return (
       <section className="start">
         <div className="background"></div>
@@ -48,7 +53,7 @@ class Start extends React.Component {
           <p className="start__article__or">
             <span className="start__article__or__text"> or </span>
           </p>
-          <NavLink exact activeClassName="active" className="start__article__button" to="/login">
+          <NavLink exact activeClassName="active" className="start__article__button pink" to="/login">
     				Log in to Host
     			</NavLink>
   			  <NewToBonq text="New to bonq?" link="/register" linktext="Sign up for free!" />

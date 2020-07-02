@@ -162,6 +162,30 @@ io.on('connection', socket => {
 
     });
 
+    socket.on("nextRound", (roundnumber) => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+
+        io.to(roomNumber).emit('roundNumberUpdate', roundnumber);
+    });
+
+    socket.on("nextQuestion", (questionNumber) => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+
+        io.to(roomNumber).emit('questNumberUpdate', questionNumber);
+    });
+
+
+
+
+
     //console.log(users);
 
 
