@@ -82,26 +82,53 @@ class Review extends React.Component {
     e.preventDefault();
     let form = document.getElementById('js--form');
     let checkButton = document.querySelectorAll('input');
-    let teamName;
-    console.log(this.state.teamScore);
+
+      //console.log("teamscore");
+      //console.log(this.state.teamScore);
     for (let i = 0; i < checkButton.length; i++) {
-      teamName = checkButton[i].dataset.team;
+
+
       if (checkButton[i].checked) {
-        if(!this.state.teamScore[teamName]){
-          this.setState(previousState => ({
-              teamScore: [...previousState.teamScore, {teamName: 0}]
-          }));
-        } else {
-          console.log("else");
-          this.setState(previousState => ({
-              teamScore: [...previousState.teamScore, {teamName: (teamName[Object.keys(teamName)[0]])}]
-          }));
-        }
 
 
-      } else {
+
+
+          //
+          // if(!this.state.teamScore[checkButton[i].dataset.team]){
+          //     this.setState(previousState => ({
+          //         teamScore: [...previousState.teamScore, {[checkButton[i].dataset.team]: 0}]
+          //     }));
+          // } else {
+          //     console.log("else");
+          //     this.setState(previousState => ({
+          //         teamScore: [...previousState.teamScore, {[checkButton[i].dataset.team]: 1}]
+          //     }));
+          // }
+          if(this.state.teamScore.length === 0){
+              this.setState(previousState => ({
+                  teamScore: [{[checkButton[i].dataset.team]: 0}]
+              }));
+          }else{
+              for (let j = 0; j < this.state.teamScore.length; j++) {
+                  if(!Object.keys(this.state.teamScore[j])[0] === checkButton[i].dataset.team){
+                      this.setState(previousState => ({
+                          teamScore: [...previousState.teamScore, {[checkButton[i].dataset.team]: 0}]
+                      }));
+                  }else{
+                      this.setState(previousState => ({
+                          teamScore: [this.state.teamScore[j], {[checkButton[i].dataset.team]: (this.state.teamScore[j][Object.keys(this.state.teamScore[j])[0]]+1)}]
+                      }));
+                  }
+
+              }
+          }
+
+
+
+
       }
     }
+    console.log(this.state.teamScore);
 
 
 

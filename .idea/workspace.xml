@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/SocketContext.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/containers/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/PubQuizQuestionsForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/PubQuizQuestionsForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/PubQuizSetup.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/PubQuizSetup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/question_review/Review.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/question_review/Review.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +68,7 @@
       <workItem from="1593547158720" duration="11884000" />
       <workItem from="1593586990552" duration="27815000" />
       <workItem from="1593678581496" duration="5879000" />
+      <workItem from="1593696328219" duration="2505000" />
     </task>
     <task id="LOCAL-00001" summary="Changed to online host">
       <created>1593183050330</created>
