@@ -620,15 +620,14 @@ const Room = (props) => {
                                                 />
                                                 <span className="input-group-btn">
                                                 <button id="submit" type="submit" className="btn btn-primary input-group-btn-submit">
-                                                  <img className="input-group-btn-img" src="/img/send.svg" alt="Send Message"/>
                                                   Send
+                                                  <img className="input-group-btn-img" src="/img/send.svg" alt="Send Message"/>
                                                 </button>
                                               </span>
                                             </div>
                                         </form>
                                     </div>
                                     <div className="col-md-4">
-                                        <h6>Users</h6>
                                         <ul id="users">
                                             {users.map(({ name, id }) => (
                                                 <li key={id}>{name}</li>
