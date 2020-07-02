@@ -1,0 +1,29 @@
+@keyframes spin {
+  /* from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);} */
+
+
+
+}
+
+@keyframes leftBear {
+  from {transform: rotateZ(0);}
+  to {transform: rotateZ(360);}
+}
+
+.waitingscreen{
+  height: 100vh;
+}
+
+.waitingscreen__imageholder{
+  height: 50%;
+  margin-top: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.waitingscreen__imageholder__image{
+  margin-right: 5rem;
+}
