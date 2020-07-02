@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:een_willekeurige_room" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Score.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_06_06_130729_create_score_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_02_203527_create_teams_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_02_203527_create_teams_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/TeamsSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/TeamsSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FrontEndUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FrontEndUserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,9 +183,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="X:\Bonq_Cuurrent\bonq\app" />
+      <recent name="X:\Bonq_Cuurrent\bonq\database\migrations" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -181,8 +213,10 @@
       <workItem from="1593535264809" duration="11185000" />
       <workItem from="1593547158720" duration="11884000" />
       <workItem from="1593586990552" duration="27815000" />
-      <workItem from="1593678581496" duration="6508000" />
-      <workItem from="1593688506802" duration="1045000" />
+      <workItem from="1593678581496" duration="5879000" />
+      <workItem from="1593699366059" duration="2137000" />
+      <workItem from="1593719496866" duration="74000" />
+      <workItem from="1593719591278" duration="985000" />
     </task>
     <task id="LOCAL-00001" summary="Changed to online host">
       <created>1593183050330</created>
@@ -209,19 +243,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/development" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -250,6 +272,14 @@
     <option name="LAST_COMMIT_MESSAGE" value="Changed localhost" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="717" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1593720063988">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="717" y="322" key="#com.intellij.fileTypes.FileTypeChooser/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593720063988" />
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1593720174927">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593720174927" />
     <state x="578" y="7" key="CommitChangelistDialog2" timestamp="1593590508463">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

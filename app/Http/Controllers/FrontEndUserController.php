@@ -6,6 +6,7 @@ use Auth;
 use JWTAuth;
 use App\User;
 use App\Teams;
+use App\Score;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -18,9 +19,18 @@ class FrontEndUserController extends Controller
   }
 
     public function getScore() {
-        return Teams::all();
+        return Score::all();
     }
 
+    public function setScore(Request $request) {
+        $score = Score::create(['team' => $request->team, 'score' => $request ->score]);
+        try {
+            $score->save();
+        }catch (\Exception $e) {
+            return $e;
+        }
+
+    }
 
 
   public function signUp(Request $request) {

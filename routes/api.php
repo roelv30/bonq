@@ -30,6 +30,9 @@ Route::get('/getRooms', 'PubQuestionController@show');
 Route::get('/getQuestions/{room}', 'PubQuestionController@getData');
 
 Route::get('/score', 'FrontEndUserController@getScore');
+Route::post('/setscore', 'FrontEndUserController@setScore');
+
+
 
 Route::group(['middleware' => 'jwt.auth'], function() {
     Route::get('/dashboard', 'FrontEndUserController@showDashboard');
