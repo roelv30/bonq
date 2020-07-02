@@ -39,6 +39,7 @@ import Test from './extern/Test';
 import Register from './extern/Register';
 import Header from './extern/Header';
 import Dashboard from './extern/Dashboard';
+import Score from './extern/Score';
 
 // Stephan Imports
 import Review from './question_review/Review';
@@ -135,6 +136,7 @@ class App extends React.Component {
         <Route exact path='/register' render={(props) =>
             <Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
 
+        <Route exact path='/scoreboard' component={Score} />
 
         <SocketContext.Provider value={socket}>
             <PrivateRoute exact path="/pubq/questions" component={PubQuizSetup} isAuthenticated={this.state.isAuthenticated} token={this.state.token} logout={this.logout} />
