@@ -16,7 +16,7 @@ const Username = (props) => {
             </div>
             <article className="username__article">
 
-                <h2 className={"headerLogin"}>What do you like to be called?</h2>
+                <h2 className={"headerLogin"}>How do you like to be called?</h2>
                 <div className={"backgroundUsername"}>
                     <input type="text" name="username" value={props.userName} onChange={props.handleUsernameInput} className={"whiteText inputUsername"}
                            pattern="^\w+$" maxLength="20" required autoFocus

@@ -94,6 +94,16 @@ const Room = (props) => {
 
         console.log(socketRef.current);
 
+        socketRef.current.on("questNumberUpdate", payload => {
+            setquestionNumber(payload);
+        });
+
+        socketRef.current.on("roundNumberUpdate", payload => {
+            setquestionNumber(0);
+            setRoundNumber(payload);
+
+        });
+
         socketRef.current.on("questions", payload => {
 
             console.log("questions");
@@ -441,7 +451,8 @@ const Room = (props) => {
        // socketRef.current.emit("startGame");
         console.log(maxQuestions);
         if(questionNumber <= (maxQuestions - 2) ){
-            setquestionNumber(questionNumber + 1);
+            socketRef.current.emit("nextQuestion",  questionNumber + 1);
+
         }else{
             console.log("max question");
         }
@@ -452,8 +463,10 @@ const Room = (props) => {
         console.log(roundNumber);
 
         if(roundNumber <= (maxRounds -2) ){
-            setquestionNumber(0);
-            setRoundNumber(roundNumber + 1);
+
+
+            socketRef.current.emit("nextRound",  roundNumber + 1);
+
             setMaxQuestions(questions[roundNumber + 1].length);
         }else{
             setShowReview(true);
