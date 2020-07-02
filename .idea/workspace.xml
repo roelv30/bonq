@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FrontEndUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FrontEndUserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_02_203527_create_teams_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_02_203527_create_teams_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/TeamsSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/TeamsSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +182,7 @@
       <workItem from="1593547158720" duration="11884000" />
       <workItem from="1593586990552" duration="27815000" />
       <workItem from="1593678581496" duration="6508000" />
-      <workItem from="1593688506802" duration="400000" />
+      <workItem from="1593688506802" duration="1045000" />
     </task>
     <task id="LOCAL-00001" summary="Changed to online host">
       <created>1593183050330</created>

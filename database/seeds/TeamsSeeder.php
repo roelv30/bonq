@@ -19,7 +19,6 @@ class TeamsSeeder extends Seeder
           'group_size' => 4,
           'team_name' => 'bonq_team',
           'score' => 10,
-          'winner' => null,
           'pun_id'=> '2ab71f0a-959b-436b-8123-0e373b5c01db'
         ]);
 
@@ -31,7 +30,6 @@ class TeamsSeeder extends Seeder
           'team_name' => 'bonqerboys',
           'group_size' => 4,
           'score' => 0,
-          'winner' => null,
           'pun_id'=> '2ab71f0a-959b-436b-8123-0e373b5c01db'
         ]);
     }

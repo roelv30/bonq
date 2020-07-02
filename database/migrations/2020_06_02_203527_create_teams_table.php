@@ -21,7 +21,6 @@ class CreateTeamsTable extends Migration
             $table->integer('group_size');
             $table->string('team_name');
             $table->integer('score');
-            $table->string('winner')->nullable();
             $table->string('pun_id');   // jokes to show to the player while they are waiting
         });
     }
