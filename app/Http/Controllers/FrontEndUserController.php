@@ -17,6 +17,12 @@ class FrontEndUserController extends Controller
     return Teams::all();
   }
 
+    public function getScore() {
+        return Teams::all();
+    }
+
+
+
   public function signUp(Request $request) {
     $user = User::create(['username' => $request->username, 'email' => $request ->email,'password'=>bcrypt($request->password)]);
   }

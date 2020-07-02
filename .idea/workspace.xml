@@ -1,41 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:een_willekeurige_room" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="Updated proc">
-      <change afterPath="$PROJECT_DIR$/app/Answer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/AnswerController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_06_01_200409_create_answer_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/AnswerSeeder.php" afterDir="false" />
+    <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RoleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Question.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Question.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_02_203239_create_question_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_02_203239_create_question_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/QuestionSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/QuestionSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FrontEndUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FrontEndUserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_02_203527_create_teams_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_02_203527_create_teams_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/TeamsSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/TeamsSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,17 +13,28 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="een_account_aanmaken" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -174,22 +155,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-  </component>
-  <component name="RunManager">
-    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-      <TestRunner scope="XML" />
-      <method v="2" />
-    </configuration>
+    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -202,48 +174,33 @@
       <option name="presentableId" value="Default" />
       <updated>1592914886218</updated>
       <workItem from="1592914890772" duration="986000" />
-      <workItem from="1593173998929" duration="414000" />
-      <workItem from="1593174433761" duration="152000" />
-      <workItem from="1593174606976" duration="1165000" />
-      <workItem from="1593175859977" duration="3555000" />
-      <workItem from="1593434113605" duration="1538000" />
+      <workItem from="1592990475336" duration="151000" />
+      <workItem from="1592990642140" duration="216000" />
+      <workItem from="1592990881943" duration="36000" />
+      <workItem from="1592991093714" duration="903000" />
+      <workItem from="1592992031373" duration="1178000" />
+      <workItem from="1593182900145" duration="2138000" />
+      <workItem from="1593535264809" duration="11185000" />
+      <workItem from="1593547158720" duration="11884000" />
+      <workItem from="1593586990552" duration="27815000" />
+      <workItem from="1593678581496" duration="6508000" />
+      <workItem from="1593688506802" duration="400000" />
     </task>
-    <task id="LOCAL-00001" summary="Changed to running env">
-      <created>1593174947547</created>
+    <task id="LOCAL-00001" summary="Changed to online host">
+      <created>1593183050330</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1593174947547</updated>
+      <updated>1593183050330</updated>
     </task>
-    <task id="LOCAL-00002" summary="Changed to running env">
-      <created>1593175053349</created>
+    <task id="LOCAL-00002" summary="Revert &quot;room js fix&quot;&#10;&#10;This reverts commit 4484968c">
+      <created>1593535480729</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1593175053349</updated>
+      <updated>1593535480729</updated>
     </task>
-    <task id="LOCAL-00003" summary="Changed to running env">
-      <created>1593175950841</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1593175950841</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Changed to running env">
-      <created>1593178941140</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1593178941140</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Updated proc">
-      <created>1593179238402</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1593179238402</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,7 +211,34 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/development" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/development" />
+                </option>
+              </RecentGroup>
+            </list>
           </value>
         </entry>
       </map>
@@ -262,32 +246,45 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Changed to running env" />
-    <MESSAGE value="Updated proc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated proc" />
+    <MESSAGE value="Changed to online host" />
+    <MESSAGE value="Revert &quot;room js fix&quot;&#10;&#10;This reverts commit 4484968c" />
+    <MESSAGE value="Changed localhost" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed localhost" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="440" y="94" key="#Project_Structure" timestamp="1593175874375">
+    <state x="578" y="7" key="CommitChangelistDialog2" timestamp="1593590508463">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="440" y="94" key="#Project_Structure/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593175874375" />
-    <state x="583" y="28" key="CommitChangelistDialog2" timestamp="1593175408599">
+    <state x="578" y="7" key="CommitChangelistDialog2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593590508463" />
+    <state x="739" y="275" key="FileChooserDialogImpl" timestamp="1592991395212">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="28" key="CommitChangelistDialog2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593175408599" />
-    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1593177175445">
+    <state x="739" y="275" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592991395212" />
+    <state x="2659" y="275" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592990770722" />
+    <state x="668" y="140" key="SettingsEditor" timestamp="1592991861544">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593177175445" />
-    <state x="-1131" y="222" key="RollbackChangesDialog" timestamp="1593179061758">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state x="668" y="140" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592991861544" />
+    <state x="2381" y="162" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592990776974" />
+    <state x="552" y="234" key="Vcs.Push.Dialog.v2" timestamp="1593535488548">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1131" y="222" key="RollbackChangesDialog/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1593179061758" />
-    <state x="-1368" y="249" key="Vcs.Push.Dialog.v2" timestamp="1593179239981">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state x="552" y="234" key="Vcs.Push.Dialog.v2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593535488548" />
+    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593590394205">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1368" y="249" key="Vcs.Push.Dialog.v2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@-1920.0.1920.1040" timestamp="1593179239981" />
-    <state x="552" y="249" key="Vcs.Push.Dialog.v2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593175952735" />
+    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593590394205" />
+    <state x="708" y="293" key="git4idea.merge.GitPullDialog" timestamp="1593590468373">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="708" y="293" key="git4idea.merge.GitPullDialog/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593590468373" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1593683013418">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593683013418" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1593633114454">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593633114454" />
   </component>
 </project>

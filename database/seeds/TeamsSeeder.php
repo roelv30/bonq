@@ -17,6 +17,8 @@ class TeamsSeeder extends Seeder
           'unique_id'=> '0c195e0f-fbd9-40b4-b70e-2ca4f2f1bfbb',
           'person_id'=> '46b9c1ba-81a2-4d4e-9504-83569f63277f',
           'group_size' => 4,
+          'team_name' => 'bonq_team',
+          'score' => 10,
           'winner' => null,
           'pun_id'=> '2ab71f0a-959b-436b-8123-0e373b5c01db'
         ]);
@@ -26,7 +28,9 @@ class TeamsSeeder extends Seeder
           'game_host' => 'Kim',
           'unique_id'=> '0c195e0f-fbd9-40b4-b70e-2ca4f2f1bfbb',
           'person_id'=> '46b9c1ba-81a2-4d4e-9504-83569f63277f',
+          'team_name' => 'bonqerboys',
           'group_size' => 4,
+          'score' => 0,
           'winner' => null,
           'pun_id'=> '2ab71f0a-959b-436b-8123-0e373b5c01db'
         ]);
