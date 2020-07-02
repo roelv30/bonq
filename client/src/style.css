@@ -353,6 +353,10 @@ ul.tabs li button.tab-link-active{
   text-align: left;
 }
 
+.row.mb-2{
+  border-bottom: 1px solid rgba(209, 12, 118, .4);
+}
+
 
 @media(max-width: 768px) {
   .otherPeopleDiv{
