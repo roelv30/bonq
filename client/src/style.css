@@ -1,32 +1,131 @@
 body,
 input,
 button {
-  font-size: 1.6vw;
   margin: 0;
   font-family: Sans-Serif;
 }
-@media(max-width: 1024px) {
+
+/* @media(max-width: 1024px) {
   body,
   input,
   button {
     font-size: 1em;
   }
-}
+} */
 input:focus,
 button:focus {
   outline:0;
 }
-input[type=text] {
+
+.username__article {
+  padding: 5rem 0;
+}
+
+.headerLogin{
+  font-family: Squada One, cursive;
+  letter-spacing: 4px;
+  font-size: 3rem;
+  text-align: center;
+  margin: 2rem 0;
+}
+.backgroundUsername{
+  background:rgba(24,24,24,0.9);
+  width:50%;
+  margin:0 auto;
+  padding: 1.5rem 0;
+}
+
+.username__article__enable {
+  display: flex;
+  align-items: center;
+  padding: 15rem 0 0 0;
+  margin: 0px 20rem;
+}
+
+.username__article__enable__text {
+  margin-right: 2rem;
+}
+
+.username__article__enter {
+  margin: 2rem 20rem;
+  text-align: start;
+}
+
+
+
+input[type=text], textarea {
   border: none;
-  border-bottom: solid 2px #4c4c4f;
-  font-size: 1em;
+  border-bottom: solid 2px #D10C76;
+  /*font-size: 1em;*/
   background-color: transparent;
-  color: #000;
+  /*color: white;*/
   padding: .4em 0;
-  margin: 2ex 0;
-  width: 100%;
+  /*//margin: 2ex 0;*/
+  /*width: 100%;*/
   max-width: 18em;
   display: block;
+  margin: 0 auto;
+  background-color: rgba(0,0,0,.2);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+textarea{
+  width: 80%;
+}
+
+#form__chat {
+  padding: 0 5rem;
+}
+
+.input-group {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group-btn {
+  margin-left: 2rem;
+}
+
+.input-group-btn-submit {
+  display: flex;
+  align-items: center;
+  border: none;
+  font-family: 'Squada One', cursive;
+  color: #fff;
+  background-color: #0ABDC6;
+  height: 4rem;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  border-radius: 5px;
+  padding: 0 1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.input-group-btn-submit:hover {
+  box-shadow: inset 0 0 5px #000000;
+}
+
+.input-group-btn-img {
+  margin-left: 1rem;
+}
+
+
+.form-control{
+  margin: 20px 0px !important;
+  width: 30rem;
+  resize: none;
+  height: 5rem;
+}
+
+.inputUsername{
+  height: 80%;
+  font-size: 4rem;
+  width: 90%;
+
 }
 .home {
   display: flex;
@@ -40,15 +139,14 @@ input[type=text] {
 .video-button-true,
 .video-button-false,
 .fullscreen-button {
-  width: 3em;
-  height: 3em;
+  width: 4em;
+  height: 4em;
   border-radius: 50%;
-  background: rgba(44, 44, 44, 0.6);
+  background: none;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 0;
-  box-shadow: .2ex .2ex 1.5em #444;
   transition: all .2s ease-out;
   margin: 0 .4em;
   cursor: pointer;
@@ -61,44 +159,82 @@ input[type=text] {
 .video-button-true:hover,
 .video-button-false:hover,
 .fullscreen-button:hover {
-  box-shadow: .4ex .4ex 3em #666;
-  background: rgba(64, 124, 247, 1)
-}
-.hangup-button{
-  background:red;
+  background: #133e7c;
 }
 
 
+ul.tabs {
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  margin-top: 15px;
+  padding: 20px 0;
+  border-top: 2px solid rgb(209, 12, 118);
+}
+.tab button {
+  cursor: pointer;
+  padding: 5px 30px;
+  color: #16A2D7;
+  font-size: 30px;
+  border-bottom: 2px solid transparent;
+
+}
 
 
-#ownVideoStream{
-    bottom: 60px;
-    float: left;
-    width: 17%;
-    margin-right: 100%;
-    clear: both;
-    height: 20vh;
-    position: fixed;
-    border: 0;
-    margin-bottom: 20px;
-    border-radius: 0;
+ul.tabs li button{
+  background: none;
+  border:none;
+  color:white;
+}
+
+ul.tabs li button.tab-link-active{
+  color:#D10C76;
+  border-bottom: 1px solid;
+}
+
+
+
+#test{
+  border: 2px solid #D10C76;
+  border-radius: 10px;
+}
+
+
+
+#ownVideoStream {
+  bottom: 0;
+  float: left;
+  width: 7%;
+  margin-right: 100%;
+  clear: both;
+  height: 16vh;
+  position: fixed;
+  border: 0;
+  margin-bottom: 20px;
+  border-radius: 0;
 }
 #ownVideoStream video{
   width:80%;
 }
 .otherPeopleDiv {
-    float: left;
-    width: 32%;
-    height: 280px;
-    padding: 10px;
+  /*float: left;*/
+  width: 32%;
+  /*height: 280px;*/
+  padding: 10px;
 }
 
 .otherPeopleDiv video {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
-
+.usersInTeam{
+  display:flex;
+  width: 100%;
+  list-style-type: none;
+}
 
 
 .you-left,
@@ -208,12 +344,14 @@ input[type=text] {
 .media-controls {
   display: flex;
   margin: 2ex 0;
-  justify-content: center;
+  justify-content: flex-end;
   left: 0;
+  position: absolute;
   right: 0;
+  bottom: 0;
 }
 .svg {
-  width: 1.4em;
+  width: 3em;
 }
 .room-occupied,
 .request-access,
@@ -250,6 +388,14 @@ input[type=text] {
   width: 100%;
 }
 
+.messages__container{
+  padding: 0 5rem;
+  text-align: left;
+}
+
+.row.mb-2{
+  border-bottom: 1px solid rgba(209, 12, 118, .4);
+}
 
 
 @media(max-width: 768px) {

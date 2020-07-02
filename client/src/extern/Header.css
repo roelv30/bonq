@@ -1,0 +1,31 @@
+.header {
+  z-index: 2;
+  position: relative;
+  width: inherit;
+  height: 6rem;
+  text-align: center;
+  background-color: #133E7C;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__img {
+  height: inherit;
+}
+
+.header__logout {
+  background: #091833;
+  transition: 0.2s;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 0.8rem;
+  margin-right: 1rem;
+  border-radius: 5px;
+}
+
+.header__logout:hover {
+  background: #133e7c;
+  color: #d10c76;
+}
