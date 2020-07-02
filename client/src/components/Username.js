@@ -30,7 +30,9 @@ const Username = (props) => {
                 <Switch className="username__article__enable__button" onChange={props.handeChangeSwitch} checked={props.switchState}  />
                 </section>
 
-                <button className="start__article__button username__article__enter" type="button" onClick={props.startSession} >ENTER &#9654;</button>
+                <section className="username__article__enter">
+                <button className="start__article__button username__article__enter__button" type="button" onClick={props.startSession} >ENTER &#9654;</button>
+                </section>
             </article>
 
         </section>

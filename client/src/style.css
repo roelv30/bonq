@@ -48,6 +48,7 @@ button:focus {
 
 .username__article__enter {
   margin: 2rem 20rem;
+  text-align: start;
 }
 
 
