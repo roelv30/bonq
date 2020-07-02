@@ -23,7 +23,7 @@ class FrontEndUserController extends Controller
     }
 
     public function setScore(Request $request) {
-        $score = Score::create(['team' => $request->team, 'score' => $request ->score]);
+        $score = Score::create(['team' => $request->team, 'score' => $request->score]);
         try {
             $score->save();
         }catch (\Exception $e) {
