@@ -21,8 +21,8 @@ import './style.css';
 
 
 import './App.css';
-import io from "socket.io-client";
-
+import SocketContext from './components/SocketContext'
+import * as io from 'socket.io-client'
 
 //
 // const history = useHistory();
@@ -39,6 +39,7 @@ import Test from './extern/Test';
 import Register from './extern/Register';
 import Header from './extern/Header';
 import Dashboard from './extern/Dashboard';
+import Score from './extern/Score';
 
 // Stephan Imports
 import Review from './question_review/Review';
@@ -48,10 +49,10 @@ import JoinGame from './extern/JoinGame';
 import EasterEgg from './extern/EasterEgg';
 
 
+const socket = io("/");
+// const socketRef = io.connect();
 
-const socketRef = io.connect();
-
-socketRef.on("leaving user homepage", () => {
+socket.on("leaving user homepage", () => {
     const audioEl = document.getElementsByClassName("audio-element-test")[0];
     if(audioEl != null){
         audioEl.volume = 0.2;
@@ -136,21 +137,41 @@ class App extends React.Component {
         <Route exact path='/register' render={(props) =>
             <Register authenticate={this.authenticate} isAuthenticated={this.state.isAuthenticated} {...props} />} />
 
-        <PrivateRoute exact path="/pubq/questions" component={PubQuizSetup} isAuthenticated={this.state.isAuthenticated} token={this.state.token} logout={this.logout} />
+        <Route exact path='/scoreboard' component={Score} />
+
+        <SocketContext.Provider value={socket}>
+            <PrivateRoute exact path="/pubq/questions" component={PubQuizSetup} isAuthenticated={this.state.isAuthenticated} token={this.state.token} logout={this.logout} />
+            <PrivateRoute exact path='/dashboard' component={Dashboard} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} socket={socket}/>
+            <Route path="/review"    render={(props) =>
+                <Review
+
+                    socket={socket}
+                    {...props}
+                    // handleMatch={this.handleMatch}
+                />
+            }/>
+        </SocketContext.Provider>
+
+
+
+
+
+
         <PrivateRoute exact path='/joingame' component={JoinGame} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
-        <PrivateRoute exact path='/dashboard' component={Dashboard} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
-		    <PrivateRoute exact path='/easteregg' component={EasterEgg} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout}  />
+
+
+	    <PrivateRoute exact path='/easteregg' component={EasterEgg} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout}  />
         {/*<Route exact  path="/" component={Home}  />*/}
         {/*<Route path="/r/:room" component={Room} />*/}
         <Route path="/r/:roomID"    render={(props) =>
             <Room
 
-
+                socket={socket}
                 {...props}
                 // handleMatch={this.handleMatch}
             />
         }/>
-        <Route exact path='/review' component={Review} />
+
         {/*<Route path="*" component={NotFound} />*/}
     </BrowserRouter>
 

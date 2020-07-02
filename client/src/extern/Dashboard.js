@@ -38,6 +38,7 @@ class Dashboard extends React.Component {
 		.then((response) => {
 			const user = response.data;
 			this.setState({user});
+			this.props.socket.emit("username", response.data.username);
 			myProps = this.props;
 		})
 		.catch((error) => {

@@ -58,14 +58,14 @@ function myFunction(item, index) {
         //     return;
         // }
 
-        console.log("found one");
+       // console.log("found one");
         //console.log(users[roomNumber][payload]);
         //      users[item.room_id].push(item.room_id);
         //teams[payload].push(socket.id);
 
     } else {
         users[item.room_id] = [];
-        console.log("none found");
+        //console.log("none found");
         //teams[payload] = [socket.id];
 
 
@@ -80,9 +80,15 @@ function myFunction(item, index) {
 
 
 io.on('connection', socket => {
-
-
+    const user = {
+        name: null,
+        id: socket.id,
+        team: null,
+        type: "player"
+    };
+    users[socket.id] = user;
     socket.on("getAnswerList", () => {
+
         let roomIdFromClient = socket.handshake.headers.referer;
         if(roomIdFromClient != null){
             var roomURL = roomIdFromClient.split("/r/");
@@ -94,9 +100,18 @@ io.on('connection', socket => {
 
     });
 
+    socket.on("setTypeHost", (roomId) => {
+        users[socket.id].type = "host";
+        if(!users[roomId]){
+            users[roomId] = {["host"] : [users[socket.id].name]};
+        }
+        //console.log(socket.id);
+
+    });
+
 
     socket.on("setAnswer", payload => {
-        console.log(answers);
+        //console.log(answers);
 
         let roomIdFromClient = socket.handshake.headers.referer;
         if(roomIdFromClient != null){
@@ -141,57 +156,99 @@ io.on('connection', socket => {
                 return console.log(err);
             }
             io.to(roomNumber).emit('questions', body[0].rounds_array);
-            console.log(body[0].rounds_array);
+            //console.log(body[0].rounds_array);
 
         });
 
     });
 
+    socket.on("nextRound", (roundnumber) => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+
+        io.to(roomNumber).emit('roundNumberUpdate', roundnumber);
+    });
+
+    socket.on("nextQuestion", (questionNumber) => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+
+        io.to(roomNumber).emit('questNumberUpdate', questionNumber);
+    });
+
+
+
+
+
     //console.log(users);
 
 
     socket.on("retrievedUser", (userFromDB) => {
-        console.log(socket.id);
+       // console.log(socket.id);
         users[socket.id].name = userFromDB.username;
         //console.log(users[socket.id]);
     });
 
     socket.on("getUserName", () => {
-        console.log("getUserName");
-        console.log(socket.id);
-        console.log(users[socket.id].name);
+       // console.log("getUserName");
+        //console.log(socket.id);
+       // console.log(users[socket.id].name);
 
     });
 
 
-    socket.on("checkUserType", () => {
+    socket.on("checkUserType", (roomId) => {
 
+        console.log(roomId);
         let roomIdFromClient = socket.handshake.headers.referer;
 
         if(roomIdFromClient != null){
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
+         }
+       // console.log(users[roomNumber]);
+
+        console.log(users[roomNumber].host[0]);
+
+        if(users[roomNumber].host[0] === users[socket.id].name){
+            users[socket.id].type = "host";
         }
-        io.to(socket.id).emit('isHeHost', "yes");
-        // if(users[roomNumber]  && users[socket.id] != "host"){
-        //     io.to(socket.id).emit('isHeHost', "yes");
-        // }else{
-        //     io.to(socket.id).emit('isHeHost', "no");
-        // }
+
+        if(users[socket.id].type === "host"){
+
+            io.to(socket.id).emit('canJoin', "yes");
+            io.to(socket.id).emit('isHeHost', "yes");
+
+        }
+
+        console.log(users[roomNumber]);
+
+
+        if(users[roomNumber]){
+
+
+             io.to(socket.id).emit('canJoin', "yes");
+        }else{
+            io.to(socket.id).emit('canJoin', "no");
+        }
+
+
+
 
     });
 
     socket.on("username", username => {
-        const user = {
-            name: null,
-            id: socket.id,
-            team: null,
-            type: "player"
-        };
-        users[socket.id] = user;
+
+        //console.log(users[socket.id].type);
 
         users[socket.id].name = username;
-
+        //console.log(users[socket.id].type);
 
 
 
@@ -221,6 +278,8 @@ io.on('connection', socket => {
             var roomNumber = roomURL[1];
         }
         io.emit("joinedRoom", roomNumber);
+
+       // console.log(socket.id);
         socket.join(roomNumber);
 
         // if (users[roomNumber]) {
@@ -348,17 +407,23 @@ io.on('connection', socket => {
     //     socket.leave(roomID);
     //
     // });
-
-
+    // socket.on("setNewRoom", (roomnumber) => {
+    //     if (!users[roomnumber]) {
+    //         users[roomnumber] = [];
+    //     }
+    // });
 
     socket.on("join team", payload => {
+
+
         let roomIdFromClient = socket.handshake.headers.referer;
-        console.log(users[socket.id]);
+       // console.log(users[socket.id]);
         arrayOfUsersinThisRoom = [];
         if(roomIdFromClient != null){
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
         }
+        console.log(socket.handshake.headers);
         users[socket.id].team = payload;
         //console.log(users[socket.id]);
         // console.log(payload);
@@ -449,7 +514,7 @@ io.on('connection', socket => {
 
         const roomID = socketToRoom[socket.id];
         const teamID = socketToTeam[socket.id];
-        console.log("a user left");
+       // console.log("a user left");
         io.to(roomID).emit('left', socket.id);
         //console.log(roomID);
         // let room = users[roomID];
@@ -476,13 +541,13 @@ io.on('connection', socket => {
 
                 users[roomID][teamID].forEach(myFunction);
                 function myFunction(item, index) {
-                    console.log(item);
+                   // console.log(item);
                     arrayOfUsersinThisTeam.push(users[item])
                 }
 
                 arrayOfUsersinThisTeam.forEach(myFunction2);
                 function myFunction2(item, index) {
-                    console.log("item");
+                   // console.log("item");
                     //console.log("payload");
                     //console.log();
 
@@ -564,7 +629,7 @@ io.on('connection', socket => {
 
         const roomID = socketToRoom[socket.id];
         const teamID = socketToTeam[socket.id];
-        console.log("a user left");
+      //  console.log("a user left");
         io.to(roomID).emit('left', socket.id);
         //console.log(roomID);
         // let room = users[roomID];
@@ -591,13 +656,13 @@ io.on('connection', socket => {
 
                 users[roomID][teamID].forEach(myFunction);
                 function myFunction(item, index) {
-                    console.log(item);
+                //    console.log(item);
                     arrayOfUsersinThisTeam.push(users[item])
                 }
 
                 arrayOfUsersinThisTeam.forEach(myFunction2);
                 function myFunction2(item, index) {
-                    console.log("item");
+                  //  console.log("item");
                     //console.log("payload");
                     //console.log();
 
