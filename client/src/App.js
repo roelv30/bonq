@@ -160,10 +160,7 @@ class App extends React.Component {
         <PrivateRoute exact path='/joingame' component={JoinGame} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout} />
 
 
-
-
-
-		    <PrivateRoute exact path='/easteregg' component={EasterEgg} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout}  />
+	    <PrivateRoute exact path='/easteregg' component={EasterEgg} isAuthenticated={this.state.isAuthenticated} token={this.state.token} refresh={this.refresh} logout={this.logout}  />
         {/*<Route exact  path="/" component={Home}  />*/}
         {/*<Route path="/r/:room" component={Room} />*/}
         <Route path="/r/:roomID"    render={(props) =>
