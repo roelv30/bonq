@@ -34,7 +34,7 @@ class Review extends React.Component {
                 this.state.group_answers.map((group, key) => {
 
                     if(this.state.first[key][key1] === answer){
-                        document.getElementById("check-"+key).checked = true;
+                        document.getElementById("check-"+key+key1).checked = true;
 
                         console.log("answer is correct");
                         this.setState(previousState => ({
@@ -124,23 +124,21 @@ class Review extends React.Component {
                 <p className="review__main__box__answer">Answer: {this.state.answers[key1]}</p>
                 <section className="review__main__box__groups">
                   {this.state.group_answers.map((answer, key) => {
-                    let checkButtonId = `check-${key}`;
+                    let checkButtonId = `check-${key}-${key1}`;
                     return(
-                      <div key={key} className="review__main__box__groups__answers">
-                        <div className="review__main__box__groups__answers-text">
+                      <section key={key} className="review__main__box__groups__answers">
+                        <section className="review__main__box__groups__answers-text">
 
-                            <p className="review__main__box__groups__answers-text__group">{answer} : {this.state.first[key][key1]} </p>
+                            <li className="review__main__box__groups__answers-text__group">{answer} : {this.state.first[key][key1]} </li>
 
-                        </div>
+                        </section>
                         <aside className="review__main__box__check__buttons">
                           <form>
-                            <label>
-                              <input data-question={key1} data-team={answer} id={checkButtonId} type="checkbox" name="review" value="correct"/>
-                              <img src="/img/check.svg" alt="check icon"/>
-                            </label>
+                              <input className="review__main__box__check__buttons__input" data-question={key1} data-team={answer} id={checkButtonId} type="checkbox" name="review" value="correct"/>
+                              <label htmlFor={checkButtonId}><img src="/img/check.svg" alt="check icon"/></label>
                           </form>
                         </aside>
-                      </div>
+                      </section>
                     );
                   })}
                 </section>
@@ -148,17 +146,12 @@ class Review extends React.Component {
           </div>
           ))}
 
-          <button onClick={this.onSubmit} type="button">Submit</button>
 
       </section>
 
     return(
 
       <article className="review">
-
-        <section className="review__back">
-          <Back text="back to succes page" link="/succes"/>
-        </section>
 
         <section className="review__main">
 
@@ -172,7 +165,7 @@ class Review extends React.Component {
         </section>
 
         <section className="review__options">
-          <button id="js--review__button" onClick={this.clickHandler} type="button" className="review__options__confirm">submit</button>
+          <button id="js--review__button" onClick={this.onSubmit} type="button" className="review__options__confirm">submit</button>
         </section>
       </article>
 

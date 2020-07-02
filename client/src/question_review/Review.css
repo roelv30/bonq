@@ -30,6 +30,9 @@
 
 .review__main__box__groups{
   margin-top: 5%;
+  margin-right: 5%;
+  padding-bottom: 3%;
+  border-bottom: solid 2px #D10C76;
 }
 
 .review__main__box__groups__answers{
@@ -49,22 +52,32 @@
   cursor: pointer;
 }
 
-[type=radio]{
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
+.review__main__box__groups__answers-text__group{
+  list-style-type: disc;
 }
 
-[type=radio] + img{
+input[type="checkbox"][class^="review__main__box__check__buttons__input"]{
+  display: none;
+}
+
+label{
+  display: block;
+  position: relative;
   cursor: pointer;
-  filter: brightness(1%);
-  margin: 0 1rem;
 }
 
-[type=radio]:checked + img {
+label img {
+  filter: grayscale(100%);
+}
+
+:checked + label img {
   filter: brightness(200%);
 }
+
+.review__main__box__check__buttons__input{
+
+}
+
 
 .review__main__box__question{
   font-size: 2.5rem;
