@@ -17,7 +17,7 @@ import MediaControls from "../components/MediaControls";
 import axios from "axios";
 import Questions from "../components/Questions"
 
-
+import SocketContext from '../components/SocketContext';
 const Container = styled.div`
     height: calc(100% - 6rem);
     padding: 5rem 0;
@@ -41,6 +41,11 @@ const videoConstraints = {
 
 
 const Room = (props) => {
+
+
+
+
+
     const [peers, setPeers] = useState([]);
     const [userName, setUsernameOfuser] = useState("no name");
     const [switchState, setSwitchState] = useState(false);
@@ -78,8 +83,11 @@ const Room = (props) => {
 
 
     useEffect(() => {
-        socketRef.current = io.connect('/');
+        socketRef.current = props.socket;
 
+
+
+        console.log(socketRef.current);
 
         socketRef.current.on("questions", payload => {
 
@@ -137,19 +145,27 @@ const Room = (props) => {
 
         socketRef.current.on("isHeHost", message => {
 
-            console.log(message);
-            if(message === "no"){
-                setType("player");
-            }else{
+            console.log("is host");
+            if(message === "yes"){
                 setType("host");
+                setTeamName("host");
+                videoAudioSettings();
+            }
+
+        });
+        socketRef.current.on("canJoin", message => {
+
+            console.log(message);
+            if(message === "yes"){
                 setIntroDone(true);
+            }else{
+               console.log("NO! can't join");
             }
 
             //console.log("message"  + messages);
 
 
         });
-
         socketRef.current.on("users", users => {
             //console.log();
             setUsers(users);
@@ -368,14 +384,11 @@ const Room = (props) => {
             });
 
             socketRef.current.on("left", payload => {
-
                 const audioEl = document.getElementsByClassName("audio-element")[0];
                 if(audioEl != null){
                     audioEl.volume = 0.2;
                     audioEl.play();
                 }
-
-
 
                 var videoObject = document.getElementById(payload);
                 if(videoObject === null){
@@ -386,8 +399,6 @@ const Room = (props) => {
                 }
 
             });
-
-
 
             socketRef.current.on("receiving returned signal", payload => {
                 const item = peersRef.current.find(p => p.peerID === payload.id);
@@ -456,7 +467,7 @@ const Room = (props) => {
         socketRef.current.emit("username", userName);
 
 
-        socketRef.current.emit("checkUserType");
+        socketRef.current.emit("checkUserType", roomID);
 
 
 
@@ -467,6 +478,9 @@ const Room = (props) => {
         // }, 1000);
 
     }
+
+
+
     const handeChangeSwitch = (checked) => {
         console.log("checking checkbox");
         console.log(checked);
@@ -551,14 +565,6 @@ const Room = (props) => {
 
             <Container >
 
-                <h6>Users</h6>
-                <ul id="users">
-                    {users.map(({ name, id }) => (
-                        <li key={id}>{name}</li>
-                    ))}
-                </ul>
-
-
                 <audio className="audio-element">
                     <source src="https://freesound.org/data/previews/131/131657_2398403-lq.mp3"></source>
                 </audio>
@@ -568,13 +574,15 @@ const Room = (props) => {
                     <div id={"vragen"}>
                         <Questions questions={questions} questionNumber={questionNumber} roundNumber={roundNumber}/>
                     </div>
-                    <button type={"button"} onClick={getQuestions}>Get questions</button>
-                    <button type={"button"} onClick={getNextQuestions} className={(maxQuestions > 1 ? 'show' : 'hidden')}>next Question</button>
-                    <button type={"button"} onClick={getNextRound} className={(showReview === true ? 'hidden' : 'show')}>next Round</button>
-                    <button type={"button"} onClick={getReview} className={(showReview === true ? 'show' : 'hidden')}>Review</button>
-
-
+                    <div className={(typeOfPlayer === "host" ? 'show' : 'hidden')}>
+                        <button type={"button"} onClick={getQuestions}>Start game</button>
+                        <button type={"button"} onClick={getNextQuestions} className={(maxQuestions > 1 ? 'show' : 'hidden')}>next Question</button>
+                        <button type={"button"} onClick={getNextRound} className={(showReview === true ? 'hidden' : 'show')}>next Round</button>
+                        <button type={"button"} onClick={getReview} className={(showReview === true ? 'show' : 'hidden')}>Review</button>
+                    </div>
                 </section>
+
+
 
                 <article className={"full-width"}>
                     <Tabs renderActiveTabContentOnly={false}>
@@ -629,7 +637,7 @@ const Room = (props) => {
                                 </div>
 
                             </TabContent>
-                            <TabContent for="tab2">
+                            <TabContent for="tab2" className={(typeOfPlayer === "host" ? 'hidden' : 'show')}>
 
                                 <div className={teamNameStateSet ? "hidden" : "visible"}>
                                     <h2>Choose a Teamname</h2>
@@ -661,7 +669,6 @@ const Room = (props) => {
 
                             </TabContent>
                             <TabContent for="tab3">
-
                                 <form onSubmit={submitAnswersTeam} id="form">
                                     <div className="input-group">
                                         {/*<input type="text" className="form-control" value={roundNumber}   id="text"/>*/}
@@ -677,10 +684,6 @@ const Room = (props) => {
                                               </span>
                                     </div>
                                 </form>
-
-
-
-
                             </TabContent>
                         </div>
                         <div id="ownVideoStream">

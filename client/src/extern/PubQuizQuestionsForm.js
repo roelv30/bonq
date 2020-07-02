@@ -8,6 +8,7 @@ import './PubQuizSetup.css';
 import './Register.css';
 import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-router-dom";
 import Back from './Back';
+import io from "socket.io-client";
 
 
 // import {changeSearchTerm, changeVideo} from './actions';
@@ -200,12 +201,22 @@ class PubQuizQuestionsForm extends React.Component {
     // console.log("submit called");
     e.preventDefault();
 
+
+
+
+    const token = localStorage.getItem('jwt');
+
+    const socket  = this.props.socket;
+
+
+
+
     const POST_URL = 'https://bonq-api.herokuapp.com/api/parsePubQnA';
     // const POST_URL = 'http://localhost:8000/api/parsePubQnA';
 
     const roomNum = this.generateRoom();
+    socket.emit("setTypeHost",roomNum);
 
-    const token = localStorage.getItem('jwt');
     let header = {'Authorization': 'Bearer ' + token};
     let rounds = this.putRoundsIntoArray();
     axios.post(POST_URL, {
@@ -267,13 +278,20 @@ class PubQuizQuestionsForm extends React.Component {
   }
 
   render() {
+
+
+
+
     const { redirect } = this.state;
-    let redirectto = "/r/" + this.state.redirectTo;
+
+    //
 
     if (redirect) {
-      return(
-          <Redirect to={redirectto}/>
-      );
+      window.location.replace("/r/" + this.state.redirectTo);
+      //this.props.history.push("/r/" + this.state.redirectTo);
+      // return(
+      //     <Redirect to={redirectto}/>
+      // );
     }
     // let {items} = this.props.questionItems
     // let {items} = this.state;

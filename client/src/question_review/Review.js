@@ -5,7 +5,7 @@ import axios from 'axios';
 import Back from '../extern/Back';
 import '../question_review/Review.css';
 import io from "socket.io-client";
-
+import SocketContext from '../components/SocketContext'
 
 // useEffect(() => {
 //
@@ -18,26 +18,35 @@ import io from "socket.io-client";
 
 const roomid = 0;
 let  everyone = [];
+var checkedAnswers = [];
+
+
 class Review extends React.Component {
 
 
-  constructor(){
-    super();
-    this.state = {
+
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
         questions: [],
         answers: [],
         group_answers: [],
         group_sjizzle: [],
         first:[],
+        answersChecked: [],
         showButton: true,
+
     };
     this.testFunction = this.testFunction.bind(this);
   }
 
 
 
-
   componentDidMount(){
+
+
     // axios.get(`https://bonq-api.herokuapp.com/api/question`)
     //   .then(response => {
     //     for(let i = 0; i < response.data.length; i++){
@@ -49,14 +58,68 @@ class Review extends React.Component {
     //     }
     //   })
   }
+    getCheckedAnswers() {
+        let groupsAnswer;
+        {this.state.answers.map((answer, key1) => {
+                this.state.group_answers.map((group, key) => {
+                    //
+                    //  console.log("answer");
+                    //  console.log(answer);
+                    //  console.log("Group answer");
+                    //  console.log(this.state.first[key][key1]);
+                    // console.log("group");
+                    // console.log(group);
 
+                   // this.setState(answersChecked[][]);
+                    //console.log(this.state.first);
+
+                    if(this.state.first[key][key1] === answer){
+                        document.getElementById("check-"+key).checked = true;
+
+                        console.log("answer is correct");
+                        this.setState(previousState => ({
+                            answersChecked: [...previousState.answersChecked, ["correct"]],
+                           // answers: [...previousState.answers, response.data[0].rounds_array[i][j].answer],
+
+                        }))
+                        //this.setState(answersChecked[0] = ["correct"]);
+
+                    }else{
+                        document.getElementById("wrong-"+key).checked = true;
+                        this.setState(previousState => ({
+                            answersChecked: [...previousState.answersChecked, ["incorrect"]],
+                            // answers: [...previousState.answers, response.data[0].rounds_array[i][j].answer],
+
+                        }))
+                    }
+
+
+
+                    // this.setState(previousState => ({
+                    //     answersChecked: [...previousState.answersChecked, [[groupsAnswer]]],
+                    //    // answers: [...previousState.answers, response.data[0].rounds_array[i][j].answer],
+                    //
+                    // }))
+                    console.log("checkedAnswers");
+                    console.log(this.state.answersChecked);
+                    console.log("first");
+                    console.log(this.state.first);
+
+                })
+        })}
+
+    }
   testFunction(){
+
       this.setState({showButton: false});
-      const socket  = io.connect('/');
-     // let roomid;
-      socket.emit("getAnswerList");
-      socket.on("getAnswerListFull", payload => {
-       // console.log(payload);
+    //    console.log(this.props);
+     let roomid;
+       this.props.socket.emit("getAnswerList");
+
+
+
+      this.props.socket.on("getAnswerListFull", payload => {
+           // console.log(payload);
           var obj = payload;
 
           this.roomid = Object.keys(obj)[0];
@@ -88,39 +151,19 @@ class Review extends React.Component {
                       for (let j = 0; j < response.data[0].rounds_array[i].length ; j++) {
                           this.setState(previousState => ({
                               questions: [...previousState.questions, response.data[0].rounds_array[i][j].question], // take the previous state, add data and update the state.
-                              answers: [...previousState.answers, response.data[0].rounds_array[i][j].answer]
+                              answers: [...previousState.answers, response.data[0].rounds_array[i][j].answer],
 
                           }))
                       }
+                      this.getCheckedAnswers();
                   }
-
-                  // for (let i = 0; i < this.state.questions.length; i++) {
-                  //     for (let j = 0; j < Object.keys(first).length; j++) {
-                  //
-                  //
-                  //         if(!everyone[Object.keys(first)[i]]){
-                  //             everyone[Object.keys(first)[i]] = {[Object.keys(first)[i]] : [Object.values(first)[j][i].answer]}
-                  //         }else{
-                  //
-                  //             //everyone[Object.keys(first)[i]] = everyone[Object.keys(first)[i]]
-                  //             // everyone[Object.keys(first)[i]].push()
-                  //         }
-                  //         this.setState(previousState => ({
-                  //             group_sjizzle: [...previousState.group_sjizzle, Object.values(first)[j][i].answer]
-                  //         }));
-                  //
-                  //     }
-                  //
-                  //     console.log(everyone );
-                  // }
-
 
               })
       });
 
        // console.log(this.roomid);
 
-
+     
 
 
     // let checkButton = document.getElementsByClassName('right');
@@ -145,11 +188,13 @@ class Review extends React.Component {
 
   }
 
-  getCheckedAnswers(){
 
-  }
+
+
+
 
   render() {
+
 
      const Questions =
       <section>
@@ -165,15 +210,16 @@ class Review extends React.Component {
                     <div key={key} className="review__main__box__groups__answers">
                       <div className="review__main__box__groups__answers-text">
 
-                          <p className="review__main__box__groups__answers-text__group">Group {key}: {answer} : {this.state.first[key][key1]} </p>
+                          <p className="review__main__box__groups__answers-text__group">{answer} : {this.state.first[key][key1]} </p>
+
                       </div>
                       <aside className="review__main__box__check__buttons">
-                        <form>
+                        <form id={"form__answers"}>
+
                           <label>
                             <input className="right" id={checkButtonId} type="radio" name="review" value="correct"/>
                             <img src="/img/check.svg" alt="check icon"/>
                           </label>
-
                           <label>
                             <input className="wrong" id={wrongButtonId} type="radio" name="review" value="incorrect" />
                             <img src="/img/wrong.svg" alt="wrong icon"/>

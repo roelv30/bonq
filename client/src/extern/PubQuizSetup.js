@@ -5,7 +5,8 @@ import './PubQuizSetup.css';
 import './Back.css';
 import Back from './Back';
 import './JoinGame.css'
-import '../App.css'
+import '../App.css';
+import SocketContext from '../components/SocketContext';
 
 
 class PubQuizSetup extends React.Component {
@@ -51,6 +52,7 @@ class PubQuizSetup extends React.Component {
   render() {
     const completedSettings = this.state.completedSettings;
     const roundCount = this.state.roundCount;
+
     // let button;
 
     // if (completedSettings) {
@@ -64,7 +66,10 @@ class PubQuizSetup extends React.Component {
       return (
         <section className="pubq scroll" >
           <div className="background"></div>
-          <PubQuizQuestionsForm parentCallback={this.callbackFunction} roundCount={roundCount} completedSettings={completedSettings} />
+          <SocketContext.Consumer>
+            {socket => <PubQuizQuestionsForm parentCallback={this.callbackFunction} roundCount={roundCount} completedSettings={completedSettings} socket={socket} history={this.props.history} />}
+          </SocketContext.Consumer>
+
         </section>
       );
     } else{
@@ -72,6 +77,7 @@ class PubQuizSetup extends React.Component {
         <section className="pubq scroll" >
           <div className="background"></div>
           { buttonDash }
+
           <PubQuizSettings parentCallback={this.callbackFunction} roundCount={roundCount} completedSettings={completedSettings} />
         </section>
       );
