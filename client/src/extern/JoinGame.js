@@ -12,8 +12,8 @@ class JoinGame extends React.Component {
   joinRoom = e => {
        e.preventDefault();
       this.props.history.push('r/' + this.state.value );
-       window.location.replace("/r/" + this.state.value);
-
+       // window.location.replace("/r/" + this.state.value);
+      window.location.reload();
     };
 
   onChange = value => {

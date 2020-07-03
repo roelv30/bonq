@@ -15,7 +15,8 @@ class Start extends React.Component {
 
 
        this.props.history.push('r/' + this.state.value );
-      window.location.replace('/r/' + this.state.value);
+      window.location.reload();
+     // window.location.replace('/r/' + this.state.value);
     };
 
   onChange = value => {
