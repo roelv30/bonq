@@ -420,10 +420,10 @@ const Room = (props) => {
                                             <AutoscrolledList items={messages} avatar={avatar} />
                                         </article>
                                         <form onSubmit={submit} id="form__chat">
-                                            <article className="input-group">
+                                            <article className="input_group">
                                                 <textarea
                                                     type="text"
-                                                    className="form-control whiteText"
+                                                    className="input_group__form_control whiteText"
                                                      placeholder="Say something..."
                                                     maxLength="280"
                                                     onChange={e => setMessage(e.currentTarget.value)}
@@ -440,10 +440,10 @@ const Room = (props) => {
                                                     value={message}
                                                     id="text"
                                                 />
-                                                <span className="input-group-btn">
-                                                <button id="submit" type="submit" className="btn btn-primary input-group-btn-submit">
+                                                <span className="input_group__btn">
+                                                <button id="submit" type="submit" className="btn btn-primary input_group__btn__submit">
                                                   Send
-                                                  <img className="input-group-btn-img" src="/img/send.svg" alt="Send Message"/>
+                                                  <img className="input_group__btn__img" src="/img/send.svg" alt="Send Message"/>
                                                 </button>
                                               </span>
                                             </article>
@@ -454,7 +454,7 @@ const Room = (props) => {
                                 <div className={teamNameStateSet ? "hidden" + " background__inside__team" : "visible" + " background__inside__team"}/>
                                 <div className={teamNameStateSet ? "hidden" + " background__inside__team__shade" : "visible" + " background__inside__team__shade"}/>
                                 <div className={teamNameStateSet ? "hidden" + " teamname__container" : "visible" + " teamname__container"}>
-                                    <h2 className="teamname__container-title">Pick a Team Name:</h2>
+                                    <h2 className="teamname__container__title">Pick a Team Name:</h2>
                                     <input type="text" name="username" value={teamName} onChange={handleTeamNameChange}
                                             maxLength="25"
                                            pattern="^\w+$" maxLength="25" required autoFocus
@@ -480,10 +480,10 @@ const Room = (props) => {
                             </TabContent>
                             <TabContent for="tab3">
                                 <form onSubmit={submitAnswersTeam} id="form-answer-team" className={(isAlreadySubmitted  === false ? 'show' : 'hidden')}>
-                                    <article className={" input-group" } >
+                                    <article className={" input_group" } >
                                         <label htmlFor="text">Your answer for question: #{questionNumber}</label>
-                                        <input type="text" className="form-control whiteText" value={answer}   onChange={e => setAnswer(e.currentTarget.value)} id="text"/>
-                                        <span className="input-group-btn">
+                                        <input type="text" className="input_group__form_control whiteText" value={answer}   onChange={e => setAnswer(e.currentTarget.value)} id="text"/>
+                                        <span className="input_group__btn">
                                                 <button onClick={submitAnswersForm} className="btn btn-primary"> Send </button>
                                         </span>
                                     </article>
