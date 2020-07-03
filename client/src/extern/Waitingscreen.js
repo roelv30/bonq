@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
 import '../extern/Waitingscreen.css';
 
 //This component is used for loading the waiting screen for players while the host is reviewing answers
