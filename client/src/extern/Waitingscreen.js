@@ -1,7 +1,7 @@
 import React from 'react';
 import '../extern/Waitingscreen.css';
 
-const Waitingscreen = (props) =>{
+const Waitingscreen = () =>{
 
     return(
       <article className="waitingscreen">

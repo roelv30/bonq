@@ -3,7 +3,18 @@ import Switch from "react-switch";
 import io from "socket.io-client";
 import Share from '../extern/Share';
 
+import Waitingscreen from '../extern/Waitingscreen';
+
 const Questions = (props) => {
+
+    // if(!props.playerRole === 'host'){
+    //   console.log("i am called m'lady");
+    //   return(
+    //     <section className="vraag__post">
+    //       <Waitingscreen />
+    //     </section>
+    //   );
+    // }
     // roundNumber
     if(props.questions.length > 0){
         return (
