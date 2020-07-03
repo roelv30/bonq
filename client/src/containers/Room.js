@@ -40,7 +40,7 @@ const Room = (props) => {
     var userVideoStream = useRef();
     const peersRef = useRef([]);
 
-
+    //set all initial states
     const [peers, setPeers] = useState([]);
     const [userName, setUsernameOfuser] = useState("no name");
     const [switchState, setSwitchState] = useState(false);
@@ -66,8 +66,10 @@ const Room = (props) => {
     const [startShowButton, setStartShowButton] = useState(true);
 
 
+    //background effects
     useEffect(() => {
         socketRef.current = props.socket;
+
 
         socketRef.current.on("questNumberUpdate", payload => {
             setquestionNumber(payload);
@@ -184,6 +186,7 @@ const Room = (props) => {
     }, []);
 
 
+    //if another peer is not connected add a new peer
     function createPeer(userToSignal, callerID, stream) {
 
         const peer = new Peer({
@@ -196,7 +199,7 @@ const Room = (props) => {
         });
         return peer;
     }
-
+    //if another peer is connected add this one to the list
     function addPeer(incomingSignal, callerID, stream) {
         const peer = new Peer({
             initiator: false,
@@ -211,7 +214,7 @@ const Room = (props) => {
     }
 
 
-
+    //press the hangup button
     const hangup = () => {
       if (userVideo.current.srcObject) {
         userVideo.current.srcObject.getTracks().forEach(track => track.stop());
@@ -221,9 +224,11 @@ const Room = (props) => {
     };
 
 
+    //set all settings voor video and audio
     const videoAudioSettings = () =>{
-        navigator.mediaDevices.getUserMedia({ video: switchState, audio: true }).then(stream => {
+        navigator.mediaDevices.getUserMedia({ video: switchState, audio: true }).then(stream => { //get user mic and camera
             userAudio.current =  stream.getAudioTracks();
+            //set a placholder if no mic present
             if(switchState === false){
                 userVideo.current.poster = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
             }else{
