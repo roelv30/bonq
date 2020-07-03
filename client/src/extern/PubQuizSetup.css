@@ -144,6 +144,7 @@
 
 .react-tabs__tab-panel, .pubq__settings__cont__form{
   max-width: 300px;
+  margin: 0 auto;
 }
 
 .pubq__settings__cont__form{

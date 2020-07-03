@@ -60,9 +60,10 @@ const Room = (props) => {
     const [maxQuestions, setMaxQuestions] = useState(0);
     const [showReview, setShowReview] = useState(false);
     const [showRounds, setShowRounds] = useState(false);
-    const [showQuestionBtn, setShowQuestionBtn] = useState(true);
+    const [showQuestionBtn, setShowQuestionBtn] = useState(false);
     const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
     const [isShowingWaitingScreen, setisShowingWaitingScreen] = useState(false);
+    const [startShowButton, setStartShowButton] = useState(true);
 
 
     useEffect(() => {
@@ -298,6 +299,8 @@ const Room = (props) => {
 
     const getQuestions = () =>{
         socketRef.current.emit("startGame");
+        setStartShowButton(false);
+        setShowQuestionBtn(true);
     };
 
     const getNextQuestions = () =>{
@@ -394,7 +397,7 @@ const Room = (props) => {
                     </article>
 
                 <section className={(typeOfPlayer === "host" ? 'show' + " room__host__button-container" : 'hidden' + " room__host__button-container")}>
-                    <button type={"button"} onClick={getQuestions} className={showQuestionBtn  === true ? "hidden" : "show" + " room__host__button-grid"}>Start game</button>
+                    <button type={"button"} onClick={getQuestions} className={ startShowButton  === true ? "show" + " room__host__button-grid" : "hidden" }>Start game</button>
                     <button type={"button"} onClick={getNextQuestions} className={(showQuestionBtn  === true ? 'show' + " room__host__button-grid" : 'hidden' + " room__host__button-grid")}>next Question</button>
                     <button type={"button"} onClick={getNextRound} className={(showReview === true || showRounds === false ? 'hidden' + " room__host__button-grid" : 'show' + " room__host__button-grid")}>next Round</button>
                     <button type={"button"} onClick={getReview} className={(showReview === true ? 'show' + " room__host__button-grid" : 'hidden' + " room__host__button-grid")}>Review</button>
