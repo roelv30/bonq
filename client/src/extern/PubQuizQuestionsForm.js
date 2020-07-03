@@ -84,15 +84,35 @@ class PubQuizQuestionsForm extends React.Component {
     this.setState((prevState) => ({
       [selectedRound]: [...prevState[selectedRound], {question: "", answer: ""}],
     }));
+    console.log(selectedRound);
+    console.log(this.state);
   };
 
   removeItem = (e) => {         // prototype function for removing Q A pairs
     let selectedRound = "round" + this.state.selectedTab;
+    let selectedQA = this.state[selectedRound][e.target.dataset.id];
+    let position = e.target.dataset.id;
 
-    this.setState((prevState) => ({
-      [selectedRound]: [...prevState[selectedRound][0], undefined],
-    }));
+    this.setState(prevState => {
+      let item = Object.assign({}, prevState);
+      let newArray = Object.values(item[selectedRound]);
+      newArray.splice(position, 1);
+      item[selectedRound] = newArray;
+      return item;
+    })
   };
+
+  checkIfFormFilled = (rounds) => {         // check all state data, user may not start if fields are left empty
+    console.log(rounds);
+    for (var i = 0; i < rounds.length; i++) {
+      console.log(rounds[i]);
+      for (var j = 0; j < rounds[i].length; j++) {
+        if (rounds[i][j].question == "" || rounds[i][j].answer == "") {
+          return false;
+        }
+      }
+    }
+  }
 
   handleSubmit = (e) => {         // put all rounds in array and post in database. Authorisation required for integrity, JWT token sent as header with request. Once posted -> start room creation
     e.preventDefault();
@@ -109,15 +129,21 @@ class PubQuizQuestionsForm extends React.Component {
 
     let header = {'Authorization': 'Bearer ' + token};
     let rounds = this.putRoundsIntoArray();
-    axios.post(POST_URL, {
-      rounds: rounds,
-      room: roomNum,
-    }, {headers:header})
-        .then((response) => {
-          if (response.data == true) {
-            this.setState({redirect: true, redirectTo: roomNum});
-          }
-        })
+
+    if (this.checkIfFormFilled(rounds) !== false) {         // check if all inputs are filled
+      axios.post(POST_URL, {
+        rounds: rounds,
+        room: roomNum,
+      }, {headers:header})
+      .then((response) => {
+        if (response.data == true) {
+          this.setState({redirect: true, redirectTo: roomNum});
+        }
+      })
+    } else {            // notify user of inability to send form.
+      alert("Oh no! You forgot a question or answer! \nPlease fill in all fields.");
+    }
+
   }
 
   generateRoom = () => {        // random 6 digit num generator for roomID
@@ -181,18 +207,26 @@ class PubQuizQuestionsForm extends React.Component {
             <TabPanel>
               {
                 currentRound.map((val, idx)=>{
-                  let questionId = `question-${idx}`, answerId = `answer-${idx}`;
-                  let questionPlaceholder = `Question ${idx+1}`, answerPlaceholder = `Answer ${idx+1}`;
-                  return (
-                      <section className="pubq__question__pair" key={idx}>
-                        <label className="pubq__article__form__label pubq__article__form__label--q" htmlFor={questionId}>{`Question #${idx+1}`}
-                          <input className="question" placeholder={questionPlaceholder} type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} required/>
-                        </label>
-                        <label className="pubq__article__form__label" htmlFor={answerId}>Answer:
-                          <input className="answer" placeholder={answerPlaceholder} type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} required/>
-                        </label>
-                      </section>
-                  )
+                  let round = "round" + this.state.selectedTab;
+                  let roundObj = this.state[round];
+                  if (Object.values(roundObj)[idx] === undefined) {
+                    console.log("don't render");
+                  } else {
+                    let questionId = `question-${idx}`, answerId = `answer-${idx}`;
+                    let questionPlaceholder = `Question ${idx+1}`, answerPlaceholder = `Answer ${idx+1}`;
+                    return (
+                        <section className="pubq__question__pair" key={idx}>
+                          <label className="pubq__article__form__label pubq__article__form__label--q" htmlFor={questionId}>{`Question #${idx+1}`}
+                            <input className="question" placeholder={questionPlaceholder} type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} />
+                          </label>
+                          <label className="pubq__article__form__label" htmlFor={answerId}>Answer:
+                            <input className="answer" placeholder={answerPlaceholder} type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} />
+                          </label>
+                          <button className="pubq__article__button-remove" data-id={idx} type="button" onClick={this.removeItem}>remove</button>
+                        </section>
+                    )
+                  }
+
                 })
               }
               <button className="pubq__article__button" type="button" onClick={this.addItem} >Add new Question</button>
