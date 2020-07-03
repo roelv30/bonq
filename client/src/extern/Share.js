@@ -1,5 +1,5 @@
 import React from 'react';
-import { WhatsappShareButton, WhatsappIcon } from "react-share";
+import { WhatsappShareButton, WhatsappIcon, TwitterShareButton, TwitterIcon } from "react-share";
 import './Share.css';
 
 //USE THIS COMPONENT IN HOST SECTION TO INVITE FRIENDS FOR GAME
@@ -14,12 +14,19 @@ const Share = () => {
 
   return (
     <section className="share">
-      <WhatsappShareButton
+      <WhatsappShareButton className="share__button"
         title={text}
         url={url}>
         <WhatsappIcon round={true} size={30}/>
-        <h1 className="share__text">Click here to send an invite to your friends!</h1>
+        <h1 className="share__text">Send an invite to your friends</h1>
       </WhatsappShareButton>
+
+      <TwitterShareButton className="share__button"
+        title={text}
+        url={url}>
+        <TwitterIcon round={true} size={30}/>
+        <h1 className="share__text">Post to your Twitter</h1>
+      </TwitterShareButton>
     </section>
   )
 }

@@ -276,7 +276,7 @@ ul.tabs li button.tab-link-active{
 
 .vraag__post{
   position: relative;
-  padding: 40px 30px;
+  padding: 20px 30px;
   width: 70%;
   margin: 0px auto 40px auto;
   background: #1d1d1d;
@@ -301,6 +301,10 @@ ul.tabs li button.tab-link-active{
 .vraag__post__title{
   font-size: 2.5rem;
   color: #d11676;
+}
+
+.vraag__post__code {
+  color: #d10c76;
 }
 
 .vraag__post__loading {
