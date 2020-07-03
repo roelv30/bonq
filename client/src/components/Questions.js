@@ -8,8 +8,8 @@ const Questions = (props) => {
     if(props.questions.length > 0){
         return (
 
-            <section>
-                <li> {props.questions[props.roundNumber][props.questionNumber].question}</li>
+            <section className="vraag__post">
+                <h4 className="vraag__post__title"> {props.questions[props.roundNumber][props.questionNumber].question}</h4>
                 {/*{props.questions[props.roundNumber].map(({ question, index }) => (*/}
                 {/*    <li key={props.questionNumber}>{question}</li>*/}
                 {/*))}*/}

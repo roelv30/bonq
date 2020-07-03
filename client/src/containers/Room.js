@@ -32,18 +32,7 @@ const StyledVideo = styled.video`
 `;
 
 
-
-
-const videoConstraints = {
-    height: window.innerHeight / 2,
-    width: window.innerWidth / 2
-};
-
-
 const Room = (props) => {
-
-
-
 
 
     const [peers, setPeers] = useState([]);
@@ -74,7 +63,7 @@ const Room = (props) => {
     const [questions, setQuestions] = useState([]);
     const [questionNumber, setquestionNumber] = useState(0);
     const [roundNumber, setRoundNumber] = useState(0);
-    const [answer, setAnswer] = useState("");
+    const [answer, setAnswer] = useState("-");
 
 
 
@@ -83,7 +72,11 @@ const Room = (props) => {
 
     const [showReview, setShowReview] = useState(false);
 
+    const [showRounds, setShowRounds] = useState(false);
+    const [showQuestionBtn, setShowQuestionBtn] = useState(true);
 
+
+    const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
 
 
 
@@ -103,6 +96,24 @@ const Room = (props) => {
             setRoundNumber(payload);
 
         });
+
+        socketRef.current.on("sendForm", payload => {
+            if(isAlreadySubmitted){
+                setIsAlreadySubmitted(false);
+            }else{
+                submitAnswersTeam();
+            }
+
+        });
+
+
+
+
+
+
+
+
+
 
         socketRef.current.on("questions", payload => {
 
@@ -174,7 +185,7 @@ const Room = (props) => {
             if(message === "yes"){
                 setIntroDone(true);
             }else{
-               console.log("NO! can't join");
+              alert("\t\t No room found with that roomcode\t\n  \tPlease check your roomcode and try again\t\t");
             }
 
             //console.log("message"  + messages);
@@ -308,7 +319,10 @@ const Room = (props) => {
 
     const hangup = () => {
 
+      if (userVideo.current.srcObject) {
         userVideo.current.srcObject.getTracks().forEach(track => track.stop());
+
+      }
         socketRef.current.emit("leaving");
         props.history.push('/');
     };
@@ -447,30 +461,37 @@ const Room = (props) => {
 
     };
 
+    const reset = () =>{
+        setQuestions(0);
+        setRoundNumber(0);
+    };
+
     const getNextQuestions = () =>{
        // socketRef.current.emit("startGame");
-        console.log(maxQuestions);
-        if(questionNumber <= (maxQuestions - 2) ){
-            socketRef.current.emit("nextQuestion",  questionNumber + 1);
+        console.log(questionNumber);
 
+        if(questionNumber <= (maxQuestions - 2) ){
+           // setquestionNumber(questionNumber+ 1)
+            socketRef.current.emit("nextQuestion",  questionNumber+ 1);
         }else{
-            console.log("max question");
+            setShowRounds(true);
+            setShowQuestionBtn(false);
         }
 
     };
 
     const getNextRound = () =>{
-        console.log(roundNumber);
+
 
         if(roundNumber <= (maxRounds -2) ){
 
-
-            socketRef.current.emit("nextRound",  roundNumber + 1);
-
+            socketRef.current.emit("nextRound",  roundNumber+ 1);
             setMaxQuestions(questions[roundNumber + 1].length);
+            setShowQuestionBtn(true);
         }else{
             setShowReview(true);
-            console.log("max round");
+            setShowRounds(false);
+            setShowQuestionBtn(false);
         }
 
 
@@ -536,6 +557,7 @@ const Room = (props) => {
 
     const submit = event => {
         event.preventDefault();
+        // event.stopImmediatePropagation();
         //socket.emit("roomName", nameRoomJoin);
         socketRef.current.emit("send", message);
         setMessage("");
@@ -552,7 +574,7 @@ const Room = (props) => {
     };
 
     const submitAnswersTeam = event => {
-        event.preventDefault();
+        //
         //socket.emit("roomName", nameRoomJoin);
 
         const answerTeam = [roundNumber, questionNumber, answer, teamName];
@@ -564,6 +586,13 @@ const Room = (props) => {
         // console.log(answer);
 
     };
+    const submitAnswersForm = event => {
+        console.log(isAlreadySubmitted);
+        event.preventDefault();
+        setIsAlreadySubmitted(true);
+        submitAnswersTeam();
+    };
+
 
     if(intro === false) {
         return (
@@ -584,17 +613,16 @@ const Room = (props) => {
                     <source src="https://freesound.org/data/previews/131/131657_2398403-lq.mp3"></source>
                 </audio>
 
-                <section>
-                    <h2>Vragen</h2>
                     <div id={"vragen"}>
                         <Questions questions={questions} questionNumber={questionNumber} roundNumber={roundNumber}/>
                     </div>
-                    <div className={(typeOfPlayer === "host" ? 'show' : 'hidden')}>
-                        <button type={"button"} onClick={getQuestions}>Start game</button>
-                        <button type={"button"} onClick={getNextQuestions} className={(maxQuestions > 1 ? 'show' : 'hidden')}>next Question</button>
-                        <button type={"button"} onClick={getNextRound} className={(showReview === true ? 'hidden' : 'show')}>next Round</button>
-                        <button type={"button"} onClick={getReview} className={(showReview === true ? 'show' : 'hidden')}>Review</button>
-                    </div>
+
+
+                <section className={(typeOfPlayer === "host" ? 'show' + " room__host__button-container" : 'hidden' + " room__host__button-container")}>
+                    <button type={"button"} onClick={getQuestions} className="room__host__button-grid">Get questions</button>
+                    <button type={"button"} onClick={getNextQuestions} className={(maxQuestions > 1 ? 'show' + " room__host__button-grid" : 'hidden' + " room__host__button-grid")}>next Question</button>
+                    <button type={"button"} onClick={getNextRound} className={(showReview === true ? 'hidden' + " room__host__button-grid" : 'show' + " room__host__button-grid")}>next Round</button>
+                    <button type={"button"} onClick={getReview} className={(showReview === true ? 'show' + " room__host__button-grid" : 'hidden' + " room__host__button-grid")}>Review</button>
                 </section>
 
 
@@ -631,14 +659,14 @@ const Room = (props) => {
                                                     maxLength="280"
                                                     onChange={e => setMessage(e.currentTarget.value)}
                                                     onKeyDown={e =>{
-                                                      if(e.keyCode == 13 && e.shiftKey == false) {
+                                                      if(e.keyCode === 13 && e.shiftKey === false) {
                                                         e.preventDefault();
+                                                        // console.log("haha ik ben ge enterd");
+                                                        // console.log(e);
                                                         const form = document.querySelector("#form__chat");
 
                                                         if (form !== null) {
-                                                            form.dispatchEvent(new Event('submit'));
-                                                        }else{
-                                                          console.log("lol");
+                                                            form.dispatchEvent(new Event('submit', {cancelable: true}));
                                                         }
                                                       };
                                                     }}
@@ -666,13 +694,15 @@ const Room = (props) => {
                             </TabContent>
                             <TabContent for="tab2" className={(typeOfPlayer === "host" ? 'hidden' : 'show')}>
 
-                                <div className={teamNameStateSet ? "hidden" : "visible"}>
-                                    <h2>Choose a Teamname</h2>
-                                    <input type="text" name="username" value={teamName} onChange={handleTeamNameChange} className={"whiteText"}
+                                <div className={teamNameStateSet ? "hidden" + " background__inside__team" : "visible" + " background__inside__team"}></div>
+                                <div className={teamNameStateSet ? "hidden" + " background__inside__team__shade" : "visible" + " background__inside__team__shade"}></div>
+                                <div className={teamNameStateSet ? "hidden" + " teamname__container" : "visible" + " teamname__container"}>
+                                    <h2 className="teamname__container-title">Pick a Team Name:</h2>
+                                    <input type="text" name="username" value={teamName} onChange={handleTeamNameChange}
                                             maxLength="25"
                                            pattern="^\w+$" maxLength="25" required autoFocus
-                                           title="Username" className={"whiteText"}/>
-                                    <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Set team name</button>
+                                           title="Username" className={"whiteText teamname__container__input"}/>
+                                    <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Create / Join</button>
                                     {/*<button onClick={setNextPage}>Next page</button>*/}
                                 </div>
                                 <div id={"test"}>
@@ -680,16 +710,17 @@ const Room = (props) => {
 
                                 <div id={"remoteContainer"}>
                                     {/*{peers.length}*/}
-
-                                    {peers.map((peer, index) => {
-                                        return (
-                                            <div id={peersRef.current[index].peerID} className={"otherPeopleDiv"}>
-                                                {/*<video id={peersRef.current[index].socketID} ></video>*/}
-                                                <Video key={index} peer={peer} socketID={peersRef.current[index].socketID} username={"gebruiker"} type={switchState} />
-                                                {/**/}
-                                            </div>
-                                        );
-                                    })}
+                                    <section className="remoteContainer__cams">
+                                      {peers.map((peer, index) => {
+                                          return (
+                                              <div id={peersRef.current[index].peerID} className={"otherPeopleDiv"}>
+                                                  {/*<video id={peersRef.current[index].socketID} ></video>*/}
+                                                  <Video key={index} peer={peer} socketID={peersRef.current[index].socketID} username={"gebruiker"} type={switchState} />
+                                                  {/**/}
+                                              </div>
+                                          );
+                                      })}
+                                    </section>
                                     <h2 className={"teamname"}>Teamname: {teamName},  </h2>
                                     <h4><ul className={"usersInTeam"}><li>users:</li>{teams.map(({ name, id }) => ( <li key={id}>{name}, </li>   ))}</ul></h4>
                                 </div>
@@ -697,16 +728,18 @@ const Room = (props) => {
 
                             </TabContent>
                             <TabContent for="tab3">
-                                <form onSubmit={submitAnswersTeam} id="form">
-                                    <div className="input-group">
+
+                                <form onSubmit={submitAnswersTeam} id="form-answer-team">
+
+                                    <div className={" input-group" } >
                                         {/*<input type="text" className="form-control" value={roundNumber}   id="text"/>*/}
                                         {/*<input type="text" className="form-control" value={questionNumber}   id="text"/>*/}
 
-                                        <label htmlFor="text">Group answer</label>
+                                        <label htmlFor="text">Your answer for question: #{questionNumber}</label>
                                         <input type="text" className="form-control whiteText" value={answer}   onChange={e => setAnswer(e.currentTarget.value)} id="text"/>
 
                                         <span className="input-group-btn">
-                                                <button id="submit" type="submit" className="btn btn-primary">
+                                                <button onClick={submitAnswersForm} className="btn btn-primary">
                                                   Send
                                                 </button>
                                               </span>
@@ -729,3 +762,4 @@ const Room = (props) => {
 };
 
 export default Room;
+//className={(isAlreadySubmitted  === false ? 'show' : 'hidden')}

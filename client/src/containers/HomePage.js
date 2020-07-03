@@ -25,8 +25,9 @@ class HomePage extends React.Component {
     e.preventDefault();
 
     //this.props.history.push('hello');
-    console.log(this.state.checked);
+    //console.log(this.state.checked);
     this.props.history.push('r/' + this.state.value );
+    window.location.reload();
 
   };
   setUsername = (e) => {
