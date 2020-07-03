@@ -28,10 +28,8 @@ class Avatar extends Component{
   }
 
   checkForCurrentAvatar(){
-    console.log("i've been called");
     let activeAvatar = null;
     let activeParent = null;
-    console.log(this.state.avatar_url);
 
     if(this.state.avatar_url != null){
       activeAvatar = document.querySelector(".modal-main--label--image[src='"+this.state.avatar_url+"']");
@@ -72,7 +70,6 @@ class Avatar extends Component{
     let header = {'Authorization': 'Bearer ' + token};
     axios.get('https://bonq-api.herokuapp.com/api/avatar', {headers:header})
       .then((response) => {
-        console.log(response);
         this.setState({avatar_url: response.data});
       });
   };
@@ -80,14 +77,11 @@ class Avatar extends Component{
   handleSubmit(event) {
     event.preventDefault();
     event.persist();
-    console.log("submitted");
     const token = localStorage.getItem('jwt');
     let data = {avatar_url: this.state.avatar_url};
     let header = {'Authorization': 'Bearer ' + token};
     axios.post('https://bonq-api.herokuapp.com/api/avatar', data, {headers:header})
     .then((response) => {
-      console.log(response);
-      // this.setState({ error: '', });
     })
     .catch((error) => {
       const status = error.response.status;
@@ -205,18 +199,11 @@ class Avatar extends Component{
           <div className="dashboard__article__details__avatar__overlay">
             <p className="dashboard__article__details__avatar__overlay__label">Change Avatar</p>
             <img className="dashboard__article__details__avatar__overlay__image" src="img/edit.svg" alt="Edit Icon"/>
-
-
           </div>
         </button>
       </section>
     );
   }
 }
-
-// const container = document.createElement("div");
-// document.body.appendChild(container);
-// ReactDOM.render(<Avatar/>, container);
-
 
 export default Avatar;
