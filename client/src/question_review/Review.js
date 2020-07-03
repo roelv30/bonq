@@ -11,7 +11,6 @@ class Review extends React.Component {
         questions: [],
         answers: [],
         group_answers: [],
-        group_sjizzle: [],
         answersChecked: [],
         showButton: true,
     };
