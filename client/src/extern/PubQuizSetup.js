@@ -65,7 +65,7 @@ class PubQuizSetup extends React.Component {
     if (completedSettings) {
       return (
         <section className="pubq scroll" >
-          <div className="background"></div>
+          <div className="pubq__background"></div>
           <SocketContext.Consumer>
             {socket => <PubQuizQuestionsForm parentCallback={this.callbackFunction} roundCount={roundCount} completedSettings={completedSettings} socket={socket} history={this.props.history} />}
           </SocketContext.Consumer>

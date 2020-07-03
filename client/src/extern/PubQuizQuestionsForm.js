@@ -10,7 +10,6 @@ import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-route
 import Back from './Back';
 import io from "socket.io-client";
 
-
 // import {changeSearchTerm, changeVideo} from './actions';
 
 class PubQuizQuestionsForm extends React.Component {
@@ -66,6 +65,7 @@ class PubQuizQuestionsForm extends React.Component {
     round0: [],
     roundCount: [],
     selectedTab: 0,
+    roundSelected: false,
     redirect: false,
     redirectTo: 0,
     room: 0,
@@ -256,7 +256,7 @@ class PubQuizQuestionsForm extends React.Component {
   }
 
   changeSelectedRound = (e) => {
-    // console.log(e.target.dataset.id);
+    console.log(e.target.dataset.id);
     // console.log("change round called");
     let id = e.target.dataset.id;
     // this.state.selectedTab = e.target.dataset.id;
@@ -270,6 +270,15 @@ class PubQuizQuestionsForm extends React.Component {
       // console.log(item);
       return item ;
     })
+    if (this.state.roundSelected === false) {
+      this.setState(prevState => {
+        let item = Object.assign({}, prevState);
+        item.roundSelected = true;
+        // console.log("item: ");
+        // console.log(item);
+        return item ;
+      })
+    }
   }
 
   sendData = () => {
@@ -307,9 +316,12 @@ class PubQuizQuestionsForm extends React.Component {
     const roundTabList = this.state.roundCount.map((roundTab)=>{
       if (this.state.round0){
         // console.log("round found");
-        return <Tab onClick={this.changeSelectedRound} data-id={roundTab}>{"Round " + (roundTab+1)}</Tab>;
-      } else {
-        // console.log("no round found");
+        // if (roundTab == 0) {
+        //   return <Tab onClick={this.changeSelectedRound} className="react-tabs__tab--selected" data-id={roundTab}>{"Round " + (roundTab+1)}</Tab>;
+        // } else {
+          return <Tab className={(this.state.roundSelected === false ? "pulse" + " react-tabs__tab": '' + " react-tabs__tab")} onClick={this.changeSelectedRound} data-id={roundTab}>{"Round " + (roundTab+1)}</Tab>;
+        // }
+
       }
 
     });

@@ -35,6 +35,7 @@ class Start extends React.Component {
       <section className="start">
         <div className="background"></div>
         <article className="start__article">
+          <p className="start__article__description">Welcome to bonq, your social gaming platform. Play games like pubquiz with voice- & videochat!</p>
           <h1 className="start__article__title">Join Room & Play!</h1>
           <form id="inputCode" onSubmit={this.joinRoom} ref={ (ref) => { this.form = ref; } }>
             <PinInput
