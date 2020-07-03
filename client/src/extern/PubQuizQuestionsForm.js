@@ -186,10 +186,10 @@ class PubQuizQuestionsForm extends React.Component {
                   return (
                       <section className="pubq__question__pair" key={idx}>
                         <label className="pubq__article__form__label pubq__article__form__label--q" htmlFor={questionId}>{`Question #${idx+1}`}
-                          <input className="question" placeholder={questionPlaceholder} type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} />
+                          <input className="question" placeholder={questionPlaceholder} type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab][idx].question} required/>
                         </label>
                         <label className="pubq__article__form__label" htmlFor={answerId}>Answer:
-                          <input className="answer" placeholder={answerPlaceholder} type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} />
+                          <input className="answer" placeholder={answerPlaceholder} type="text" name={answerId} data-id={idx} id={answerId} defaultValue={this.state["round" + this.state.selectedTab][idx].answer} required/>
                         </label>
                       </section>
                   )
