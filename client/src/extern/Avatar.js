@@ -97,7 +97,7 @@ class Avatar extends Component{
     let result;
     let match;
 
-    baseUrlPattern = /^https?:\/\/[a-z\:0-9.]+/;
+    baseUrlPattern = /^https?:\/\/[a-z\:0-9.]+/; //Returns warning error, ignore for functionality reasons
     result = "";
 
     match = baseUrlPattern.exec(url);
@@ -131,14 +131,16 @@ class Avatar extends Component{
       allImages = document.querySelectorAll(".modal-main--label--image:not(#avatar_label"+this.state.hoverID+")");
 
       if(this.state.hover === true){
-        this.state.hover = false;
+         this.state.hover = false;
         [...allLabels].map((i) => {
           i.style.border = null;
           i.style.padding = null;
+          return null;
         });
 
         [...allImages].map((i) => {
           i.style.transform = 'translateY(0px)';
+          return null;
         });
 
         imageID.style.transform = 'translateY(-10px)';
@@ -157,12 +159,12 @@ class Avatar extends Component{
         [...allLabels].map((i) => {
           i.style.border = null;
           i.style.padding = null;
-          return
+          return null;
         });
 
         [...allImages].map((i) => {
           i.style.transform = 'translateY(0px)';
-          return
+          return null;
         });
 
         imageID.style.transform = 'translateY(0px)';
