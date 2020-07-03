@@ -1,8 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
-
-
-
-
+import React, {useState} from "react";
 
 const MediaControls = (props) => {
     const [muted, setMuteIcon] = useState("audio-button-true");

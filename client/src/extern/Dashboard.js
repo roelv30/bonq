@@ -5,9 +5,8 @@ import './Dashboard.css';
 import Avatar from './Avatar';
 var myProps;
 
-
+//This component is for the Dashboard page for a logged in user
 class Dashboard extends React.Component {
-
 	constructor() {
 		super();
 		this.state = {
@@ -15,21 +14,25 @@ class Dashboard extends React.Component {
 		}
 	};
 
+// Function that uses the logout function defined in App.js [logout()]
 	handleLogout(event) {
 		event.preventDefault();
 		myProps.logout();
 	};
 
+//Calls getUser() on mount
 	componentDidMount(){
 		this.getUser();
 	};
 
+//Calls getUser() on update
 	componentDidUpdate(prevProps, prevState){
 		if (prevProps.token !== this.props.token) {
 			this.getUser();
 		}
 	};
 
+//Get current logged in user from API & set as state
 	getUser() {
 		const token = this.props.token;
 		axios.get('https://bonq-api.herokuapp.com/api/dashboard', {
@@ -38,6 +41,7 @@ class Dashboard extends React.Component {
 		.then((response) => {
 			const user = response.data;
 			this.setState({user});
+			//Set username for game
 			this.props.socket.emit("username", response.data.username);
 			myProps = this.props;
 		})
