@@ -396,7 +396,9 @@ ul.tabs li button.tab-link-active{
 .row.mb-2{
   border-bottom: 1px solid rgba(209, 12, 118, .4);
 }
-
+.hidden{
+  display: none;
+}
 
 @media(max-width: 768px) {
   .otherPeopleDiv{

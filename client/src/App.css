@@ -19,9 +19,7 @@ html {
 .whiteText{
   color:white !important;
 }
-.hidden{
-  display: none;
-}
+
 .visible{
   display: block;
 }
