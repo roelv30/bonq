@@ -159,7 +159,6 @@ class Avatar extends Component{
         labelID.style.border = '4px solid #0ABDC6';
         labelID.style.padding = '14px';
 
-
         let url = imageID.src; //get the url for the selected avatar
         let result = this.RemoveBaseUrl(url); //Remove BASEURL from the selected avatar image
 
@@ -203,7 +202,7 @@ class Avatar extends Component{
         </label>);
     });
 
-    // Render the HTML with the modal component and render the image list. 
+    // Render the HTML with the modal component and render the image list.
     return(
       <section>
         <Modal show={this.state.show} handleClose={this.hideModal} title="Select Avatar" button="Done">
