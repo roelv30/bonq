@@ -1,10 +1,6 @@
-import React, {useEffect, useRef} from "react";
+import React from "react";
 import Switch from "react-switch";
 import io from "socket.io-client";
-
-
-
-
 
 const Questions = (props) => {
     console.log(props.questions);
