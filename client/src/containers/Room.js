@@ -185,7 +185,7 @@ const Room = (props) => {
             if(message === "yes"){
                 setIntroDone(true);
             }else{
-               console.log("NO! can't join");
+              alert("\t\t No room found with that roomcode\t\n  \tPlease check your roomcode and try again\t\t");
             }
 
             //console.log("message"  + messages);
@@ -728,13 +728,13 @@ const Room = (props) => {
 
                             </TabContent>
                             <TabContent for="tab3">
-                                <form onSubmit={submitAnswersTeam} id="form-answer-team" className={(isAlreadySubmitted  === false ? 'show' : 'hidden')}>
+                                <form onSubmit={submitAnswersTeam} id="form-answer-team" >
 
                                     <div className={" input-group" } >
                                         {/*<input type="text" className="form-control" value={roundNumber}   id="text"/>*/}
                                         {/*<input type="text" className="form-control" value={questionNumber}   id="text"/>*/}
 
-                                        <label htmlFor="text">Group answer</label>
+                                        <label htmlFor="text">Your answer for question: #{questionNumber}</label>
                                         <input type="text" className="form-control whiteText" value={answer}   onChange={e => setAnswer(e.currentTarget.value)} id="text"/>
 
                                         <span className="input-group-btn">
