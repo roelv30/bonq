@@ -1,7 +1,6 @@
 import React from 'react';
 import PinInput from 'react-pin-input';
 import './JoinGame.css';
-// import Home from "../components/Home";
 import Back from './Back';
 
 class JoinGame extends React.Component {
@@ -12,7 +11,6 @@ class JoinGame extends React.Component {
   joinRoom = e => {
        e.preventDefault();
       this.props.history.push('r/' + this.state.value );
-       // window.location.replace("/r/" + this.state.value);
       window.location.reload();
     };
 

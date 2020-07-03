@@ -1,6 +1,6 @@
 import React from 'react';
 
-
+//Modal component, simple HTML with show and hide classes that get applied when the given state 'show' is true or false
 const Modal = ({handleClose, show, children, title, button}) =>{
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
