@@ -728,11 +728,7 @@ const Room = (props) => {
 
                             </TabContent>
                             <TabContent for="tab3">
-<<<<<<< HEAD
-                                <form onSubmit={submitAnswersTeam} id="form-answer-team">
-=======
                                 <form onSubmit={submitAnswersTeam} id="form-answer-team" >
->>>>>>> e6a9b3a2db7217ea927462defb7a087787487acb
 
                                     <div className={" input-group" } >
                                         {/*<input type="text" className="form-control" value={roundNumber}   id="text"/>*/}

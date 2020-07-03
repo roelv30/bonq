@@ -17,15 +17,15 @@ class Review extends React.Component {
         answers: [],
         group_answers: [],
         group_sjizzle: [],
-        first:[],
         answersChecked: [],
         showButton: true,
-        teamScore: [],
     };
     this.fetchAnswers = this.fetchAnswers.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+    // this function adds checked answers to the state
+    // later the submit function can get these correct answers to assign points
     getCheckedAnswers() {
         this.state.answers.map((answer, key1) => {
                 this.state.group_answers.map((group, key) => {
@@ -50,7 +50,6 @@ class Review extends React.Component {
 
     } // getCheckedAnswers
 
-
   onSubmit(e){
     e.preventDefault();
     const POST_URL = 'https://bonq-api.herokuapp.com/api/setscore';
@@ -58,6 +57,9 @@ class Review extends React.Component {
     let points = {};
     let teamScore = [];
 
+    // for every team that has a checked box, it gets added to a list
+    // after that the entries get counted by how many times they appear
+    // the teams and their score are then posted to the api
     for(let i = 0; i < checkButton.length; i++){
       if (checkButton[i].checked){
         teamScore.push(checkButton[i].dataset.team);
@@ -81,17 +83,11 @@ class Review extends React.Component {
         const status = error.response;
         console.log(status);
       })
-
-
-
     }
-    //
-    // console.log(teamScore);
-    // console.log(points);
-
   } //onSubmit
 
-
+  // this function fetches the answers per team from the previous page
+  // also the questions and their answers for the check function
   fetchAnswers(){
 
       this.setState({showButton: false});
@@ -164,8 +160,6 @@ class Review extends React.Component {
             </div>
           </div>
           ))}
-
-
       </section>
 
     return(
