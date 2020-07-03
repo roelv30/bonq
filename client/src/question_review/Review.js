@@ -78,11 +78,12 @@ class Review extends React.Component {
       })
       .then((response) => {
           this.props.history.push('/scoreboard' );
-        console.log("push succesful");
+          this.props.socket.emit("setEveryoneToScoreBoard", this.roomid);
+        //console.log("push succesful");
       })
       .catch((error) => {
         const status = error.response;
-        console.log(status);
+        //console.log(status);
       })
     }
   } //onSubmit
@@ -106,24 +107,13 @@ class Review extends React.Component {
 
 
       this.props.socket.on("getAnswerListFull", payload => {
-        console.log(payload);
-          //var obj = payload;
-
-
-          // this.roomid = Object.keys(obj)[0];
-          //
           this.roomid = this.getRoomId();
-
           let first= payload;
-
-          //this.everyone = Object.values(first)[0];
-
           for (let i = 0; i < Object.keys(first).length; i++) {
               this.setState(previousState => ({
                   group_answers: [...previousState.group_answers, Object.keys(first)[i]]
               }));
           }
-
 
           this.state.first = Object.values(first);
 

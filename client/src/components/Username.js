@@ -6,7 +6,7 @@ const Username = (props) => {
     return (
         <section>
             <div className="background">
-                <div className="background__inside"></div>
+                <div className="background__inside"/>
             </div>
             <article className="username__article">
 
@@ -16,9 +16,6 @@ const Username = (props) => {
                            pattern="^\w+$" maxLength="20" required autoFocus
                            title="Username"/>
                 </div>
-
-                {/*<button className="primary-button" type="button" >Set username</button>*/}
-                {/*<button onClick={setNextPage}>Next page</button>*/}
                 <section className="username__article__enable">
                 <h2 className="username__article__enable__text">Enable camera?</h2>
                 <Switch className="username__article__enable__button" onChange={props.handeChangeSwitch} checked={props.switchState}  />

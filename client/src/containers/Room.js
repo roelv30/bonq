@@ -70,6 +70,11 @@ const Room = (props) => {
     useEffect(() => {
         socketRef.current = props.socket;
 
+        //redirect user to scoreboard on server call
+        socketRef.current.on("redirectToScoreboard", () => {
+            props.history.push('/scoreboard');
+        });
+
 
         socketRef.current.on("questNumberUpdate", payload => {
             setquestionNumber(payload);
@@ -238,7 +243,6 @@ const Room = (props) => {
             socketRef.current.emit("join room",roomID);
             socketRef.current.emit("join team", teamName);
             socketRef.current.on("all users", users => {
-
                 const peers = [];
                 users.forEach(userID => {
                     const peer = createPeer(userID, socketRef.current.id, stream);
@@ -254,30 +258,29 @@ const Room = (props) => {
                 setPeers([...new Set(peers)])
             });
 
+            //comminucate with server to join
             socketRef.current.on("user joined", payload => {
-
                 const peer = addPeer(payload.signal, payload.callerID, stream);
                 peersRef.current.push({
                     peerID: payload.callerID,
                     peer,
                     socketID: socketRef.current.id,
-
                 });
-
                 setPeers(users => [...users, peer]);
             });
 
+            //server signal  on room leave
             socketRef.current.on("leaving room signal", () => {
                 props.history.push('/');
             });
 
-
+            //server signal on user leave
             socketRef.current.on("user left", peer => {
                 console.log("USER LEFT");
                 peer.destroy();
 
             });
-
+            //server signals user left (play audio)
             socketRef.current.on("left", payload => {
                 const audioEl = document.getElementsByClassName("audio-element")[0];
                 if(audioEl != null){
@@ -301,13 +304,14 @@ const Room = (props) => {
         }).catch(error => console.log(error.message));
     };
 
-
+    //fetch all questions
     const getQuestions = () =>{
         socketRef.current.emit("startGame");
         setStartShowButton(false);
         setShowQuestionBtn(true);
     };
 
+    //get next question
     const getNextQuestions = () =>{
         if(questionNumber < (maxQuestions - 1) ){
 
@@ -318,6 +322,7 @@ const Room = (props) => {
         }
     };
 
+    //get next round and signal server to change for the room
     const getNextRound = () =>{
         if(roundNumber < (maxRounds -1) ){
 
@@ -331,13 +336,14 @@ const Room = (props) => {
         }
     };
 
+    //
     const startSession = () => {
         socketRef.current.emit("username", userName);
         socketRef.current.emit("checkUserType", roomID);
     };
 
 
-
+    //hande the camera enable button
     const handeChangeSwitch = (checked) => {
         setSwitchState(checked);
     };
@@ -349,13 +355,16 @@ const Room = (props) => {
 
     };
 
+    //on input change state
     const handleTeamNameChange = (e) => {
         setTeamName(e.target.value);
     };
+
     const setTeamNameSet = () => {
         setTeamNameState(true);
         videoAudioSettings();
     };
+
 
     const submit = event => {
         event.preventDefault();
@@ -367,21 +376,21 @@ const Room = (props) => {
         setUsernameOfuser(e.target.value);
     };
 
-
+    //if a team presses send it sends answer to the server
     const submitAnswersTeam = event => {
         const answerTeam = [roundNumber, questionNumber, answer, event];
         socketRef.current.emit("setAnswer", answerTeam);
     };
+
+    //if button is pressed send signal function with teamname
     const submitAnswersForm = event => {
-        //console.log(isAlreadySubmitted);
         event.preventDefault();
         setIsAlreadySubmitted(true);
-
         socketRef.current.emit("toRestOfTeam", teamName);
         submitAnswersTeam(teamName);
     };
 
-
+    //if the ask username is visible
     if(intro === false) {
         return (
             <Container>
@@ -394,13 +403,14 @@ const Room = (props) => {
         return (
             <Container >
                 <audio className="audio-element">
-                    <source src="https://freesound.org/data/previews/131/131657_2398403-lq.mp3"></source>
+                    <source src="https://freesound.org/data/previews/131/131657_2398403-lq.mp3"/>
                 </audio>
-
+                     {/*Question list*/}
                     <article id={"vragen"}>
                         <Questions questions={questions} questionNumber={questionNumber} roundNumber={roundNumber} playerRole={typeOfPlayer} roomID={roomID} waiting={isShowingWaitingScreen}/>
                     </article>
 
+                {/*host buttons*/}
                 <section className={(typeOfPlayer === "host" ? 'show' + " room__host__button-container" : 'hidden' + " room__host__button-container")}>
                     <button type={"button"} onClick={getQuestions} className={ startShowButton  === true ? "show" + " room__host__button-grid" : "hidden" }>Start game</button>
                     <button type={"button"} onClick={getNextQuestions} className={(showQuestionBtn  === true ? 'show' + " room__host__button-grid" : 'hidden' + " room__host__button-grid")}>next Question</button>
@@ -408,6 +418,7 @@ const Room = (props) => {
                     <button type={"button"} onClick={getReview} className={(showReview === true ? 'show' + " room__host__button-grid" : 'hidden' + " room__host__button-grid")}>Review</button>
                 </section>
 
+                {/*tabs and content*/}
                 <section className={"full-width"}>
                     <Tabs renderActiveTabContentOnly={false}>
                         <ul className={"tabs"}>
@@ -423,6 +434,7 @@ const Room = (props) => {
                                 <TabLink to="tab3">Answers </TabLink>
                             </li>
                         </ul>
+                        {/*Chatbox tab */}
                             <TabContent for="tab1">
                                         <article id="messages" className="messages__container">
                                             <AutoscrolledList items={messages} avatar={avatar} />
@@ -458,6 +470,7 @@ const Room = (props) => {
                                         </form>
                             </TabContent>
 
+                            {/*Choose a teamname */}
                             <TabContent for="tab2" className={(typeOfPlayer === "host" ? 'hidden' : 'show')}>
                                 <div className={teamNameStateSet ? "hidden" + " background__inside__team" : "visible" + " background__inside__team"}/>
                                 <div className={teamNameStateSet ? "hidden" + " background__inside__team__shade" : "visible" + " background__inside__team__shade"}/>
@@ -510,4 +523,4 @@ const Room = (props) => {
 };
 
 export default Room;
-//className={(isAlreadySubmitted  === false ? 'show' : 'hidden')}
+

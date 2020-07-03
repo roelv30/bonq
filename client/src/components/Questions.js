@@ -1,31 +1,18 @@
 import React from "react";
-import Switch from "react-switch";
-import io from "socket.io-client";
 import Share from '../extern/Share';
 
 import Waitingscreen from '../extern/Waitingscreen';
 
 const Questions = (props) => {
 
-    // if(!props.playerRole === 'host'){
-    //   console.log("i am called m'lady");
-    //   return(
-    //     <section className="vraag__post">
-    //       <Waitingscreen />
-    //     </section>
-    //   );
-    // }
-    // roundNumber
     if(props.waiting && props.playerRole !== "host"){
         return(<Waitingscreen />);
     }
     if(props.questions.length > 0){
         return (
-
             <section className="vraag__post">
                 <h4 className="vraag__post__title"> {props.questions[props.roundNumber][props.questionNumber].question}</h4>
             </section>
-
         );
     }else{
       if(props.playerRole === "host") {

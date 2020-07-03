@@ -96,6 +96,10 @@ io.on('connection', socket => {
     }
 
 
+
+    socket.on("setEveryoneToScoreBoard", (roomId) => {
+        io.to(roomId).emit('redirectToScoreboard');
+    });
     socket.on("getAnswerList", () => {
         let roomIdFromClient = socket.handshake.headers.referer;
         if(roomIdFromClient != null){
