@@ -12,7 +12,10 @@ class Start extends React.Component {
 
   joinRoom = e => {
         e.preventDefault();
-        this.props.history.push('r/' + this.state.value );
+
+
+       this.props.history.push('r/' + this.state.value );
+      window.location.replace('/r/' + this.state.value);
     };
 
   onChange = value => {

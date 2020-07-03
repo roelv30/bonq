@@ -10,8 +10,10 @@ class JoinGame extends React.Component {
   };
 
   joinRoom = e => {
-        e.preventDefault();
-        this.props.history.push('r/' + this.state.value );
+       e.preventDefault();
+      this.props.history.push('r/' + this.state.value );
+       window.location.replace("/r/" + this.state.value);
+
     };
 
   onChange = value => {
@@ -25,7 +27,10 @@ class JoinGame extends React.Component {
       const fixedRandom  =  Number((rand).toFixed(0));
 
       this.setState({value: fixedRandom})
-      this.props.history.push('r/' + fixedRandom );
+
+
+     this.props.history.push('r/' + fixedRandom );
+      window.location.replace("/r/" + fixedRandom);
   }
 
 
