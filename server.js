@@ -97,7 +97,13 @@ io.on('connection', socket => {
 
 
     socket.on("getAnswerList", () => {
-        roomNumber = getRoomNumber();
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/review/");
+            var roomNumber = roomURL[1];
+        }
+
+        //console.log(socket.handshake.headers.referer);
         io.emit('getAnswerListFull', answers[roomNumber]);
     });
 

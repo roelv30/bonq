@@ -106,7 +106,6 @@ class Review extends React.Component {
       this.props.socket.emit("getAnswerList");
 
 
-
       this.props.socket.on("getAnswerListFull", payload => {
         console.log(payload);
           //var obj = payload;
