@@ -14,12 +14,12 @@
   letter-spacing: 4px;
   font-size: 3rem;
   margin: auto;
-  width: 80vw;
+  width: 80%;
 }
 
 .register__article__form {
+  width: 40%;
   margin: auto;
-  width: 80vw;
 }
 
 .register__article__form__label {
@@ -73,6 +73,11 @@
 
 @media only screen and (max-width: 768px){
   .register__article{
-    width: 100vw;
+    width: 100%;
+  }
+
+  .register__article__form{
+    width: 80%;
+    margin: auto;
   }
 }
