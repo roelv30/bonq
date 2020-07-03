@@ -11,7 +11,6 @@ class Review extends React.Component {
         questions: [],
         answers: [],
         group_answers: [],
-        group_sjizzle: [],
         answersChecked: [],
         showButton: true,
             roomid: 0,
@@ -104,7 +103,6 @@ class Review extends React.Component {
 
       this.setState({showButton: false});
       this.props.socket.emit("getAnswerList");
-
 
 
       this.props.socket.on("getAnswerListFull", payload => {

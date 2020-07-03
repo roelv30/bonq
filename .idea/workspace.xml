@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ee43cafb-506c-4598-b010-c55dd82d995d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/NewToBonq.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/NewToBonq.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/extern/Start.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/Start.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/containers/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/Room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/extern/PubQuizSetup.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/extern/PubQuizSetup.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +72,7 @@
       <workItem from="1593699366059" duration="2137000" />
       <workItem from="1593719496866" duration="12000" />
       <workItem from="1593722581371" duration="156000" />
-      <workItem from="1593764308816" duration="37740000" />
+      <workItem from="1593764308816" duration="39211000" />
     </task>
     <task id="LOCAL-00001" summary="Changed to online host">
       <created>1593183050330</created>
@@ -150,10 +147,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="234" key="Vcs.Push.Dialog.v2/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593535488548" />
-    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593805346397">
+    <state x="646" y="236" width="627" height="568" key="find.popup" timestamp="1593806522879">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593805346397" />
+    <state x="646" y="236" width="627" height="568" key="find.popup/-1920.0.1920.1040/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593806522879" />
     <state x="708" y="293" key="git4idea.merge.GitPullDialog" timestamp="1593590468373">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
