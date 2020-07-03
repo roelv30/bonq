@@ -643,7 +643,7 @@ const Room = (props) => {
                 </audio>
 
                     <div id={"vragen"}>
-                        <Questions questions={questions} questionNumber={questionNumber} roundNumber={roundNumber} playerRole={typeOfPlayer} roomID={roomID}/>
+                        <Questions questions={questions} questionNumber={questionNumber} roundNumber={roundNumber} playerRole={typeOfPlayer} roomID={roomID} review={showReview}/>
                     </div>
 
 
