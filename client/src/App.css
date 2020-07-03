@@ -118,3 +118,11 @@ Scrollbar Styling */
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+@media only screen and (max-width: 768px){
+  .background__inside {
+    top: 79px;
+    right: -60px;
+    height: 47rem;
+  }
+}
