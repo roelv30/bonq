@@ -5,8 +5,6 @@ import './PubQuizSetup.css';
 import './Register.css';
 
 class PubQuizSettings extends React.Component {
-//settings inputs(rounds and teams etc)
-  // standardValue = 1;
 
   state = {
     roundCount: 1,
@@ -18,13 +16,10 @@ class PubQuizSettings extends React.Component {
   }
 
   handleRoundChange = (props) => {
-    // console.log(props);
-    // this.setState({roundCount: [props]});
     this.state.roundCount = props;
   }
 
   handleTeamChange = (props) => {
-    // this.setState({teamCount: [props]});
     this.state.teamCount = props;
   }
 

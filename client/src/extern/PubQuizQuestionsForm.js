@@ -10,58 +10,26 @@ import { Router, Route, useHistory, BrowserRouter, Redirect  } from "react-route
 import Back from './Back';
 import io from "socket.io-client";
 
-// import {changeSearchTerm, changeVideo} from './actions';
-
 class PubQuizQuestionsForm extends React.Component {
 //form where questions are inserted, dynamically based on PubQuizSettings.js choices
 
   componentDidMount(){
-    this.updateRoundCount();
+    this.updateRoundCount();          // retrieve rounds set by user in settings, assign to state in prep for round tab generation
 
-    setTimeout(() => {
-     //console.log("parse round called");
-      //console.log(this.state);
-      //console.log(this.state.roundCount.length);
+    setTimeout(() => {          // fill set rounds with initial question and answer pair into state. In a timeout because updating state isn't instant, ignores prev function changes if not in timeout. Not put into seperate function, because setTimeouts never work right in JavaScript.
       for (let i = 0; i < this.state.roundCount.length; i++) {
         let selectedRoundName = "round" + i;
         let selectedRoundArray = [{ question: "", answer: ""}];
-        // let data = this.state;
         this.setState(prevState => {
           let stateToFill = Object.assign({}, prevState);
           stateToFill[selectedRoundName] = selectedRoundArray;
-          // console.log("stateToFill: ");
-          // console.log(stateToFill);
           return stateToFill ;
         })
       }
     }, 100)
-    // this.parseRoundsIntoState();
-    //console.log("did mount");
   };
 
-  // state = {
-  //   items: [{ question: "",
-  //             answer: ""}],
-  // };
-
-  // state1 = {
-  //   round1: [{ question: "",
-  //             answer: ""}],
-  //   round2: [{ question: "",
-  //             answer: ""}],
-  // };
-
-  // state = {
-  //   roundCount: [0, 1, 2, 3, 4],
-  //   selectedTab: 0,
-  //   round0: [{ question: "b", answer: ""},],
-  //   round1: [{ question: "", answer: ""},],
-  //   round2: [{ question: "", answer: ""},],
-  //   round3: [{ question: "", answer: ""},],
-  //   round4: [{ question: "", answer: ""},],
-  // };
-
-  state = {
+  state = {         //
     round0: [],
     roundCount: [],
     selectedTab: 0,
@@ -71,145 +39,69 @@ class PubQuizQuestionsForm extends React.Component {
     room: 0,
   };
 
-  // state = {
-  //   roundCount: 5,
-  //   selectedTab: 0,
-  //   rounds: [],
-  // };
-
   updateRoundCount = () => {
-   // console.log("update count called");
     let roundArray = [];
     let extRoundCount = this.props.roundCount;
-   // console.log(extRoundCount);
     for (var i = 0; i < extRoundCount; i++) {
       roundArray.push(i);
     }
     this.setState(prevState => {
       let stateToFill = Object.assign({}, prevState);
       stateToFill.roundCount = roundArray;
-      // console.log("stateToFill: ");
-      // console.log(stateToFill);
       return stateToFill ;
     })
   }
 
   parseRoundsIntoState = (e) => {
-   // console.log("parse round called");
-   // console.log(this.state);
-   // console.log(this.state.roundCount.length);
     for (let i = 0; i < this.state.roundCount.length; i++) {
       let selectedRoundName = "round" + i;
       let selectedRoundArray = [{ question: "", answer: ""}];
-      // let data = this.state;
       this.setState(prevState => {
         let stateToFill = Object.assign({}, prevState);
         stateToFill[selectedRoundName] = selectedRoundArray;
-      //  console.log("stateToFill: ");
-      //  console.log(stateToFill);
         return stateToFill ;
       })
     }
-    //   for (let i = 0; i < this.state.roundCount; i++) {
-    //     // let selectedRoundName = "round" + i;
-    //     let selectedRoundArray = [{ question: "", answer: ""}];
-    //     // this.setState({ rounds: this.state.rounds.concat([selectedRoundName]) });
-    //     this.state.rounds = this.state.rounds.concat([selectedRoundArray]);
-    //     console.log(this.state.rounds);
-    //
-    //     // let items = [...this.state.rounds, selectedRoundArray]
-    //     // console.log(items);
-    //   }
   }
 
-  // handleChange = (e) => {
-  //   if (["question", "answer"].includes(e.target.className)) {
-  //     let items = [...this.state.items]
-  //     items[e.target.dataset.id][e.target.className] = e.target.value
-  //     this.setState({items}, ()=>console.log(this.state.items))
-  //   }else{
-  //     // obsolete?
-  //     this.setState({[e.target.name]: e.target.value})
-  //   }
-  // }
-  //
-  // addItem = (e) => {
-  //   this.setState((prevState) => ({
-  //     items: [...prevState.items, {question: "", answer: ""}],
-  //   }));
-  // };
-
   handleChange = (e) => {
-    // console.log("handle change called");
     let selectedRound = "round" + this.state.selectedTab;
     if (["question", "answer"].includes(e.target.className)) {
-      // let items = [...this.state[selectedRound]];
-      // items[e.target.dataset.id][e.target.className] = e.target.value;
-      // this.setState({items}, ()=>console.log(this.state[selectedRound]), console.log(this.state[selectedRound]))
-      // console.log("state before: ");
-      // console.log(this.state);
 
-
-      let questionOrAnswer = e.target.className
-      let index = e.target.dataset.id
+      // let questionOrAnswer = e.target.className
+      // let index = e.target.dataset.id
       let value = e.target.value
-      // console.log(questionOrAnswer);
-      // console.log(index);
-      // console.log(value);
-      // console.log(questionOrAnswer);
-      // this.setState((prevState) => ({
-      //   [selectedRound]: [...prevState[selectedRound][index][questionOrAnswer], value]
-      // }));
 
       let data = [...this.state[selectedRound]];
-      // console.log(data[e.target.dataset.id][e.target.className]);
-      // console.log(data[e.target.dataset.id]);
-      // console.log(e.target.value);
-      // console.log(e.target.className);
-      // console.log(this.state);
 
       data[e.target.dataset.id][e.target.className] = e.target.value;
-
-      // console.log(this.state[selectedRound][index][questionOrAnswer]);
-
-      // this.setState((prevState) => ({
-      //   [selectedRound]: [...prevState[selectedRound][index][questionOrAnswer], value],
-      // }));
-      // console.log("state after: ");
-      // console.log(this.state);
-      // setTimeout(()=>{console.log(this.state);},500)
     }
   }
 
   addItem = (e) => {
-    // e.preventDefault();
-    // console.log("additem called");
     let selectedRound = "round" + this.state.selectedTab;
 
 
     this.setState((prevState) => ({
       [selectedRound]: [...prevState[selectedRound], {question: "", answer: ""}],
     }));
+  };
+
+  removeItem = (e) => {
+    let selectedRound = "round" + this.state.selectedTab;
 
 
-    // let newQnA = { question: "", answer: ""};
-    // this.state.rounds[0] = this.state.rounds[0].concat(newQnA);
-    // console.log(this.state);
+    this.setState((prevState) => ({
+      [selectedRound]: [...prevState[selectedRound], {question: "", answer: ""}],
+    }));
   };
 
   handleSubmit = (e) => {
-    // console.log("submit called");
     e.preventDefault();
-
-
-
 
     const token = localStorage.getItem('jwt');
 
     const socket  = this.props.socket;
-
-
-
 
     const POST_URL = 'https://bonq-api.herokuapp.com/api/parsePubQnA';
     // const POST_URL = 'http://localhost:8000/api/parsePubQnA';
@@ -227,12 +119,7 @@ class PubQuizQuestionsForm extends React.Component {
           if (response.data == true) {
             this.setState({redirect: true, redirectTo: roomNum});
           }
-          // console.log(response.data);
         })
-    // .catch((error) => {
-    //   const status = error.response.status;
-    //   console.log(status);
-    // });
   }
 
   generateRoom = () => {
@@ -241,7 +128,6 @@ class PubQuizQuestionsForm extends React.Component {
     const rand = min + Math.random() * (max - min);
     const fixedRandom  =  Number((rand).toFixed(0));
 
-    // this.setState({room: fixedRandom});
     return fixedRandom;
   }
 
@@ -250,32 +136,22 @@ class PubQuizQuestionsForm extends React.Component {
     for (let i = 0; i < this.state.roundCount.length; i++) {
       let selectedRoundName = "round" + i;
       roundsArray.push(this.state[selectedRoundName]);
-      // let selectedRoundArray = [{ question: "", answer: ""}];
     }
     return roundsArray;
   }
 
   changeSelectedRound = (e) => {
     console.log(e.target.dataset.id);
-    // console.log("change round called");
     let id = e.target.dataset.id;
-    // this.state.selectedTab = e.target.dataset.id;
-    // this.setState((prevState) => ({
-    //   selectedTab: ...prevState, selectedTab: e.target.dataset.id
-    // }));
     this.setState(prevState => {
       let item = Object.assign({}, prevState);
       item.selectedTab = id;
-      // console.log("item: ");
-      // console.log(item);
       return item ;
     })
     if (this.state.roundSelected === false) {
       this.setState(prevState => {
         let item = Object.assign({}, prevState);
         item.roundSelected = true;
-        // console.log("item: ");
-        // console.log(item);
         return item ;
       })
     }
@@ -288,26 +164,11 @@ class PubQuizQuestionsForm extends React.Component {
 
   render() {
 
-
-
-
     const { redirect } = this.state;
-
-    //
 
     if (redirect) {
       window.location.replace("/r/" + this.state.redirectTo);
-      //this.props.history.push("/r/" + this.state.redirectTo);
-      // return(
-      //     <Redirect to={redirectto}/>
-      // );
     }
-    // let {items} = this.props.questionItems
-    // let {items} = this.state;
-    // this.parseRoundsIntoState();
-    // let round = this.state["round" + this.state.selectedTab];
-    // console.log(round);
-    // document.addEventListener("click", ()=>{console.log(this.state);})
 
     const currentRound = this.state["round" + this.state.selectedTab];
 
@@ -315,12 +176,7 @@ class PubQuizQuestionsForm extends React.Component {
 
     const roundTabList = this.state.roundCount.map((roundTab)=>{
       if (this.state.round0){
-        // console.log("round found");
-        // if (roundTab == 0) {
-        //   return <Tab onClick={this.changeSelectedRound} className="react-tabs__tab--selected" data-id={roundTab}>{"Round " + (roundTab+1)}</Tab>;
-        // } else {
           return <Tab className={(this.state.roundSelected === false ? "pulse" + " react-tabs__tab": '' + " react-tabs__tab")} onClick={this.changeSelectedRound} data-id={roundTab}>{"Round " + (roundTab+1)}</Tab>;
-        // }
 
       }
 
@@ -328,7 +184,6 @@ class PubQuizQuestionsForm extends React.Component {
 
     const roundTabPanel = this.state.roundCount.map((roundPanel)=>{
       if (this.state.round0){
-        // console.log("it does");
         return (
           <>
             <TabPanel>
@@ -354,7 +209,6 @@ class PubQuizQuestionsForm extends React.Component {
             </>
         );
       } else {
-        // console.log("it doesn't");
       }
     });
 
@@ -387,53 +241,3 @@ function GoBackButton(props) {
 }
 
 export default PubQuizQuestionsForm;
-
-/*
-{x, y} = foo;
-x = foo.x;
-y = foo.y;
-{cats} = this.state;
-cats = this.state.cats;
-*/
-/*<Tabs>
-  <TabList>
-    <Tab onClick={this.changeSelectedRound} data-id="1">Title 1</Tab>
-    <Tab onClick={this.changeSelectedRound} data-id="2">Title 2</Tab>
-  </TabList>
-  <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-    <TabPanel>
-      <h2>Any content 1</h2>
-      {
-        this.state["round" + this.state.selectedTab].map((val, idx)=>{
-          let questionId = `question-${idx}`, answerId = `answer-${idx}`;
-          return (
-            <div key={idx}>
-              <label htmlFor={questionId}>{`Question #${idx+1}`}</label>
-              <input type="text" name={questionId} data-id={idx} id={questionId} defaultValue={this.state["round" + this.state.selectedTab].question} className="question"/>
-              <label htmlFor={answerId}>Answer: </label>
-              <input type="text" name={answerId} data-id={idx} id={answerId} value={this.state["round" + this.state.selectedTab].question} className="answer"/>
-            </div>
-          )
-        })
-      }
-    </TabPanel>
-    <TabPanel>
-      <h2>Any content 2</h2>
-      {
-        this.state["round" + this.state.selectedTab].map((val, idx)=>{
-          let questionId = `question-${idx}`, answerId = `answer-${idx}`;
-          return (
-            <div key={idx}>
-              <label htmlFor={questionId}>{`Question #${idx+1}`}</label>
-              <input type="text" name={questionId} data-id={idx} id={questionId} className="question"/>
-              <label htmlFor={answerId}>Answer: </label>
-              <input type="text" name={answerId} data-id={idx} id={answerId} className="answer"/>
-            </div>
-          )
-        })
-      }
-    </TabPanel>
-    <button type="button" onClick={this.addItem} >Add new Question</button>
-    <button type="submit" value="Submit" > Submit</button>
-  </form>
-</Tabs>*/

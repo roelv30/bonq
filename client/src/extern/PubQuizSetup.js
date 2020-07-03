@@ -8,9 +8,7 @@ import './JoinGame.css'
 import '../App.css';
 import SocketContext from '../components/SocketContext';
 
-
 class PubQuizSetup extends React.Component {
-//container for settings (rounds and teams etc)
 
   constructor(props){
     super(props);
@@ -23,7 +21,6 @@ class PubQuizSetup extends React.Component {
   }
 
   handleParseSettingsClick = () => {
-    // console.log("parse complete ");
     this.setState({
       completedSettings: true,
     });
@@ -34,32 +31,16 @@ class PubQuizSetup extends React.Component {
   }
 
   callbackFunction = (rCount) => {
-    // console.log("state before callback exec: ");
-    // console.log(this.state.completedSettings);
-
     if (this.state.completedSettings == false) {
-      // console.log("settings are completed");
-      // console.log(this.state.completedSettings);
       this.setState({roundCount: rCount, completedSettings: true});
       return;
     }
-    // console.log("settings are not completed");
     this.setState({roundCount: rCount, completedSettings: false});
-
-    // console.log(this.state.completedSettings);
   }
 
   render() {
     const completedSettings = this.state.completedSettings;
     const roundCount = this.state.roundCount;
-
-    // let button;
-
-    // if (completedSettings) {
-    //   button = <GoBackButton onClick={this.handleBackClick} />;
-    // } else {
-    //   button = <ProceedButton parentCallback={this.callbackFunction} onClick={ this.handleParseSettingsClick} />;
-    // }
     let buttonDash = <Back text="&larr; back" link="/dashboard"/>
 
     if (completedSettings) {
@@ -85,20 +66,6 @@ class PubQuizSetup extends React.Component {
 
   }
 }
-
-//make seperate component? - reminder
-// function SettingsContainer(props) {
-//   const completedSettings = props.completedSettings;
-//   const locRoundCount = props.roundCount;
-//   const callbackFunction = props.callbackFunction
-//   console.log(completedSettings);
-//   if (completedSettings) {
-//     // return <componentB />;
-//     return <PubQuizQuestionsForm roundCount={locRoundCount}/>
-//   }
-//   // return <componentA />;
-//   return <PubQuizSettings />
-// }
 
 function ProceedButton(props) {
   return (
