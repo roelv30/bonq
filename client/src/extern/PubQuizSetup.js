@@ -8,68 +8,47 @@ import './JoinGame.css'
 import '../App.css';
 import SocketContext from '../components/SocketContext';
 
-
 class PubQuizSetup extends React.Component {
-//container for settings (rounds and teams etc)
+  // <<<summary>>>
 
-  constructor(props){
+  constructor(props){         // use constructor to immediatley assign props
     super(props);
     this.handleParseSettingsClick = this.handleParseSettingsClick.bind(this);
     this.handleBackClick = this.handleBackClick.bind(this);
     this.state = {
-      completedSettings: false,
-      roundCount: 8,
+      completedSettings: false,         // boolean to track if eligible to change component
+      roundCount: 0,                    // track round count in parent to pass to next component
     };
   }
 
-  handleParseSettingsClick = () => {
-    // console.log("parse complete ");
-    this.setState({
-      completedSettings: true,
-    });
+  handleParseSettingsClick = () => {          // update state when user is done
+    this.setState({completedSettings: true,});
   }
 
-  handleBackClick = () => {
+  handleBackClick = () => {          // update state when user is done
     this.setState({completedSettings: false});
   }
 
-  callbackFunction = (rCount) => {
-    // console.log("state before callback exec: ");
-    // console.log(this.state.completedSettings);
-
+  callbackFunction = (rCount) => {          // callback function for children to parse states back to parent
     if (this.state.completedSettings == false) {
-      // console.log("settings are completed");
-      // console.log(this.state.completedSettings);
       this.setState({roundCount: rCount, completedSettings: true});
       return;
     }
-    // console.log("settings are not completed");
     this.setState({roundCount: rCount, completedSettings: false});
-
-    // console.log(this.state.completedSettings);
   }
 
   render() {
     const completedSettings = this.state.completedSettings;
     const roundCount = this.state.roundCount;
+    let buttonDash = <Back text="&larr; back" link="/dashboard"/>         // if you're somewhere you don't want to be then you can go back *thumbs up*
 
-    // let button;
-
-    // if (completedSettings) {
-    //   button = <GoBackButton onClick={this.handleBackClick} />;
-    // } else {
-    //   button = <ProceedButton parentCallback={this.callbackFunction} onClick={ this.handleParseSettingsClick} />;
-    // }
-    let buttonDash = <Back text="&larr; back" link="/dashboard"/>
-
-    if (completedSettings) {
+    if (completedSettings) {          // switch components based on completed state
       return (
         <section className="pubq scroll" >
           <div className="pubq__background"></div>
           <SocketContext.Consumer>
             {socket => <PubQuizQuestionsForm parentCallback={this.callbackFunction} roundCount={roundCount} completedSettings={completedSettings} socket={socket} history={this.props.history} />}
           </SocketContext.Consumer>
-
         </section>
       );
     } else{
@@ -77,43 +56,12 @@ class PubQuizSetup extends React.Component {
         <section className="pubq scroll" >
           <div className="background"></div>
           { buttonDash }
-
           <PubQuizSettings parentCallback={this.callbackFunction} roundCount={roundCount} completedSettings={completedSettings} />
         </section>
       );
     }
 
   }
-}
-
-//make seperate component? - reminder
-// function SettingsContainer(props) {
-//   const completedSettings = props.completedSettings;
-//   const locRoundCount = props.roundCount;
-//   const callbackFunction = props.callbackFunction
-//   console.log(completedSettings);
-//   if (completedSettings) {
-//     // return <componentB />;
-//     return <PubQuizQuestionsForm roundCount={locRoundCount}/>
-//   }
-//   // return <componentA />;
-//   return <PubQuizSettings />
-// }
-
-function ProceedButton(props) {
-  return (
-    <button onClick={props.onClick}>
-      Next
-    </button>
-  );
-}
-
-function GoBackButton(props) {
-  return (
-    <button onClick={props.onClick}>
-      Go Back
-    </button>
-  );
 }
 
 export default PubQuizSetup;
