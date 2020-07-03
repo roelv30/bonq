@@ -22,6 +22,10 @@ class FrontEndUserController extends Controller
         return Score::all();
     }
 
+    public function truncateScore(){
+      Score::query()->truncate();
+    }
+
     public function setScore(Request $request) {
         $score = Score::create(['team' => $request->team, 'score' => $request->score]);
         try {

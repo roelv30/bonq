@@ -32,6 +32,7 @@ Route::get('/getQuestions/{room}', 'PubQuestionController@getData');
 Route::get('/score', 'FrontEndUserController@getScore');
 Route::post('/setscore', 'FrontEndUserController@setScore');
 
+Route::delete('/deletescore', 'FrontEndUserController@truncateScore');
 
 
 Route::group(['middleware' => 'jwt.auth'], function() {
