@@ -13,7 +13,13 @@ class PubQuizSettings extends React.Component {
   }
 
   sendData = () => {          // parse data back to parent via props, PubQuizSetup.js,
-    this.props.parentCallback(this.state.roundCount);
+    let localRoundCount;
+    if (this.state.roundCount > 10) {
+      localRoundCount = 10;
+    } else {
+      localRoundCount = this.state.roundCount;
+    }
+    this.props.parentCallback(localRoundCount);
   }
 
   handleRoundChange = (props) => {          // store input value into state
