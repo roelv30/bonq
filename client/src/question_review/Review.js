@@ -13,6 +13,7 @@ class Review extends React.Component {
         group_answers: [],
         answersChecked: [],
         showButton: true,
+            roomid: 0,
     };
     this.fetchAnswers = this.fetchAnswers.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -47,6 +48,7 @@ class Review extends React.Component {
   onSubmit(e){
     e.preventDefault();
     const POST_URL = 'https://bonq-api.herokuapp.com/api/setscore';
+    const DELETE_URL = `https://bonq-api.herokuapp.com/api/deletescore`;
     let checkButton = document.querySelectorAll('input');
     let points = {};
     let teamScore = [];
@@ -64,6 +66,11 @@ class Review extends React.Component {
       points[teamName] = (points[teamName] || 0) + 1
     });
 
+    // first we delete the old scores, if there are any
+    axios.delete(DELETE_URL, {
+    })
+
+    // then we put the scores into table
     for(let i = 0; i < Object.keys(points).length; i++){
       axios.post(POST_URL, {
         team: Object.keys(points)[i],
@@ -80,6 +87,16 @@ class Review extends React.Component {
     }
   } //onSubmit
 
+
+    getRoomId(){
+        if(window.location.href != null){
+            var roomURL = window.location.href.split("/review/");
+            var roomNumber = roomURL[1];
+        }
+        return roomNumber;
+
+    }
+
   // this function fetches the answers per team from the previous page
   // also the questions and their answers for the check function
   fetchAnswers(){
@@ -87,21 +104,26 @@ class Review extends React.Component {
       this.setState({showButton: false});
       this.props.socket.emit("getAnswerList");
 
+
       this.props.socket.on("getAnswerListFull", payload => {
         console.log(payload);
-          var obj = payload;
+          //var obj = payload;
 
-          this.roomid = Object.keys(obj)[0];
 
-          let first= obj[Object.keys(obj)[0]];
+          // this.roomid = Object.keys(obj)[0];
+          //
+          this.roomid = this.getRoomId();
 
-          this.everyone = Object.values(first)[0];
+          let first= payload;
+
+          //this.everyone = Object.values(first)[0];
 
           for (let i = 0; i < Object.keys(first).length; i++) {
               this.setState(previousState => ({
                   group_answers: [...previousState.group_answers, Object.keys(first)[i]]
               }));
           }
+
 
           this.state.first = Object.values(first);
 
@@ -164,7 +186,7 @@ class Review extends React.Component {
 
           <h2 className="review__main__title">Time to check the answers!</h2>
           <section>
-            <button onClick={this.fetchAnswers} type="button" className={(this.state.showButton === true ? 'show' : 'hidden')}>Check Answers</button>
+            <button onClick={this.fetchAnswers} type="button" className={(this.state.showButton === true ? 'show' : 'hidden')} id="checkAnswerButton">Check Answers</button>
           </section>
 
           {Questions}
@@ -174,6 +196,8 @@ class Review extends React.Component {
         <section className="review__options">
           <button id="js--review__button" onClick={this.onSubmit} type="button" className="review__options__confirm">submit</button>
         </section>
+
+
       </article>
 
     );

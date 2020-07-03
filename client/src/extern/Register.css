@@ -13,11 +13,13 @@
   font-family: 'Squada One', cursive;
   letter-spacing: 4px;
   font-size: 3rem;
-  margin-left: 25rem;
+  margin: auto;
+  width: 80vw;
 }
 
 .register__article__form {
-  margin-left: 25rem;
+  margin: auto;
+  width: 80vw;
 }
 
 .register__article__form__label {
@@ -67,4 +69,10 @@
   font-size: 1rem;
   font-weight: bold;
   height: 1rem;
+}
+
+@media only screen and (max-width: 768px){
+  .register__article{
+    width: 100vw;
+  }
 }

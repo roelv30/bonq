@@ -3,8 +3,7 @@ const path = require('path');
 const generatePassword = require('password-generator');
 const WebSocket = require('ws');
 const port = process.env.PORT || 3001;
-// const  Server = require('ws');
-// const wss = new WebSocket.Server({ port: port });
+
 
 const room_size = 6;
 
@@ -17,68 +16,35 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
-
-var activeSockets =  [];
-var arrayOfUsersinThisRoom = [];
+let arrayOfUsersinThisRoom = [];
 const server = app.listen(port);
-// wss = new Server({ app });
 
-var io = require('socket.io')(server);
+const io = require('socket.io')(server);
 
 const users = {};
 const socketToRoom = {};
 const socketToTeam = {};
-const usersConnected = {};
-
-
-// const answers = {"881153" :
-//         {team1: ["antw1", "antw2", "antw3","antw4"],
-//             team2: ["antw12", "antw22", "antw32","antw42"]}
-//
-// };
 
 const answers = {};
-
-var request = require('request');
+let roomNumber;
+const request = require('request');
 
 request({url: 'https://bonq-api.herokuapp.com/api/getRooms', json: true}, function(err, res, json) {
     if (err) {
         throw err;
     }
-    json.forEach(myFunction);
-    // console.log(json);
+    json.forEach(setRooms);
+
 });
 
-
-function myFunction(item, index) {
+function setRooms(item) {
     if (users[item.room_id]) {
-        // const length = teams[payload].length;
-        // if (length === room_size) {
-        //     socket.emit("room full");
-        //     return;
-        // }
-
-       // console.log("found one");
-        //console.log(users[roomNumber][payload]);
-        //      users[item.room_id].push(item.room_id);
-        //teams[payload].push(socket.id);
-
-    } else {
+      } else {
         users[item.room_id] = [];
-        //console.log("none found");
-        //teams[payload] = [socket.id];
-
-
-        ///let payload = {[ {"name":"tomato", "howMany": 3} ]}[payload]
-        // users[roomNumber] = payload[socket.id];
-        //users[roomNumber][payload].push(socket.id);
-        //console.log(users);
     }
-
-    // document.getElementById("demo").innerHTML += index + ":" + item + "<br>";
 }
 
-
+let roomsWithout = [];
 io.on('connection', socket => {
     const user = {
         name: null,
@@ -87,18 +53,58 @@ io.on('connection', socket => {
         type: "player"
     };
     users[socket.id] = user;
-    socket.on("getAnswerList", () => {
 
+    function getRoomNumber(){
         let roomIdFromClient = socket.handshake.headers.referer;
         if(roomIdFromClient != null){
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
         }
+        return roomNumber;
+    }
 
-        io.emit('getAnswerListFull', answers);
-        io.emit('getAnswerListFull2', roomNumber);
-        console.log();
+    function setAnswerIfAsnweIsEmpty(roundnumber){
+        for (let j = 0; j < Object.keys(answers[roomNumber]).length; j++) {
+            if(Object.values(answers[roomNumber])[j][0] === ""){
+                Object.values(answers[roomNumber])[j][0] = "niets";
+            }
+            if(!Object.values(answers[roomNumber])[j][(roundnumber[0] + roundnumber[1] - 1)]){
+                Object.values(answers[roomNumber])[j].push("niets");
+            }
+        }
+    }
 
+    function updateUserTeamList(){
+        const roomID = socketToRoom[socket.id];
+        const teamID = socketToTeam[socket.id];
+
+        arrayOfUsersinThisTeam = [];
+        if(users[roomNumber]){
+            if (users[roomNumber][teamID]) {
+                let sizeOfUsers = Object.keys(users[roomNumber][teamID]).length;
+                users[roomID][teamID].forEach(myFunction);
+                function myFunction(item, index) {
+                    arrayOfUsersinThisTeam.push(users[item])
+                }
+
+                arrayOfUsersinThisTeam.forEach(myFunction2);
+                function myFunction2(item, index) {
+                    io.to(item.id).emit('update teams', arrayOfUsersinThisTeam);
+                }
+            }
+        }
+    }
+
+
+    socket.on("getAnswerList", () => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/review/");
+            var roomNumber = roomURL[1];
+        }
+
+        //console.log(socket.handshake.headers.referer);
+        io.emit('getAnswerListFull', answers[roomNumber]);
     });
 
     socket.on("setTypeHost", (roomId) => {
@@ -106,286 +112,123 @@ io.on('connection', socket => {
         if(!users[roomId]){
             users[roomId] = {["host"] : [users[socket.id].name]};
         }
-        //console.log(socket.id);
-
     });
 
+    socket.on("reviewWaiting", () => {
+        roomNumber = getRoomNumber();
+        io.to(roomNumber).emit("setWaitingScreen");
+    });
 
     socket.on("setAnswer", payload => {
-        //console.log(answers);
-
-        let roomIdFromClient = socket.handshake.headers.referer;
-        if(roomIdFromClient != null){
-            var roomURL = roomIdFromClient.split("/r/");
-            var roomNumber = roomURL[1];
-        }
+        roomNumber = getRoomNumber();
 
         if (answers[roomNumber]) {
-            //console.log("team is already existing");
-            // if(users[roomNumber][payload]){
-            //     users[roomNumber][payload].push(socket.id);
-            // }else{
-            //     users[roomNumber][payload] = [socket.id];
-            // }
-            //console.log(answers[roomNumber][]);
             if(answers[roomNumber][payload[3]]){
-                answers[roomNumber][payload[3]].push(payload[2]);
+                if(Object.values(answers[roomNumber][payload[3]])[0] === ''){
+                    answers[roomNumber][payload[3]] = [payload[2]];
+                }else{
+                    answers[roomNumber][payload[3]].push(payload[2]);
+                }
             }else{
                 answers[roomNumber][payload[3]] = [payload[2]];
             }
-
         } else {
             answers[roomNumber] = {[payload[3]] : [payload[2]]};
         }
+    });
 
 
-        //console.log(answers[roomNumber]);
+    socket.on("toRestOfTeam", payload => {
+         roomNumber = getRoomNumber();
+        for (let i = 0; i < users[roomNumber][payload].length; i++) {
+            io.to(users[roomNumber][payload][i]).emit('answerIsSubmitted');
+        }
     });
 
     socket.on("startGame", () => {
-        let roomIdFromClient = socket.handshake.headers.referer;
-        if(roomIdFromClient != null){
-            var roomURL = roomIdFromClient.split("/r/");
-            var roomNumber = roomURL[1];
-        }
-        //
-
-
-
+         roomNumber = getRoomNumber();
         request('https://bonq-api.herokuapp.com/api/getQuestions/' + roomNumber, { json: true }, (err, res, body) => {
             if (err) {
                 return console.log(err);
             }
             io.to(roomNumber).emit('questions', body[0].rounds_array);
-            //console.log(body[0].rounds_array);
-
         });
 
     });
 
-    socket.on("nextRound", (roundnumber) => {
-        let roomIdFromClient = socket.handshake.headers.referer;
-        if(roomIdFromClient != null){
-            var roomURL = roomIdFromClient.split("/r/");
-            var roomNumber = roomURL[1];
-        }
-        io.to(roomNumber).emit('sendForm');
-        io.to(roomNumber).emit('roundNumberUpdate', roundnumber);
 
+    socket.on("nextRound", (roundnumber) => {
+         roomNumber = getRoomNumber();
+
+        if(answers[roomNumber]){
+            setAnswerIfAsnweIsEmpty(roundnumber);
+        }
+
+        io.to(roomNumber).emit('resetForm');
+        io.to(roomNumber).emit('roundNumberUpdate', roundnumber[0]);
     });
 
     socket.on("nextQuestion", (questionNumber) => {
-        let roomIdFromClient = socket.handshake.headers.referer;
-        if(roomIdFromClient != null){
-            var roomURL = roomIdFromClient.split("/r/");
-            var roomNumber = roomURL[1];
+        roomsWithout = [];
+        roomNumber = getRoomNumber();
+
+        if(!answers[roomNumber]){
+
+        }else{
+            setAnswerIfAsnweIsEmpty(questionNumber);
         }
-        io.to(roomNumber).emit('sendForm');
-        io.to(roomNumber).emit('questNumberUpdate', questionNumber);
+
+        io.to(roomNumber).emit('resetForm');
+        io.to(roomNumber).emit('questNumberUpdate', questionNumber[1]);
 
     });
-
-
-
-
-
-    //console.log(users);
-
 
     socket.on("retrievedUser", (userFromDB) => {
-       // console.log(socket.id);
         users[socket.id].name = userFromDB.username;
-        //console.log(users[socket.id]);
     });
-
-    socket.on("getUserName", () => {
-       // console.log("getUserName");
-        //console.log(socket.id);
-       // console.log(users[socket.id].name);
-
-    });
-
 
     socket.on("checkUserType", (roomId) => {
-
-        console.log(roomId);
-        let roomIdFromClient = socket.handshake.headers.referer;
-
-        if(roomIdFromClient != null){
-            var roomURL = roomIdFromClient.split("/r/");
-            var roomNumber = roomURL[1];
-         }
-        console.log(users[roomNumber]);
-
-       // console.log(users[roomNumber].host[0]);
-
+        roomNumber = getRoomNumber();
         if(users[roomNumber]){
             if(users[roomNumber].host){
                 if(users[roomNumber].host[0] === users[socket.id].name){
                     users[socket.id].type = "host";
                 }
             }
-
         }
-
 
         if(users[socket.id].type === "host"){
-
             io.to(socket.id).emit('canJoin', "yes");
             io.to(socket.id).emit('isHeHost', "yes");
-
         }
 
-        console.log(users[roomNumber]);
-
-
         if(users[roomNumber]){
-            console.log("can join");
              io.to(socket.id).emit('canJoin', "yes");
         }else{
             console.log("no join");
             io.to(socket.id).emit('canJoin', "no");
         }
-
-
-
-
     });
 
     socket.on("username", username => {
-
-        //console.log(users[socket.id].type);
-
         users[socket.id].name = username;
-        //console.log(users[socket.id].type);
-
-
-
-        //usersConnected[socket.id] = user;
-        // console.log(users[socket.id]);
-        //io.to(roomNumber).emit("connected", user);
-        //io.to(roomNumber).emit("users", Object.values(usersConnected));
-        //const usersInThisRoom = users[roomNumber].filter(id => id !== socket.id);
-        //io.to(roomNumber).emit('users', users[usersInThisRoom]);
-
-
-        //console.log("sending");
-        //io.to(socket.id).emit("users", Object.values(users));
-        //io.to(roomNumber).emit("users", Object.values(users));
-        // console.log(arrayOfUsersinThisRoom);
-        //  io.to(socket.id).emit("users", Object.values(users));
-        //  io.to(roomNumber).emit("users", Object.values(users));
     });
 
-
-    //console.log(test[1]);
-    socket.on("join room", roomID => {
-        let roomIdFromClient = socket.handshake.headers.referer;
+    socket.on("join room", () => {
+         roomNumber = getRoomNumber();
         arrayOfUsersinThisRoom = [];
-        if(roomIdFromClient != null){
-            var roomURL = roomIdFromClient.split("/r/");
-            var roomNumber = roomURL[1];
-        }
         io.emit("joinedRoom", roomNumber);
-
-       // console.log(socket.id);
         socket.join(roomNumber);
-
-        // if (users[roomNumber]) {
-        //     const length = users[roomNumber].length;
-        //     if (length === room_size) {
-        //         socket.emit("room full");
-        //         return;
-        //     }
-        //     users[roomNumber].push(socket.id);
-        // } else {
-        //     users[roomNumber] = [socket.id];
-        // }
-
-        // if (users[roomNumber]) {
-        //     let sizeOfUsers = Object.keys(users).length;
-        //     // console.log(sizeOfUsers );
-        //
-        //
-        //     const usersInThisRoom2 = users[roomNumber].filter(id => id !== socket.id);
-        //     console.log("usersInThisRoom2");
-        //     console.log(users[roomNumber]);
-        //     // console.log(usersInThisRoom2);
-        //     users[roomNumber].forEach(myFunction);
-        //     function myFunction(item, index) {
-        //         // console.log(item);
-        //         arrayOfUsersinThisRoom.push(users[item])
-        //     }
-        //
-        //     io.to(socket.id).emit("users", arrayOfUsersinThisRoom);
-        //     io.to(roomNumber).emit('users', arrayOfUsersinThisRoom);
-        // }
-
-
-        // console.log("room");
-        // console.log(users);
-        //console.log(usersInThisRoom);
-
-        // usersInThisRoom.forEach(myFunction);
-        //
-        // function myFunction(item, index) {
-        //     arrayOfUsersinThisRoom.push(users[item])
-        // }
-        // io.to(roomNumber).emit('users in same room', arrayOfUsersinThisRoom);
-        // console.log(arrayOfUsersinThisRoom);
-        // if(usersInThisRoom.length > 0)
-        // {
-        //
-        //
-        // }
-
-        // console.log("user joined room: " + roomNumber);
-
-
-
-        // if(usersInThisRoom.length > 0){
-        //     // const usersInThisRoom2 = users[usersInThisRoom].filter(id => id === id.name);
-        //
-        //     io.to(roomID).emit('users in same room', users[usersInThisRoom]);
-        //     //console.log();
-        // }
-
-        //io.to(socket.id).emit("users", Object.values(users));
-        //io.to(roomNumber).emit("users", Object.values(users));
-        // const usersInThisRoom = users[roomNumber].filter(id => id !== socket.id);
-        // io.emit("joinedRoom", roomNumber);
-        // socket.join(roomNumber);
         socketToRoom[socket.id] = roomNumber;
-        // console.log(usersInThisRoom);
-        // io.to(socket.id).emit("all users", usersInThisRoom)
-        //socket.emit("all users", usersInThisRoom);
-
-
-        //socket.emit("all users", usersInThisRoom);
-        //io.to(socket.id).emit("users", Object.values(users));
-        //io.to(roomNumber).emit("users", Object.values(users));
     });
 
     socket.on("send", message => {
-        let roomIdFromClient = socket.handshake.headers.referer;
-        if(roomIdFromClient != null){
-            var roomURL = roomIdFromClient.split("/r/");
-            var roomNumber = roomURL[1];
-        }
-        //console.log("User:"  +user);
+         roomNumber = getRoomNumber();
         io.to(roomNumber).emit("message", {
             text: message,
             date: new Date().toISOString(),
             user: users[socket.id]
         });
-
-        ///console.log("got a message");
-        //
-        // io.emit("message", {
-        //   text: message,
-        //   date: new Date().toISOString(),
-        //   user: users[client.id]
-        // });
     });
 
     socket.on("send peer", payload => {
@@ -400,137 +243,56 @@ io.on('connection', socket => {
         io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
     });
 
-    // socket.on("leaving", () => {
-    //
-    //     const roomID = socketToRoom[socket.id];
-    //     io.to(roomID).emit('left', socket.id);
-    //     io.to(socket.id).emit('leaving user homepage');
-    //     io.to(socket.id).emit('leaving room signal');
-    //     //console.log(roomID);
-    //     let room = users[roomID];
-    //     if (room) {
-    //         room = room.filter(id => id !== socket.id);
-    //         users[roomID] = room;
-    //     }
-    //     //delete users[socket.id];
-    //     socket.leave(roomID);
-    //
-    // });
-    // socket.on("setNewRoom", (roomnumber) => {
-    //     if (!users[roomnumber]) {
-    //         users[roomnumber] = [];
-    //     }
-    // });
-
     socket.on("join team", payload => {
-
-
-        let roomIdFromClient = socket.handshake.headers.referer;
-       // console.log(users[socket.id]);
+        roomNumber = getRoomNumber();
         arrayOfUsersinThisRoom = [];
-        if(roomIdFromClient != null){
-            var roomURL = roomIdFromClient.split("/r/");
-            var roomNumber = roomURL[1];
-        }
-        console.log(socket.handshake.headers);
         users[socket.id].team = payload;
-        //console.log(users[socket.id]);
-        // console.log(payload);
         arrayOfUsersinThisTeam = [];
-        //console.log(users[roomNumber]);
-        if (users[roomNumber]) {
-            // const length = teams[payload].length;
-            // if (length === room_size) {
-            //     socket.emit("room full");
-            //     return;
-            // }
 
+        if (users[roomNumber]) {
             if(users[roomNumber][payload]){
                 users[roomNumber][payload].push(socket.id);
             }else{
                 users[roomNumber][payload] = [socket.id];
+                if(!answers[roomNumber]){
+                    answers[roomNumber] = {[payload] : [""]};
+                }else{
+                    if(!answers[roomNumber][payload]){
+                        Object.assign(answers[roomNumber], {[payload] : [""]});
+                    }
+                }
             }
-            //console.log(users[roomNumber][payload]);
-
-            //teams[payload].push(socket.id);
-
         } else {
-            //teams[payload] = [socket.id];
-
-            users[roomNumber] = {[payload] : [socket.id]};
-            ///let payload = {[ {"name":"tomato", "howMany": 3} ]}[payload]
-            // users[roomNumber] = payload[socket.id];
-            //users[roomNumber][payload].push(socket.id);
-            //console.log(users);
+               users[roomNumber] = {[payload] : [socket.id]};
         }
-        //console.log("users");
-        //console.log(users);
 
         if (users[roomNumber][payload]) {
             let sizeOfUsers = Object.keys(users[roomNumber][payload]).length;
-            // console.log(sizeOfUsers );
-
-
-            // const usersInThisTeam = users[roomNumber][payload].filter(id => id !== socket.id);
 
             users[roomNumber][payload].forEach(myFunction);
             function myFunction(item, index) {
-                // console.log(item);
                 arrayOfUsersinThisTeam.push(users[item])
             }
-            // console.log("arrayOfUsersinThisTeam");
-            // console.log(arrayOfUsersinThisTeam);
-            //io.to(socket.id).emit("teams", arrayOfUsersinThisTeam);
-
 
             arrayOfUsersinThisTeam.forEach(myFunction2);
             function myFunction2(item, index) {
-                // console.log("item");
-                //console.log("payload");
-                //console.log();
-
-                io.to(item.id).emit('teams', arrayOfUsersinThisTeam);
-                // console.log(item);
-                // arrayOfUsersinThisTeam.push(users[item])
+              io.to(item.id).emit('teams', arrayOfUsersinThisTeam);
             }
 
         }
         socketToTeam[socket.id] = payload;
-
         const usersInThisTeam = users[roomNumber][payload].filter(id => id !== socket.id);
-
         io.to(socket.id).emit("all users", usersInThisTeam)
-
-        // console.log("teams");
-        // console.log(teams);
-        // const usersInThisRoom = users[roomNumber].filter(id => id !== socket.id);
-        // io.emit("joinedRoom", roomNumber);
-        // socket.join(roomNumber);
-        // socketToRoom[socket.id] = roomNumber;
-        // console.log(usersInThisRoom);
-        // io.to(socket.id).emit("all users", usersInThisRoom)
 
     });
 
     socket.on('disconnect', () => {
-        let roomIdFromClient = socket.handshake.headers.referer;
+        roomNumber = getRoomNumber();
         arrayOfUsersinThisTeam = [];
-
-        if(roomIdFromClient != null){
-            var roomURL = roomIdFromClient.split("/r/");
-            var roomNumber = roomURL[1];
-        }
 
         const roomID = socketToRoom[socket.id];
         const teamID = socketToTeam[socket.id];
-       // console.log("a user left");
         io.to(roomID).emit('left', socket.id);
-        //console.log(roomID);
-        // let room = users[roomID];
-        // if (room) {
-        //     room = room.filter(id => id !== socket.id);
-        //     users[roomID] = room;
-        // }
 
         if(teamID != null){
             let test = users[roomID][teamID];
@@ -539,113 +301,18 @@ io.on('connection', socket => {
                 users[roomNumber][teamID] = test;
             }
         }
-        //socket.leave(teamID);
         socket.leave(roomID);
-
         //update team names in certain team.
-        if(users[roomNumber]){
-            if (users[roomNumber][teamID]) {
-                let sizeOfUsers = Object.keys(users[roomNumber][teamID]).length;
-                // console.log(sizeOfUsers );
-
-                users[roomID][teamID].forEach(myFunction);
-                function myFunction(item, index) {
-                   // console.log(item);
-                    arrayOfUsersinThisTeam.push(users[item])
-                }
-
-                arrayOfUsersinThisTeam.forEach(myFunction2);
-                function myFunction2(item, index) {
-                   // console.log("item");
-                    //console.log("payload");
-                    //console.log();
-
-                    io.to(item.id).emit('update teams', arrayOfUsersinThisTeam);
-                    // console.log(item);
-                    // arrayOfUsersinThisTeam.push(users[item])
-                }
-
-                //io.to(socket.id).emit("update teams", arrayOfUsersinThisTeam);
-                //io.to(roomNumber).emit('update teams', arrayOfUsersinThisTeam);
-            }
-        }
-
-
-        //update all user lists
-        // if (users[roomID]) {
-        //     let sizeOfUsers = Object.keys(users).length;
-        //     // console.log(sizeOfUsers );
-        //
-        //
-        //     const usersInThisRoom2 = users[roomID].filter(id => id !== socket.id);
-        //     // console.log("usersInThisRoom2");
-        //     // console.log(users[roomNumber]);
-        //     // console.log(usersInThisRoom2);
-        //     users[roomID].forEach(myFunction);
-        //     function myFunction(item, index) {
-        //         // console.log(item);
-        //         arrayOfUsersinThisRoom.push(users[item])
-        //     }
-        //
-        //     io.to(socket.id).emit("users", arrayOfUsersinThisRoom);
-        //     io.to(roomID).emit('users', arrayOfUsersinThisRoom);
-        // }
-
-        // if (teams[teamID]) {
-        //     let sizeOfUsers = Object.keys(teams).length;
-        //     // console.log(sizeOfUsers );
-        //
-        //     const usersInThisTeam = teams[teamID].filter(id => id !== socket.id);
-        //
-        //     teams[teamID].forEach(myFunction);
-        //     function myFunction(item, index) {
-        //         // console.log(item);
-        //         arrayOfUsersinThisTeam.push(users[item])
-        //     }
-        //     // console.log("arrayOfUsersinThisTeam");
-        //     // console.log(arrayOfUsersinThisTeam);
-        //     //io.to(socket.id).emit("teams", arrayOfUsersinThisTeam);
-        //
-        //
-        //     arrayOfUsersinThisTeam.forEach(myFunction2);
-        //     function myFunction2(item, index) {
-        //         console.log("item");
-        //         //console.log("payload");
-        //         //console.log();
-        //
-        //         io.to(item.id).emit('update team', arrayOfUsersinThisTeam);
-        //         // console.log(item);
-        //         // arrayOfUsersinThisTeam.push(users[item])
-        //     }
-        //
-        // }
-
-
-        //delete teams[socket.id];
-
-
+        updateUserTeamList();
     });
 
+
     socket.on('leaving', () => {
-        let roomIdFromClient = socket.handshake.headers.referer;
-        arrayOfUsersinThisTeam = [];
-
-        if(roomIdFromClient != null){
-            var roomURL = roomIdFromClient.split("/r/");
-            var roomNumber = roomURL[1];
-        }
-
-
         const roomID = socketToRoom[socket.id];
         const teamID = socketToTeam[socket.id];
-      //  console.log("a user left");
+
+        roomNumber = getRoomNumber();
         io.to(roomID).emit('left', socket.id);
-        //console.log(roomID);
-        // let room = users[roomID];
-        // if (room) {
-        //     room = room.filter(id => id !== socket.id);
-        //     users[roomID] = room;
-        // }
 
         if(teamID != null){
             let test = users[roomID][teamID];
@@ -654,126 +321,13 @@ io.on('connection', socket => {
                 users[roomNumber][teamID] = test;
             }
         }
-        //socket.leave(teamID);
         socket.leave(roomID);
+        updateUserTeamList();
 
-        //update team names in certain team.
-        if(users[roomNumber]){
-            if (users[roomNumber][teamID]) {
-                let sizeOfUsers = Object.keys(users[roomNumber][teamID]).length;
-                // console.log(sizeOfUsers );
-
-                users[roomID][teamID].forEach(myFunction);
-                function myFunction(item, index) {
-                //    console.log(item);
-                    arrayOfUsersinThisTeam.push(users[item])
-                }
-
-                arrayOfUsersinThisTeam.forEach(myFunction2);
-                function myFunction2(item, index) {
-                  //  console.log("item");
-                    //console.log("payload");
-                    //console.log();
-
-                    io.to(item.id).emit('update teams', arrayOfUsersinThisTeam);
-                    // console.log(item);
-                    // arrayOfUsersinThisTeam.push(users[item])
-                }
-
-                //io.to(socket.id).emit("update teams", arrayOfUsersinThisTeam);
-                //io.to(roomNumber).emit('update teams', arrayOfUsersinThisTeam);
-            }
-        }
         io.to(roomID).emit('left', socket.id);
         io.to(socket.id).emit('leaving user homepage');
         io.to(socket.id).emit('leaving room signal');
-
     });
-
-    //console.log("User connected");
-
-
-
-
-
-
-    //
-    // //console.log( socket.request.headers.referer);
-    // let room = '';
-    // const create = err => {
-    //     if (err) {
-    //         return console.log(err);
-    //     }
-    //     socket.join(room);
-    //     socket.emit('create');
-    // };
-    // // sending to all clients in the room (channel) except sender
-    // socket.on('message', message => {
-    //     // console.log(200, message);
-    //     socket.broadcast.to(room).emit('message', message)
-    // });
-    //
-    // socket.on('find', (props) => {
-    //
-    //     console.log(activeSockets);
-    //
-    //     console.log("found");
-    //     const url = props.pathname;
-    //
-    //     room = url[url.length - 1];
-    //     const sr = io.sockets.adapter.rooms[room];
-    //     if (sr === undefined) {
-    //         console.log("created a room");
-    //         // no room with such name is found so create it
-    //         socket.join(room);
-    //         socket.emit('create');
-    //
-    //     } else if (sr.length === room_size) {
-    //         console.log("full");
-    //
-    //     }else{
-    //
-    //         console.log("joining");
-    //         socket.emit('join');
-    //        // console.log(sr)
-    //     }
-    //     // } else { // max two clients
-    //     //     socket.emit('full', room);
-    //     // }
-    // });
-    // socket.on('auth', data => {
-    //     data.sid = socket.id;
-    //     // sending to all clients in the room (channel) except sender
-    //     socket.broadcast.to(room).emit('approve', data);
-    // });
-    // socket.on('getstream', id => {
-    //
-    // });
-    // socket.on('accept', id => {
-    //     io.sockets.connected[id].join(room);
-    //     // sending to all clients in 'game' room(channel), include sender
-    //
-    //     io.in(room).emit('bridge');
-    //     socket.broadcast.emit("update-user-list", {
-    //         users: [socket.id]
-    //     });
-    // });
-    // socket.on('reject', () => socket.emit('full'));
-    //
-
-    // socket.on("disconnect", () => {
-    //     activeSockets = activeSockets.filter(
-    //         existingSocket => existingSocket !== socket.id
-    //     );
-    //     socket.broadcast.emit("remove-user", {
-    //         socketId: socket.id
-    //     });
-    // });
-
-
-
 });
-
-
 
 console.log(`server is listening on ${port}`);

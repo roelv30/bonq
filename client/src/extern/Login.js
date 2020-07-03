@@ -85,17 +85,20 @@ class Login extends React.Component {
 								value={this.state.password}
 								onChange={this.handleChange} />
 						</label>
-						<NavLink exact activeClassName="active" className="login__article__form__forgotten" to="#">Forgotten your password?</NavLink>
-						<input className="login__article__form__button" type='submit' value='Login' />
-				    	{this.state.loading && <img className="login__article__form__loading" src="/img/loading.gif" alt="Loading..."/>}
-							{this.state.error !== '' ?
-								<p className="login__article__error">{this.state.error}</p>
+							<NavLink exact activeClassName="active" className="login__article__form__forgotten" to="#">Forgotten your password?</NavLink>
+							<input className="login__article__form__button" type='submit' value='Login' />
+
+
+				    {this.state.loading && <img className="login__article__form__loading" src="/img/loading.gif" alt="Loading..."/>}
+
+						{this.state.error !== '' ?
+							<p className="login__article__error">{this.state.error}</p>
 							:
-								<p className="login__article__error"> </p>
-							}
-						</form>
-					<NewToBonq text="New to bonq?" link="/register" linktext="Sign up for free!" className="login__article__new" />
+							<p className="login__article__error"> </p>
+						}
+					</form>
 				</article>
+				<NewToBonq text="New to bonq?" link="/register" linktext="Sign up for free!" className="login__article__new" />
 			</section>
 		);
 	};
