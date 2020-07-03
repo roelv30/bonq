@@ -8,18 +8,20 @@
 
 .login__article{
   padding: 2rem 0;
+  width: 40%;
+  margin: 0 auto;
 }
 
 .login__article__title{
   font-family: 'Squada One', cursive;
   letter-spacing: 4px;
   font-size: 3rem;
-  margin-left: 25rem;
+  /*margin-left: 25rem;*/
 }
 
 
 .login__article__form {
-  margin-left: 25rem;
+  /*margin-left: 25rem;*/
 
 }
 
@@ -30,7 +32,7 @@
 }
 
 .login__article__form__input {
-  width: 30rem;
+
   padding: 0.5rem;
   border-radius: 4px;
   margin: 1rem 0;
@@ -80,4 +82,10 @@
   font-size: 1rem;
   font-weight: bold;
   height: 1rem;
+}
+@media(max-width: 768px) {
+
+  .login__article{
+    width: 90%;
+  }
 }

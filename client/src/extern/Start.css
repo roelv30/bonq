@@ -11,8 +11,13 @@
 }
 
 .start__article__description {
-  margin: 1rem 22rem;
+  /*margin: 1rem 22rem;*/
   font-size: 0.8em;
+  display:flex;
+  width: 50%;
+  justify-content: center;
+  margin: 0 auto;
+  padding-bottom: 25px;
 }
 
 .start__article__title{

@@ -552,6 +552,18 @@ ul.tabs li button.tab-link-active{
 }
 
 @media(max-width: 768px) {
+  main{
+    width: 100%;
+  }
+  .dashboard__article__game{
+    width:100%;
+  }
+
+  .start__article__description{
+    width: 90%;
+  }
+
+
   .otherPeopleDiv{
     width:100%;
   }

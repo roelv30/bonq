@@ -1,11 +1,11 @@
 .new {
   display: flex;
-  justify-content: flex-start;
-  margin: 3rem 0 3em 25rem;
+  justify-content: center;
+
+  margin: 3rem 0;
 }
 .new__text {
   margin-right: 1rem;
-
 }
 
 .new__link {
