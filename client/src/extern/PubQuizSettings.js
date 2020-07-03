@@ -5,21 +5,22 @@ import './PubQuizSetup.css';
 import './Register.css';
 
 class PubQuizSettings extends React.Component {
+  // component to parse desired rounds and team count
 
   state = {
-    roundCount: 1,
-    teamCount: 1,
+    roundCount: 1,          // at least one round
+    teamCount: 1,           // at least one team
   }
 
-  sendData = () => {
+  sendData = () => {          // parse data back to parent via props, PubQuizSetup.js,
     this.props.parentCallback(this.state.roundCount);
   }
 
-  handleRoundChange = (props) => {
+  handleRoundChange = (props) => {          // store input value into state
     this.state.roundCount = props;
   }
 
-  handleTeamChange = (props) => {
+  handleTeamChange = (props) => {          // store input value into state
     this.state.teamCount = props;
   }
 
@@ -41,7 +42,7 @@ class PubQuizSettings extends React.Component {
   }
 }
 
-function ProceedButton(props) {
+function ProceedButton(props) {         // button to trigger function callback to parent, for switching components
   return (
     <button className={props.className} onClick={props.onClick}>
       Next
