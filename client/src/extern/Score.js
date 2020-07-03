@@ -15,10 +15,8 @@ class Score extends React.Component {
 
   componentDidMount(){
     const BASE_URL = `https://bonq-api.herokuapp.com/api/score`;
-
     axios.get(BASE_URL)
     .then(response => {
-
       // import team data and sort on score descending
       // teams are sorted by their scores
       const teams = response.data;
@@ -28,15 +26,12 @@ class Score extends React.Component {
     })
   } // componentDidMount
 
-
-
   render() {
     // first map through all elements in teams Object
     // then show views according to their scores
     const Scoreboard =
       <section>
         {this.state.teams.map((team, i) => {
-
           switch(i){
             case 0:
               return (
@@ -82,20 +77,17 @@ class Score extends React.Component {
           }
         })}
       </section>
-      
+
     // main score screen
     return (
       <section className="score">
         <p className="score__text">And the winner is ... </p>
-
-          {Scoreboard}
-
-          <article className="score__buttonbox">
-            <NavLink exact activeClassName="active" className="score__buttonbox__button" to="/dashboard">
-              End Game  &#9654;
-            </NavLink>
-          </article>
-
+        {Scoreboard}
+        <article className="score__buttonbox">
+          <NavLink exact activeClassName="active" className="score__buttonbox__button" to="/dashboard">
+            End Game  &#9654;
+          </NavLink>
+        </article>
       </section>
     )
   }

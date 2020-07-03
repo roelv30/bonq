@@ -3,14 +3,13 @@
   justify-content: flex-start;
   margin: 3rem 0 3em 25rem;
 }
+
 .new__text {
   margin-right: 1rem;
-
 }
 
 .new__link {
   margin-left: 1rem;
   color: #D10C76;
   font-weight: bold;
-
 }

@@ -5,7 +5,6 @@
   height: calc(100% - 6rem);
 }
 
-
 .login__article{
   padding: 2rem 0;
 }
@@ -17,10 +16,8 @@
   margin-left: 25rem;
 }
 
-
 .login__article__form {
   margin-left: 25rem;
-
 }
 
 .login__article__form__label {
