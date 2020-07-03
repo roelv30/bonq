@@ -554,6 +554,7 @@ const Room = (props) => {
 
     const submit = event => {
         event.preventDefault();
+        // event.stopImmediatePropagation();
         //socket.emit("roomName", nameRoomJoin);
         socketRef.current.emit("send", message);
         setMessage("");
@@ -657,14 +658,14 @@ const Room = (props) => {
                                                     maxLength="280"
                                                     onChange={e => setMessage(e.currentTarget.value)}
                                                     onKeyDown={e =>{
-                                                      if(e.keyCode == 13 && e.shiftKey == false) {
+                                                      if(e.keyCode === 13 && e.shiftKey === false) {
                                                         e.preventDefault();
+                                                        // console.log("haha ik ben ge enterd");
+                                                        // console.log(e);
                                                         const form = document.querySelector("#form__chat");
 
                                                         if (form !== null) {
-                                                            form.dispatchEvent(new Event('submit'));
-                                                        }else{
-                                                          console.log("lol");
+                                                            form.dispatchEvent(new Event('submit', {cancelable: true}));
                                                         }
                                                       };
                                                     }}
