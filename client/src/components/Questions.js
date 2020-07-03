@@ -3,11 +3,18 @@ import Switch from "react-switch";
 import io from "socket.io-client";
 import Share from '../extern/Share';
 
-
-
-
+import Waitingscreen from '../extern/Waitingscreen';
 
 const Questions = (props) => {
+
+    // if(!props.playerRole === 'host'){
+    //   console.log("i am called m'lady");
+    //   return(
+    //     <section className="vraag__post">
+    //       <Waitingscreen />
+    //     </section>
+    //   );
+    // }
     // roundNumber
     if(props.questions.length > 0){
         return (
@@ -24,9 +31,9 @@ const Questions = (props) => {
       if(props.playerRole === "host") {
         return (
           <section className="vraag__post">
-          <h4>Room Code: <span className="vraag__post__code">{props.roomID}</span></h4>
-          <p>When you're ready to play, click 'Get Questions'.</p>
-          <Share/>
+            <h4>Room Code: <span className="vraag__post__code">{props.roomID}</span></h4>
+            <p>When you're ready to play, click 'Get Questions'.</p>
+            <Share/>
           </section>
         );
       } else {
@@ -41,3 +48,7 @@ const Questions = (props) => {
 };
 
 export default Questions;
+
+
+//
+// //
