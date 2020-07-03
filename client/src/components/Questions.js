@@ -31,9 +31,9 @@ const Questions = (props) => {
       if(props.playerRole === "host") {
         return (
           <section className="vraag__post">
-          <h4>Room Code: <span className="vraag__post__code">{props.roomID}</span></h4>
-          <p>When you're ready to play, click 'Get Questions'.</p>
-          <Share/>
+            <h4>Room Code: <span className="vraag__post__code">{props.roomID}</span></h4>
+            <p>When you're ready to play, click 'Get Questions'.</p>
+            <Share/>
           </section>
         );
       } else {
@@ -48,3 +48,7 @@ const Questions = (props) => {
 };
 
 export default Questions;
+
+
+//
+// //
