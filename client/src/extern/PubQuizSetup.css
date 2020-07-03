@@ -88,6 +88,7 @@
 .pubq__article__button-next{
   width: 100%;
   margin-top: 50px;
+  border-radius: 5px !important;
 }
 
 .pubq__article__button{
