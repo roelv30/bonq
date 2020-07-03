@@ -1,0 +1,43 @@
+@keyframes spin {
+  /* from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);} */
+
+
+
+}
+
+@keyframes leftBear {
+  from{transform: translateX(0);}
+  to{transform: translateX(100px);}
+}
+
+@keyframes middleBear {
+  from{transform: translateX(100px);}
+  100%{transform: translateX(0);}
+}
+
+@keyframes rightBear {
+  from{transform: translateX(0);}
+  100%{transform: translateX(100px);}
+}
+
+.waitingscreen{
+  height: 100vh;
+}
+
+.waitingscreen__imageholder{
+  height: 50%;
+  margin-top: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.waitingscreen__textholder{
+  text-align: center;
+}
+
+.waitingscreen__imageholder__image{
+  margin-right: 5rem;
+}
