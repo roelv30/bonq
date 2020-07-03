@@ -1,0 +1,142 @@
+.review{
+  padding: 2rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.review__back{
+  padding: 2rem 0;
+}
+
+.review__main{
+  width: 80%;
+  margin: 1rem auto;
+  height: 60rem;
+  position: relative;
+  overflow-y: auto;
+}
+
+.review__main__title{
+  font-family: 'Squada One', cursive;
+  letter-spacing: 3px;
+  font-size: 4rem;
+}
+
+.review__main__box{
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.review__main__box__groups{
+  margin-top: 5%;
+  margin-right: 5%;
+  padding-bottom: 3%;
+  border-bottom: solid 2px #D10C76;
+}
+
+.review__main__box__groups__answers{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.review__main__box__check__buttons{
+  display: flex;
+}
+
+.review__main__box__check__buttons > button {
+  margin: 0 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.review__main__box__groups__answers-text__group{
+  list-style-type: disc;
+}
+
+input[type="checkbox"][class^="review__main__box__check__buttons__input"]{
+  display: none;
+}
+
+label{
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+
+.review__main__box__check__buttons__label img {
+  filter: grayscale(100%);
+}
+
+:checked + label img {
+  filter: brightness(200%);
+}
+
+
+.review__main__box__question{
+  font-size: 2.5rem;
+}
+
+.review__main__box__answer{
+  font-size: 2rem;
+}
+
+.review__options{
+  width: 100%;
+  text-align: right;
+}
+
+.review__options__confirm{
+  font-family: 'Squada One', cursive;
+  color: #fff;
+  background-color: #0ABDC6;
+  width: 20rem;
+  height: 5rem;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  display: inline-block;
+  text-decoration: none;
+  padding: 1rem;
+  text-align: center;
+  margin-right: 2rem;
+}
+
+.review__options__confirm:hover{
+  cursor: pointer;
+  box-shadow: inset 0 0 5px #000000;
+}
+
+#checkAnswerButton{
+  font-family: 'Squada One', cursive;
+  color: #fff;
+  background-color: #0ABDC6;
+  width: 20rem;
+  height: 5rem;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  display: inline-block;
+  text-decoration: none;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+#checkAnswerButton:hover{
+  box-shadow: inset 0 0 5px #000000;
+}
+
+@media (max-width: 768px) {
+
+  .review__main__title{
+    font-size: 3rem;
+  }
+
+}

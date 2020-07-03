@@ -1,0 +1,18 @@
+.share {
+  padding: 0.5rem 3rem;
+}
+
+.share__button {
+  display: flex;
+  margin: 1rem 0;
+  transition: 0.5s;
+}
+
+.share__button:hover {
+  opacity: 0.5;
+}
+
+.share__text {
+  font-size: 1em;
+  margin-left: 1em;
+}

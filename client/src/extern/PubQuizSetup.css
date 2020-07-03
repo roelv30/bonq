@@ -1,0 +1,210 @@
+.scroll {
+  overflow-y: scroll;
+}
+
+.react-numeric-input input {
+  /* width: 30rem !important; */
+  padding: 0.5rem !important;
+  border-radius: 4px !important;
+  margin: 1rem 0 !important;
+  border: 1px solid #31C3BA !important;
+  background-color: rgb(255, 255, 255) !important;
+}
+
+.react-tabs__tab-list{
+  margin-bottom: 30px;
+  text-align: center;
+  box-shadow: 0px 5px 7px -5px rgba(0, 0, 0, 0.2);
+  border-bottom: none;
+}
+
+.react-tabs__tab-list:focus::after{
+  background: none;
+}
+
+.react-tabs__tab{
+  color: #d10c76;
+  font-size: 2.1rem;
+}
+
+.react-tabs__tab--selected{
+  background-color: #0ABDC6;
+  color: white;
+}
+
+.react-tabs__tab:hover{
+  background-color: white;
+  border-radius: 4px 4px 0 0;
+  color: black;
+}
+
+.pubq__background{
+  position: absolute;
+  height: 95%;
+  opacity: 0.5;
+  width: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.pubq__article__form {
+  margin-left: 25rem !important;
+
+}
+
+.pubq__question__pair, .pubq__settings__cont__form{
+  margin-bottom: 50px;
+  background-color: #181818;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.pubq__article__form__label {
+  display: flex !important;
+  flex-direction: column !important;
+  color: #0ABDC6;
+  text-align: center;
+}
+
+.pubq__article__form__label--q {
+  color: #d10c76;
+}
+
+.pubq__article__form__label > input{
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.question, .answer {
+  /* width: 30rem !important; */
+  padding: 0.5rem !important;
+  border-radius: 4px !important;
+  margin: 1rem 0 !important;
+  border: 1px solid #31C3BA !important;
+  background-color: rgb(255, 255, 255) !important;
+
+}
+
+.pubq__article__button-next{
+  width: 100%;
+  margin-top: 50px;
+  border-radius: 5px !important;
+}
+
+.pubq__article__button{
+  font-family: 'Squada One', cursive;
+  color: #fff;
+  background-color: #0ABDC6;
+  width: 100%;
+  height: 5rem;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  display: inline-block;
+  text-decoration: none;
+  padding: 1rem;
+  text-align: center;
+  margin-bottom: 140px;
+}
+
+.pubq__article__button-remove{
+  font-family: 'Squada One', cursive;
+  color: #fff;
+  background-color: black;
+  width: 35%;
+  height: 3rem;
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  display: inline-block;
+  text-decoration: none;
+  padding: 1rem;
+  text-align: center;
+  float: right;
+}
+
+.pubq__article__button-remove:hover{
+  cursor: pointer;
+  background-color: crimson;
+
+}
+
+.pubq__questions__back{
+  font-family: 'Squada One', cursive;
+  color: #fff;
+  background-color: #0ABDC6;
+  width: 10rem;
+  height: 4.1rem;
+  letter-spacing: 3px;
+  border-radius: 0 10px 10px 0;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  font-size: 2rem;
+  margin-bottom: 4rem;
+}
+
+.pubq__article__submit{
+  background-color: #133E7C !important;
+  /* margin: 200px 0; */
+  letter-spacing: 8px;
+  height: 6rem;
+  border-radius: 5px;
+  position: fixed;
+  width: 300px;
+  bottom: -5%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  /* margin-bottom: 0; */
+}
+
+.react-tabs__tab-panel, .pubq__settings__cont__form{
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.pubq__settings__cont__form{
+  margin: 0 auto;
+}
+
+.pubq__settings__cont{
+  width: 300px;
+  margin: 0 auto;
+}
+
+.pubq__settings__cont__form__input{
+  width: 85%;
+}
+
+.react-numeric-input i{
+  border-color: transparent transparent rgba(255, 255, 255, 1) !important;
+  font-size: 30px !important;
+  border-width: .8ex 1ex .6ex !important;
+  margin-top: -1ex !important;
+  cursor: pointer;
+}
+
+b:nth-child(3) i{
+  border-color: rgba(255, 255, 255, 1) transparent transparent !important;
+  font-size: 30px !important;
+  border-width: .6ex 1ex .6ex !important;
+}
+
+.react-numeric-input b{
+  width: 45px !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: none !important;
+}
+
+b:nth-child(3) {
+  margin-top: 10px !important;
+}

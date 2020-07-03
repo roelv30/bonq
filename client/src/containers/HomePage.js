@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Home from '../components/Home'
 import PropTypes from 'prop-types';
 
-import store from '../store'
+// import store from '../store'
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -25,8 +25,9 @@ class HomePage extends React.Component {
     e.preventDefault();
 
     //this.props.history.push('hello');
-    console.log(this.state.checked);
+    //console.log(this.state.checked);
     this.props.history.push('r/' + this.state.value );
+    window.location.reload();
 
   };
   setUsername = (e) => {

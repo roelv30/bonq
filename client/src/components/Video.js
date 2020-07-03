@@ -33,7 +33,7 @@ const Video = (props) => {
     return (
         <section>
             <StyledVideo playsInline autoPlay ref={ref} id={props.socketID} />
-            <p id={props.socketID}>{props.username}</p>
+            {/*<p id={props.socketID}>{props.username}</p>*/}
         </section>
 
 
