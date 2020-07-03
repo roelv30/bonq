@@ -81,6 +81,15 @@ class Review extends React.Component {
     }
   } //onSubmit
 
+  onDelete(e){
+    e.preventDefault();
+    console.log("ik verwijder alles yeet");
+    const DELETE_URL = `https://bonq-api.herokuapp.com/api/deletescore`;
+
+    axios.delete(DELETE_URL, {
+    })
+  } //onDelete
+
   // this function fetches the answers per team from the previous page
   // also the questions and their answers for the check function
   fetchAnswers(){
@@ -174,6 +183,10 @@ class Review extends React.Component {
 
         <section className="review__options">
           <button id="js--review__button" onClick={this.onSubmit} type="button" className="review__options__confirm">submit</button>
+        </section>
+
+        <section className="review__options">
+          <button onClick={this.onDelete} type="button" className="review__options__confirm">Delete</button>
         </section>
       </article>
 
