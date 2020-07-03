@@ -48,6 +48,7 @@ class Review extends React.Component {
   onSubmit(e){
     e.preventDefault();
     const POST_URL = 'https://bonq-api.herokuapp.com/api/setscore';
+    const DELETE_URL = `https://bonq-api.herokuapp.com/api/deletescore`;
     let checkButton = document.querySelectorAll('input');
     let points = {};
     let teamScore = [];
@@ -65,6 +66,11 @@ class Review extends React.Component {
       points[teamName] = (points[teamName] || 0) + 1
     });
 
+    // first we delete the old scores, if there are any
+    axios.delete(DELETE_URL, {
+    })
+
+    // then we put the scores into table
     for(let i = 0; i < Object.keys(points).length; i++){
       axios.post(POST_URL, {
         team: Object.keys(points)[i],
@@ -80,15 +86,6 @@ class Review extends React.Component {
       })
     }
   } //onSubmit
-
-  onDelete(e){
-    e.preventDefault();
-    console.log("ik verwijder alles yeet");
-    const DELETE_URL = `https://bonq-api.herokuapp.com/api/deletescore`;
-
-    axios.delete(DELETE_URL, {
-    })
-  } //onDelete
 
   // this function fetches the answers per team from the previous page
   // also the questions and their answers for the check function
@@ -185,9 +182,7 @@ class Review extends React.Component {
           <button id="js--review__button" onClick={this.onSubmit} type="button" className="review__options__confirm">submit</button>
         </section>
 
-        <section className="review__options">
-          <button onClick={this.onDelete} type="button" className="review__options__confirm">Delete</button>
-        </section>
+
       </article>
 
     );
