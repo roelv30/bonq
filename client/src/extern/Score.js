@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import './Score.css';
-import {Redirect} from "react-router-dom";
 
 class Score extends React.Component {
 
@@ -36,7 +35,7 @@ class Score extends React.Component {
             case 0:
               return (
                 <article className="score__winner" key={i}>
-                <img className="score__winner__img" src="/img/winner.png"/>
+                <img className="score__winner__img" src="/img/winner.png" alt="1st place bonq"/>
                     <section className="score__winner__data">
                     <h1 className="score__winner__data__name">{team.team}</h1>
                     <p className="score__winner__data__score">You got {team.score} questions right!</p>
@@ -46,7 +45,7 @@ class Score extends React.Component {
             case 1:
               return (
                 <article className="score__runnerup" key={i}>
-                <img className="score__runnerup__img" src="/img/runnerup.png"/>
+                <img className="score__runnerup__img" src="/img/runnerup.png" alt="2nd place bonq"/>
                   <section className="score__runnerup__data">
                     <p className="score__runnerup__data__text">The runner-up</p>
                     <h1 className="score__runnerup__data__name">{team.team}</h1>
@@ -57,7 +56,7 @@ class Score extends React.Component {
             case 2:
               return (
                 <article className="score__third" key={i}>
-                <img className="score__third__img" src="/img/third.png"/>
+                <img className="score__third__img" src="/img/third.png" alt="3rd place bonq"/>
                   <section className="score__third__data">
                       <p className="score__runnerup__data__text">And the honorable mention</p>
                     <h1 className="score__third__data__name">{team.team}</h1>
@@ -69,7 +68,7 @@ class Score extends React.Component {
             default:
               return(
                 <article className="score__other" key={i}>
-                  <img className="score__other__img" src="/img/background.png"/>
+                  <img className="score__other__img" src="/img/background.png" alt="other bonqers"/>
                     <h1 className="score__other__name">{team.team}</h1>
                     <p className="score__other__score">{team.score}</p>
                 </article>
