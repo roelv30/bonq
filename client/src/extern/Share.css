@@ -1,19 +1,18 @@
 .share {
-  padding: 1em 0;
-
+  padding: 0.5rem 3rem;
 }
 
-.share > button {
+.share__button {
   display: flex;
+  margin: 1rem 0;
   transition: 0.5s;
 }
 
-.share > button:hover {
+.share__button:hover {
   opacity: 0.5;
 }
 
 .share__text {
-  font-family: 'Squada One', cursive;
   font-size: 1em;
   margin-left: 1em;
 }
