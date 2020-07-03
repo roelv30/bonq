@@ -22,7 +22,6 @@
   width: 20rem;
 }
 
-
 .score__winner__data{
   font-size: 3rem;
 }
@@ -56,8 +55,8 @@
   color: #d10c76;
   font-family: 'Squada One', cursive;
   letter-spacing: 8px;
-
 }
+
 .score__runnerup__data__score, .score__third__data__score, .score__other__score {
   margin-left: auto;
 }
