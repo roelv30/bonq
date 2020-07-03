@@ -17,7 +17,7 @@ class CreateQuestionTable extends Migration
             // $table->integer('question_id')->primary();
             $table->id();
             $table->integer('room_id');
-            $table->string('rounds_array');
+            $table->longText('rounds_array');
             // $table->integer('order');   // displays where the question should be put in order e.g. 1 will be the first question
             // $table->string('shown_question');
             // $table->integer('answer');
