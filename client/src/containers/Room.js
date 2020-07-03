@@ -185,7 +185,7 @@ const Room = (props) => {
             if(message === "yes"){
                 setIntroDone(true);
             }else{
-               console.log("NO! can't join");
+              alert("\t\t No room found with that roomcode\t\n  \tPlease check your roomcode and try again\t\t");
             }
 
             //console.log("message"  + messages);
@@ -319,7 +319,10 @@ const Room = (props) => {
 
     const hangup = () => {
 
+      if (userVideo.current.srcObject) {
         userVideo.current.srcObject.getTracks().forEach(track => track.stop());
+
+      }
         socketRef.current.emit("leaving");
         props.history.push('/');
     };
@@ -554,6 +557,7 @@ const Room = (props) => {
 
     const submit = event => {
         event.preventDefault();
+        // event.stopImmediatePropagation();
         //socket.emit("roomName", nameRoomJoin);
         socketRef.current.emit("send", message);
         setMessage("");
@@ -609,18 +613,16 @@ const Room = (props) => {
                     <source src="https://freesound.org/data/previews/131/131657_2398403-lq.mp3"></source>
                 </audio>
 
-                <section>
-                    <h2>Vragen</h2>
                     <div id={"vragen"}>
                         <Questions questions={questions} questionNumber={questionNumber} roundNumber={roundNumber}/>
                     </div>
-                    <div className={(typeOfPlayer === "host" ? 'show' : 'hidden')}>
-                        {/*<button type={"button"} onClick={reset}>Reset game</button>*/}
-                        <button type={"button"} onClick={getQuestions}>Start game</button>
-                        <button type={"button"} onClick={getNextQuestions} className={(showQuestionBtn  === true ? 'show' : 'hidden')}>next Question</button>
-                        <button type={"button"} onClick={getNextRound} className={(showReview === true || showRounds === false ? 'hidden' : 'show')}>next Round</button>
-                        <button type={"button"} onClick={getReview} className={(showReview === true ? 'show' : 'hidden')}>Review</button>
-                    </div>
+
+
+                <section className={(typeOfPlayer === "host" ? 'show' + " room__host__button-container" : 'hidden' + " room__host__button-container")}>
+                    <button type={"button"} onClick={getQuestions} className="room__host__button-grid">Get questions</button>
+                    <button type={"button"} onClick={getNextQuestions} className={(maxQuestions > 1 ? 'show' + " room__host__button-grid" : 'hidden' + " room__host__button-grid")}>next Question</button>
+                    <button type={"button"} onClick={getNextRound} className={(showReview === true ? 'hidden' + " room__host__button-grid" : 'show' + " room__host__button-grid")}>next Round</button>
+                    <button type={"button"} onClick={getReview} className={(showReview === true ? 'show' + " room__host__button-grid" : 'hidden' + " room__host__button-grid")}>Review</button>
                 </section>
 
 
@@ -657,14 +659,14 @@ const Room = (props) => {
                                                     maxLength="280"
                                                     onChange={e => setMessage(e.currentTarget.value)}
                                                     onKeyDown={e =>{
-                                                      if(e.keyCode == 13 && e.shiftKey == false) {
+                                                      if(e.keyCode === 13 && e.shiftKey === false) {
                                                         e.preventDefault();
+                                                        // console.log("haha ik ben ge enterd");
+                                                        // console.log(e);
                                                         const form = document.querySelector("#form__chat");
 
                                                         if (form !== null) {
-                                                            form.dispatchEvent(new Event('submit'));
-                                                        }else{
-                                                          console.log("lol");
+                                                            form.dispatchEvent(new Event('submit', {cancelable: true}));
                                                         }
                                                       };
                                                     }}
@@ -692,13 +694,15 @@ const Room = (props) => {
                             </TabContent>
                             <TabContent for="tab2" className={(typeOfPlayer === "host" ? 'hidden' : 'show')}>
 
-                                <div className={teamNameStateSet ? "hidden" : "visible"}>
-                                    <h2>Choose a Teamname</h2>
-                                    <input type="text" name="username" value={teamName} onChange={handleTeamNameChange} className={"whiteText"}
+                                <div className={teamNameStateSet ? "hidden" + " background__inside__team" : "visible" + " background__inside__team"}></div>
+                                <div className={teamNameStateSet ? "hidden" + " background__inside__team__shade" : "visible" + " background__inside__team__shade"}></div>
+                                <div className={teamNameStateSet ? "hidden" + " teamname__container" : "visible" + " teamname__container"}>
+                                    <h2 className="teamname__container-title">Pick a Team Name:</h2>
+                                    <input type="text" name="username" value={teamName} onChange={handleTeamNameChange}
                                             maxLength="25"
                                            pattern="^\w+$" maxLength="25" required autoFocus
-                                           title="Username" className={"whiteText"}/>
-                                    <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Set team name</button>
+                                           title="Username" className={"whiteText teamname__container__input"}/>
+                                    <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Create / Join</button>
                                     {/*<button onClick={setNextPage}>Next page</button>*/}
                                 </div>
                                 <div id={"test"}>
@@ -706,16 +710,17 @@ const Room = (props) => {
 
                                 <div id={"remoteContainer"}>
                                     {/*{peers.length}*/}
-
-                                    {peers.map((peer, index) => {
-                                        return (
-                                            <div id={peersRef.current[index].peerID} className={"otherPeopleDiv"}>
-                                                {/*<video id={peersRef.current[index].socketID} ></video>*/}
-                                                <Video key={index} peer={peer} socketID={peersRef.current[index].socketID} username={"gebruiker"} type={switchState} />
-                                                {/**/}
-                                            </div>
-                                        );
-                                    })}
+                                    <section className="remoteContainer__cams">
+                                      {peers.map((peer, index) => {
+                                          return (
+                                              <div id={peersRef.current[index].peerID} className={"otherPeopleDiv"}>
+                                                  {/*<video id={peersRef.current[index].socketID} ></video>*/}
+                                                  <Video key={index} peer={peer} socketID={peersRef.current[index].socketID} username={"gebruiker"} type={switchState} />
+                                                  {/**/}
+                                              </div>
+                                          );
+                                      })}
+                                    </section>
                                     <h2 className={"teamname"}>Teamname: {teamName},  </h2>
                                     <h4><ul className={"usersInTeam"}><li>users:</li>{teams.map(({ name, id }) => ( <li key={id}>{name}, </li>   ))}</ul></h4>
                                 </div>
@@ -723,13 +728,17 @@ const Room = (props) => {
 
                             </TabContent>
                             <TabContent for="tab3">
+<<<<<<< HEAD
                                 <form onSubmit={submitAnswersTeam} id="form-answer-team">
+=======
+                                <form onSubmit={submitAnswersTeam} id="form-answer-team" >
+>>>>>>> e6a9b3a2db7217ea927462defb7a087787487acb
 
                                     <div className={" input-group" } >
                                         {/*<input type="text" className="form-control" value={roundNumber}   id="text"/>*/}
                                         {/*<input type="text" className="form-control" value={questionNumber}   id="text"/>*/}
 
-                                        <label htmlFor="text">Group answer</label>
+                                        <label htmlFor="text">Your answer for question: #{questionNumber}</label>
                                         <input type="text" className="form-control whiteText" value={answer}   onChange={e => setAnswer(e.currentTarget.value)} id="text"/>
 
                                         <span className="input-group-btn">
