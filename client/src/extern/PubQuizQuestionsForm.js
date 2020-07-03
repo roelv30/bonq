@@ -29,17 +29,17 @@ class PubQuizQuestionsForm extends React.Component {
     }, 100)
   };
 
-  state = {         //
+  state = {         // state with needed items, instantiated with at least one round already so initial render is allowed
     round0: [],
-    roundCount: [],
-    selectedTab: 0,
-    roundSelected: false,
-    redirect: false,
-    redirectTo: 0,
-    room: 0,
+    roundCount: [],               // is array to enable mapping later
+    selectedTab: 0,               // keep track of which tab is selected to show Q A pairs
+    roundSelected: false,         // track if tab is selected to disable pulse effect
+    redirect: false,              // track if eligible for redirect to game start
+    redirectTo: 0,                // field to store roomID
+    // room: 0,                   // unused? dupe of above? Delete later if no bugs
   };
 
-  updateRoundCount = () => {
+  updateRoundCount = () => {          // function to fill roundCount state
     let roundArray = [];
     let extRoundCount = this.props.roundCount;
     for (var i = 0; i < extRoundCount; i++) {
@@ -52,7 +52,7 @@ class PubQuizQuestionsForm extends React.Component {
     })
   }
 
-  parseRoundsIntoState = (e) => {
+  parseRoundsIntoState = (e) => {         // function to insert base Q A pairs into defined rounds
     for (let i = 0; i < this.state.roundCount.length; i++) {
       let selectedRoundName = "round" + i;
       let selectedRoundArray = [{ question: "", answer: ""}];
@@ -64,13 +64,13 @@ class PubQuizQuestionsForm extends React.Component {
     }
   }
 
-  handleChange = (e) => {
+  handleChange = (e) => {         // parse values from input fields into selected round Q or A
     let selectedRound = "round" + this.state.selectedTab;
     if (["question", "answer"].includes(e.target.className)) {
 
       // let questionOrAnswer = e.target.className
       // let index = e.target.dataset.id
-      let value = e.target.value
+      // let value = e.target.value
 
       let data = [...this.state[selectedRound]];
 
@@ -78,25 +78,23 @@ class PubQuizQuestionsForm extends React.Component {
     }
   }
 
-  addItem = (e) => {
+  addItem = (e) => {          // add more Q A pairs into selected round
     let selectedRound = "round" + this.state.selectedTab;
-
 
     this.setState((prevState) => ({
       [selectedRound]: [...prevState[selectedRound], {question: "", answer: ""}],
     }));
   };
 
-  removeItem = (e) => {
+  removeItem = (e) => {         // prototype function for removing Q A pairs
     let selectedRound = "round" + this.state.selectedTab;
 
-
     this.setState((prevState) => ({
-      [selectedRound]: [...prevState[selectedRound], {question: "", answer: ""}],
+      [selectedRound]: [...prevState[selectedRound][0], undefined],
     }));
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = (e) => {         // put all rounds in array and post in database. Authorisation required for integrity, JWT token sent as header with request. Once posted -> start room creation
     e.preventDefault();
 
     const token = localStorage.getItem('jwt');
@@ -122,7 +120,7 @@ class PubQuizQuestionsForm extends React.Component {
         })
   }
 
-  generateRoom = () => {
+  generateRoom = () => {        // random 6 digit num generator for roomID
     const min = 100000;
     const max = 999999;
     const rand = min + Math.random() * (max - min);
@@ -131,7 +129,7 @@ class PubQuizQuestionsForm extends React.Component {
     return fixedRandom;
   }
 
-  putRoundsIntoArray = () => {
+  putRoundsIntoArray = () => {          // insert all rounds into array for single post request
     let roundsArray = [];
     for (let i = 0; i < this.state.roundCount.length; i++) {
       let selectedRoundName = "round" + i;
@@ -140,15 +138,14 @@ class PubQuizQuestionsForm extends React.Component {
     return roundsArray;
   }
 
-  changeSelectedRound = (e) => {
-    console.log(e.target.dataset.id);
+  changeSelectedRound = (e) => {          // function to change slected round state
     let id = e.target.dataset.id;
     this.setState(prevState => {
       let item = Object.assign({}, prevState);
       item.selectedTab = id;
       return item ;
     })
-    if (this.state.roundSelected === false) {
+    if (this.state.roundSelected === false) {         // disable initial pulse effect for tabs
       this.setState(prevState => {
         let item = Object.assign({}, prevState);
         item.roundSelected = true;
@@ -164,26 +161,21 @@ class PubQuizQuestionsForm extends React.Component {
 
   render() {
 
-    const { redirect } = this.state;
-
+    const { redirect } = this.state;          // when submitted, setState force to rerender to redirect next loc
     if (redirect) {
       window.location.replace("/r/" + this.state.redirectTo);
     }
 
     const currentRound = this.state["round" + this.state.selectedTab];
 
-    const testArray = [1, 2, 3, 4, 5];
-
-    const roundTabList = this.state.roundCount.map((roundTab)=>{
+    const roundTabList = this.state.roundCount.map((roundTab)=>{          // generate all tabs tabby tab things
       if (this.state.round0){
           return <Tab className={(this.state.roundSelected === false ? "pulse" + " react-tabs__tab": '' + " react-tabs__tab")} onClick={this.changeSelectedRound} data-id={roundTab}>{"Round " + (roundTab+1)}</Tab>;
-
       }
-
     });
 
-    const roundTabPanel = this.state.roundCount.map((roundPanel)=>{
-      if (this.state.round0){
+    const roundTabPanel = this.state.roundCount.map((roundPanel)=>{          // generate all tab panels
+      // if (this.state.round0){         // obsolete check? delete lines later
         return (
           <>
             <TabPanel>
@@ -204,16 +196,16 @@ class PubQuizQuestionsForm extends React.Component {
                 })
               }
               <button className="pubq__article__button" type="button" onClick={this.addItem} >Add new Question</button>
-                  <button className="pubq__article__button pubq__article__submit" type="submit" value="submit" > Start Game! &#10151;</button>
+              <button className="pubq__article__button pubq__article__submit" type="submit" value="submit" > Start Game! &#10151;</button>
             </TabPanel>
-            </>
+          </>
         );
-      } else {
-      }
+      // }
     });
 
     let buttonPrev = <GoBackButton className="pubq__questions__back" onClick={ this.sendData } />
 
+    // final render with local components
     return(
         <>
           { buttonPrev }
@@ -232,7 +224,7 @@ class PubQuizQuestionsForm extends React.Component {
   }
 }
 
-function GoBackButton(props) {
+function GoBackButton(props) {          // turn back if you are in a place you don't want to be
   return (
       <button className={props.className} onClick={props.onClick}>
         &larr; back
