@@ -188,7 +188,7 @@ class Review extends React.Component {
 
           <h2 className="review__main__title">Time to check the answers!</h2>
           <section>
-            <button onClick={this.fetchAnswers} type="button" className={(this.state.showButton === true ? 'show' : 'hidden')}>Check Answers</button>
+            <button onClick={this.fetchAnswers} type="button" className={(this.state.showButton === true ? 'show' : 'hidden')} id="checkAnswerButton">Check Answers</button>
           </section>
 
           {Questions}
