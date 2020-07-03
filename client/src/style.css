@@ -82,18 +82,18 @@ textarea{
   z-index: 9;
 }
 
-.input-group {
+.input_group {
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: center;
 }
 
-.input-group-btn {
+.input_group__btn {
   margin-left: 2rem;
 }
 
-.input-group-btn-submit {
+.input_group__btn__submit {
   display: flex;
   align-items: center;
   border: none;
@@ -109,16 +109,16 @@ textarea{
   cursor: pointer;
 }
 
-.input-group-btn-submit:hover {
+.input_group__btn__submit:hover {
   box-shadow: inset 0 0 5px #000000;
 }
 
-.input-group-btn-img {
+.input_group__btn__img {
   margin-left: 1rem;
 }
 
 
-.form-control{
+.input_group__form_control{
   margin: 20px 0px !important;
   width: 30rem;
   resize: none;
@@ -224,7 +224,7 @@ ul.tabs li button.tab-link-active{
   position: relative;
 }
 
-.teamname__container-title{
+.teamname__container__title{
   margin-bottom: 30px;
 }
 
