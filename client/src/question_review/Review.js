@@ -1,11 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Switch , Route, Link} from 'react-router-dom';
 import axios from 'axios';
-import Back from '../extern/Back';
 import '../question_review/Review.css';
-import io from "socket.io-client";
-import SocketContext from '../components/SocketContext';
 
 class Review extends React.Component {
 
