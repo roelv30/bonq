@@ -723,7 +723,7 @@ const Room = (props) => {
 
                             </TabContent>
                             <TabContent for="tab3">
-                                <form onSubmit={submitAnswersTeam} id="form-answer-team" className={(isAlreadySubmitted  === false ? 'show' : 'hidden')}>
+                                <form onSubmit={submitAnswersTeam} id="form-answer-team">
 
                                     <div className={" input-group" } >
                                         {/*<input type="text" className="form-control" value={roundNumber}   id="text"/>*/}
@@ -756,3 +756,4 @@ const Room = (props) => {
 };
 
 export default Room;
+//className={(isAlreadySubmitted  === false ? 'show' : 'hidden')}
