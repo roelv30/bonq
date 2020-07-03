@@ -79,6 +79,7 @@ function myFunction(item, index) {
 }
 
 
+let roomsWithout = [];
 io.on('connection', socket => {
     const user = {
         name: null,
@@ -97,7 +98,7 @@ io.on('connection', socket => {
 
         io.emit('getAnswerListFull', answers);
         io.emit('getAnswerListFull2', roomNumber);
-        console.log();
+       // console.log();
 
     });
 
@@ -119,6 +120,7 @@ io.on('connection', socket => {
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
         }
+      // console.log(payload);
 
         if (answers[roomNumber]) {
             //console.log("team is already existing");
@@ -129,7 +131,13 @@ io.on('connection', socket => {
             // }
             //console.log(answers[roomNumber][]);
             if(answers[roomNumber][payload[3]]){
-                answers[roomNumber][payload[3]].push(payload[2]);
+
+                if(Object.values(answers[roomNumber][payload[3]])[0] === ''){
+                    answers[roomNumber][payload[3]] = [payload[2]];
+                }else{
+                    answers[roomNumber][payload[3]].push(payload[2]);
+                }
+
             }else{
                 answers[roomNumber][payload[3]] = [payload[2]];
             }
@@ -138,9 +146,26 @@ io.on('connection', socket => {
             answers[roomNumber] = {[payload[3]] : [payload[2]]};
         }
 
+        //console.log(users[roomNumber][payload[3]]);
+
+
 
         //console.log(answers[roomNumber]);
     });
+
+
+    socket.on("toRestOfTeam", payload => {
+        let roomIdFromClient = socket.handshake.headers.referer;
+        if(roomIdFromClient != null){
+            var roomURL = roomIdFromClient.split("/r/");
+            var roomNumber = roomURL[1];
+        }
+        for (let i = 0; i < users[roomNumber][payload].length; i++) {
+            io.to(users[roomNumber][payload][i]).emit('answerIsSubmitted');
+        }
+    });
+
+
 
     socket.on("startGame", () => {
         let roomIdFromClient = socket.handshake.headers.referer;
@@ -169,19 +194,176 @@ io.on('connection', socket => {
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
         }
-        io.to(roomNumber).emit('sendForm');
-        io.to(roomNumber).emit('roundNumberUpdate', roundnumber);
+
+        if(!answers[roomNumber]){
+
+            // for (let i = 0; i < Object.keys(users[roomNumber]).length; i++) {
+            //     for (let j = 0; j < Object.keys(answers[roomNumber]).length; j++) {
+            //         if(Object.keys(answers[roomNumber])[i] === questionNumber[2] ){
+            //
+            //         }
+            //     }
+            //     io.to(Object.values(users[roomNumber])[i][0]).emit('sendForm', Object.keys(users[roomNumber])[i] );
+            // }
+
+        }else{
+            for (let j = 0; j < Object.keys(answers[roomNumber]).length; j++) {
+                if(Object.values(answers[roomNumber])[j][0] === ""){
+                    Object.values(answers[roomNumber])[j][0] = "niets";
+                }
+                if(!Object.values(answers[roomNumber])[j][(roundnumber[0] + roundnumber[1] - 1)]){
+                    //console.log("not in there");
+                    Object.values(answers[roomNumber])[j].push("niets");
+                    //console.log(Object.values(answers[roomNumber]));
+                    // if(roomsWithout){
+                    //     roomsWithout.push(Object.keys(answers[roomNumber])[j]);
+                    // }else{
+                    //     roomsWithout =Object.keys(answers[roomNumber])[j];
+                    // }
+
+                    // console.log(Object.keys(users[roomNumber])[j]);
+                    //console.log(Object.keys(users[roomNumber])[i]);
+                    //io.to(Object.keys(users[roomNumber])[i]).emit('sendForm', Object.keys(users[roomNumber])[i] );
+                    //io.to(Object.keys(answers[roomNumber])[j]).emit('sendForm', Object.keys(answers[roomNumber])[j]);
+
+
+                    //console.log(Object.keys(users[roomNumber][j]));
+
+                }
+            }
+        }
+
+
+        // for (let i = 1; i < Object.keys(users[roomNumber]).length; i++) {
+        //     //io.to(Object.values(users[roomNumber])[i][0]).emit('sendForm', Object.keys(users[roomNumber])[i] );
+        //     //   console.log(Object.keys(users[roomNumber])[i]);
+        // }
+        io.to(roomNumber).emit('resetForm');
+        // io.to(roomNumber).emit('sendForm');
+        io.to(roomNumber).emit('roundNumberUpdate', roundnumber[0]);
 
     });
 
+    function getKeyByValue(object, value) {
+        return Object.keys(object).find(key => object[key] === value);
+    }
+
     socket.on("nextQuestion", (questionNumber) => {
+        roomsWithout = [];
         let roomIdFromClient = socket.handshake.headers.referer;
         if(roomIdFromClient != null){
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
         }
-        io.to(roomNumber).emit('sendForm');
-        io.to(roomNumber).emit('questNumberUpdate', questionNumber);
+      //  console.log(Object.keys(users[roomNumber]).length);
+        console.log(answers[roomNumber]);
+        console.log(questionNumber[0] + questionNumber[1]);
+        if(!answers[roomNumber]){
+
+            // for (let i = 0; i < Object.keys(users[roomNumber]).length; i++) {
+            //     for (let j = 0; j < Object.keys(answers[roomNumber]).length; j++) {
+            //         if(Object.keys(answers[roomNumber])[i] === questionNumber[2] ){
+            //
+            //         }
+            //     }
+            //     io.to(Object.values(users[roomNumber])[i][0]).emit('sendForm', Object.keys(users[roomNumber])[i] );
+            // }
+
+        }else{
+            for (let j = 0; j < Object.keys(answers[roomNumber]).length; j++) {
+                if(Object.values(answers[roomNumber])[j][0] === ""){
+                    Object.values(answers[roomNumber])[j][0] = "niets";
+                }
+                if(!Object.values(answers[roomNumber])[j][(questionNumber[0] + questionNumber[1] - 1)]){
+                    //console.log("not in there");
+                    Object.values(answers[roomNumber])[j].push("niets");
+                    //console.log(Object.values(answers[roomNumber]));
+                    // if(roomsWithout){
+                    //     roomsWithout.push(Object.keys(answers[roomNumber])[j]);
+                    // }else{
+                    //     roomsWithout =Object.keys(answers[roomNumber])[j];
+                    // }
+
+                    // console.log(Object.keys(users[roomNumber])[j]);
+                    //console.log(Object.keys(users[roomNumber])[i]);
+                    //io.to(Object.keys(users[roomNumber])[i]).emit('sendForm', Object.keys(users[roomNumber])[i] );
+                    //io.to(Object.keys(answers[roomNumber])[j]).emit('sendForm', Object.keys(answers[roomNumber])[j]);
+
+
+                    //console.log(Object.keys(users[roomNumber][j]));
+
+                }
+            }
+        }
+        console.log(answers[roomNumber]);
+
+        // for (let i = 0; i < Object.keys(users[roomNumber]).length; i++) {
+        //     // console.log(Object.values(users[roomNumber])[i][0]);
+        //     //io.to(Object.values(users[roomNumber])[i][0]).emit('sendForm', Object.keys(users[roomNumber])[i] );
+        //     if(!answers[roomNumber]){
+        //         console.log("anser is leeg");
+        //         io.to(Object.values(users[roomNumber])[i][0]).emit('sendForm', Object.keys(users[roomNumber])[i] );
+        //        // Object.values(answers[roomNumber])[j][(questionNumber[0] + questionNumber[1])] = "niets";
+        //     }else{
+        //             for (let j = 0; j < Object.keys(answers[roomNumber]).length; j++) {
+        //
+        //                 if(!Object.values(answers[roomNumber])[j][(questionNumber[0] + questionNumber[1])]){
+        //                     //console.log("not in there");
+        //                     answers[roomNumber][j][(questionNumber[0] + questionNumber[1])] = "niets";
+        //                     //console.log(Object.values(answers[roomNumber]));
+        //                     // if(roomsWithout){
+        //                     //     roomsWithout.push(Object.keys(answers[roomNumber])[j]);
+        //                     // }else{
+        //                     //     roomsWithout =Object.keys(answers[roomNumber])[j];
+        //                     // }
+        //
+        //                    // console.log(Object.keys(users[roomNumber])[j]);
+        //                     //console.log(Object.keys(users[roomNumber])[i]);
+        //                     //io.to(Object.keys(users[roomNumber])[i]).emit('sendForm', Object.keys(users[roomNumber])[i] );
+        //                     //io.to(Object.keys(answers[roomNumber])[j]).emit('sendForm', Object.keys(answers[roomNumber])[j]);
+        //
+        //
+        //                     //console.log(Object.keys(users[roomNumber][j]));
+        //
+        //                 }
+        //             }
+        //
+        //
+        //        // console.log(Object.values(answers[roomNumber]));
+        //     }
+        //     console.log(answers[roomNumber]);
+        //   //  io.to(users[roomNumber]).emit('sendForm', Object.keys(users[roomNumber])[i] );
+        //
+        //     //io.to(Object.values(users[roomNumber])[i][0]).emit('sendForm', Object.keys(users[roomNumber])[i] );
+        //
+        //     // if(Object.keys(answers[roomNumber])){
+        //     //     console.log(answers[roomNumber][i]);
+        //     //     // if(answers[roomNumber][i]){
+        //     //     //
+        //     //     // }
+        //     // }
+        //
+        //     // if(Object.values(answers[roomNumber])[i][(questionNumber[0] + questionNumber[1])]){
+        //     //     io.to(Object.values(users[roomNumber])[i][0]).emit('sendForm', Object.keys(users[roomNumber])[i] );
+        //     // }
+        //
+        //   //  console.log( );
+        //     //
+        //  //   console.log(Object.keys(users[roomNumber])[i]);
+        //
+        //
+        //
+        //
+        //  }
+       // console.log(roomsWithout);
+
+        // for (let i = 1; i < Object.keys(users[roomNumber]).length; i++) {
+        //     io.to(users[roomNumber][users[][0]).emit('sendForm');
+        // }
+
+
+        io.to(roomNumber).emit('resetForm');
+        io.to(roomNumber).emit('questNumberUpdate', questionNumber[1]);
 
     });
 
@@ -215,7 +397,7 @@ io.on('connection', socket => {
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
          }
-        console.log(users[roomNumber]);
+      //  console.log(users[roomNumber]);
 
        // console.log(users[roomNumber].host[0]);
 
@@ -236,11 +418,11 @@ io.on('connection', socket => {
 
         }
 
-        console.log(users[roomNumber]);
+       // console.log(users[roomNumber]);
 
 
         if(users[roomNumber]){
-            console.log("can join");
+           // console.log("can join");
              io.to(socket.id).emit('canJoin', "yes");
         }else{
             console.log("no join");
@@ -432,12 +614,16 @@ io.on('connection', socket => {
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
         }
-        console.log(socket.handshake.headers);
+        //console.log(socket.handshake.headers);
         users[socket.id].team = payload;
         //console.log(users[socket.id]);
         // console.log(payload);
         arrayOfUsersinThisTeam = [];
         //console.log(users[roomNumber]);
+
+
+
+
         if (users[roomNumber]) {
             // const length = teams[payload].length;
             // if (length === room_size) {
@@ -449,6 +635,18 @@ io.on('connection', socket => {
                 users[roomNumber][payload].push(socket.id);
             }else{
                 users[roomNumber][payload] = [socket.id];
+                if(!answers[roomNumber]){
+                    answers[roomNumber] = {[payload] : [""]};
+                }else{
+                    if(!answers[roomNumber][payload]){
+                        Object.assign(answers[roomNumber], {[payload] : [""]});
+                       // answers[roomNumber][payload].push(payload);
+                    }
+
+                }
+
+
+
             }
             //console.log(users[roomNumber][payload]);
 
@@ -463,6 +661,11 @@ io.on('connection', socket => {
             //users[roomNumber][payload].push(socket.id);
             //console.log(users);
         }
+
+        console.log(answers[roomNumber]);
+
+
+
         //console.log("users");
         //console.log(users);
 
@@ -500,6 +703,9 @@ io.on('connection', socket => {
         const usersInThisTeam = users[roomNumber][payload].filter(id => id !== socket.id);
 
         io.to(socket.id).emit("all users", usersInThisTeam)
+
+
+
 
         // console.log("teams");
         // console.log(teams);

@@ -34,7 +34,7 @@ const StyledVideo = styled.video`
 
 const Room = (props) => {
 
-
+    var teamNameLocal= "teamLocal";
     const [peers, setPeers] = useState([]);
     const [userName, setUsernameOfuser] = useState("no name");
     const [switchState, setSwitchState] = useState(false);
@@ -79,13 +79,12 @@ const Room = (props) => {
     const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
 
 
-
     useEffect(() => {
         socketRef.current = props.socket;
 
 
 
-        console.log(socketRef.current);
+//        console.log(socketRef.current);
 
         socketRef.current.on("questNumberUpdate", payload => {
             setquestionNumber(payload);
@@ -97,14 +96,38 @@ const Room = (props) => {
 
         });
 
+
         socketRef.current.on("sendForm", payload => {
-            if(isAlreadySubmitted){
+            console.log("sending form emitted");
+            console.log(isAlreadySubmitted);
+            if(isAlreadySubmitted === true){
+                console.log("submitting is true");
                 setIsAlreadySubmitted(false);
             }else{
-                submitAnswersTeam();
+                console.log("teamname");
+                setTeamName(payload);
+                console.log(payload);
+                submitAnswersTeam(payload);
             }
 
         });
+
+        socketRef.current.on("resetForm", payload => {
+            console.log("resetform");
+            setIsAlreadySubmitted(false);
+        });
+
+
+
+        socketRef.current.on("answerIsSubmitted", () => {
+            console.log("submitted");
+            setIsAlreadySubmitted(true);
+            console.log(isAlreadySubmitted);
+        });
+
+
+
+
 
 
 
@@ -117,8 +140,8 @@ const Room = (props) => {
 
         socketRef.current.on("questions", payload => {
 
-            console.log("questions");
-                console.log(payload);
+            //console.log("questions");
+           //     console.log(payload);
             setQuestions(payload);
             setMaxRounds(payload.length);
             setMaxQuestions(payload[roundNumber].length);
@@ -127,7 +150,7 @@ const Room = (props) => {
 
         if(socketRef.current){
             // socketRef.current.emit();
-            console.log("joined");
+            //console.log("joined");
 
             const token = localStorage.getItem('jwt');
             if(token){
@@ -467,9 +490,9 @@ const Room = (props) => {
        // socketRef.current.emit("startGame");
         console.log(questionNumber);
 
-        if(questionNumber <= (maxQuestions - 2) ){
+        if(questionNumber < (maxQuestions - 1) ){
            // setquestionNumber(questionNumber+ 1)
-            socketRef.current.emit("nextQuestion",  questionNumber+ 1);
+            socketRef.current.emit("nextQuestion",  [roundNumber, questionNumber+ 1, teamName]);
         }else{
             setShowRounds(true);
             setShowQuestionBtn(false);
@@ -480,9 +503,9 @@ const Room = (props) => {
     const getNextRound = () =>{
 
 
-        if(roundNumber <= (maxRounds -2) ){
+        if(roundNumber < (maxRounds -1) ){
 
-            socketRef.current.emit("nextRound",  roundNumber+ 1);
+            socketRef.current.emit("nextRound",   [roundNumber+ 1, questionNumber]);
             setMaxQuestions(questions[roundNumber + 1].length);
             setShowQuestionBtn(true);
         }else{
@@ -534,6 +557,8 @@ const Room = (props) => {
 
     };
     const setTeamNameSet = () => {
+        console.log("teamname set");
+        teamNameLocal = teamName;
 
         setTeamNameState(true);
         videoAudioSettings();
@@ -572,10 +597,13 @@ const Room = (props) => {
     const submitAnswersTeam = event => {
         //
         //socket.emit("roomName", nameRoomJoin);
+        console.log("sending form to server");
+        console.log("teamName");
+        console.log(event);
+        const answerTeam = [roundNumber, questionNumber, answer, event];
 
-        const answerTeam = [roundNumber, questionNumber, answer, teamName];
-        console.log(answerTeam);
         socketRef.current.emit("setAnswer", answerTeam);
+
 
         // console.log(questionNumber);
         // console.log(teamName);
@@ -583,10 +611,12 @@ const Room = (props) => {
 
     };
     const submitAnswersForm = event => {
-        console.log(isAlreadySubmitted);
+        //console.log(isAlreadySubmitted);
         event.preventDefault();
         setIsAlreadySubmitted(true);
-        submitAnswersTeam();
+
+        socketRef.current.emit("toRestOfTeam", teamName);
+        submitAnswersTeam(teamName);
     };
 
 
@@ -604,7 +634,6 @@ const Room = (props) => {
         return (
 
             <Container >
-
                 <audio className="audio-element">
                     <source src="https://freesound.org/data/previews/131/131657_2398403-lq.mp3"></source>
                 </audio>
@@ -622,8 +651,6 @@ const Room = (props) => {
                         <button type={"button"} onClick={getReview} className={(showReview === true ? 'show' : 'hidden')}>Review</button>
                     </div>
                 </section>
-
-
 
                 <article className={"full-width"}>
                     <Tabs renderActiveTabContentOnly={false}>
@@ -653,7 +680,7 @@ const Room = (props) => {
                                                 <textarea
                                                     type="text"
                                                     className="form-control whiteText"
-                                                    placeholder="Say something..."
+                                                     placeholder="Say something..."
                                                     maxLength="280"
                                                     onChange={e => setMessage(e.currentTarget.value)}
                                                     onKeyDown={e =>{
@@ -693,13 +720,15 @@ const Room = (props) => {
                             <TabContent for="tab2" className={(typeOfPlayer === "host" ? 'hidden' : 'show')}>
 
                                 <div className={teamNameStateSet ? "hidden" : "visible"}>
+
                                     <h2>Choose a Teamname</h2>
-                                    <input type="text" name="username" value={teamName} onChange={handleTeamNameChange} className={"whiteText"}
+                                    <input type="text" name="teamname" value={teamName} onChange={handleTeamNameChange} className={"whiteText"}
                                             maxLength="25"
                                            pattern="^\w+$" maxLength="25" required autoFocus
-                                           title="Username" className={"whiteText"}/>
+                                           title="teamname" className={"whiteText"}/>
                                     <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Set team name</button>
                                     {/*<button onClick={setNextPage}>Next page</button>*/}
+
                                 </div>
                                 <div id={"test"}>
 
@@ -723,6 +752,7 @@ const Room = (props) => {
 
                             </TabContent>
                             <TabContent for="tab3">
+                                <p>state: {isAlreadySubmitted.toString()}</p>
                                 <form onSubmit={submitAnswersTeam} id="form-answer-team" className={(isAlreadySubmitted  === false ? 'show' : 'hidden')}>
 
                                     <div className={" input-group" } >
