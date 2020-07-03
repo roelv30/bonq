@@ -3,34 +3,34 @@ import PinInput from 'react-pin-input';
 import {NavLink, Redirect} from 'react-router-dom';
 import './Start.css';
 import NewToBonq from './NewToBonq';
-// import Home from "../components/Home";
 
+//This component is used for the start page where a user can decide to join a game or log in
 class Start extends React.Component {
   state= {
     value: ""
   };
 
+//Join a room with number from inputfield
   joinRoom = e => {
-        e.preventDefault();
+    e.preventDefault();
+    this.props.history.push('r/' + this.state.value );
+    window.location.reload();
+  };
 
-
-       this.props.history.push('r/' + this.state.value );
-      window.location.reload();
-     // window.location.replace('/r/' + this.state.value);
-    };
-
+//Update value state based on numbers in inputfield
   onChange = value => {
     this.setState({value});
   };
 
-
-
   render() {
+
+    // Cannot access start when already logged in
     if (this.props.isAuthenticated) {
       return (
         <Redirect to='/dashboard'/>
       );
     };
+
     return (
       <section className="start">
         <div className="background"></div>
@@ -44,14 +44,13 @@ class Start extends React.Component {
               initialValue=""
               onChange={this.onChange}
               type="numeric"
-              onComplete={(value, index) => {
-               // console.log(value);
-                  this.form.dispatchEvent(new Event('submit'))
-              }}
+              onComplete={(value, index) => {this.form.dispatchEvent(new Event('submit'))}}
             />
-              <button className="start__article__button" type="submit" value="Join Game &#9654;"  disabled={!this.state.value}>Join Game &#9654;</button>
-            {/*<input className="start__article__button" type="submit" value="Join Game &#9654;" />*/}
-            </form>
+            <button className="start__article__button"
+                    type="submit"
+                    value="Join Game &#9654;"
+                    disabled={!this.state.value}>Join Game &#9654;</button>
+          </form>
         </article>
 
         <article className="start__article">

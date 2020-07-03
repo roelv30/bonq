@@ -109,6 +109,30 @@
   margin-bottom: 140px;
 }
 
+.pubq__article__button-remove{
+  font-family: 'Squada One', cursive;
+  color: #fff;
+  background-color: black;
+  width: 35%;
+  height: 3rem;
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  display: inline-block;
+  text-decoration: none;
+  padding: 1rem;
+  text-align: center;
+  float: right;
+}
+
+.pubq__article__button-remove:hover{
+  cursor: pointer;
+  background-color: crimson;
+
+}
+
 .pubq__questions__back{
   font-family: 'Squada One', cursive;
   color: #fff;
