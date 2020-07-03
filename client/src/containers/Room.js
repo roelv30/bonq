@@ -185,7 +185,7 @@ const Room = (props) => {
             if(message === "yes"){
                 setIntroDone(true);
             }else{
-               console.log("NO! can't join");
+              alert("\t\t No room found with that roomcode\t\n  \tPlease check your roomcode and try again\t\t");
             }
 
             //console.log("message"  + messages);
@@ -557,6 +557,7 @@ const Room = (props) => {
 
     const submit = event => {
         event.preventDefault();
+        // event.stopImmediatePropagation();
         //socket.emit("roomName", nameRoomJoin);
         socketRef.current.emit("send", message);
         setMessage("");
@@ -658,14 +659,14 @@ const Room = (props) => {
                                                     maxLength="280"
                                                     onChange={e => setMessage(e.currentTarget.value)}
                                                     onKeyDown={e =>{
-                                                      if(e.keyCode == 13 && e.shiftKey == false) {
+                                                      if(e.keyCode === 13 && e.shiftKey === false) {
                                                         e.preventDefault();
+                                                        // console.log("haha ik ben ge enterd");
+                                                        // console.log(e);
                                                         const form = document.querySelector("#form__chat");
 
                                                         if (form !== null) {
-                                                            form.dispatchEvent(new Event('submit'));
-                                                        }else{
-                                                          console.log("lol");
+                                                            form.dispatchEvent(new Event('submit', {cancelable: true}));
                                                         }
                                                       };
                                                     }}
@@ -727,13 +728,13 @@ const Room = (props) => {
 
                             </TabContent>
                             <TabContent for="tab3">
-                                <form onSubmit={submitAnswersTeam} id="form-answer-team" className={(isAlreadySubmitted  === false ? 'show' : 'hidden')}>
+                                <form onSubmit={submitAnswersTeam} id="form-answer-team" >
 
                                     <div className={" input-group" } >
                                         {/*<input type="text" className="form-control" value={roundNumber}   id="text"/>*/}
                                         {/*<input type="text" className="form-control" value={questionNumber}   id="text"/>*/}
 
-                                        <label htmlFor="text">Group answer</label>
+                                        <label htmlFor="text">Your answer for question: #{questionNumber}</label>
                                         <input type="text" className="form-control whiteText" value={answer}   onChange={e => setAnswer(e.currentTarget.value)} id="text"/>
 
                                         <span className="input-group-btn">
