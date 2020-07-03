@@ -33,49 +33,36 @@ const StyledVideo = styled.video`
 
 
 const Room = (props) => {
-
-    var teamNameLocal= "teamLocal";
-    const [peers, setPeers] = useState([]);
-    const [userName, setUsernameOfuser] = useState("no name");
-    const [switchState, setSwitchState] = useState(false);
-    const [users, setUsers] = useState([]);
-    const [teams, setTeams] = useState([]);
-    const [teamName, setTeamName] = useState("team1");
-    const [intro, setIntroDone] = useState(false);
-    const [typeOfPlayer, setType] = useState();
-
-    const [teamNameStateSet, setTeamNameState] = useState(false);
-
-    const [avatar, setAvatarOfUser] = useState("/static/media/18.b0d5b6d8.svg");
-
+    const roomID = props.match.params.roomID;
     const socketRef = useRef();
     const userVideo = useRef();
     var userAudio = useRef();
     var userVideoStream = useRef();
-
     const peersRef = useRef([]);
-    const roomID = props.match.params.roomID;
 
+
+    const [peers, setPeers] = useState([]);
+    const [userName, setUsernameOfuser] = useState("no name");
+    const [switchState, setSwitchState] = useState(false);
+    const [teams, setTeams] = useState([]);
+    const [teamName, setTeamName] = useState("team1");
+    const [intro, setIntroDone] = useState(false);
+    const [typeOfPlayer, setType] = useState();
+    const [teamNameStateSet, setTeamNameState] = useState(false);
+    const [avatar, setAvatarOfUser] = useState("/static/media/18.b0d5b6d8.svg");
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-
     const [questions, setQuestions] = useState([]);
     const [questionNumber, setquestionNumber] = useState(0);
     const [roundNumber, setRoundNumber] = useState(0);
     const [answer, setAnswer] = useState("-");
-
-
-
     const [maxRounds, setMaxRounds] = useState(0);
     const [maxQuestions, setMaxQuestions] = useState(0);
-
     const [showReview, setShowReview] = useState(false);
-
     const [showRounds, setShowRounds] = useState(false);
     const [showQuestionBtn, setShowQuestionBtn] = useState(true);
-
-
     const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
+    const [isShowingWaitingScreen, setisShowingWaitingScreen] = useState(false);
 
 
     useEffect(() => {
@@ -89,6 +76,10 @@ const Room = (props) => {
             setquestionNumber(0);
             setRoundNumber(payload);
 
+        });
+
+        socketRef.current.on("setWaitingScreen", () => {
+            setisShowingWaitingScreen(true);
         });
 
 
@@ -171,9 +162,7 @@ const Room = (props) => {
               alert("\t\t No room found with that roomcode\t\n  \tPlease check your roomcode and try again\t\t");
             }
         });
-        socketRef.current.on("users", users => {
-            setUsers(users);
-        });
+
 
         socketRef.current.on("teams", teamUsers => {
             setTeams(teamUsers);
@@ -184,11 +173,6 @@ const Room = (props) => {
             setTeams([])
             setTeams(teamUsers);
 
-            {teams.map(({ name, id }) => (
-                console.log("USERS: "+ id)
-                //  document.getElementById(id).innerHTML = "whatever"
-                // <li key={id}>{name}</li>
-            ))}
         });
 
         socketRef.current.on("user joined", payload => {
@@ -339,8 +323,6 @@ const Room = (props) => {
         }
     };
 
-
-
     const startSession = () => {
         socketRef.current.emit("username", userName);
         socketRef.current.emit("checkUserType", roomID);
@@ -353,15 +335,16 @@ const Room = (props) => {
     };
 
     const getReview = () =>{
-        props.history.push('/review');
+        props.history.push('/review/'+roomID);
+        window.location.reload();
+        socketRef.current.emit("reviewWaiting");
+
     };
 
     const handleTeamNameChange = (e) => {
         setTeamName(e.target.value);
     };
     const setTeamNameSet = () => {
-        console.log("teamname set");
-        teamNameLocal = teamName;
         setTeamNameState(true);
         videoAudioSettings();
     };
@@ -407,11 +390,11 @@ const Room = (props) => {
                 </audio>
 
                     <article id={"vragen"}>
-                        <Questions questions={questions} questionNumber={questionNumber} roundNumber={roundNumber} playerRole={typeOfPlayer} roomID={roomID}/>
+                        <Questions questions={questions} questionNumber={questionNumber} roundNumber={roundNumber} playerRole={typeOfPlayer} roomID={roomID} waiting={isShowingWaitingScreen}/>
                     </article>
 
                 <section className={(typeOfPlayer === "host" ? 'show' + " room__host__button-container" : 'hidden' + " room__host__button-container")}>
-                    <button type={"button"} onClick={getQuestions} className="room__host__button-grid">Get questions</button>
+                    <button type={"button"} onClick={getQuestions} className={showQuestionBtn  === true ? "hidden" : "show" + " room__host__button-grid"}>Start game</button>
                     <button type={"button"} onClick={getNextQuestions} className={(showQuestionBtn  === true ? 'show' + " room__host__button-grid" : 'hidden' + " room__host__button-grid")}>next Question</button>
                     <button type={"button"} onClick={getNextRound} className={(showReview === true || showRounds === false ? 'hidden' + " room__host__button-grid" : 'show' + " room__host__button-grid")}>next Round</button>
                     <button type={"button"} onClick={getReview} className={(showReview === true ? 'show' + " room__host__button-grid" : 'hidden' + " room__host__button-grid")}>Review</button>
@@ -447,8 +430,6 @@ const Room = (props) => {
                                                     onKeyDown={e =>{
                                                       if(e.keyCode === 13 && e.shiftKey === false) {
                                                         e.preventDefault();
-                                                        // console.log("haha ik ben ge enterd");
-                                                        // console.log(e);
                                                         const form = document.querySelector("#form__chat");
 
                                                         if (form !== null) {
@@ -468,8 +449,8 @@ const Room = (props) => {
                                             </article>
                                         </form>
                             </TabContent>
-                            <TabContent for="tab2" className={(typeOfPlayer === "host" ? 'hidden' : 'show')}>
 
+                            <TabContent for="tab2" className={(typeOfPlayer === "host" ? 'hidden' : 'show')}>
                                 <div className={teamNameStateSet ? "hidden" + " background__inside__team" : "visible" + " background__inside__team"}/>
                                 <div className={teamNameStateSet ? "hidden" + " background__inside__team__shade" : "visible" + " background__inside__team__shade"}/>
                                 <div className={teamNameStateSet ? "hidden" + " teamname__container" : "visible" + " teamname__container"}>
@@ -480,7 +461,6 @@ const Room = (props) => {
                                            title="Username" className={"whiteText teamname__container__input"}/>
                                     <button  className="primary-button" type="button" onClick={setTeamNameSet} disabled={teamNameStateSet}>Create / Join</button>
                                     {/*<button onClick={setNextPage}>Next page</button>*/}
-
                                 </div>
                                 <section id={"test"}>
                                     <article id={"remoteContainer"}>

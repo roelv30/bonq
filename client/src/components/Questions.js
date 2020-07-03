@@ -16,6 +16,9 @@ const Questions = (props) => {
     //   );
     // }
     // roundNumber
+    if(props.waiting && props.playerRole !== "host"){
+        return(<Waitingscreen />);
+    }
     if(props.questions.length > 0){
         return (
 
@@ -44,7 +47,13 @@ const Questions = (props) => {
           </section>
         )
       }
+
     }
+
+
+
+
+
 };
 
 export default Questions;

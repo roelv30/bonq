@@ -14,6 +14,7 @@ class Review extends React.Component {
         group_sjizzle: [],
         answersChecked: [],
         showButton: true,
+            roomid: 0,
     };
     this.fetchAnswers = this.fetchAnswers.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -81,6 +82,16 @@ class Review extends React.Component {
     }
   } //onSubmit
 
+
+    getRoomId(){
+        if(window.location.href != null){
+            var roomURL = window.location.href.split("/review/");
+            var roomNumber = roomURL[1];
+        }
+        return roomNumber;
+
+    }
+
   // this function fetches the answers per team from the previous page
   // also the questions and their answers for the check function
   fetchAnswers(){
@@ -88,21 +99,27 @@ class Review extends React.Component {
       this.setState({showButton: false});
       this.props.socket.emit("getAnswerList");
 
+
+
       this.props.socket.on("getAnswerListFull", payload => {
         console.log(payload);
-          var obj = payload;
+          //var obj = payload;
 
-          this.roomid = Object.keys(obj)[0];
 
-          let first= obj[Object.keys(obj)[0]];
+          // this.roomid = Object.keys(obj)[0];
+          //
+          this.roomid = this.getRoomId();
 
-          this.everyone = Object.values(first)[0];
+          let first= payload;
+
+          //this.everyone = Object.values(first)[0];
 
           for (let i = 0; i < Object.keys(first).length; i++) {
               this.setState(previousState => ({
                   group_answers: [...previousState.group_answers, Object.keys(first)[i]]
               }));
           }
+
 
           this.state.first = Object.values(first);
 
