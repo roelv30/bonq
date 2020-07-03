@@ -20,7 +20,7 @@ import Questions from "../components/Questions"
 import SocketContext from '../components/SocketContext';
 const Container = styled.div`
     height: calc(100% - 6rem);
-    padding: 5rem 0;
+    padding: 2rem 0;
     z-index:1;
     position:relative;
     text-align: center;

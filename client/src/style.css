@@ -76,6 +76,10 @@ textarea{
 
 #form__chat {
   padding: 0 5rem;
+  position: absolute;
+  bottom: -3px;
+  left: 12rem;
+  z-index: 9;
 }
 
 .input-group {
@@ -150,7 +154,7 @@ textarea{
   transition: all .2s ease-out;
   margin: 0 .4em;
   cursor: pointer;
-  z-index:99999
+  z-index:9;
 }
 .call-exit-button:hover,
 .hangup-button:hover,
@@ -187,6 +191,7 @@ ul.tabs li button{
   background: none;
   border:none;
   color:white;
+  font-size: 1.25em;
 }
 
 ul.tabs li button.tab-link-active{
@@ -258,7 +263,7 @@ ul.tabs li button.tab-link-active{
   font-weight: 700;
   transition: 0.2s;
   font-size: 1.7rem;
-  padding: 20px 0;
+  padding: 1rem 0;
   margin: 0 auto;
   width: 150px;
 }
@@ -276,6 +281,8 @@ ul.tabs li button.tab-link-active{
   margin: 0px auto 40px auto;
   background: #1d1d1d;
   box-shadow: 0 0px 1px rgba(0,0,0,0.3), -3px -3px 6px rgba(0,0,0,0.2);
+  word-break: break-all;
+  height: 20rem;
 }
 
 .vraag__post:before {
@@ -296,6 +303,10 @@ ul.tabs li button.tab-link-active{
   color: #d11676;
 }
 
+.vraag__post__loading {
+  width: 8rem;
+}
+
 #test{
   width: 90% !important;
   margin: 0 auto;
@@ -306,19 +317,20 @@ ul.tabs li button.tab-link-active{
 
 
 #ownVideoStream {
-  bottom: 0;
-  float: left;
+  bottom: 13px;
   width: 7%;
-  margin-right: 100%;
-  clear: both;
-  height: 16vh;
-  position: fixed;
-  border: 0;
-  margin-bottom: 20px;
-  border-radius: 0;
+  position: absolute;
+  left: 1rem;
+  display: flex;
+  align-items: center;
 }
 #ownVideoStream video{
-  width:80%;
+  width:100%;
+}
+
+#ownVideoStream p {
+  font-size: 0.5em;
+  margin-left: 1rem;
 }
 
 .remoteContainer__cams{
@@ -455,12 +467,11 @@ ul.tabs li button.tab-link-active{
 }
 .media-controls {
   display: flex;
-  margin: 2ex 0;
   justify-content: flex-end;
   left: 0;
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: 1.5rem;
 }
 .svg {
   width: 3em;

@@ -22,7 +22,12 @@ const Questions = (props) => {
 
         );
     }else{
-        return null;
+        return (
+          <section className="vraag__post">
+            <img className="vraag__post__loading" src="/img/loading.gif"/>
+            <h4 className=""> The questions are loading </h4>
+          </section>
+        );
     }
 
 };
