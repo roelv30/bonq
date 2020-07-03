@@ -32,18 +32,7 @@ const StyledVideo = styled.video`
 `;
 
 
-
-
-const videoConstraints = {
-    height: window.innerHeight / 2,
-    width: window.innerWidth / 2
-};
-
-
 const Room = (props) => {
-
-
-
 
 
     const [peers, setPeers] = useState([]);
@@ -74,7 +63,7 @@ const Room = (props) => {
     const [questions, setQuestions] = useState([]);
     const [questionNumber, setquestionNumber] = useState(0);
     const [roundNumber, setRoundNumber] = useState(0);
-    const [answer, setAnswer] = useState("");
+    const [answer, setAnswer] = useState("-");
 
 
 
@@ -83,7 +72,11 @@ const Room = (props) => {
 
     const [showReview, setShowReview] = useState(false);
 
+    const [showRounds, setShowRounds] = useState(false);
+    const [showQuestionBtn, setShowQuestionBtn] = useState(true);
 
+
+    const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
 
 
 
@@ -103,6 +96,24 @@ const Room = (props) => {
             setRoundNumber(payload);
 
         });
+
+        socketRef.current.on("sendForm", payload => {
+            if(isAlreadySubmitted){
+                setIsAlreadySubmitted(false);
+            }else{
+                submitAnswersTeam();
+            }
+
+        });
+
+
+
+
+
+
+
+
+
 
         socketRef.current.on("questions", payload => {
 
@@ -450,30 +461,37 @@ const Room = (props) => {
 
     };
 
+    const reset = () =>{
+        setQuestions(0);
+        setRoundNumber(0);
+    };
+
     const getNextQuestions = () =>{
        // socketRef.current.emit("startGame");
-        console.log(maxQuestions);
-        if(questionNumber <= (maxQuestions - 2) ){
-            socketRef.current.emit("nextQuestion",  questionNumber + 1);
+        console.log(questionNumber);
 
+        if(questionNumber <= (maxQuestions - 2) ){
+           // setquestionNumber(questionNumber+ 1)
+            socketRef.current.emit("nextQuestion",  questionNumber+ 1);
         }else{
-            console.log("max question");
+            setShowRounds(true);
+            setShowQuestionBtn(false);
         }
 
     };
 
     const getNextRound = () =>{
-        console.log(roundNumber);
+
 
         if(roundNumber <= (maxRounds -2) ){
 
-
-            socketRef.current.emit("nextRound",  roundNumber + 1);
-
+            socketRef.current.emit("nextRound",  roundNumber+ 1);
             setMaxQuestions(questions[roundNumber + 1].length);
+            setShowQuestionBtn(true);
         }else{
             setShowReview(true);
-            console.log("max round");
+            setShowRounds(false);
+            setShowQuestionBtn(false);
         }
 
 
@@ -555,7 +573,7 @@ const Room = (props) => {
     };
 
     const submitAnswersTeam = event => {
-        event.preventDefault();
+        //
         //socket.emit("roomName", nameRoomJoin);
 
         const answerTeam = [roundNumber, questionNumber, answer, teamName];
@@ -567,6 +585,13 @@ const Room = (props) => {
         // console.log(answer);
 
     };
+    const submitAnswersForm = event => {
+        console.log(isAlreadySubmitted);
+        event.preventDefault();
+        setIsAlreadySubmitted(true);
+        submitAnswersTeam();
+    };
+
 
     if(intro === false) {
         return (
@@ -590,7 +615,9 @@ const Room = (props) => {
                     <div id={"vragen"}>
                         <Questions questions={questions} questionNumber={questionNumber} roundNumber={roundNumber}/>
                     </div>
-                <section className="room__host__button-container">
+
+
+                <section className={(typeOfPlayer === "host" ? 'show' + " room__host__button-container" : 'hidden' + " room__host__button-container")}>
                     <button type={"button"} onClick={getQuestions} className="room__host__button-grid">Get questions</button>
                     <button type={"button"} onClick={getNextQuestions} className={(maxQuestions > 1 ? 'show' + " room__host__button-grid" : 'hidden' + " room__host__button-grid")}>next Question</button>
                     <button type={"button"} onClick={getNextRound} className={(showReview === true ? 'hidden' + " room__host__button-grid" : 'show' + " room__host__button-grid")}>next Round</button>
@@ -700,8 +727,9 @@ const Room = (props) => {
 
                             </TabContent>
                             <TabContent for="tab3">
-                                <form onSubmit={submitAnswersTeam} id="form">
-                                    <div className="input-group">
+                                <form onSubmit={submitAnswersTeam} id="form-answer-team" className={(isAlreadySubmitted  === false ? 'show' : 'hidden')}>
+
+                                    <div className={" input-group" } >
                                         {/*<input type="text" className="form-control" value={roundNumber}   id="text"/>*/}
                                         {/*<input type="text" className="form-control" value={questionNumber}   id="text"/>*/}
 
@@ -709,7 +737,7 @@ const Room = (props) => {
                                         <input type="text" className="form-control whiteText" value={answer}   onChange={e => setAnswer(e.currentTarget.value)} id="text"/>
 
                                         <span className="input-group-btn">
-                                                <button id="submit" type="submit" className="btn btn-primary">
+                                                <button onClick={submitAnswersForm} className="btn btn-primary">
                                                   Send
                                                 </button>
                                               </span>

@@ -1,5 +1,5 @@
 import React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import './Score.css';
 import {Redirect} from "react-router-dom";
@@ -10,6 +10,9 @@ class Score extends React.Component {
   constructor() {
     super();
     this.state = {
+      //THIS IS REAL DATA BIATCH
+      teams_api: [],
+      scores_api: [],
 
       //THIS IS TEST DATA
       teams: [
@@ -48,26 +51,22 @@ class Score extends React.Component {
     }
   };
 
+  componentWillMount(){
+    const BASE_URL = `https://bonq-api.herokuapp.com/api/score`;
 
-
-
-
-  // componentDidMount() {
-  //   axios.get('http://localhost:8000/api/score')
-  //     .then((response) => {
-  //
-  //
-  //       const teams = response.data;
-  //       teams.sort((a, b) => b["score"] - a["score"]);
-  //
-  //       this.setState({teams});
-  //
-  //   });
-  // };
-  //
-
+    axios.get(BASE_URL)
+    .then(response => {
+      for(let i = 0; i < response.data.length; i++){
+        this.setState(previousState => ({
+            teams_api: [...previousState.teams_api, response.data[i].team], // take the previous state, add data and update the state.
+            scores_api: [...previousState.scores_api, response.data[i].score],
+        }))
+      }
+    })
+  }
 
   render() {
+
     if (this.props.isAuthenticated) {
       return (
         <Redirect to='/dashboard'/>

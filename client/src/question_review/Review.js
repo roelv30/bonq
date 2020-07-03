@@ -82,16 +82,12 @@ class Review extends React.Component {
         console.log(status);
       })
 
-      
+
 
     }
     //
     // console.log(teamScore);
     // console.log(points);
-
-
-
-
 
   } //onSubmit
 
@@ -102,7 +98,7 @@ class Review extends React.Component {
       this.props.socket.emit("getAnswerList");
 
       this.props.socket.on("getAnswerListFull", payload => {
-
+        console.log(payload);
           var obj = payload;
 
           this.roomid = Object.keys(obj)[0];
@@ -110,8 +106,8 @@ class Review extends React.Component {
           let first= obj[Object.keys(obj)[0]];
 
           this.everyone = Object.values(first)[0];
-          for (let i = 0; i < Object.keys(first).length; i++) {
 
+          for (let i = 0; i < Object.keys(first).length; i++) {
               this.setState(previousState => ({
                   group_answers: [...previousState.group_answers, Object.keys(first)[i]]
               }));
@@ -127,7 +123,6 @@ class Review extends React.Component {
                           this.setState(previousState => ({
                               questions: [...previousState.questions, response.data[0].rounds_array[i][j].question], // take the previous state, add data and update the state.
                               answers: [...previousState.answers, response.data[0].rounds_array[i][j].answer],
-
                           }))
                       }
                       this.getCheckedAnswers();

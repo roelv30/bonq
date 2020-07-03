@@ -97,6 +97,7 @@ io.on('connection', socket => {
 
         io.emit('getAnswerListFull', answers);
         io.emit('getAnswerListFull2', roomNumber);
+        console.log();
 
     });
 
@@ -168,8 +169,9 @@ io.on('connection', socket => {
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
         }
-
+        io.to(roomNumber).emit('sendForm');
         io.to(roomNumber).emit('roundNumberUpdate', roundnumber);
+
     });
 
     socket.on("nextQuestion", (questionNumber) => {
@@ -178,8 +180,9 @@ io.on('connection', socket => {
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
         }
-
+        io.to(roomNumber).emit('sendForm');
         io.to(roomNumber).emit('questNumberUpdate', questionNumber);
+
     });
 
 
@@ -212,13 +215,19 @@ io.on('connection', socket => {
             var roomURL = roomIdFromClient.split("/r/");
             var roomNumber = roomURL[1];
          }
-       // console.log(users[roomNumber]);
+        console.log(users[roomNumber]);
 
-        console.log(users[roomNumber].host[0]);
+       // console.log(users[roomNumber].host[0]);
 
-        if(users[roomNumber].host[0] === users[socket.id].name){
-            users[socket.id].type = "host";
+        if(users[roomNumber]){
+            if(users[roomNumber].host){
+                if(users[roomNumber].host[0] === users[socket.id].name){
+                    users[socket.id].type = "host";
+                }
+            }
+
         }
+
 
         if(users[socket.id].type === "host"){
 
@@ -231,10 +240,10 @@ io.on('connection', socket => {
 
 
         if(users[roomNumber]){
-
-
+            console.log("can join");
              io.to(socket.id).emit('canJoin', "yes");
         }else{
+            console.log("no join");
             io.to(socket.id).emit('canJoin', "no");
         }
 

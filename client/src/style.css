@@ -196,7 +196,7 @@ ul.tabs li button.tab-link-active{
 
 .background__inside__team{
   background: #133E7C;
-  top: 19%;
+  top: 12%;
   right: -79px;
   width: 107rem;
   position: absolute;
@@ -508,7 +508,9 @@ ul.tabs li button.tab-link-active{
 .row.mb-2{
   border-bottom: 1px solid rgba(209, 12, 118, .4);
 }
-
+.hidden{
+  display: none;
+}
 
 @media(max-width: 768px) {
   .otherPeopleDiv{
