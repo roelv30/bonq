@@ -29,7 +29,7 @@
     "remarkable": "^2.0.1",
     "remarkable-react": "^1.4.3",
     "simple-peer": "9.6.2",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "socket.io-client": "^2.3.0",
     "styled-components": "^5.1.1"
   },
