@@ -14,7 +14,7 @@
     "react-router-dom": "^5.2.0",
     "socket.io": "^2.4.0",
     "utf-8-validate": "^5.0.2",
-    "ws": "^7.3.0",
+    "ws": "^7.4.6",
     "yarn": "^1.22.4"
   },
   "scripts": {
